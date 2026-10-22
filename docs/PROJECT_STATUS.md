@@ -13,8 +13,8 @@
 |---|---|---|---|
 | A | 破解 E-P5 1.8 固件容器格式 | ✅ **完成** | 100% 破解，往返逐字节一致 |
 | B | 定位 2018-12-18 松下镜头 AF 修复的补丁字节 | ⚠️ **原假设已证伪** | 修复**不在**镜头 ID 结构；落点收窄到"块 0 内既有代码的行为改动" |
-| C | 定位艺术（创意）滤镜实现 | ✅ **实现位置与数据流已破解** | 完整地址地图见 `evidence/art_filter/art_filter_address_map.md` |
-| D | 定位"解锁录像艺术滤镜"的落点 | ✅ **三个具体落点已定位** | 位掩码 `0x602AEB94` / 分支判定 / 各效果类型白名单 |
+| C | 定位艺术（创意）滤镜实现 | ✅ **实现位置与数据流已破解** | 完整地址地图见 `evidence/art_filter/art_filter_address_map.md`；ID 空间与菜单映射见 `art_filter_menu_and_ids.md` |
+| D | 定位"解锁录像艺术滤镜"的落点 | ✅ **代码层 3 处 + 资源层 1 处已定位** | 位掩码 `0x602AEB94` / 分支判定 / 各效果类型白名单；**资源层：录像菜单只有 4 项 vs 照片 10 项** |
 | E | 做出"新增创意滤镜"的固件补丁 | 🔶 **方案已定型，未实施** | 模板 A（参数覆盖式）已由伪代码证实可行 |
 | F | 实机刷写验证 | ❌ **未做** | 无 E-P5 实机 |
 | G | 块 2 的 6-bit 编码 | ❌ 未解 | 四个独立项目均未解 |
@@ -80,6 +80,11 @@
 **已实现但未在照片模式菜单出现的**：`art_artclearline`（净化直线）、
 `art_star_light`（星光）、`art_pastel_art`（粉彩）—— 三个都是 10+ pass 的完整管线。
 
+> ⚠️ **第十四轮修正**：上表的"15 个效果"是按**函数名簇**统计的；
+> 按**编译单元**统计，E-P5 的艺术滤镜实现为 **13 个模块**（见 §2.6）。
+> 且"菜单里没有名字"不等于"实现里没接线"——§2.6 证明录像菜单**只有 4 项**，
+> 差 6 项的字符串在块 1 里**已经存在**，只是没被录像菜单引用。
+
 | 语义 | 地址 |
 |---|---|
 | 效果 ID 全局 | `0x605FCD3C`（9 处引用全在 `0x4078844C–0x40789522`） |
@@ -127,6 +132,54 @@ WLAN+httpd+olnet、音频（aud/wm8946）、固件升级（firmup）、显示（
   `A047` Cross Process / `A048` Gentle Sepia
 - 块 0 内另有 UI 资源 ID 索引表（连续 u16 数组）
 
+> ⚠️ **第十四轮修正**：上表是**精确整串匹配**的结果；
+> 第十三轮的 `block1_filter_names.json` 用偏移邻接取值，产生了
+> 「A042 同时是 Grainy Film 与 Pale&Light Color」这类**假冲突**。
+> 正确做法见 `tools/block1_art_id_map.py`。
+
+### 2.6 艺术滤镜：ID 命名空间 / 菜单映射 / 资源描述符表 ★（第十四轮）
+
+完整证据：[`evidence/art_filter/art_filter_menu_and_ids.md`](../evidence/art_filter/art_filter_menu_and_ids.md)
+
+**（a）两套 ID 命名空间，13 个实现模块**
+
+| 命名空间 | ID | 名字 |
+|---|---|---|
+| `art_effect_<NN>` | 10 / 20 / 30 / 40 / 50 | star_light / pinhole / frame / soft_focus / white_edge |
+| `art_filter_<HH>` | 06 / 09 / 0E / 14 / 19 / 1C / 1D / 21 | rough_monochrome / diorama / gentle_sepia / dramatic_tone / artclearline / mirror / composite / pastel_art |
+
+每个模块都有一个 **`.c` 源文件名字符串**（如 `art_effect_40_soft_focus.c` @ `0x407160EC`），
+给出字符串块的精确边界。E-P5 v1.8 与 E-PM2 v1.6 的 ID 完全一致，仅地址平移。
+
+**（b）三张互不相同的滤镜名字集合**
+
+| 集合 | 项数 | 内容 | 位置 |
+|---|---|---|---|
+| 实现模块名 | 13 | §2.6(a) | 块 0 `0x40714000`–`0x4071B000` |
+| `MODE_EXPOSE_*` | 22（+9 场景） | POPART…PASTEL，每项带 `_MOVIE` 孪生 | `mov_art.c` @ `0x406B2000` |
+| `COLORTONE_*` | 12（+7 色彩模式） | POPART…PASTEL，**3 份不同顺序**（其中一份是录像侧重排） | 块 0 `0x40AB1143` |
+
+**（c）两张 UI 菜单 —— 锁定点的资源层形态**
+
+| 菜单 | 资源 ID | 项数 | 名字 |
+|---|---|---|---|
+| 照片艺术菜单 | `A03F`–`A048`（连续） | **10** | Pop Art / Dramatic Tone / Soft Focus / Pale&Light Color / Light Tone / Grainy Film / Pin Hole / Diorama / Cross Process / Gentle Sepia |
+| **录像艺术菜单** | `A042`–`A045` | **4** | Grainy Film / Pin Hole / Diorama / Dramatic Tone |
+
+⇒ **录像艺术菜单比照片少 6 项**（Pop Art / Soft Focus / Pale&Light Color / Light Tone /
+Cross Process / Gentle Sepia），这 6 项的**多语言字符串在块 1 里已经存在**，只是没被引用。
+
+**（d）块 0 的 UI 字符串资源描述符表（总闸门）**
+
+`rt 0x402D8BEC`（file `0x18BEC`），**28 字节/条，99 条**，
+ID `0x36`–`0x92`（连续）+ `0x9D`–`0xA2`，字段
+`{u32 id, 0, 0, u32 mask_rom_ptr, u32 type, u32 flags, 0}`。
+艺术滤镜段 ID `0x3F`–`0x48` 的描述符在 mask ROM `0x7E2Axxxx`–`0x7E5Cxxxx`。
+**`0x93`–`0x9C`（10 个 ID）在表里没有记录。**
+
+> **推断**：菜单项的**组成**很可能在 mask ROM 描述符里 ⇒
+> "加菜单项"这条路被 mask ROM 卡住，必须靠实机 dump 确认。
+
 ---
 
 ## 3. 已排除的假设（全部有可复现证据）
@@ -142,6 +195,10 @@ WLAN+httpd+olnet、音频（aud/wm8946）、固件升级（firmup）、显示（
 | 7 | `art_*` 名字可用来定位滤镜代码 | Ghidra 全量验证：**0 引用**（6,488,149 条指令） | `Mn103FindArtRefs` |
 | 8 | 块 0 存在「ID 索引指针表」 | 唯一命中是 `0x90909090` 填充假阳性 | `find_ptr_tables.py` |
 | 9 | 块内字符串可用立即数寻址 | 62,167 条里**只有 1 条**被 `fc <imm32>` 引用 | `Mn103FindArtRefs` |
+| 10 | `0x406F030C` 等 4 处是「mode 哈希表」（值 102–130） | 实为 **mask ROM 指针表**（`0x7E84xxxx`，步长 0x0C/0x08），不含小整数 ID | `dump_region.py` |
+| 11 | `art_*` 函数名目录旁边有**同序的函数地址表** | 用 21 项互异、跨度 ≤0x40000 的函数指针数组全块搜索：**0 组** | `find_fn_ptr_arrays.py` |
+| 12 | 第十三轮结论「A04F 是唯一空缺资源 ID」「4 个已实现滤镜名字已在块 1」 | `A04F` = "MF" 辅助文字；空闲 ID 是 `A049/A04B/A04C/A04E`；`Clear Line` 在 v1.8 块 1 **0 次** | `block1_art_id_map.py` |
+| 13 | E-M10 的 Picture Mode 地址模板可直接套到 E-P5 | E-P5 是**资源 ID 段**（`A03F`–`A048`）+ 录像 4 项，组织方式不同 | `block1_art_id_dump.py` |
 
 ---
 
@@ -187,12 +244,27 @@ evidence/
   art_filter/
     art_filter_analysis.md               子系统分析（效果 ID 空间 / pass / 门控 / 否定结论）
     art_filter_address_map.md            ★ 完整地址地图 + 新增滤镜/解锁模板
+    art_filter_menu_and_ids.md           ★ ID 命名空间 / 菜单资源映射 / 录像只 4 项（第十四轮）
     art_effect_ids.json                  效果 ID 与函数名清单
-    block1_filter_names.json             块 1 UI 名字与资源 ID
+    art_inventory_v18.json               13 模块 + 两套命名空间 + MODE_EXPOSE + COLORTONE
+    res_desc_table_v18.json              块 0 UI 字符串资源描述符表（99 条）
+    block1_art_id_map.json               块 1 资源 ID ↔ 艺术滤镜名（精确整串匹配）
+    block1_filter_names.json             块 1 UI 名字与资源 ID（第十三轮；已知有偏移错位，勿单独引用）
+    block1_res_id_map.json               块 1 全部字符串资源 ID
     lens_info_table.json                 LENS_INFO 镜头主表
   patched_community/
     community_patch_table.md             ★ 社区改机补丁字节表（3 个通用模式）
     patched_community.json               机器可读补丁表
+```
+
+文档：
+
+```
+docs/
+  PROJECT_STATUS.md                      ★ 现状总表（本文件）
+  RE_METHOD_PLAYBOOK.md                 方法论手册
+  subsystem_map.md                      固件子系统全景测绘
+  external_research.md                  ★ GitHub 奥林巴斯逆向项目调研笔记（外部资料转述）
 ```
 
 ---
@@ -201,13 +273,15 @@ evidence/
 
 | 优先级 | 任务 | 状态 |
 |---|---|---|
-| P0 | 逐个检查 5 个效果的初始化函数 → 产出「哪些滤镜在 E-P5 上被锁、锁在哪条指令」清单 | 🔜 |
+| P0 | 判定「录像菜单只 4 项」的成因：mask ROM 描述符里的列表短，还是块 0 侧 `flags` 门控 | 🔜 **决定"能否加菜单项"** |
+| P0 | 逐个检查 13 个滤镜模块的初始化函数 → 产出「哪些滤镜在 E-P5 上被锁、锁在哪条指令」清单 | 🔜 |
 | P0 | 按模板 A 实做一个新滤镜的 312 B 参数块，验证落盘方案 | 🔜 |
+| P1 | 追 `mov_art.c` 16 字节记录表的 `id` 字段 → 建立 `MODE_EXPOSE` 22 项 ↔ `COLORTONE` 12 项 ↔ 模块 ID 的映射 | 🔜 |
 | P1 | AF 修复：追 12 组每镜头 AF 参数数组（数据区不受重编译影响，差分噪声低） | 🔜 |
-| P1 | 块 1 菜单定义表结构 → 确认新增滤镜名字的插入方式（块 1 大小固定） | 🔜 |
-| P2 | 解 6 个 RAR 改机归档，补全社区补丁表（需 `unrar` / 7-Zip） | 🔜 |
-| P2 | 块 2 的 6-bit 编码 | ⛔ 四项目未解，低优先 |
-| P3 | 实机刷写验证 | 需硬件 |
+| P1 | 块 1 主文本池零填充段清单 → 确认是否有"不需等长替换"的新增名字途径 | 🔜 |
+| P2 | 解 6 个 RAR 改机归档，补全社区补丁表（需 `unrar` / 7-Zip，本机均缺失） | 🔜 |
+| P2 | 块 2 的 6-bit 编码 | ⛔ 四项目未解，低优先（见 `docs/external_research.md` §3） |
+| P3 | 实机刷写验证 / 实机 mask ROM dump | 需硬件 |
 
 ---
 

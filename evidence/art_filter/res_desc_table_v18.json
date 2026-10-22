@@ -1,0 +1,702 @@
+{
+ "source": {
+  "file": "D:\\0_Project\\01Test\\ep5-fw-reverse\\decoded\\00_0100_402c0020.decoded.bin",
+  "block0_base": "0x402C0000"
+ },
+ "record_size": 28,
+ "records": [
+  {
+   "rt": "0x402D8BEC",
+   "id": 54,
+   "rom_ptr": "0x7E3F1B0A",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8C08",
+   "id": 55,
+   "rom_ptr": "0x7E3F21F7",
+   "type": 11,
+   "flags": 14080
+  },
+  {
+   "rt": "0x402D8C24",
+   "id": 56,
+   "rom_ptr": "0x7E3EA4C1",
+   "type": 11,
+   "flags": 1280
+  },
+  {
+   "rt": "0x402D8C40",
+   "id": 57,
+   "rom_ptr": "0x7E3F8259",
+   "type": 11,
+   "flags": 2816
+  },
+  {
+   "rt": "0x402D8C5C",
+   "id": 58,
+   "rom_ptr": "0x7E3FB7E9",
+   "type": 11,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8C78",
+   "id": 59,
+   "rom_ptr": "0x7E3FA31C",
+   "type": 4,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D8C94",
+   "id": 60,
+   "rom_ptr": "0x7E137E82",
+   "type": 12,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D8CB0",
+   "id": 61,
+   "rom_ptr": "0x7EE7F50D",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D8CCC",
+   "id": 62,
+   "rom_ptr": "0x7E1C8B64",
+   "type": 11,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8CE8",
+   "id": 63,
+   "rom_ptr": "0x7E33628C",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D8D04",
+   "id": 64,
+   "rom_ptr": "0x7E5C7378",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8D20",
+   "id": 65,
+   "rom_ptr": "0x7E2AC88A",
+   "type": 11,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8D3C",
+   "id": 66,
+   "rom_ptr": "0x7E2A8BD9",
+   "type": 4,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8D58",
+   "id": 67,
+   "rom_ptr": "0x7E2B0EED",
+   "type": 4,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8D74",
+   "id": 68,
+   "rom_ptr": "0x7E2B1117",
+   "type": 4,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8D90",
+   "id": 69,
+   "rom_ptr": "0x7E13BA1E",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8DAC",
+   "id": 70,
+   "rom_ptr": "0x7E247F78",
+   "type": 4,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8DC8",
+   "id": 71,
+   "rom_ptr": "0x7E24D96E",
+   "type": 4,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8DE4",
+   "id": 72,
+   "rom_ptr": "0x7E25ECC4",
+   "type": 4,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8E00",
+   "id": 73,
+   "rom_ptr": "0x7E26346F",
+   "type": 4,
+   "flags": 1280
+  },
+  {
+   "rt": "0x402D8E1C",
+   "id": 74,
+   "rom_ptr": "0x7E247595",
+   "type": 4,
+   "flags": 1792
+  },
+  {
+   "rt": "0x402D8E38",
+   "id": 75,
+   "rom_ptr": "0x7EE8139A",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8E54",
+   "id": 76,
+   "rom_ptr": "0x7EE8229A",
+   "type": 11,
+   "flags": 768
+  },
+  {
+   "rt": "0x402D8E70",
+   "id": 77,
+   "rom_ptr": "0x7E1C656D",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D8E8C",
+   "id": 78,
+   "rom_ptr": "0x7E1CAC1A",
+   "type": 7,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8EA8",
+   "id": 79,
+   "rom_ptr": "0x7E1D01A6",
+   "type": 11,
+   "flags": 3072
+  },
+  {
+   "rt": "0x402D8EC4",
+   "id": 80,
+   "rom_ptr": "0x7E1D051D",
+   "type": 11,
+   "flags": 3072
+  },
+  {
+   "rt": "0x402D8EE0",
+   "id": 81,
+   "rom_ptr": "0x7E1C815A",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8EFC",
+   "id": 82,
+   "rom_ptr": "0x7E1C7585",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8F18",
+   "id": 83,
+   "rom_ptr": "0x7E1C7FCC",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8F34",
+   "id": 84,
+   "rom_ptr": "0x7E1C7BF1",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8F50",
+   "id": 85,
+   "rom_ptr": "0x7E244EDE",
+   "type": 11,
+   "flags": 3072
+  },
+  {
+   "rt": "0x402D8F6C",
+   "id": 86,
+   "rom_ptr": "0x7E1C8619",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D8F88",
+   "id": 87,
+   "rom_ptr": "0x7E585F7B",
+   "type": 4,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D8FA4",
+   "id": 88,
+   "rom_ptr": "0x7E38E1F6",
+   "type": 11,
+   "flags": 768
+  },
+  {
+   "rt": "0x402D8FC0",
+   "id": 89,
+   "rom_ptr": "0x7E3AD3F3",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D8FDC",
+   "id": 90,
+   "rom_ptr": "0x7E61F59D",
+   "type": 11,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D8FF8",
+   "id": 91,
+   "rom_ptr": "0x7E61D830",
+   "type": 9,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9014",
+   "id": 92,
+   "rom_ptr": "0x7E3DA3A4",
+   "type": 11,
+   "flags": 2816
+  },
+  {
+   "rt": "0x402D9030",
+   "id": 93,
+   "rom_ptr": "0x7E5FD8A4",
+   "type": 11,
+   "flags": 7168
+  },
+  {
+   "rt": "0x402D904C",
+   "id": 94,
+   "rom_ptr": "0x7E5FD5F2",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D9068",
+   "id": 95,
+   "rom_ptr": "0x7E605861",
+   "type": 11,
+   "flags": 8192
+  },
+  {
+   "rt": "0x402D9084",
+   "id": 96,
+   "rom_ptr": "0x7E5F227F",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D90A0",
+   "id": 97,
+   "rom_ptr": "0x7E5CDCA6",
+   "type": 11,
+   "flags": 6144
+  },
+  {
+   "rt": "0x402D90BC",
+   "id": 98,
+   "rom_ptr": "0x7E5E836F",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D90D8",
+   "id": 99,
+   "rom_ptr": "0x7E6090AA",
+   "type": 11,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D90F4",
+   "id": 100,
+   "rom_ptr": "0x7E60709F",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9110",
+   "id": 101,
+   "rom_ptr": "0x7E387FBA",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D912C",
+   "id": 102,
+   "rom_ptr": "0x7E5C3D04",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D9148",
+   "id": 103,
+   "rom_ptr": "0x7E5C4D86",
+   "type": 11,
+   "flags": 5120
+  },
+  {
+   "rt": "0x402D9164",
+   "id": 104,
+   "rom_ptr": "0x7E637AC6",
+   "type": 11,
+   "flags": 36864
+  },
+  {
+   "rt": "0x402D9180",
+   "id": 105,
+   "rom_ptr": "0x7E9F0C34",
+   "type": 11,
+   "flags": 8192
+  },
+  {
+   "rt": "0x402D919C",
+   "id": 106,
+   "rom_ptr": "0x7E156848",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D91B8",
+   "id": 107,
+   "rom_ptr": "0x7E15B929",
+   "type": 10,
+   "flags": 1536
+  },
+  {
+   "rt": "0x402D91D4",
+   "id": 108,
+   "rom_ptr": "0x7EE86CCD",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D91F0",
+   "id": 109,
+   "rom_ptr": "0x7EE86B3F",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D920C",
+   "id": 110,
+   "rom_ptr": "0x7E398A3F",
+   "type": 7,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9228",
+   "id": 111,
+   "rom_ptr": "0x7EE8335A",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9244",
+   "id": 112,
+   "rom_ptr": "0x7E1433B6",
+   "type": 6,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D9260",
+   "id": 113,
+   "rom_ptr": "0x7EE9E349",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D927C",
+   "id": 114,
+   "rom_ptr": "0x7E3BBC8D",
+   "type": 4,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9298",
+   "id": 115,
+   "rom_ptr": "0x7E3CF5F6",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D92B4",
+   "id": 116,
+   "rom_ptr": "0x7E28DB62",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D92D0",
+   "id": 117,
+   "rom_ptr": "0x7E3C0593",
+   "type": 4,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D92EC",
+   "id": 118,
+   "rom_ptr": "0x7E3C0BF4",
+   "type": 4,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D9308",
+   "id": 119,
+   "rom_ptr": "0x7EE9E8A5",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9324",
+   "id": 120,
+   "rom_ptr": "0x7E14F1A8",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9340",
+   "id": 121,
+   "rom_ptr": "0x7E40A87B",
+   "type": 4,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D935C",
+   "id": 122,
+   "rom_ptr": "0x7E40AB16",
+   "type": 4,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D9378",
+   "id": 123,
+   "rom_ptr": "0x7E1576DA",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9394",
+   "id": 124,
+   "rom_ptr": "0x7E3F1716",
+   "type": 4,
+   "flags": 6144
+  },
+  {
+   "rt": "0x402D93B0",
+   "id": 125,
+   "rom_ptr": "0x7E3D1821",
+   "type": 4,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D93CC",
+   "id": 126,
+   "rom_ptr": "0x7EE97C8F",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D93E8",
+   "id": 127,
+   "rom_ptr": "0x7E1FCAD0",
+   "type": 4,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D9404",
+   "id": 128,
+   "rom_ptr": "0x7E40A6A2",
+   "type": 11,
+   "flags": 7360
+  },
+  {
+   "rt": "0x402D9420",
+   "id": 129,
+   "rom_ptr": "0x7E3ADCD8",
+   "type": 10,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D943C",
+   "id": 130,
+   "rom_ptr": "0x7EEA224F",
+   "type": 10,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9458",
+   "id": 131,
+   "rom_ptr": "0x7EEA234F",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9474",
+   "id": 132,
+   "rom_ptr": "0x7E3B11BF",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9490",
+   "id": 133,
+   "rom_ptr": "0x7E40FDBE",
+   "type": 4,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D94AC",
+   "id": 134,
+   "rom_ptr": "0x7E40FE07",
+   "type": 4,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D94C8",
+   "id": 135,
+   "rom_ptr": "0x7E40E330",
+   "type": 4,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D94E4",
+   "id": 136,
+   "rom_ptr": "0x7E9D5D18",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9500",
+   "id": 137,
+   "rom_ptr": "0x7E9DD320",
+   "type": 13,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D951C",
+   "id": 138,
+   "rom_ptr": "0x7E9DCBA9",
+   "type": 13,
+   "flags": 512
+  },
+  {
+   "rt": "0x402D9538",
+   "id": 139,
+   "rom_ptr": "0x7E9D7ED8",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9554",
+   "id": 140,
+   "rom_ptr": "0x7E9C7015",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9570",
+   "id": 141,
+   "rom_ptr": "0x7E9CB724",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D958C",
+   "id": 142,
+   "rom_ptr": "0x7E9CB96C",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D95A8",
+   "id": 143,
+   "rom_ptr": "0x7E9CB96C",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D95C4",
+   "id": 144,
+   "rom_ptr": "0x7E9CB96C",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D95E0",
+   "id": 145,
+   "rom_ptr": "0x7E9CB96C",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D95FC",
+   "id": 146,
+   "rom_ptr": "0x7E9CB96C",
+   "type": 11,
+   "flags": 4096
+  },
+  {
+   "rt": "0x402D9618",
+   "id": 157,
+   "rom_ptr": "0x7E143144",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D9634",
+   "id": 158,
+   "rom_ptr": "0x7E132F44",
+   "type": 11,
+   "flags": 1024
+  },
+  {
+   "rt": "0x402D9650",
+   "id": 159,
+   "rom_ptr": "0x7E1C5EB3",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D966C",
+   "id": 160,
+   "rom_ptr": "0x7E1C5F43",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D9688",
+   "id": 161,
+   "rom_ptr": "0x7E1C607B",
+   "type": 11,
+   "flags": 2048
+  },
+  {
+   "rt": "0x402D96A4",
+   "id": 162,
+   "rom_ptr": "0x7E1C60C1",
+   "type": 11,
+   "flags": 2048
+  }
+ ]
+}

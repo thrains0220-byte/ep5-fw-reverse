@@ -25,7 +25,7 @@ public class Mn103FindGlobalRefs extends GhidraScript {
             while (it.hasNext()) {
                 Instruction i = it.next();
                 String s = i.toString();
-                if (!s.contains(Long.toHexString(g))) continue;
+                if (!s.toLowerCase().contains(Long.toHexString(g).toLowerCase())) continue;
                 n++;
                 Function f = fm.getFunctionContaining(i.getAddress());
                 pw.println("  0x" + i.getAddress() + "  fn=" + ((f == null) ? "<none>" : f.getName())
