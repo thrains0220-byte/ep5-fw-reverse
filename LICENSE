@@ -2,13 +2,6 @@ MIT License
 
 Copyright (c) 2026 ep5-fw-reverse contributors
 
-本许可适用于本仓库中**由本项目原创**的内容，包括但不限于：
-
-  - tools/、scripts/、docs/、evidence/、report/、decoded/、disasm/ 目录下的文件
-  - reproduce.sh 及全部中文文档（README.md / 工作日志.md / 固件本体说明.md 等）
-
----
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -29,16 +22,23 @@ SOFTWARE.
 
 ---
 
-## 例外：固件本体不在本许可范围内
+## 适用范围 / Scope
 
-firmware/ 目录下的 .BIN / .BIN.lzma / .zip / .rar 文件是
+本许可适用于本仓库中**由本项目原创**的内容，包括但不限于：
+
+- `tools/`、`scripts/`、`docs/`、`evidence/`、`report/`、`decoded/`、`disasm/` 目录下的文件
+- `reproduce.sh`、`README.md`、`工作日志.md`、`固件本体说明.md` 等全部中文文档
+
+## 例外：固件本体不在本许可范围内 / Firmware files are excluded
+
+`firmware/` 目录下的 `.BIN` / `.BIN.lzma` / `.zip` / `.rar` 文件是
 Olympus / OM SYSTEM（横滨奥林巴斯 / Taiyo Yuden）的专有固件与更新产物，
 **著作权属于原厂**，本许可**不适用于**这些文件。
 
 它们被收录的目的仅为离线逆向研究、版本对照、备份与互操作分析；
 不得用于商业目的，不得用于生成可分发的改机固件。
-来源与逐文件哈希见 firmware/README.md 与 firmware/MANIFEST.sha256。
+来源与逐文件哈希见 `firmware/README.md` 与 `firmware/MANIFEST.sha256`。
 
-第三方组件（scripts/OlympusFw*.hxx、scripts/EstimateLoadAddress.hxx、
-tools/oly_container.py、Ghidra MN10300 SLEIGH 模块等）各自适用其原始许可，
-详见 PROVENANCE.md。
+第三方组件（`scripts/OlympusFw*.hxx`、`scripts/EstimateLoadAddress.hxx`、
+`tools/oly_container.py`、Ghidra MN10300 SLEIGH 模块等）各自适用其原始许可，
+详见 `PROVENANCE.md`。
