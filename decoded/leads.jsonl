@@ -1,0 +1,1050 @@
+{"block": 0, "decoded_offset": "0x5f60c", "container_address": "0x4031f62c", "text": "BAS_RCU_SRV"}
+{"block": 0, "decoded_offset": "0x6016c", "container_address": "0x4032018c", "text": "C3D_UPDATE"}
+{"block": 0, "decoded_offset": "0x6090c", "container_address": "0x4032092c", "text": "C3D_EXE_UPDATE"}
+{"block": 0, "decoded_offset": "0x617e4", "container_address": "0x40321804", "text": "EXP_UPDATE"}
+{"block": 0, "decoded_offset": "0x62414", "container_address": "0x40322434", "text": "TFT_UPDATE"}
+{"block": 0, "decoded_offset": "0x62cc4", "container_address": "0x40322ce4", "text": "C3D_EXE_UPDATE"}
+{"block": 0, "decoded_offset": "0x63e90", "container_address": "0x40323eb0", "text": "UPDATE"}
+{"block": 0, "decoded_offset": "0x63eaa", "container_address": "0x40323eca", "text": "UPDATE_POST"}
+{"block": 0, "decoded_offset": "0x63f46", "container_address": "0x40323f66", "text": "RCU_SERV"}
+{"block": 0, "decoded_offset": "0x642d4", "container_address": "0x403242f4", "text": "C3D_UPDATE"}
+{"block": 0, "decoded_offset": "0x66823", "container_address": "0x40326843", "text": "Version"}
+{"block": 0, "decoded_offset": "0xb9a37", "container_address": "0x40379a57", "text": "LayerCustom!"}
+{"block": 0, "decoded_offset": "0xbfb40", "container_address": "0x4037fb60", "text": "USF debugging shell Version 1.10"}
+{"block": 0, "decoded_offset": "0x320dc9", "container_address": "0x405e0de9", "text": "C3D_UPDATE"}
+{"block": 0, "decoded_offset": "0x320e03", "container_address": "0x405e0e23", "text": "C3D_EXE_UPDATE"}
+{"block": 0, "decoded_offset": "0x3287c3", "container_address": "0x405e87e3", "text": "[lens] IS update error!"}
+{"block": 0, "decoded_offset": "0x32c43e", "container_address": "0x405ec45e", "text": "firm_version  = %x"}
+{"block": 0, "decoded_offset": "0x32cc69", "container_address": "0x405ecc89", "text": "firm_version   = %x"}
+{"block": 0, "decoded_offset": "0x32cf13", "container_address": "0x405ecf33", "text": "version = %x"}
+{"block": 0, "decoded_offset": "0x32ebbc", "container_address": "0x405eebdc", "text": "hw_version              %x"}
+{"block": 0, "decoded_offset": "0x32ec2c", "container_address": "0x405eec4c", "text": "minor_version           %x"}
+{"block": 0, "decoded_offset": "0x32ec48", "container_address": "0x405eec68", "text": "major_version           %x"}
+{"block": 0, "decoded_offset": "0x32ed47", "container_address": "0x405eed67", "text": "g_firmup_hw_version     %x"}
+{"block": 0, "decoded_offset": "0x32ed63", "container_address": "0x405eed83", "text": "g_firmup_version        %x"}
+{"block": 0, "decoded_offset": "0x32f751", "container_address": "0x405ef771", "text": "         : 5 : action lens sync command:LENS_SYNC_COM_UPDATE"}
+{"block": 0, "decoded_offset": "0x32fdb6", "container_address": "0x405efdd6", "text": "Update "}
+{"block": 0, "decoded_offset": "0x330eb0", "container_address": "0x405f0ed0", "text": "version"}
+{"block": 0, "decoded_offset": "0x330f44", "container_address": "0x405f0f64", "text": "  bc version"}
+{"block": 0, "decoded_offset": "0x33135d", "container_address": "0x405f137d", "text": "version: 0x%04x"}
+{"block": 0, "decoded_offset": "0x332155", "container_address": "0x405f2175", "text": "[firmup]REBOOT SYSTEM UPDATE."}
+{"block": 0, "decoded_offset": "0x332174", "container_address": "0x405f2194", "text": "[firmup]REBOOT USER UPDATE."}
+{"block": 0, "decoded_offset": "0x37e1cc", "container_address": "0x4063e1ec", "text": "[TakeExp]preview_update"}
+{"block": 0, "decoded_offset": "0x37e350", "container_address": "0x4063e370", "text": "[TakeExp]lv_update"}
+{"block": 0, "decoded_offset": "0x37e747", "container_address": "0x4063e767", "text": "[TakeExp]update_post"}
+{"block": 0, "decoded_offset": "0x37ec4f", "container_address": "0x4063ec6f", "text": "mode_update"}
+{"block": 0, "decoded_offset": "0x37ed5d", "container_address": "0x4063ed7d", "text": "lv_update"}
+{"block": 0, "decoded_offset": "0x37edaf", "container_address": "0x4063edcf", "text": "movie_update"}
+{"block": 0, "decoded_offset": "0x37f163", "container_address": "0x4063f183", "text": "mode_update_post"}
+{"block": 0, "decoded_offset": "0x38073d", "container_address": "0x4064075d", "text": "update_disable   "}
+{"block": 0, "decoded_offset": "0x3832bc", "container_address": "0x406432dc", "text": "unsupported entry update."}
+{"block": 0, "decoded_offset": "0x3847a7", "container_address": "0x406447c7", "text": "filetest::     update  %04d/%02d/%02d  %02d:%02d:%02d"}
+{"block": 0, "decoded_offset": "0x385e2f", "container_address": "0x40645e4f", "text": "FAT_UPDATE"}
+{"block": 0, "decoded_offset": "0x386a0f", "container_address": "0x40646a2f", "text": "update_path_link_info in"}
+{"block": 0, "decoded_offset": "0x386c56", "container_address": "0x40646c76", "text": "update_file_cash"}
+{"block": 0, "decoded_offset": "0x386e05", "container_address": "0x40646e25", "text": "update fat"}
+{"block": 0, "decoded_offset": "0x3882b7", "container_address": "0x406482d7", "text": "VERSION        "}
+{"block": 0, "decoded_offset": "0x389ec1", "container_address": "0x40649ee1", "text": "   8 : DEBUG_ID_STBD_IILLUMINATOR_OUTPUT  "}
+{"block": 0, "decoded_offset": "0x38a667", "container_address": "0x4064a687", "text": " Drive AF Illuminator   --> ill [...]"}
+{"block": 0, "decoded_offset": "0x38c25c", "container_address": "0x4064c27c", "text": "----Ext LED ILLUMINATOR Debug---"}
+{"block": 0, "decoded_offset": "0x38c712", "container_address": "0x4064c732", "text": "  firm_version(BCD) "}
+{"block": 0, "decoded_offset": "0x38c727", "container_address": "0x4064c747", "text": "  hard_version(BCD) "}
+{"block": 0, "decoded_offset": "0x38d088", "container_address": "0x4064d0a8", "text": "stb_illuminator abort"}
+{"block": 0, "decoded_offset": "0x38d09e", "container_address": "0x4064d0be", "text": "stb_illuminator abort t"}
+{"block": 0, "decoded_offset": "0x38d0b6", "container_address": "0x4064d0d6", "text": "stb_illuminator err"}
+{"block": 0, "decoded_offset": "0x38d0ca", "container_address": "0x4064d0ea", "text": "stb_illuminator flush"}
+{"block": 0, "decoded_offset": "0x38f997", "container_address": "0x4064f9b7", "text": "contrast_setting.update , %x "}
+{"block": 0, "decoded_offset": "0x393564", "container_address": "0x40653584", "text": "Lens_Firm_Version %x"}
+{"block": 0, "decoded_offset": "0x398c34", "container_address": "0x40658c54", "text": "spot_calc_forcus_pos vhpf peak search"}
+{"block": 0, "decoded_offset": "0x398c84", "container_address": "0x40658ca4", "text": "spot_calc_forcus_pos vhpf peaklost"}
+{"block": 0, "decoded_offset": "0x398ca7", "container_address": "0x40658cc7", "text": "spot_calc_forcus_pos Vhpf "}
+{"block": 0, "decoded_offset": "0x398daf", "container_address": "0x40658dcf", "text": "spot_calc_forcus_pos end"}
+{"block": 0, "decoded_offset": "0x399527", "container_address": "0x40659547", "text": "COM_DEFECT_UPDATE"}
+{"block": 0, "decoded_offset": "0x399e17", "container_address": "0x40659e37", "text": "  + Update : 0x%08x"}
+{"block": 0, "decoded_offset": "0x399eb0", "container_address": "0x40659ed0", "text": "  | +- setting.update = %08x"}
+{"block": 0, "decoded_offset": "0x39acd1", "container_address": "0x4065acf1", "text": "Level Update"}
+{"block": 0, "decoded_offset": "0x39acde", "container_address": "0x4065acfe", "text": "Kiz Update"}
+{"block": 0, "decoded_offset": "0x39ace9", "container_address": "0x4065ad09", "text": "Area Update"}
+{"block": 0, "decoded_offset": "0x3a19b4", "container_address": "0x406619d4", "text": "| + update = 0x%08x"}
+{"block": 0, "decoded_offset": "0x3b3b6e", "container_address": "0x40673b8e", "text": "api_beep_dummy_Update_Beep_Volume"}
+{"block": 0, "decoded_offset": "0x3b562d", "container_address": "0x4067564d", "text": "api_disp_Disp_UpdateScreen"}
+{"block": 0, "decoded_offset": "0x3b5648", "container_address": "0x40675668", "text": "Disp_UpdateScreen param->img_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b5670", "container_address": "0x40675690", "text": "Disp_UpdateScreen param->img_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b5698", "container_address": "0x406756b8", "text": "Disp_UpdateScreen param->img_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b56c0", "container_address": "0x406756e0", "text": "Disp_UpdateScreen param->osd_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b56e8", "container_address": "0x40675708", "text": "Disp_UpdateScreen param->osd_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b5710", "container_address": "0x40675730", "text": "Disp_UpdateScreen param->osd_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b5738", "container_address": "0x40675758", "text": "Disp_UpdateScreen param->img_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b575f", "container_address": "0x4067577f", "text": "Disp_UpdateScreen param->img_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b5786", "container_address": "0x406757a6", "text": "Disp_UpdateScreen param->img_trans[2] "}
+{"block": 0, "decoded_offset": "0x3b57ad", "container_address": "0x406757cd", "text": "Disp_UpdateScreen param->through_permit "}
+{"block": 0, "decoded_offset": "0x3b57d6", "container_address": "0x406757f6", "text": "Disp_UpdateScreen param->bg->r "}
+{"block": 0, "decoded_offset": "0x3b57f6", "container_address": "0x40675816", "text": "Disp_UpdateScreen param->bg->g "}
+{"block": 0, "decoded_offset": "0x3b5816", "container_address": "0x40675836", "text": "Disp_UpdateScreen param->bg->b "}
+{"block": 0, "decoded_offset": "0x3b58da", "container_address": "0x406758fa", "text": "api_disp_Disp_OsdUpdateScreen"}
+{"block": 0, "decoded_offset": "0x3b58f8", "container_address": "0x40675918", "text": "Disp_OsdUpdateScreen osd_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b591c", "container_address": "0x4067593c", "text": "Disp_OsdUpdateScreen osd_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b5940", "container_address": "0x40675960", "text": "Disp_OsdUpdateScreen osd_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b5964", "container_address": "0x40675984", "text": "api_disp_Disp_LayerCustom"}
+{"block": 0, "decoded_offset": "0x3b597e", "container_address": "0x4067599e", "text": "Disp_LayerCustom param->bg->r "}
+{"block": 0, "decoded_offset": "0x3b599d", "container_address": "0x406759bd", "text": "Disp_LayerCustom param->bg->g "}
+{"block": 0, "decoded_offset": "0x3b59bc", "container_address": "0x406759dc", "text": "Disp_LayerCustom param->bg->b "}
+{"block": 0, "decoded_offset": "0x3b59db", "container_address": "0x406759fb", "text": "Disp_LayerCustom param->img1_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b5a0d", "container_address": "0x40675a2d", "text": "Disp_LayerCustom param->img1_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b5a3f", "container_address": "0x40675a5f", "text": "Disp_LayerCustom param->img1_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b5a73", "container_address": "0x40675a93", "text": "Disp_LayerCustom param->img1_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b5aa7", "container_address": "0x40675ac7", "text": "Disp_LayerCustom param->img1_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b5ade", "container_address": "0x40675afe", "text": "Disp_LayerCustom param->img1_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b5b15", "container_address": "0x40675b35", "text": "Disp_LayerCustom param->img1_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b5b47", "container_address": "0x40675b67", "text": "Disp_LayerCustom param->img1_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b5b79", "container_address": "0x40675b99", "text": "Disp_LayerCustom param->img1_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b5bae", "container_address": "0x40675bce", "text": "Disp_LayerCustom param->img1_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b5be3", "container_address": "0x40675c03", "text": "Disp_LayerCustom param->img1_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b5c18", "container_address": "0x40675c38", "text": "Disp_LayerCustom param->img1_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b5c4d", "container_address": "0x40675c6d", "text": "Disp_LayerCustom param->img1_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b5c7c", "container_address": "0x40675c9c", "text": "Disp_LayerCustom param->img2_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b5cae", "container_address": "0x40675cce", "text": "Disp_LayerCustom param->img2_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b5ce0", "container_address": "0x40675d00", "text": "Disp_LayerCustom param->img2_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b5d14", "container_address": "0x40675d34", "text": "Disp_LayerCustom param->img2_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b5d48", "container_address": "0x40675d68", "text": "Disp_LayerCustom param->img2_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b5d7f", "container_address": "0x40675d9f", "text": "Disp_LayerCustom param->img2_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b5db6", "container_address": "0x40675dd6", "text": "Disp_LayerCustom param->img2_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b5de8", "container_address": "0x40675e08", "text": "Disp_LayerCustom param->img2_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b5e1a", "container_address": "0x40675e3a", "text": "Disp_LayerCustom param->img2_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b5e4f", "container_address": "0x40675e6f", "text": "Disp_LayerCustom param->img2_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b5e84", "container_address": "0x40675ea4", "text": "Disp_LayerCustom param->img2_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b5eb9", "container_address": "0x40675ed9", "text": "Disp_LayerCustom param->img2_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b5eee", "container_address": "0x40675f0e", "text": "Disp_LayerCustom param->img2_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b5f1d", "container_address": "0x40675f3d", "text": "Disp_LayerCustom param->img3_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b5f4f", "container_address": "0x40675f6f", "text": "Disp_LayerCustom param->img3_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b5f81", "container_address": "0x40675fa1", "text": "Disp_LayerCustom param->img3_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b5fb5", "container_address": "0x40675fd5", "text": "Disp_LayerCustom param->img3_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b5fe9", "container_address": "0x40676009", "text": "Disp_LayerCustom param->img3_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b6020", "container_address": "0x40676040", "text": "Disp_LayerCustom param->img3_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b6057", "container_address": "0x40676077", "text": "Disp_LayerCustom param->img3_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b6089", "container_address": "0x406760a9", "text": "Disp_LayerCustom param->img3_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b60bb", "container_address": "0x406760db", "text": "Disp_LayerCustom param->img3_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b60f0", "container_address": "0x40676110", "text": "Disp_LayerCustom param->img3_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b6125", "container_address": "0x40676145", "text": "Disp_LayerCustom param->img3_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b615a", "container_address": "0x4067617a", "text": "Disp_LayerCustom param->img3_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b618f", "container_address": "0x406761af", "text": "Disp_LayerCustom param->img3_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b61be", "container_address": "0x406761de", "text": "Disp_LayerCustom param->osd1_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b61f0", "container_address": "0x40676210", "text": "Disp_LayerCustom param->osd1_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b6222", "container_address": "0x40676242", "text": "Disp_LayerCustom param->osd1_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b6256", "container_address": "0x40676276", "text": "Disp_LayerCustom param->osd1_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b628a", "container_address": "0x406762aa", "text": "Disp_LayerCustom param->osd1_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b62c1", "container_address": "0x406762e1", "text": "Disp_LayerCustom param->osd1_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b62f8", "container_address": "0x40676318", "text": "Disp_LayerCustom param->osd1_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b632a", "container_address": "0x4067634a", "text": "Disp_LayerCustom param->osd1_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b635c", "container_address": "0x4067637c", "text": "Disp_LayerCustom param->osd1_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b6391", "container_address": "0x406763b1", "text": "Disp_LayerCustom param->osd1_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b63c6", "container_address": "0x406763e6", "text": "Disp_LayerCustom param->osd1_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b63fb", "container_address": "0x4067641b", "text": "Disp_LayerCustom param->osd1_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b6430", "container_address": "0x40676450", "text": "Disp_LayerCustom param->osd1_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b645f", "container_address": "0x4067647f", "text": "Disp_LayerCustom param->osd2_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b6491", "container_address": "0x406764b1", "text": "Disp_LayerCustom param->osd2_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b64c3", "container_address": "0x406764e3", "text": "Disp_LayerCustom param->osd2_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b64f7", "container_address": "0x40676517", "text": "Disp_LayerCustom param->osd2_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b652b", "container_address": "0x4067654b", "text": "Disp_LayerCustom param->osd2_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b6562", "container_address": "0x40676582", "text": "Disp_LayerCustom param->osd2_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b6599", "container_address": "0x406765b9", "text": "Disp_LayerCustom param->osd2_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b65cb", "container_address": "0x406765eb", "text": "Disp_LayerCustom param->osd2_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b65fd", "container_address": "0x4067661d", "text": "Disp_LayerCustom param->osd2_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b6632", "container_address": "0x40676652", "text": "Disp_LayerCustom param->osd2_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b6667", "container_address": "0x40676687", "text": "Disp_LayerCustom param->osd2_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b669c", "container_address": "0x406766bc", "text": "Disp_LayerCustom param->osd2_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b66d1", "container_address": "0x406766f1", "text": "Disp_LayerCustom param->osd2_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b6700", "container_address": "0x40676720", "text": "Disp_LayerCustom param->osd3_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b6732", "container_address": "0x40676752", "text": "Disp_LayerCustom param->osd3_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b6764", "container_address": "0x40676784", "text": "Disp_LayerCustom param->osd3_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b6798", "container_address": "0x406767b8", "text": "Disp_LayerCustom param->osd3_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b67cc", "container_address": "0x406767ec", "text": "Disp_LayerCustom param->osd3_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b6803", "container_address": "0x40676823", "text": "Disp_LayerCustom param->osd3_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b683a", "container_address": "0x4067685a", "text": "Disp_LayerCustom param->osd3_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b686c", "container_address": "0x4067688c", "text": "Disp_LayerCustom param->osd3_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b689e", "container_address": "0x406768be", "text": "Disp_LayerCustom param->osd3_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b68d3", "container_address": "0x406768f3", "text": "Disp_LayerCustom param->osd3_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b6908", "container_address": "0x40676928", "text": "Disp_LayerCustom param->osd3_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b693d", "container_address": "0x4067695d", "text": "Disp_LayerCustom param->osd3_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b6972", "container_address": "0x40676992", "text": "Disp_LayerCustom param->osd3_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b69a1", "container_address": "0x406769c1", "text": "Disp_LayerCustom param->osd_mixorder "}
+{"block": 0, "decoded_offset": "0x3b69c7", "container_address": "0x406769e7", "text": "Disp_LayerCustom param->osd_blink_cycle "}
+{"block": 0, "decoded_offset": "0x3b69f0", "container_address": "0x40676a10", "text": "Disp_LayerCustom param->color_range "}
+{"block": 0, "decoded_offset": "0x3b6a15", "container_address": "0x40676a35", "text": "Disp_LayerCustom dsp_custom->osd_mixorder "}
+{"block": 0, "decoded_offset": "0x3b6a40", "container_address": "0x40676a60", "text": "api_disp_Disp_OsdUpdateColorPallet"}
+{"block": 0, "decoded_offset": "0x3b6a63", "container_address": "0x40676a83", "text": "Disp_OsdUpdateColorPallet osd_pallet[0] "}
+{"block": 0, "decoded_offset": "0x3b6a8c", "container_address": "0x40676aac", "text": "Disp_OsdUpdateColorPallet osd_pallet[1] "}
+{"block": 0, "decoded_offset": "0x3b6ab5", "container_address": "0x40676ad5", "text": "Disp_OsdUpdateColorPallet osd_pallet[2] "}
+{"block": 0, "decoded_offset": "0x3b6ade", "container_address": "0x40676afe", "text": "Disp_OsdUpdateColorPallet dsp_osd_pallet[0] "}
+{"block": 0, "decoded_offset": "0x3b6b0b", "container_address": "0x40676b2b", "text": "Disp_OsdUpdateColorPallet dsp_osd_pallet[1] "}
+{"block": 0, "decoded_offset": "0x3b6b38", "container_address": "0x40676b58", "text": "Disp_OsdUpdateColorPallet dsp_osd_pallet[2] "}
+{"block": 0, "decoded_offset": "0x3b6b65", "container_address": "0x40676b85", "text": "api_disp_Disp_ImgUpdateScreen"}
+{"block": 0, "decoded_offset": "0x3b6b83", "container_address": "0x40676ba3", "text": "Disp_ImgUpdateScreen param->img_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b6bae", "container_address": "0x40676bce", "text": "Disp_ImgUpdateScreen param->img_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b6bd9", "container_address": "0x40676bf9", "text": "Disp_ImgUpdateScreen param->img_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b6c04", "container_address": "0x40676c24", "text": "Disp_ImgUpdateScreen param->img_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b6c2e", "container_address": "0x40676c4e", "text": "Disp_ImgUpdateScreen param->img_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b6c58", "container_address": "0x40676c78", "text": "Disp_ImgUpdateScreen param->img_trans[2] "}
+{"block": 0, "decoded_offset": "0x3b6c82", "container_address": "0x40676ca2", "text": "Disp_ImgUpdateScreen param->through_permit "}
+{"block": 0, "decoded_offset": "0x3b6cae", "container_address": "0x40676cce", "text": "Disp_ImgUpdateScreen param->bg->r "}
+{"block": 0, "decoded_offset": "0x3b6cd1", "container_address": "0x40676cf1", "text": "Disp_ImgUpdateScreen param->bg->g "}
+{"block": 0, "decoded_offset": "0x3b6cf4", "container_address": "0x40676d14", "text": "Disp_ImgUpdateScreen param->bg->b "}
+{"block": 0, "decoded_offset": "0x3b6d17", "container_address": "0x40676d37", "text": "api_disp_Disp_ImgUpdateScreen_Async"}
+{"block": 0, "decoded_offset": "0x3b6d3b", "container_address": "0x40676d5b", "text": "Disp_ImgUpdateScreen_Async param->img_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b6d6c", "container_address": "0x40676d8c", "text": "Disp_ImgUpdateScreen_Async param->img_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b6d9d", "container_address": "0x40676dbd", "text": "Disp_ImgUpdateScreen_Async param->img_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b6dce", "container_address": "0x40676dee", "text": "Disp_ImgUpdateScreen_Async param->img_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b6dfe", "container_address": "0x40676e1e", "text": "Disp_ImgUpdateScreen_Async param->img_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b6e2e", "container_address": "0x40676e4e", "text": "Disp_ImgUpdateScreen_Async param->img_trans[2] "}
+{"block": 0, "decoded_offset": "0x3b6e5e", "container_address": "0x40676e7e", "text": "Disp_ImgUpdateScreen_Async param->through_permit "}
+{"block": 0, "decoded_offset": "0x3b6e90", "container_address": "0x40676eb0", "text": "Disp_ImgUpdateScreen_Async param->bg->r "}
+{"block": 0, "decoded_offset": "0x3b6eb9", "container_address": "0x40676ed9", "text": "Disp_ImgUpdateScreen_Async param->bg->g "}
+{"block": 0, "decoded_offset": "0x3b6ee2", "container_address": "0x40676f02", "text": "Disp_ImgUpdateScreen_Async param->bg->b "}
+{"block": 0, "decoded_offset": "0x3b73a6", "container_address": "0x406773c6", "text": "api_disp_Get_LayerCustom_Data"}
+{"block": 0, "decoded_offset": "0x3b73c4", "container_address": "0x406773e4", "text": "api_disp_Set_LayerCustom_Data"}
+{"block": 0, "decoded_offset": "0x3b73e2", "container_address": "0x40677402", "text": "Set_LayerCustom_Data in_data->bg->r "}
+{"block": 0, "decoded_offset": "0x3b7407", "container_address": "0x40677427", "text": "Set_LayerCustom_Data in_data->bg->g "}
+{"block": 0, "decoded_offset": "0x3b742c", "container_address": "0x4067744c", "text": "Set_LayerCustom_Data in_data->bg->b "}
+{"block": 0, "decoded_offset": "0x3b7451", "container_address": "0x40677471", "text": "Set_LayerCustom_Data in_data->img1_info->from_area->2yyHW "}
+{"block": 0, "decoded_offset": "0x3b748c", "container_address": "0x406774ac", "text": "Set_LayerCustom_Data in_data->img1_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b74c4", "container_address": "0x406774e4", "text": "Set_LayerCustom_Data in_data->img1_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b74fe", "container_address": "0x4067751e", "text": "Set_LayerCustom_Data in_data->img1_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7538", "container_address": "0x40677558", "text": "Set_LayerCustom_Data in_data->img1_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b7575", "container_address": "0x40677595", "text": "Set_LayerCustom_Data in_data->img1_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b75b2", "container_address": "0x406775d2", "text": "Set_LayerCustom_Data in_data->img1_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b75ea", "container_address": "0x4067760a", "text": "Set_LayerCustom_Data in_data->img1_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7622", "container_address": "0x40677642", "text": "Set_LayerCustom_Data in_data->img1_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b765d", "container_address": "0x4067767d", "text": "Set_LayerCustom_Data in_data->img1_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b7698", "container_address": "0x406776b8", "text": "Set_LayerCustom_Data in_data->img1_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b76d3", "container_address": "0x406776f3", "text": "Set_LayerCustom_Data in_data->img1_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b770e", "container_address": "0x4067772e", "text": "Set_LayerCustom_Data in_data->img1_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b7743", "container_address": "0x40677763", "text": "Set_LayerCustom_Data in_data->img2_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b777b", "container_address": "0x4067779b", "text": "Set_LayerCustom_Data in_data->img2_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b77b3", "container_address": "0x406777d3", "text": "Set_LayerCustom_Data in_data->img2_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b77ed", "container_address": "0x4067780d", "text": "Set_LayerCustom_Data in_data->img2_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7827", "container_address": "0x40677847", "text": "Set_LayerCustom_Data in_data->img2_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b7864", "container_address": "0x40677884", "text": "Set_LayerCustom_Data in_data->img2_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b78a1", "container_address": "0x406778c1", "text": "Set_LayerCustom_Data in_data->img2_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b78d9", "container_address": "0x406778f9", "text": "Set_LayerCustom_Data in_data->img2_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7911", "container_address": "0x40677931", "text": "Set_LayerCustom_Data in_data->img2_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b794c", "container_address": "0x4067796c", "text": "Set_LayerCustom_Data in_data->img2_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b7987", "container_address": "0x406779a7", "text": "Set_LayerCustom_Data in_data->img2_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b79c2", "container_address": "0x406779e2", "text": "Set_LayerCustom_Data in_data->img2_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b79fd", "container_address": "0x40677a1d", "text": "Set_LayerCustom_Data in_data->img2_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b7a32", "container_address": "0x40677a52", "text": "Set_LayerCustom_Data in_data->img3_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b7a6a", "container_address": "0x40677a8a", "text": "Set_LayerCustom_Data in_data->img3_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b7aa2", "container_address": "0x40677ac2", "text": "Set_LayerCustom_Data in_data->img3_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b7adc", "container_address": "0x40677afc", "text": "Set_LayerCustom_Data in_data->img3_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7b16", "container_address": "0x40677b36", "text": "Set_LayerCustom_Data in_data->img3_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b7b53", "container_address": "0x40677b73", "text": "Set_LayerCustom_Data in_data->img3_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b7b90", "container_address": "0x40677bb0", "text": "Set_LayerCustom_Data in_data->img3_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b7bc8", "container_address": "0x40677be8", "text": "Set_LayerCustom_Data in_data->img3_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7c00", "container_address": "0x40677c20", "text": "Set_LayerCustom_Data in_data->img3_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b7c3b", "container_address": "0x40677c5b", "text": "Set_LayerCustom_Data in_data->img3_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b7c76", "container_address": "0x40677c96", "text": "Set_LayerCustom_Data in_data->img3_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b7cb1", "container_address": "0x40677cd1", "text": "Set_LayerCustom_Data in_data->img3_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b7cec", "container_address": "0x40677d0c", "text": "Set_LayerCustom_Data in_data->img3_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b7d21", "container_address": "0x40677d41", "text": "Set_LayerCustom_Data in_data->osd1_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b7d59", "container_address": "0x40677d79", "text": "Set_LayerCustom_Data in_data->osd1_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b7d91", "container_address": "0x40677db1", "text": "Set_LayerCustom_Data in_data->osd1_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b7dcb", "container_address": "0x40677deb", "text": "Set_LayerCustom_Data in_data->osd1_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7e05", "container_address": "0x40677e25", "text": "Set_LayerCustom_Data in_data->osd1_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b7e42", "container_address": "0x40677e62", "text": "Set_LayerCustom_Data in_data->osd1_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b7e7f", "container_address": "0x40677e9f", "text": "Set_LayerCustom_Data in_data->osd1_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b7eb7", "container_address": "0x40677ed7", "text": "Set_LayerCustom_Data in_data->osd1_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b7eef", "container_address": "0x40677f0f", "text": "Set_LayerCustom_Data in_data->osd1_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b7f2a", "container_address": "0x40677f4a", "text": "Set_LayerCustom_Data in_data->osd1_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b7f65", "container_address": "0x40677f85", "text": "Set_LayerCustom_Data in_data->osd1_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b7fa0", "container_address": "0x40677fc0", "text": "Set_LayerCustom_Data in_data->osd1_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b7fdb", "container_address": "0x40677ffb", "text": "Set_LayerCustom_Data in_data->osd1_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b8010", "container_address": "0x40678030", "text": "Set_LayerCustom_Data in_data->osd2_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b8048", "container_address": "0x40678068", "text": "Set_LayerCustom_Data in_data->osd2_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b8080", "container_address": "0x406780a0", "text": "Set_LayerCustom_Data in_data->osd2_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b80ba", "container_address": "0x406780da", "text": "Set_LayerCustom_Data in_data->osd2_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b80f4", "container_address": "0x40678114", "text": "Set_LayerCustom_Data in_data->osd2_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b8131", "container_address": "0x40678151", "text": "Set_LayerCustom_Data in_data->osd2_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b816e", "container_address": "0x4067818e", "text": "Set_LayerCustom_Data in_data->osd2_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b81a6", "container_address": "0x406781c6", "text": "Set_LayerCustom_Data in_data->osd2_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b81de", "container_address": "0x406781fe", "text": "Set_LayerCustom_Data in_data->osd2_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b8219", "container_address": "0x40678239", "text": "Set_LayerCustom_Data in_data->osd2_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b8254", "container_address": "0x40678274", "text": "Set_LayerCustom_Data in_data->osd2_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b828f", "container_address": "0x406782af", "text": "Set_LayerCustom_Data in_data->osd2_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b82ca", "container_address": "0x406782ea", "text": "Set_LayerCustom_Data in_data->osd2_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b82ff", "container_address": "0x4067831f", "text": "Set_LayerCustom_Data in_data->osd3_info->from_area->HW "}
+{"block": 0, "decoded_offset": "0x3b8337", "container_address": "0x40678357", "text": "Set_LayerCustom_Data in_data->osd3_info->from_area->VW "}
+{"block": 0, "decoded_offset": "0x3b836f", "container_address": "0x4067838f", "text": "Set_LayerCustom_Data in_data->osd3_info->from_target->HW "}
+{"block": 0, "decoded_offset": "0x3b83a9", "container_address": "0x406783c9", "text": "Set_LayerCustom_Data in_data->osd3_info->from_target->VW "}
+{"block": 0, "decoded_offset": "0x3b83e3", "container_address": "0x40678403", "text": "Set_LayerCustom_Data in_data->osd3_info->from_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b8420", "container_address": "0x40678440", "text": "Set_LayerCustom_Data in_data->osd3_info->from_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b845d", "container_address": "0x4067847d", "text": "Set_LayerCustom_Data in_data->osd3_info->to_target->HW "}
+{"block": 0, "decoded_offset": "0x3b8495", "container_address": "0x406784b5", "text": "Set_LayerCustom_Data in_data->osd3_info->to_target->VW "}
+{"block": 0, "decoded_offset": "0x3b84cd", "container_address": "0x406784ed", "text": "Set_LayerCustom_Data in_data->osd3_info->to_coordinate->x "}
+{"block": 0, "decoded_offset": "0x3b8508", "container_address": "0x40678528", "text": "Set_LayerCustom_Data in_data->osd3_info->to_coordinate->y "}
+{"block": 0, "decoded_offset": "0x3b8543", "container_address": "0x40678563", "text": "Set_LayerCustom_Data in_data->osd3_info->address_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b857e", "container_address": "0x4067859e", "text": "Set_LayerCustom_Data in_data->osd3_info->address_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b85b9", "container_address": "0x406785d9", "text": "Set_LayerCustom_Data in_data->osd3_info->layer_type "}
+{"block": 0, "decoded_offset": "0x3b85ee", "container_address": "0x4067860e", "text": "Set_LayerCustom_Data in_data->osd_mixorder "}
+{"block": 0, "decoded_offset": "0x3b861a", "container_address": "0x4067863a", "text": "Set_LayerCustom_Data in_data->osd_blink_cycle "}
+{"block": 0, "decoded_offset": "0x3b8649", "container_address": "0x40678669", "text": "Set_LayerCustom_Data in_data->color_range "}
+{"block": 0, "decoded_offset": "0x3b883a", "container_address": "0x4067885a", "text": "api_disp_Disp_Sync_Update_Osd"}
+{"block": 0, "decoded_offset": "0x3b8858", "container_address": "0x40678878", "text": "Disp_Sync_Update_Osd param "}
+{"block": 0, "decoded_offset": "0x3b8874", "container_address": "0x40678894", "text": "Disp_Sync_Update_Osd osd_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b8898", "container_address": "0x406788b8", "text": "Disp_Sync_Update_Osd osd_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b88bc", "container_address": "0x406788dc", "text": "Disp_Sync_Update_Osd osd_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b88e0", "container_address": "0x40678900", "text": "Disp_Sync_Update_Osd com "}
+{"block": 0, "decoded_offset": "0x3b88fa", "container_address": "0x4067891a", "text": "Disp_Sync_Update_Osd ret "}
+{"block": 0, "decoded_offset": "0x3b8914", "container_address": "0x40678934", "text": "api_disp_Disp_Sync_Update_Img"}
+{"block": 0, "decoded_offset": "0x3b8932", "container_address": "0x40678952", "text": "Disp_Sync_Update_Img param "}
+{"block": 0, "decoded_offset": "0x3b894e", "container_address": "0x4067896e", "text": "Disp_Sync_Update_Img img_handle[0] "}
+{"block": 0, "decoded_offset": "0x3b8972", "container_address": "0x40678992", "text": "Disp_Sync_Update_Img img_handle[1] "}
+{"block": 0, "decoded_offset": "0x3b8996", "container_address": "0x406789b6", "text": "Disp_Sync_Update_Img img_handle[2] "}
+{"block": 0, "decoded_offset": "0x3b89ba", "container_address": "0x406789da", "text": "Disp_Sync_Update_Img img_format[0] "}
+{"block": 0, "decoded_offset": "0x3b89de", "container_address": "0x406789fe", "text": "Disp_Sync_Update_Img img_format[1] "}
+{"block": 0, "decoded_offset": "0x3b8a02", "container_address": "0x40678a22", "text": "Disp_Sync_Update_Img img_format[2] "}
+{"block": 0, "decoded_offset": "0x3b8a26", "container_address": "0x40678a46", "text": "Disp_Sync_Update_Img img_trans[0] "}
+{"block": 0, "decoded_offset": "0x3b8a49", "container_address": "0x40678a69", "text": "Disp_Sync_Update_Img img_trans[1] "}
+{"block": 0, "decoded_offset": "0x3b8a6c", "container_address": "0x40678a8c", "text": "Disp_Sync_Update_Img img_trans[2] "}
+{"block": 0, "decoded_offset": "0x3b8a8f", "container_address": "0x40678aaf", "text": "Disp_Sync_Update_Img through_permit "}
+{"block": 0, "decoded_offset": "0x3b8ab4", "container_address": "0x40678ad4", "text": "Disp_Sync_Update_Img bg->r "}
+{"block": 0, "decoded_offset": "0x3b8ad0", "container_address": "0x40678af0", "text": "Disp_Sync_Update_Img bg->g "}
+{"block": 0, "decoded_offset": "0x3b8aec", "container_address": "0x40678b0c", "text": "Disp_Sync_Update_Img bg->b "}
+{"block": 0, "decoded_offset": "0x3b8b08", "container_address": "0x40678b28", "text": "Disp_Sync_Update_Img com "}
+{"block": 0, "decoded_offset": "0x3b8b22", "container_address": "0x40678b42", "text": "Disp_Sync_Update_Img ret "}
+{"block": 0, "decoded_offset": "0x3b8b3c", "container_address": "0x40678b5c", "text": "api_disp_Disp_Sync_Cancel_Update"}
+{"block": 0, "decoded_offset": "0x3b8b5d", "container_address": "0x40678b7d", "text": "Disp_Sync_Cancel_Update param "}
+{"block": 0, "decoded_offset": "0x3b8b7c", "container_address": "0x40678b9c", "text": "Disp_Sync_Cancel_Update ret "}
+{"block": 0, "decoded_offset": "0x3b8b99", "container_address": "0x40678bb9", "text": "api_disp_Disp_Sync_Force_Update"}
+{"block": 0, "decoded_offset": "0x3b8bb9", "container_address": "0x40678bd9", "text": "Disp_Sync_Force_Update param "}
+{"block": 0, "decoded_offset": "0x3b8bd7", "container_address": "0x40678bf7", "text": "Disp_Sync_Force_Update ret "}
+{"block": 0, "decoded_offset": "0x3b8bf3", "container_address": "0x40678c13", "text": "api_disp_Disp_Sync_LayerCustom_Osd"}
+{"block": 0, "decoded_offset": "0x3b8c16", "container_address": "0x40678c36", "text": "Disp_Sync_LayerCustom_Osd custom_info->osd_mixorder "}
+{"block": 0, "decoded_offset": "0x3b8c4b", "container_address": "0x40678c6b", "text": "Disp_Sync_LayerCustom_Osd com "}
+{"block": 0, "decoded_offset": "0x3b8c6a", "container_address": "0x40678c8a", "text": "Disp_Sync_LayerCustom_Osd ret "}
+{"block": 0, "decoded_offset": "0x3b8c89", "container_address": "0x40678ca9", "text": "api_disp_Disp_Sync_LayerCustom_Img"}
+{"block": 0, "decoded_offset": "0x3b8cac", "container_address": "0x40678ccc", "text": "Disp_Sync_LayerCustom_Img custom_info->osd_mixorder "}
+{"block": 0, "decoded_offset": "0x3b8ce1", "container_address": "0x40678d01", "text": "Disp_Sync_LayerCustom_Img com "}
+{"block": 0, "decoded_offset": "0x3b8d00", "container_address": "0x40678d20", "text": "Disp_Sync_LayerCustom_Img ret "}
+{"block": 0, "decoded_offset": "0x3b8d1f", "container_address": "0x40678d3f", "text": "api_disp_Disp_Sync_Cancel_LayerCustom"}
+{"block": 0, "decoded_offset": "0x3b8d45", "container_address": "0x40678d65", "text": "Disp_Sync_Cancel_LayerCustom param "}
+{"block": 0, "decoded_offset": "0x3b8d69", "container_address": "0x40678d89", "text": "Disp_Sync_Cancel_LayerCustom ret "}
+{"block": 0, "decoded_offset": "0x3b8d8b", "container_address": "0x40678dab", "text": "api_disp_Disp_Sync_Force_LayerCustom"}
+{"block": 0, "decoded_offset": "0x3b8db0", "container_address": "0x40678dd0", "text": "Disp_Sync_Force_LayerCustom param "}
+{"block": 0, "decoded_offset": "0x3b8dd3", "container_address": "0x40678df3", "text": "Disp_Sync_Force_LayerCustom ret "}
+{"block": 0, "decoded_offset": "0x3b8e11", "container_address": "0x40678e31", "text": "Disp_Sync_LayerCustom_Info start"}
+{"block": 0, "decoded_offset": "0x3b99dd", "container_address": "0x406799fd", "text": "Disp_Sync_LayerCustom_Info end"}
+{"block": 0, "decoded_offset": "0x3ba624", "container_address": "0x4067a644", "text": "api_disp_UpdateThroughArea_PhotoSession"}
+{"block": 0, "decoded_offset": "0x3ba64c", "container_address": "0x4067a66c", "text": "UpdateThroughArea_PhotoSession AreaState "}
+{"block": 0, "decoded_offset": "0x3ba676", "container_address": "0x4067a696", "text": "[ASSERT]UpdateThroughArea_PhotoSession ret "}
+{"block": 0, "decoded_offset": "0x3bae39", "container_address": "0x4067ae59", "text": "api_disp_dummy_Disp_Update_HDMI_Size"}
+{"block": 0, "decoded_offset": "0x3bb18c", "container_address": "0x4067b1ac", "text": "api_dps_Dps_IsUpdateCapability"}
+{"block": 0, "decoded_offset": "0x3bbdd4", "container_address": "0x4067bdf4", "text": "api_firmup_Check_FirmwareUpdate"}
+{"block": 0, "decoded_offset": "0x3bbdf4", "container_address": "0x4067be14", "text": "api_firmup_Execute_FirmwareUpdate"}
+{"block": 0, "decoded_offset": "0x3bbe16", "container_address": "0x4067be36", "text": "Execute_FirmwareUpdate info->display.id"}
+{"block": 0, "decoded_offset": "0x3bbe3e", "container_address": "0x4067be5e", "text": "Execute_FirmwareUpdate info->display.size"}
+{"block": 0, "decoded_offset": "0x3bbe68", "container_address": "0x4067be88", "text": "Execute_FirmwareUpdate info->success.id"}
+{"block": 0, "decoded_offset": "0x3bbe90", "container_address": "0x4067beb0", "text": "Execute_FirmwareUpdate info->success.size"}
+{"block": 0, "decoded_offset": "0x3bbeba", "container_address": "0x4067beda", "text": "Execute_FirmwareUpdate info->error.id"}
+{"block": 0, "decoded_offset": "0x3bbee0", "container_address": "0x4067bf00", "text": "Execute_FirmwareUpdate info->error.size"}
+{"block": 0, "decoded_offset": "0x3bbf08", "container_address": "0x4067bf28", "text": "Execute_FirmwareUpdate info->version"}
+{"block": 0, "decoded_offset": "0x3bbf3a", "container_address": "0x4067bf5a", "text": "api_firmup_Check_FirmwareUpdate_Strobe"}
+{"block": 0, "decoded_offset": "0x3bbf79", "container_address": "0x4067bf99", "text": "update load"}
+{"block": 0, "decoded_offset": "0x3bbf85", "container_address": "0x4067bfa5", "text": "api_firmup_Execute_FirmwareUpdate_Strobe"}
+{"block": 0, "decoded_offset": "0x3bbfae", "container_address": "0x4067bfce", "text": "Execute_FirmwareUpdate_Strobe()"}
+{"block": 0, "decoded_offset": "0x3bbfe3", "container_address": "0x4067c003", "text": "update end"}
+{"block": 0, "decoded_offset": "0x3bbfee", "container_address": "0x4067c00e", "text": "api_firmup_Check_FirmwareUpdate_Lens"}
+{"block": 0, "decoded_offset": "0x3bc01f", "container_address": "0x4067c03f", "text": "api_firmup_Execute_FirmwareUpdate_Lens"}
+{"block": 0, "decoded_offset": "0x3bc046", "container_address": "0x4067c066", "text": "Execute_FirmwareUpdate_Lens()"}
+{"block": 0, "decoded_offset": "0x3bc064", "container_address": "0x4067c084", "text": "update start"}
+{"block": 0, "decoded_offset": "0x3bc090", "container_address": "0x4067c0b0", "text": "api_firmup_dummy_Start_Display_FirmwareUpdate"}
+{"block": 0, "decoded_offset": "0x3bc0be", "container_address": "0x4067c0de", "text": "api_firmup_dummy_End_Display_FirmwareUpdate"}
+{"block": 0, "decoded_offset": "0x3bc0ea", "container_address": "0x4067c10a", "text": "api_firmup_dummy_Shutdown_FirmwareUpdate"}
+{"block": 0, "decoded_offset": "0x3bc149", "container_address": "0x4067c169", "text": "api_gps_dummy_Update_Gps_Point"}
+{"block": 0, "decoded_offset": "0x3bc1a6", "container_address": "0x4067c1c6", "text": "api_gps_dummy_Get_Gps_Update_Time"}
+{"block": 0, "decoded_offset": "0x3bc4bf", "container_address": "0x4067c4df", "text": "api_gps_dummy_Get_Gps_Module_Version"}
+{"block": 0, "decoded_offset": "0x3bca7d", "container_address": "0x4067ca9d", "text": "\\5~$\\5~k\\5~k\\5~.\\5~7\\5~@\\5~k\\5~k\\5~O\\5~Y\\5~b\\5~api_industrial_dummy_Check_Update_Category_Info"}
+{"block": 0, "decoded_offset": "0x3bcadc", "container_address": "0x4067cafc", "text": "api_industrial_dummy_Update_Category_Info"}
+{"block": 0, "decoded_offset": "0x3c36ed", "container_address": "0x4068370d", "text": "api_picfile_Update_PictureFile"}
+{"block": 0, "decoded_offset": "0x3c7022", "container_address": "0x40687042", "text": "Create_QR version "}
+{"block": 0, "decoded_offset": "0x3c7798", "container_address": "0x406877b8", "text": "api_rcu_Upload_RelocateCode"}
+{"block": 0, "decoded_offset": "0x3c77b4", "container_address": "0x406877d4", "text": "api_rcu_Delete_RelocateCode"}
+{"block": 0, "decoded_offset": "0x3c77d0", "container_address": "0x406877f0", "text": "api_rcu_Get_ProcList_Media_RelocateCode"}
+{"block": 0, "decoded_offset": "0x3c77f8", "container_address": "0x40687818", "text": "api_rcu_Get_ProcList_RelocateCode"}
+{"block": 0, "decoded_offset": "0x3c781a", "container_address": "0x4068783a", "text": "api_rcu_Get_RelocateCode_Disable_Flag"}
+{"block": 0, "decoded_offset": "0x3c7840", "container_address": "0x40687860", "text": "api_rcu_Set_RelocateCode_Disable_Flag"}
+{"block": 0, "decoded_offset": "0x3c7cc3", "container_address": "0x40687ce3", "text": "api_rec_Update_WhiteBalance"}
+{"block": 0, "decoded_offset": "0x3c7cdf", "container_address": "0x40687cff", "text": "Update_WhiteBalance "}
+{"block": 0, "decoded_offset": "0x3c89a8", "container_address": "0x406889c8", "text": "api_rec_Update_FocusRingDirection"}
+{"block": 0, "decoded_offset": "0x3c8a98", "container_address": "0x40688ab8", "text": "api_rec_Update_ExposePreview"}
+{"block": 0, "decoded_offset": "0x3c8d7d", "container_address": "0x40688d9d", "text": "api_rec_Update_Anti_Shake"}
+{"block": 0, "decoded_offset": "0x3c8d97", "container_address": "0x40688db7", "text": "Update_Anti_Shake param error!"}
+{"block": 0, "decoded_offset": "0x3cab8c", "container_address": "0x4068abac", "text": "api_rec_Update_Bulb_Lv"}
+{"block": 0, "decoded_offset": "0x3ce59b", "container_address": "0x4068e5bb", "text": "api_tft_Update_Through"}
+{"block": 0, "decoded_offset": "0x3ce5b2", "container_address": "0x4068e5d2", "text": "Update_Through sensor "}
+{"block": 0, "decoded_offset": "0x3ce5c9", "container_address": "0x4068e5e9", "text": "Update_Through mode "}
+{"block": 0, "decoded_offset": "0x3ce5de", "container_address": "0x4068e5fe", "text": "Update_Through clip_x "}
+{"block": 0, "decoded_offset": "0x3ce5f5", "container_address": "0x4068e615", "text": "Update_Through clip_y "}
+{"block": 0, "decoded_offset": "0x3ce60c", "container_address": "0x4068e62c", "text": "Update_Through multi.page "}
+{"block": 0, "decoded_offset": "0x3cf8ab", "container_address": "0x4068f8cb", "text": "api_tft_Update_Through_Image"}
+{"block": 0, "decoded_offset": "0x3cf8c8", "container_address": "0x4068f8e8", "text": "Update_Through_Image display_w "}
+{"block": 0, "decoded_offset": "0x3cf8e8", "container_address": "0x4068f908", "text": "Update_Through_Image display_h "}
+{"block": 0, "decoded_offset": "0x3cf908", "container_address": "0x4068f928", "text": "Update_Through_Image image_x "}
+{"block": 0, "decoded_offset": "0x3cf926", "container_address": "0x4068f946", "text": "Update_Through_Image image_y "}
+{"block": 0, "decoded_offset": "0x3cf944", "container_address": "0x4068f964", "text": "Update_Through_Image image_w "}
+{"block": 0, "decoded_offset": "0x3cf962", "container_address": "0x4068f982", "text": "Update_Through_Image image_h "}
+{"block": 0, "decoded_offset": "0x3cfef1", "container_address": "0x4068ff11", "text": "api_tft_dummy_Display_Update"}
+{"block": 0, "decoded_offset": "0x3cff0e", "container_address": "0x4068ff2e", "text": "api_tft_dummy_Set_DisplayUpdate_Effect"}
+{"block": 0, "decoded_offset": "0x3d00fa", "container_address": "0x4069011a", "text": "api_tft_dummy_Set_DisplayUpdate_Rotate"}
+{"block": 0, "decoded_offset": "0x3d0e09", "container_address": "0x40690e29", "text": "[exp]:update"}
+{"block": 0, "decoded_offset": "0x3d3cdf", "container_address": "0x40693cff", "text": "UPDATE          :"}
+{"block": 0, "decoded_offset": "0x3d4440", "container_address": "0x40694460", "text": "                        --> 4:EXP_COM_THROUGH_UPDATE"}
+{"block": 0, "decoded_offset": "0x3d4935", "container_address": "0x40694955", "text": "[exp]:update_callback              :"}
+{"block": 0, "decoded_offset": "0x3d5602", "container_address": "0x40695622", "text": "[exp]:update"}
+{"block": 0, "decoded_offset": "0x3d6deb", "container_address": "0x40696e0b", "text": "E_EXP_UPDATE"}
+{"block": 0, "decoded_offset": "0x3d72b4", "container_address": "0x406972d4", "text": "[exp]:update_post"}
+{"block": 0, "decoded_offset": "0x3d7310", "container_address": "0x40697330", "text": "[exp]:update event"}
+{"block": 0, "decoded_offset": "0x3dabbc", "container_address": "0x4069abdc", "text": "display process last update img hd :"}
+{"block": 0, "decoded_offset": "0x3dac0e", "container_address": "0x4069ac2e", "text": "display process last update O1addr:/"}
+{"block": 0, "decoded_offset": "0x3dac58", "container_address": "0x4069ac78", "text": "backpanel Version:"}
+{"block": 0, "decoded_offset": "0x3dac8a", "container_address": "0x4069acaa", "text": "vf-2 Version:"}
+{"block": 0, "decoded_offset": "0x3dac98", "container_address": "0x4069acb8", "text": "vf-3 Version:"}
+{"block": 0, "decoded_offset": "0x3e7464", "container_address": "0x406a7484", "text": "[DisplayFrame]UpdateQwriteError..."}
+{"block": 0, "decoded_offset": "0x3e756f", "container_address": "0x406a758f", "text": "[display]update ev wait error:"}
+{"block": 0, "decoded_offset": "0x3ee2fa", "container_address": "0x406ae31a", "text": "[TP] Touch IC F/W Version A not available!!"}
+{"block": 0, "decoded_offset": "0x3ee75a", "container_address": "0x406ae77a", "text": "9~[disp_sync]update_osd test! "}
+{"block": 0, "decoded_offset": "0x3ee77a", "container_address": "0x406ae79a", "text": "[disp_sync]update_osd err! "}
+{"block": 0, "decoded_offset": "0x3ee796", "container_address": "0x406ae7b6", "text": "[disp_sync]update_osd param err! "}
+{"block": 0, "decoded_offset": "0x3ee7b8", "container_address": "0x406ae7d8", "text": "[disp_sync]update_img test! "}
+{"block": 0, "decoded_offset": "0x3ee7d6", "container_address": "0x406ae7f6", "text": "[disp_sync]update_img err! "}
+{"block": 0, "decoded_offset": "0x3ee7f2", "container_address": "0x406ae812", "text": "[disp_sync]update_img param err! "}
+{"block": 0, "decoded_offset": "0x3ee8fa", "container_address": "0x406ae91a", "text": "[disp_sync]force_wait_img update err1 "}
+{"block": 0, "decoded_offset": "0x3ee944", "container_address": "0x406ae964", "text": "[disp_sync]force_wait_img update osd err2 "}
+{"block": 0, "decoded_offset": "0x3ee96f", "container_address": "0x406ae98f", "text": "[disp_sync]force_wait_img update img err3 "}
+{"block": 0, "decoded_offset": "0x3ee9e7", "container_address": "0x406aea07", "text": "[disp_sync]force_wait_osd update err1 "}
+{"block": 0, "decoded_offset": "0x3eea31", "container_address": "0x406aea51", "text": "[disp_sync]force_wait_osd update osd err2 "}
+{"block": 0, "decoded_offset": "0x3eea5c", "container_address": "0x406aea7c", "text": "[disp_sync]force_wait_osd update img err3 "}
+{"block": 0, "decoded_offset": "0x3eef36", "container_address": "0x406aef56", "text": "[disp_sync]wait_img_update_osd_sync update err "}
+{"block": 0, "decoded_offset": "0x3eef66", "container_address": "0x406aef86", "text": "[disp_sync]wait_img_update_osd_sync os err1 "}
+{"block": 0, "decoded_offset": "0x3eef93", "container_address": "0x406aefb3", "text": "[disp_sync]wait_img_update_osd_sync warning "}
+{"block": 0, "decoded_offset": "0x3eefc0", "container_address": "0x406aefe0", "text": "[disp_sync]wait_img_update_osd_sync os err2 "}
+{"block": 0, "decoded_offset": "0x3eefed", "container_address": "0x406af00d", "text": "[disp_sync]wait_img_update_osd_sync state err!! "}
+{"block": 0, "decoded_offset": "0x3ef01e", "container_address": "0x406af03e", "text": "[disp_sync]wait_osd_update_img_sync update err "}
+{"block": 0, "decoded_offset": "0x3ef04e", "container_address": "0x406af06e", "text": "[disp_sync]wait_osd_update_img_sync os err1 "}
+{"block": 0, "decoded_offset": "0x3ef07b", "container_address": "0x406af09b", "text": "[disp_sync]wait_osd_update_img_sync warning "}
+{"block": 0, "decoded_offset": "0x3ef0a8", "container_address": "0x406af0c8", "text": "[disp_sync]wait_osd_update_img_sync os err2 "}
+{"block": 0, "decoded_offset": "0x3ef0d5", "container_address": "0x406af0f5", "text": "[disp_sync]wait_osd_update_img_sync state err!! "}
+{"block": 0, "decoded_offset": "0x3ef106", "container_address": "0x406af126", "text": "[disp_sync]wait_img_update_osd_async update err "}
+{"block": 0, "decoded_offset": "0x3ef137", "container_address": "0x406af157", "text": "[disp_sync]wait_img_update_osd_async os err "}
+{"block": 0, "decoded_offset": "0x3ef164", "container_address": "0x406af184", "text": "[disp_sync]wait_img_update_osd_async warning "}
+{"block": 0, "decoded_offset": "0x3ef192", "container_address": "0x406af1b2", "text": "[disp_sync]wait_img_update_osd_async state err!! "}
+{"block": 0, "decoded_offset": "0x3ef1c4", "container_address": "0x406af1e4", "text": "[disp_sync]wait_osd_update_img_async update err "}
+{"block": 0, "decoded_offset": "0x3ef1f5", "container_address": "0x406af215", "text": "[disp_sync]wait_osd_update_img_async os err "}
+{"block": 0, "decoded_offset": "0x3ef222", "container_address": "0x406af242", "text": "[disp_sync]wait_osd_update_img_async warning "}
+{"block": 0, "decoded_offset": "0x3ef250", "container_address": "0x406af270", "text": "[disp_sync]wait_osd_update_img_async state err!! "}
+{"block": 0, "decoded_offset": "0x3f018d", "container_address": "0x406b01ad", "text": "sync show upd -- show update data"}
+{"block": 0, "decoded_offset": "0x3f01fe", "container_address": "0x406b021e", "text": "sync upd osd <val> <val2> <val3> <val4> -- update osd test! val=com, val2=OSD1_adrr, val3=OSD2_adrr, val3=OSD3_adrr"}
+{"block": 0, "decoded_offset": "0x3f0273", "container_address": "0x406b0293", "text": "sync upd img <val> <val2> <val3> <val4> -- update img test! val=com, val2=IMG1_ID, val3=IMG2_ID, val3=IMG3_ID"}
+{"block": 0, "decoded_offset": "0x3f02e2", "container_address": "0x406b0302", "text": "sync upd can <val> -- update cancel test"}
+{"block": 0, "decoded_offset": "0x3f030c", "container_address": "0x406b032c", "text": "sync upd for <val> -- update force test"}
+{"block": 0, "decoded_offset": "0x3f041e", "container_address": "0x406b043e", "text": "disp_sync_update_osd ret =%d wait=%d"}
+{"block": 0, "decoded_offset": "0x3f0444", "container_address": "0x406b0464", "text": "sync upd osd <val> -- update osd test"}
+{"block": 0, "decoded_offset": "0x3f046f", "container_address": "0x406b048f", "text": "disp_sync_update_img ret =%d wait=%d"}
+{"block": 0, "decoded_offset": "0x3f0495", "container_address": "0x406b04b5", "text": "sync upd img <val> -- update img test"}
+{"block": 0, "decoded_offset": "0x3f05e8", "container_address": "0x406b0608", "text": "[disp_sync]DISP_UPDATE_SCREEN_OSD err! "}
+{"block": 0, "decoded_offset": "0x3f0610", "container_address": "0x406b0630", "text": "[disp_sync]DISP_UPDATE_SCREEN_IMG err! "}
+{"block": 0, "decoded_offset": "0x3f0638", "container_address": "0x406b0658", "text": "[disp_sync]DISP_UPDATE_SCREEN err! "}
+{"block": 0, "decoded_offset": "0x3f0d3c", "container_address": "0x406b0d5c", "text": "[MOV] CMD MOV_CMD_PARAM_UPDATE"}
+{"block": 0, "decoded_offset": "0x3f10b9", "container_address": "0x406b10d9", "text": "[mov]mov_image_process skip for m_NotMemUpdateFlg"}
+{"block": 0, "decoded_offset": "0x3f1928", "container_address": "0x406b1948", "text": "MODE_EXPOSE_ROUGH_MONOCHROME"}
+{"block": 0, "decoded_offset": "0x3f1945", "container_address": "0x406b1965", "text": "MODE_EXPOSE_ROUGH_MONOCHROME_MOVIE"}
+{"block": 0, "decoded_offset": "0x3f3a16", "container_address": "0x406b3a36", "text": "[mov_buff]mov_buff_update_yuv() start"}
+{"block": 0, "decoded_offset": "0x3f3a59", "container_address": "0x406b3a79", "text": "[mov_buff]mov_buff_update_yuv() end"}
+{"block": 0, "decoded_offset": "0x3f40b4", "container_address": "0x406b40d4", "text": "update disable"}
+{"block": 0, "decoded_offset": "0x3f5189", "container_address": "0x406b51a9", "text": "mov debug commands MOV_CMD_PARAM_UPDATE "}
+{"block": 0, "decoded_offset": "0x3f5aa9", "container_address": "0x406b5ac9", "text": "[MOV_CMD] Param Update"}
+{"block": 0, "decoded_offset": "0x3f6485", "container_address": "0x406b64a5", "text": "pImgParam->shSv          %lu"}
+{"block": 0, "decoded_offset": "0x3f6539", "container_address": "0x406b6559", "text": "pImgParam->chSaturation  %lu"}
+{"block": 0, "decoded_offset": "0x3f6856", "container_address": "0x406b6876", "text": "pImgParam->shSvBase      %lu"}
+{"block": 0, "decoded_offset": "0x3fa59d", "container_address": "0x406ba5bd", "text": "[AVCHD] ulMinorVersion    : "}
+{"block": 0, "decoded_offset": "0x3fad02", "container_address": "0x406bad22", "text": "              : IMG_FUNC_LUMINA"}
+{"block": 0, "decoded_offset": "0x3fad22", "container_address": "0x406bad42", "text": "              : IMG_FUNC_CHROMA"}
+{"block": 0, "decoded_offset": "0x3fb170", "container_address": "0x406bb190", "text": "[MOV_KDG] mov_kdg_memory_update_yc() in"}
+{"block": 0, "decoded_offset": "0x3fb198", "container_address": "0x406bb1b8", "text": "[KDG_DBG] mov_kdg_memory_update_yc()"}
+{"block": 0, "decoded_offset": "0x3fb1d7", "container_address": "0x406bb1f7", "text": "[MOV_KDG] mov_kdg_memory_update_yc() out"}
+{"block": 0, "decoded_offset": "0x402ce1", "container_address": "0x406c2d01", "text": "[AVCHD] APPEVENT RECMOVIE_UPDATE"}
+{"block": 0, "decoded_offset": "0x403f3f", "container_address": "0x406c3f5f", "text": "[rec]->[app] UPDATE!!!!!!"}
+{"block": 0, "decoded_offset": "0x4040ad", "container_address": "0x406c40cd", "text": "[rec]mov_rec_update"}
+{"block": 0, "decoded_offset": "0x4040c1", "container_address": "0x406c40e1", "text": "[MOV_REC] mov_rec_MJPEG_update video buff FULL!!"}
+{"block": 0, "decoded_offset": "0x4040f2", "container_address": "0x406c4112", "text": "[MOV_REC] mov_rec_MJPEG_update video_wp_update==FALSE."}
+{"block": 0, "decoded_offset": "0x4041a5", "container_address": "0x406c41c5", "text": "[rec]->[app]mov_rec_write_start:UPDATE"}
+{"block": 0, "decoded_offset": "0x4041f7", "container_address": "0x406c4217", "text": "[rec]->[app]mov_rec_write_start:UPDATE2"}
+{"block": 0, "decoded_offset": "0x405e5a", "container_address": "0x406c5e7a", "text": "<Wifi para> wifi_remocon_through_update(1):"}
+{"block": 0, "decoded_offset": "0x405e86", "container_address": "0x406c5ea6", "text": "<Wifi para> wifi_remocon_through_update(2):"}
+{"block": 0, "decoded_offset": "0x406f28", "container_address": "0x406c6f48", "text": "  -v   - version"}
+{"block": 0, "decoded_offset": "0x406f3a", "container_address": "0x406c6f5a", "text": "face_dbg_okao_pt_version in"}
+{"block": 0, "decoded_offset": "0x406f6a", "container_address": "0x406c6f8a", "text": "face_dbg_okao_ss_version in"}
+{"block": 0, "decoded_offset": "0x407ecf", "container_address": "0x406c7eef", "text": "app_mode_set_update_notify"}
+{"block": 0, "decoded_offset": "0x407eea", "container_address": "0x406c7f0a", "text": "app_mode_playinfo_update"}
+{"block": 0, "decoded_offset": "0x4080d4", "container_address": "0x406c80f4", "text": "app_mode_strobe_external_update"}
+{"block": 0, "decoded_offset": "0x408181", "container_address": "0x406c81a1", "text": "app_mode_digital_zoom_update"}
+{"block": 0, "decoded_offset": "0x40819e", "container_address": "0x406c81be", "text": "app_mode_super_macro_state_update"}
+{"block": 0, "decoded_offset": "0x40825e", "container_address": "0x406c827e", "text": "app_mode_state_set_through_update_enable"}
+{"block": 0, "decoded_offset": "0x408287", "container_address": "0x406c82a7", "text": "app_mode_state_through_update"}
+{"block": 0, "decoded_offset": "0x40864d", "container_address": "0x406c866d", "text": "mcon_if_strobe_external_update: camerainfo locking"}
+{"block": 0, "decoded_offset": "0x408680", "container_address": "0x406c86a0", "text": "mcon_if_digital_zoom_update: camerainfo locking"}
+{"block": 0, "decoded_offset": "0x4086b0", "container_address": "0x406c86d0", "text": "mcon_if_super_macro_state_update: camerainfo locking"}
+{"block": 0, "decoded_offset": "0x40879a", "container_address": "0x406c87ba", "text": "mcon_mode_set_camerainfo_simple_without_update: camerainfo locking"}
+{"block": 0, "decoded_offset": "0x44ed09", "container_address": "0x4070ed29", "text": "Version x.x"}
+{"block": 0, "decoded_offset": "0x44fdaa", "container_address": "0x4070fdca", "text": "REC IMAGE bracket_update"}
+{"block": 0, "decoded_offset": "0x44fdd8", "container_address": "0x4070fdf8", "text": "REC BRACKET update rawjpeg-exif"}
+{"block": 0, "decoded_offset": "0x44fdf8", "container_address": "0x4070fe18", "text": "REC BRACKET update rawjpeg"}
+{"block": 0, "decoded_offset": "0x4511a0", "container_address": "0x407111c0", "text": "shSv           "}
+{"block": 0, "decoded_offset": "0x4511b0", "container_address": "0x407111d0", "text": "shSvBase       "}
+{"block": 0, "decoded_offset": "0x451200", "container_address": "0x40711220", "text": "usRawSaturation"}
+{"block": 0, "decoded_offset": "0x451250", "container_address": "0x40711270", "text": "chSaturation   "}
+{"block": 0, "decoded_offset": "0x453ee4", "container_address": "0x40713f04", "text": "shColorSaturation      "}
+{"block": 0, "decoded_offset": "0x4541de", "container_address": "0x407141fe", "text": "shSv             "}
+{"block": 0, "decoded_offset": "0x454214", "container_address": "0x40714234", "text": "usRawSaturation  "}
+{"block": 0, "decoded_offset": "0x45425c", "container_address": "0x4071427c", "text": "shSaturation     "}
+{"block": 0, "decoded_offset": "0x4549e8", "container_address": "0x40714a08", "text": "shSv           "}
+{"block": 0, "decoded_offset": "0x4549f8", "container_address": "0x40714a18", "text": "shSvBase       "}
+{"block": 0, "decoded_offset": "0x454a48", "container_address": "0x40714a68", "text": "usRawSaturation"}
+{"block": 0, "decoded_offset": "0x454a98", "container_address": "0x40714ab8", "text": "chSaturation   "}
+{"block": 0, "decoded_offset": "0x456794", "container_address": "0x407167b4", "text": "art_filter_06_rough_monochrome"}
+{"block": 0, "decoded_offset": "0x4567b3", "container_address": "0x407167d3", "text": "art_filter_rough_monochrome_pass1"}
+{"block": 0, "decoded_offset": "0x4567d5", "container_address": "0x407167f5", "text": "art_filter_rough_monochrome_pass2"}
+{"block": 0, "decoded_offset": "0x4567f7", "container_address": "0x40716817", "text": "art_filter_rough_monochrome_pass3"}
+{"block": 0, "decoded_offset": "0x456819", "container_address": "0x40716839", "text": "art_filter_rough_monochrome_pass4"}
+{"block": 0, "decoded_offset": "0x45683b", "container_address": "0x4071685b", "text": "art_filter_rough_monochrome_pass5"}
+{"block": 0, "decoded_offset": "0x45685d", "container_address": "0x4071687d", "text": "art_filter_rough_monochrome_pass6"}
+{"block": 0, "decoded_offset": "0x45687f", "container_address": "0x4071689f", "text": "art_filter_rough_monochrome_pass7"}
+{"block": 0, "decoded_offset": "0x4568a1", "container_address": "0x407168c1", "text": "art_filter_rough_monochrome_pass8"}
+{"block": 0, "decoded_offset": "0x4568c3", "container_address": "0x407168e3", "text": "art_filter_rough_monochrome_pass9"}
+{"block": 0, "decoded_offset": "0x4568e5", "container_address": "0x40716905", "text": "art_filter_rough_monochrome_pass_err"}
+{"block": 0, "decoded_offset": "0x45690a", "container_address": "0x4071692a", "text": "art_filter_rough_monochrome_skip_all_check"}
+{"block": 0, "decoded_offset": "0x456935", "container_address": "0x40716955", "text": "art_filter_rough_monochrome_mov_check"}
+{"block": 0, "decoded_offset": "0x4569f1", "container_address": "0x40716a11", "text": "yU~art_filter_06_rough_monochrome in"}
+{"block": 0, "decoded_offset": "0x456a16", "container_address": "0x40716a36", "text": "art_filter_06_rough_monochrome out"}
+{"block": 0, "decoded_offset": "0x456a39", "container_address": "0x40716a59", "text": "art_filter_rough_monochrome_skip_all_check in"}
+{"block": 0, "decoded_offset": "0x456a67", "container_address": "0x40716a87", "text": "art_filter_rough_monochrome_skip_all_check out "}
+{"block": 0, "decoded_offset": "0x456a97", "container_address": "0x40716ab7", "text": "art_filter_rough_monochrome_pass1 in "}
+{"block": 0, "decoded_offset": "0x456abd", "container_address": "0x40716add", "text": "art_filter_rough_monochrome_pass1 out"}
+{"block": 0, "decoded_offset": "0x456ae3", "container_address": "0x40716b03", "text": "art_filter_rough_monochrome_pass2 in "}
+{"block": 0, "decoded_offset": "0x456b09", "container_address": "0x40716b29", "text": "art_filter_06_rough_monochrome.c"}
+{"block": 0, "decoded_offset": "0x456b2a", "container_address": "0x40716b4a", "text": "art_filter_rough_monochrome_pass2 out "}
+{"block": 0, "decoded_offset": "0x456b51", "container_address": "0x40716b71", "text": "art_filter_rough_monochrome_pass3 in "}
+{"block": 0, "decoded_offset": "0x456b77", "container_address": "0x40716b97", "text": "art_filter_rough_monochrome_pass3 out "}
+{"block": 0, "decoded_offset": "0x456b9e", "container_address": "0x40716bbe", "text": "art_filter_rough_monochrome_pass4 in "}
+{"block": 0, "decoded_offset": "0x456bc4", "container_address": "0x40716be4", "text": "art_filter_rough_monochrome_pass4 out "}
+{"block": 0, "decoded_offset": "0x456beb", "container_address": "0x40716c0b", "text": "art_filter_rough_monochrome_pass5 in "}
+{"block": 0, "decoded_offset": "0x456c11", "container_address": "0x40716c31", "text": "art_filter_rough_monochrome_pass5 out "}
+{"block": 0, "decoded_offset": "0x456c38", "container_address": "0x40716c58", "text": "art_filter_rough_monochrome_pass6 in "}
+{"block": 0, "decoded_offset": "0x456c5e", "container_address": "0x40716c7e", "text": "art_filter_rough_monochrome_pass6 out "}
+{"block": 0, "decoded_offset": "0x456c85", "container_address": "0x40716ca5", "text": "art_filter_rough_monochrome_pass7 in "}
+{"block": 0, "decoded_offset": "0x456cab", "container_address": "0x40716ccb", "text": "art_filter_rough_monochrome_pass7 out "}
+{"block": 0, "decoded_offset": "0x456cd2", "container_address": "0x40716cf2", "text": "art_filter_rough_monochrome_pass8 in "}
+{"block": 0, "decoded_offset": "0x456cf8", "container_address": "0x40716d18", "text": "art_filter_rough_monochrome_pass8 out"}
+{"block": 0, "decoded_offset": "0x456d1e", "container_address": "0x40716d3e", "text": "art_filter_rough_monochrome_pass9 in "}
+{"block": 0, "decoded_offset": "0x456d44", "container_address": "0x40716d64", "text": "art_filter_rough_monochrome_pass9 out"}
+{"block": 0, "decoded_offset": "0x456d6a", "container_address": "0x40716d8a", "text": "art_filter_rough_monochrome_pass_err in "}
+{"block": 0, "decoded_offset": "0x456d93", "container_address": "0x40716db3", "text": "art_filter_rough_monochrome_pass_err out"}
+{"block": 0, "decoded_offset": "0x456dbc", "container_address": "0x40716ddc", "text": "art_filter_rough_monochrome_mov_check in"}
+{"block": 0, "decoded_offset": "0x456de5", "container_address": "0x40716e05", "text": "art_filter_rough_monochrome_mov_check out "}
+{"block": 0, "decoded_offset": "0x45b7c4", "container_address": "0x4071b7e4", "text": "                   0x04 PS_UPDATE                            "}
+{"block": 0, "decoded_offset": "0x45b8fa", "container_address": "0x4071b91a", "text": "                     ex) 0x05 : PS_INIT & PS_UPDATE          "}
+{"block": 0, "decoded_offset": "0x45baf1", "container_address": "0x4071bb11", "text": "                   0x04 PS_UPDATE                            "}
+{"block": 0, "decoded_offset": "0x45bc27", "container_address": "0x4071bc47", "text": "                     ex) 0x05 : PS_INIT & PS_UPDATE          "}
+{"block": 0, "decoded_offset": "0x45c568", "container_address": "0x4071c588", "text": "shSv               "}
+{"block": 0, "decoded_offset": "0x45c57c", "container_address": "0x4071c59c", "text": "shSvBase           "}
+{"block": 0, "decoded_offset": "0x45c5e0", "container_address": "0x4071c600", "text": "usRawSaturation    "}
+{"block": 0, "decoded_offset": "0x45c644", "container_address": "0x4071c664", "text": "chSaturation       "}
+{"block": 0, "decoded_offset": "0x45fb40", "container_address": "0x4071fb60", "text": "iseq_ps_update_exe_pass_template_blend"}
+{"block": 0, "decoded_offset": "0x45fb67", "container_address": "0x4071fb87", "text": "iseq_ps_update_exe_pass_rgba"}
+{"block": 0, "decoded_offset": "0x45fb84", "container_address": "0x4071fba4", "text": "iseq_ps_update_exe_pass_nochange"}
+{"block": 0, "decoded_offset": "0x45fba5", "container_address": "0x4071fbc5", "text": "iseq_ps_update_exe_pass_cmp_copy"}
+{"block": 0, "decoded_offset": "0x45fbc6", "container_address": "0x4071fbe6", "text": "iseq_ps_update_exe_pass_src_copy"}
+{"block": 0, "decoded_offset": "0x45fbe7", "container_address": "0x4071fc07", "text": "iseq_ps_update_terminate"}
+{"block": 0, "decoded_offset": "0x45fd30", "container_address": "0x4071fd50", "text": "Error : update pic num[%d]"}
+{"block": 0, "decoded_offset": "0x45fd4c", "container_address": "0x4071fd6c", "text": "update cnt :"}
+{"block": 0, "decoded_offset": "0x4603cf", "container_address": "0x407203ef", "text": "olis_ctrl_update_imgshare    : I"}
+{"block": 0, "decoded_offset": "0x460411", "container_address": "0x40720431", "text": "Error : update mode"}
+{"block": 0, "decoded_offset": "0x460425", "container_address": "0x40720445", "text": "olis_ctrl_update_imgshare    : O"}
+{"block": 0, "decoded_offset": "0x4606b3", "container_address": "0x407206d3", "text": " STATE : UPDATE"}
+{"block": 0, "decoded_offset": "0x4607bd", "container_address": "0x407207dd", "text": "   update_time        : 0x"}
+{"block": 0, "decoded_offset": "0x7983f7", "container_address": "0x40a58417", "text": "<image-descriptor version=\"1.0\">    <image encoding=\"JPEG\" pixel=\"%d*%d\" size= \"%d\"/></image-descriptor>"}
+{"block": 0, "decoded_offset": "0x798460", "container_address": "0x40a58480", "text": "<imaging-capabilities version=\"1.0\">"}
+{"block": 0, "decoded_offset": "0x799a0d", "container_address": "0x40a59a2d", "text": "OBEX: SDP_ParseAttributes succeeded! RFCOMM Channel = %d,Updated Buff Len = %d"}
+{"block": 0, "decoded_offset": "0x79c440", "container_address": "0x40a5c460", "text": "<imaging-capabilities version=\"1.0\">"}
+{"block": 0, "decoded_offset": "0x79c75b", "container_address": "0x40a5c77b", "text": "<image-descriptor version=\"1.0\">    <image encoding=\"JPEG\" pixel=\"1280*960\" size= \"500000\"/></image-descriptor>"}
+{"block": 0, "decoded_offset": "0x7a35cb", "container_address": "0x40a635eb", "text": "play_exif_update_round_mode in"}
+{"block": 0, "decoded_offset": "0x7a35ea", "container_address": "0x40a6360a", "text": "play_exif_update_round_mode out "}
+{"block": 0, "decoded_offset": "0x7a420d", "container_address": "0x40a6422d", "text": "    update progress"}
+{"block": 0, "decoded_offset": "0x7a44d5", "container_address": "0x40a644f5", "text": "play_file_update_file in"}
+{"block": 0, "decoded_offset": "0x7a44ee", "container_address": "0x40a6450e", "text": "play_file_update_file out:"}
+{"block": 0, "decoded_offset": "0x7a46f6", "container_address": "0x40a64716", "text": "play_gps_file_update in"}
+{"block": 0, "decoded_offset": "0x7a470e", "container_address": "0x40a6472e", "text": "play_gps_file_update out "}
+{"block": 0, "decoded_offset": "0x7a4a2c", "container_address": "0x40a64a4c", "text": "play_img_make_monochrome in"}
+{"block": 0, "decoded_offset": "0x7a4a48", "container_address": "0x40a64a68", "text": "play_img_make_monochrome out:"}
+{"block": 0, "decoded_offset": "0x7a67e5", "container_address": "0x40a66805", "text": "    update prim file "}
+{"block": 0, "decoded_offset": "0x7a67fb", "container_address": "0x40a6681b", "text": "    update raw file "}
+{"block": 0, "decoded_offset": "0x7a6848", "container_address": "0x40a66868", "text": "      update round mode "}
+{"block": 0, "decoded_offset": "0x7a68f4", "container_address": "0x40a66914", "text": "    update round mode "}
+{"block": 0, "decoded_offset": "0x7a6bdc", "container_address": "0x40a66bfc", "text": "      update snsflag "}
+{"block": 0, "decoded_offset": "0x7ac187", "container_address": "0x40a6c1a7", "text": "[aud_seq_io_update_volume]"}
+{"block": 0, "decoded_offset": "0x7ac1a3", "container_address": "0x40a6c1c3", "text": "[aud_seq_io_update_output_device_sound]"}
+{"block": 0, "decoded_offset": "0x7b3022", "container_address": "0x40a73042", "text": "%3BRcu"}
+{"block": 0, "decoded_offset": "0x7b9aa4", "container_address": "0x40a79ac4", "text": "ModeUpdate"}
+{"block": 0, "decoded_offset": "0x7ba232", "container_address": "0x40a7a252", "text": "c~Initialized Observer Update."}
+{"block": 0, "decoded_offset": "0x7bbbc6", "container_address": "0x40a7bbe6", "text": "CBS_COMPLETE_UPDATE_FRAME"}
+{"block": 0, "decoded_offset": "0x7bbf64", "container_address": "0x40a7bf84", "text": "CBS_END_UPDATE"}
+{"block": 0, "decoded_offset": "0x7bca5e", "container_address": "0x40a7ca7e", "text": "CBS_UPDATE_FLASH_CHARGE"}
+{"block": 0, "decoded_offset": "0x7bca76", "container_address": "0x40a7ca96", "text": "CBS_UPDATE_HISTOGRAM"}
+{"block": 0, "decoded_offset": "0x7bca8b", "container_address": "0x40a7caab", "text": "CBS_UPDATE_INDEX"}
+{"block": 0, "decoded_offset": "0x7bca9c", "container_address": "0x40a7cabc", "text": "CBS_UPDATE_LIVEBULB"}
+{"block": 0, "decoded_offset": "0x7bcab0", "container_address": "0x40a7cad0", "text": "CBS_UPDATE_POSITION"}
+{"block": 0, "decoded_offset": "0x7bcac4", "container_address": "0x40a7cae4", "text": "CBS_UPDATE_RECORDING_TIME"}
+{"block": 0, "decoded_offset": "0x7bcade", "container_address": "0x40a7cafe", "text": "CBS_UPDATE_SELF_TIMER"}
+{"block": 0, "decoded_offset": "0x7bcaf4", "container_address": "0x40a7cb14", "text": "CBS_UPDATE_SHOOTING_TIME"}
+{"block": 0, "decoded_offset": "0x7bcb0d", "container_address": "0x40a7cb2d", "text": "CBS_UPDATE_SINGLE"}
+{"block": 0, "decoded_offset": "0x7bd5da", "container_address": "0x40a7d5fa", "text": "EV_UPDATE_IMAGE_REQUEST"}
+{"block": 0, "decoded_offset": "0x7bfb86", "container_address": "0x40a7fba6", "text": "SettingController::clearCustom"}
+{"block": 0, "decoded_offset": "0x7c06ab", "container_address": "0x40a806cb", "text": "GpsCtrl::updateGPS "}
+{"block": 0, "decoded_offset": "0x7c06bf", "container_address": "0x40a806df", "text": "GpsCtrl::getGPSUpdateTime"}
+{"block": 0, "decoded_offset": "0x7c0752", "container_address": "0x40a80772", "text": "GpsCtrl::optimizeGpsUpdate"}
+{"block": 0, "decoded_offset": "0x7c086b", "container_address": "0x40a8088b", "text": "GpsCtrl::abortUpdateGPS"}
+{"block": 0, "decoded_offset": "0x7c10f7", "container_address": "0x40a81117", "text": "OSDControl::updateDisplay"}
+{"block": 0, "decoded_offset": "0x7c1111", "container_address": "0x40a81131", "text": "OSDControl::updateImageLayer"}
+{"block": 0, "decoded_offset": "0x7c1adf", "container_address": "0x40a81aff", "text": "Shooting::updateLiveBulb"}
+{"block": 0, "decoded_offset": "0x7c211b", "container_address": "0x40a8213b", "text": "Shooting::updatePhotoSession"}
+{"block": 0, "decoded_offset": "0x7c2a24", "container_address": "0x40a82a44", "text": "PlaySingleFrame::updateImage"}
+{"block": 0, "decoded_offset": "0x7c2de0", "container_address": "0x40a82e00", "text": "PlaySingleFrame::updateImageSync"}
+{"block": 0, "decoded_offset": "0x7c2e65", "container_address": "0x40a82e85", "text": "PlayIndex::updateImage"}
+{"block": 0, "decoded_offset": "0x7c4062", "container_address": "0x40a84082", "text": "ReservePrint::updateImageSync"}
+{"block": 0, "decoded_offset": "0x7c4722", "container_address": "0x40a84742", "text": "PlayEventCollection::updateImage"}
+{"block": 0, "decoded_offset": "0x7c4d93", "container_address": "0x40a84db3", "text": "PlaySelect::updateImageSync"}
+{"block": 0, "decoded_offset": "0x7c4e7d", "container_address": "0x40a84e9d", "text": "PlayLightBox::updateImage"}
+{"block": 0, "decoded_offset": "0x7c4ecb", "container_address": "0x40a84eeb", "text": "PlayLightBox::singleModeUpdate"}
+{"block": 0, "decoded_offset": "0x7c592e", "container_address": "0x40a8594e", "text": "Maintenance::getApiVersion"}
+{"block": 0, "decoded_offset": "0x7c59a4", "container_address": "0x40a859c4", "text": "Maintenance::getSystemVersion"}
+{"block": 0, "decoded_offset": "0x7c5a37", "container_address": "0x40a85a57", "text": "Maintenance::updateFirmware"}
+{"block": 0, "decoded_offset": "0x7c5a53", "container_address": "0x40a85a73", "text": "Maintenance::updateFirmwareCard"}
+{"block": 0, "decoded_offset": "0x7c5a73", "container_address": "0x40a85a93", "text": "Maintenance::canUpdateFirmwareCard"}
+{"block": 0, "decoded_offset": "0x7c5a96", "container_address": "0x40a85ab6", "text": "Maintenance::getGpsModuleVersion"}
+{"block": 0, "decoded_offset": "0x7cf7d7", "container_address": "0x40a8f7f7", "text": "OlyHfwOpeShoot::updateThroughAreaPhotoSession start "}
+{"block": 0, "decoded_offset": "0x7cf80c", "container_address": "0x40a8f82c", "text": "OlyHfwOpeShoot::updateThroughAreaPhotoSession end = 0x%08x"}
+{"block": 0, "decoded_offset": "0x7d568e", "container_address": "0x40a956ae", "text": "isMove:%d isPageUpdate:%d"}
+{"block": 0, "decoded_offset": "0x7d5b59", "container_address": "0x40a95b79", "text": "isMove:%d isPageUpdate:%d"}
+{"block": 0, "decoded_offset": "0x7d8d93", "container_address": "0x40a98db3", "text": "CALLBACK CBS_UPDATE_SELF_TIMER"}
+{"block": 0, "decoded_offset": "0x7d8f69", "container_address": "0x40a98f89", "text": "CBS_UPDATE_SHOOTING_TIME"}
+{"block": 0, "decoded_offset": "0x7dd888", "container_address": "0x40a9d8a8", "text": "clearCustom"}
+{"block": 0, "decoded_offset": "0x7de3f6", "container_address": "0x40a9e416", "text": "updateLiveBulb"}
+{"block": 0, "decoded_offset": "0x7de88c", "container_address": "0x40a9e8ac", "text": "updatePhotoSession"}
+{"block": 0, "decoded_offset": "0x7deaeb", "container_address": "0x40a9eb0b", "text": "updateImage"}
+{"block": 0, "decoded_offset": "0x7dec59", "container_address": "0x40a9ec79", "text": "updateImageSync"}
+{"block": 0, "decoded_offset": "0x7df093", "container_address": "0x40a9f0b3", "text": "singleModeUpdate"}
+{"block": 0, "decoded_offset": "0x7df5a0", "container_address": "0x40a9f5c0", "text": "getApiVersion"}
+{"block": 0, "decoded_offset": "0x7df5f2", "container_address": "0x40a9f612", "text": "getSystemVersion"}
+{"block": 0, "decoded_offset": "0x7df658", "container_address": "0x40a9f678", "text": "updateFirmware"}
+{"block": 0, "decoded_offset": "0x7df66b", "container_address": "0x40a9f68b", "text": "updateFirmwareCard"}
+{"block": 0, "decoded_offset": "0x7df682", "container_address": "0x40a9f6a2", "text": "canUpdateFirmwareCard"}
+{"block": 0, "decoded_offset": "0x7e001f", "container_address": "0x40aa003f", "text": "updateDisplay"}
+{"block": 0, "decoded_offset": "0x7e0031", "container_address": "0x40aa0051", "text": "updateImageLayer"}
+{"block": 0, "decoded_offset": "0x7e0231", "container_address": "0x40aa0251", "text": "updateGPS"}
+{"block": 0, "decoded_offset": "0x7e023f", "container_address": "0x40aa025f", "text": "getGPSUpdateTime"}
+{"block": 0, "decoded_offset": "0x7e02b4", "container_address": "0x40aa02d4", "text": "optimizeGpsUpdate"}
+{"block": 0, "decoded_offset": "0x7e0382", "container_address": "0x40aa03a2", "text": "abortUpdateGPS"}
+{"block": 0, "decoded_offset": "0x7e081f", "container_address": "0x40aa083f", "text": "  Version"}
+{"block": 0, "decoded_offset": "0x7e29e7", "container_address": "0x40aa2a07", "text": "  Version (PAGE 1)"}
+{"block": 0, "decoded_offset": "0x7e362e", "container_address": "0x40aa364e", "text": "getLayerCustom flag[%d]"}
+{"block": 0, "decoded_offset": "0x7e3646", "container_address": "0x40aa3666", "text": "getLayerCustomImg flag[%d]"}
+{"block": 0, "decoded_offset": "0x7e43ca", "container_address": "0x40aa43ea", "text": "clearCustom"}
+{"block": 0, "decoded_offset": "0x7e4f38", "container_address": "0x40aa4f58", "text": "updateLiveBulb"}
+{"block": 0, "decoded_offset": "0x7e53ce", "container_address": "0x40aa53ee", "text": "updatePhotoSession"}
+{"block": 0, "decoded_offset": "0x7e562d", "container_address": "0x40aa564d", "text": "updateImage"}
+{"block": 0, "decoded_offset": "0x7e579b", "container_address": "0x40aa57bb", "text": "updateImageSync"}
+{"block": 0, "decoded_offset": "0x7e5bd5", "container_address": "0x40aa5bf5", "text": "singleModeUpdate"}
+{"block": 0, "decoded_offset": "0x7e60e2", "container_address": "0x40aa6102", "text": "getApiVersion"}
+{"block": 0, "decoded_offset": "0x7e6134", "container_address": "0x40aa6154", "text": "getSystemVersion"}
+{"block": 0, "decoded_offset": "0x7e619a", "container_address": "0x40aa61ba", "text": "updateFirmware"}
+{"block": 0, "decoded_offset": "0x7e61ad", "container_address": "0x40aa61cd", "text": "updateFirmwareCard"}
+{"block": 0, "decoded_offset": "0x7e61c4", "container_address": "0x40aa61e4", "text": "canUpdateFirmwareCard"}
+{"block": 0, "decoded_offset": "0x7e6b61", "container_address": "0x40aa6b81", "text": "updateDisplay"}
+{"block": 0, "decoded_offset": "0x7e6b73", "container_address": "0x40aa6b93", "text": "updateImageLayer"}
+{"block": 0, "decoded_offset": "0x7e6d73", "container_address": "0x40aa6d93", "text": "updateGPS"}
+{"block": 0, "decoded_offset": "0x7e6d81", "container_address": "0x40aa6da1", "text": "getGPSUpdateTime"}
+{"block": 0, "decoded_offset": "0x7e6df6", "container_address": "0x40aa6e16", "text": "optimizeGpsUpdate"}
+{"block": 0, "decoded_offset": "0x7e6ec4", "container_address": "0x40aa6ee4", "text": "abortUpdateGPS"}
+{"block": 0, "decoded_offset": "0x7ed255", "container_address": "0x40aad275", "text": "usage: sdk api %s type picNum isFill red green blue isUpdate Aspect"}
+{"block": 0, "decoded_offset": "0x7ed345", "container_address": "0x40aad365", "text": "Update = ON  1"}
+{"block": 0, "decoded_offset": "0x7f0525", "container_address": "0x40ab0545", "text": "  LIVE_GUIDE_COLOR_SATURATION"}
+{"block": 0, "decoded_offset": "0x7f0b9d", "container_address": "0x40ab0bbd", "text": "  SHOOTING_MODE_LG_COLOR_SATURATION"}
+{"block": 0, "decoded_offset": "0x7f29b7", "container_address": "0x40ab29d7", "text": "TARGET_AF_CTRL_UPDATE  0x01"}
+{"block": 0, "decoded_offset": "0x7f2ee1", "container_address": "0x40ab2f01", "text": " 0    GUIDE_TYPE_SATURATION"}
+{"block": 0, "decoded_offset": "0x7f3850", "container_address": "0x40ab3870", "text": "OlyApiShootingController::updatePhotoSession"}
+{"block": 0, "decoded_offset": "0x7f4ed0", "container_address": "0x40ab4ef0", "text": "usage: sdk api %s direction isAnimation dispUpdate"}
+{"block": 0, "decoded_offset": "0x7f4f35", "container_address": "0x40ab4f55", "text": "dispUpdate"}
+{"block": 0, "decoded_offset": "0x7f610f", "container_address": "0x40ab612f", "text": "usage: sdk api %s direction dispUpdate"}
+{"block": 0, "decoded_offset": "0x7f6c46", "container_address": "0x40ab6c66", "text": "  KIND_MONOCHROME  = 0x00"}
+{"block": 0, "decoded_offset": "0x7fc32d", "container_address": "0x40abc34d", "text": "API_VERSION_BOOT          "}
+{"block": 0, "decoded_offset": "0x7fc348", "container_address": "0x40abc368", "text": "API_VERSION_USER          "}
+{"block": 0, "decoded_offset": "0x7fc363", "container_address": "0x40abc383", "text": "API_VERSION_ROM_NUMBER    "}
+{"block": 0, "decoded_offset": "0x7fc37e", "container_address": "0x40abc39e", "text": "API_VERSION_LENS_DRIVER   "}
+{"block": 0, "decoded_offset": "0x7fc399", "container_address": "0x40abc3b9", "text": "API_VERSION_SUB_CPU1      "}
+{"block": 0, "decoded_offset": "0x7fc3b4", "container_address": "0x40abc3d4", "text": "API_VERSION_EXTRA_LANG    "}
+{"block": 0, "decoded_offset": "0x7fc3cf", "container_address": "0x40abc3ef", "text": "API_VERSION_LENS_CPU      "}
+{"block": 0, "decoded_offset": "0x7fc3ea", "container_address": "0x40abc40a", "text": "API_VERSION_LENS_CPU_COMM "}
+{"block": 0, "decoded_offset": "0x7fc405", "container_address": "0x40abc425", "text": "API_VERSION_ACCESSORY     "}
+{"block": 0, "decoded_offset": "0x7fc420", "container_address": "0x40abc440", "text": "API_VERSION_ACCESSORY_COMM"}
+{"block": 0, "decoded_offset": "0x7fc43b", "container_address": "0x40abc45b", "text": "API_VERSION_STROBE        "}
+{"block": 0, "decoded_offset": "0x7fc456", "container_address": "0x40abc476", "text": "API_VERSION_SUB_CPU2_1    "}
+{"block": 0, "decoded_offset": "0x7fc471", "container_address": "0x40abc491", "text": "API_VERSION_SUB_CPU2_2    "}
+{"block": 0, "decoded_offset": "0x7fc48c", "container_address": "0x40abc4ac", "text": "API_VERSION_SUB_CPU2_3    "}
+{"block": 0, "decoded_offset": "0x8095df", "container_address": "0x40ac95ff", "text": "OlyHfwOpePlyCal::updateImage# areaNum %d"}
+{"block": 0, "decoded_offset": "0x809608", "container_address": "0x40ac9628", "text": "OlyHfwOpePlyCal::updateImage %d"}
+{"block": 0, "decoded_offset": "0x809a93", "container_address": "0x40ac9ab3", "text": "OlyHfwOpePlyEvw::cwUpdateImageLayer#"}
+{"block": 0, "decoded_offset": "0x809ab8", "container_address": "0x40ac9ad8", "text": "OlyHfwOpePlyEvw::cwUpdateImageLayer %#x"}
+{"block": 0, "decoded_offset": "0x80a392", "container_address": "0x40aca3b2", "text": "OlyHfwOpePlyIxp::updateImage#"}
+{"block": 0, "decoded_offset": "0x80a3b0", "container_address": "0x40aca3d0", "text": "OlyHfwOpePlyIxp::updateImage %d"}
+{"block": 0, "decoded_offset": "0x80aa4a", "container_address": "0x40acaa6a", "text": "@@@@@@@@@@@@OlyHfwOpePlyLightBox::singleModeUpdate#"}
+{"block": 0, "decoded_offset": "0x80aa7e", "container_address": "0x40acaa9e", "text": "@@@@@@@@@@@@OlyHfwOpePlyLightBox::singleModeUpdate result[%x]"}
+{"block": 0, "decoded_offset": "0x80ab34", "container_address": "0x40acab54", "text": "@@@@@@@@@@@@OlyHfwOpePlyLightBox::updateImage#"}
+{"block": 0, "decoded_offset": "0x80ab63", "container_address": "0x40acab83", "text": "OlyHfwOpePlyLightBox::updateImage = %x"}
+{"block": 0, "decoded_offset": "0x80ab8a", "container_address": "0x40acabaa", "text": "OlyHfwOpePlyLightBox::updateImage"}
+{"block": 0, "decoded_offset": "0x80b81d", "container_address": "0x40acb83d", "text": "@@@@@@@@@@@@OlyHfwOpePlySel::updateImageSync#"}
+{"block": 0, "decoded_offset": "0x80b84b", "container_address": "0x40acb86b", "text": "@@@@@@@@@@@@OlyHfwOpePlySel::updateImageSync res[0x%x]"}
+{"block": 0, "decoded_offset": "0x80c2c0", "container_address": "0x40acc2e0", "text": " dispUpdate[%d]#"}
+{"block": 0, "decoded_offset": "0x80c2d1", "container_address": "0x40acc2f1", "text": "!! Error !! isAnimation:TRUE dispUpdate:FALSE"}
+{"block": 0, "decoded_offset": "0x80c79b", "container_address": "0x40acc7bb", "text": "OlyHfwPlaySingleFrameOperation::updateImage#"}
+{"block": 0, "decoded_offset": "0x80c7c8", "container_address": "0x40acc7e8", "text": "OlyHfwOpePlySfr::updateImage %x"}
+{"block": 0, "decoded_offset": "0x80c7e8", "container_address": "0x40acc808", "text": "OlyHfwPlaySingleFrameOperation::updateImageSync#"}
+{"block": 0, "decoded_offset": "0x80c819", "container_address": "0x40acc839", "text": "OlyHfwPlaySingleFrameOperation::updateImageSync"}
+{"block": 0, "decoded_offset": "0x80d741", "container_address": "0x40acd761", "text": "@@@@@@@@@@@@OlyHfwOpeRsvPrt::updateImageSync#"}
+{"block": 0, "decoded_offset": "0x80d76f", "container_address": "0x40acd78f", "text": "@@@@@@@@@@@@OlyHfwOpeRsvPrt::updateImageSync"}
+{"block": 0, "decoded_offset": "0x815826", "container_address": "0x40ad5846", "text": "Update_Anti_Shake :anti(%d) pan(%d) eAnti(%d) antiM(%d)"}
+{"block": 0, "decoded_offset": "0x81f7b7", "container_address": "0x40adf7d7", "text": "app_event_view_update_view_point start"}
+{"block": 0, "decoded_offset": "0x81f7de", "container_address": "0x40adf7fe", "text": "app_event_view_update_view_point end"}
+{"block": 0, "decoded_offset": "0x8226fa", "container_address": "0x40ae271a", "text": "SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x822706", "container_address": "0x40ae2726", "text": "LayerCustom!"}
+{"block": 0, "decoded_offset": "0x82282f", "container_address": "0x40ae284f", "text": "chls_disp_view() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x822878", "container_address": "0x40ae2898", "text": "setSyncUpdateScreen()"}
+{"block": 0, "decoded_offset": "0x82288e", "container_address": "0x40ae28ae", "text": "setSyncUpdateScreenCancel()"}
+{"block": 0, "decoded_offset": "0x8228aa", "container_address": "0x40ae28ca", "text": "SyncUpdateScreen()"}
+{"block": 0, "decoded_offset": "0x822996", "container_address": "0x40ae29b6", "text": "tp_dispSyncLayerCustomImg kind[%d] layer_no[%d] param[%d]"}
+{"block": 0, "decoded_offset": "0x8229de", "container_address": "0x40ae29fe", "text": "tp_dispSyncUpdateImg kind[%d] layer_no[%d] param[%d]"}
+{"block": 0, "decoded_offset": "0x824a45", "container_address": "0x40ae4a65", "text": "[CapThr]execUpdateThrough() set Peaking"}
+{"block": 0, "decoded_offset": "0x824a6d", "container_address": "0x40ae4a8d", "text": "###### [LOWAPI]Through Start/Update(OUT) start ######"}
+{"block": 0, "decoded_offset": "0x824b1d", "container_address": "0x40ae4b3d", "text": "###### [LOWAPI]Through Start/Update(OUT) end ######"}
+{"block": 0, "decoded_offset": "0x824b51", "container_address": "0x40ae4b71", "text": "finishedAfUpdate : coordinates        = (%d, %d)"}
+{"block": 0, "decoded_offset": "0x824b82", "container_address": "0x40ae4ba2", "text": "finishedAfUpdate : frame.width  = %d"}
+{"block": 0, "decoded_offset": "0x824ba7", "container_address": "0x40ae4bc7", "text": "finishedAfUpdate : frame.height = %d"}
+{"block": 0, "decoded_offset": "0x824bcc", "container_address": "0x40ae4bec", "text": "finishedAfUpdate : coordinates.x = %d"}
+{"block": 0, "decoded_offset": "0x824bf2", "container_address": "0x40ae4c12", "text": "finishedAfUpdate : coordinates.y = %d"}
+{"block": 0, "decoded_offset": "0x825b7d", "container_address": "0x40ae5b9d", "text": "[CapThr]Trigger updateThrough [0x%08x]"}
+{"block": 0, "decoded_offset": "0x825ba4", "container_address": "0x40ae5bc4", "text": "CapThr_ThroughImage::updateThrough info.clipX = %d"}
+{"block": 0, "decoded_offset": "0x825bd7", "container_address": "0x40ae5bf7", "text": "CapThr_ThroughImage::updateThrough info.clipY = %d"}
+{"block": 0, "decoded_offset": "0x825c2b", "container_address": "0x40ae5c4b", "text": "CapThr_ThroughImage::updateThroughImage()"}
+{"block": 0, "decoded_offset": "0x825c55", "container_address": "0x40ae5c75", "text": "###### [LOWAPI]Update_Through_Image(OUT) start ######"}
+{"block": 0, "decoded_offset": "0x825ccd", "container_address": "0x40ae5ced", "text": "###### [LOWAPI]Update_Through_Image(OUT) end ######"}
+{"block": 0, "decoded_offset": "0x825fe9", "container_address": "0x40ae6009", "text": "[CapThr]Trigger CapThr_UpdateThrough(to multi) [0x%08x]"}
+{"block": 0, "decoded_offset": "0x82f41c", "container_address": "0x40aef43c", "text": "CapPls::app_playinfo_update_index_info#"}
+{"block": 0, "decoded_offset": "0x82f444", "container_address": "0x40aef464", "text": "CapPls::app_playinfo_update_index_info"}
+{"block": 0, "decoded_offset": "0x82f46b", "container_address": "0x40aef48b", "text": "CapPls update_index_info_oldb index_type:%#x err"}
+{"block": 0, "decoded_offset": "0x82f49c", "container_address": "0x40aef4bc", "text": "CapPls update_index_info_oldb PERSON target_pos:%#x err"}
+{"block": 0, "decoded_offset": "0x82f4d4", "container_address": "0x40aef4f4", "text": "CapPls update_index_info_oldb NONE target_pos:%#x err"}
+{"block": 0, "decoded_offset": "0x82f50a", "container_address": "0x40aef52a", "text": "CapPls update_index_info_oldb index->number:%#d"}
+{"block": 0, "decoded_offset": "0x82f53a", "container_address": "0x40aef55a", "text": "[chls]app_playinfo_update_index_info_oldb eventno      "}
+{"block": 0, "decoded_offset": "0x82f572", "container_address": "0x40aef592", "text": "[chls]app_playinfo_update_index_info_oldb personno     "}
+{"block": 0, "decoded_offset": "0x82f5aa", "container_address": "0x40aef5ca", "text": "[chls]app_playinfo_update_index_info_oldb collectionno "}
+{"block": 0, "decoded_offset": "0x82f5e2", "container_address": "0x40aef602", "text": "CapPls update_index_info_oldb impossible index_type:%#x err"}
+{"block": 0, "decoded_offset": "0x82f61e", "container_address": "0x40aef63e", "text": "CapPls update_index_info_oldb PERSON target_pos:%#x"}
+{"block": 0, "decoded_offset": "0x832a0d", "container_address": "0x40af2a2d", "text": "targetAfCtrlUpdate"}
+{"block": 0, "decoded_offset": "0x8347de", "container_address": "0x40af47fe", "text": " CapBea_BeautyEdit RecviewHandle NULL in recview_Update L[%d]"}
+{"block": 0, "decoded_offset": "0x839530", "container_address": "0x40af9550", "text": "[PS]updateThroughArea(frameNo=%d)"}
+{"block": 0, "decoded_offset": "0x839552", "container_address": "0x40af9572", "text": "[PS]updateThroughArea"}
+{"block": 0, "decoded_offset": "0x83961f", "container_address": "0x40af963f", "text": "[PS]update_PhotoSession"}
+{"block": 0, "decoded_offset": "0x839650", "container_address": "0x40af9670", "text": "[PS]update_PhotoSession area[%d].state = %d"}
+{"block": 0, "decoded_offset": "0x839b25", "container_address": "0x40af9b45", "text": "### imageUpdateLayer2 Disp[0x%x]"}
+{"block": 0, "decoded_offset": "0x839e52", "container_address": "0x40af9e72", "text": "### DevRev_RecVire::updatePictureBracket pDisplayHandle is NULL 0x%X"}
+{"block": 0, "decoded_offset": "0x839e97", "container_address": "0x40af9eb7", "text": "### DevRev_RecVire::updatePictureBracket pTakeHandle is NULL 0x%X"}
+{"block": 0, "decoded_offset": "0x83b28a", "container_address": "0x40afb2aa", "text": "StateUpDispObserver updata() pOwner NULLPO"}
+{"block": 0, "decoded_offset": "0x83b308", "container_address": "0x40afb328", "text": "TimerIdleObserver updata() pOwner NULLPO"}
+{"block": 0, "decoded_offset": "0x83b380", "container_address": "0x40afb3a0", "text": "UpperObserver updata() pOwner NULLPO"}
+{"block": 0, "decoded_offset": "0x83bd37", "container_address": "0x40afbd57", "text": "~CapRec_NotifyProgressObserver_update"}
+{"block": 0, "decoded_offset": "0x83c84a", "container_address": "0x40afc86a", "text": "t~update"}
+{"block": 0, "decoded_offset": "0x83cfe6", "container_address": "0x40afd006", "text": "t~--CapBlu_BluetoothAckObserver::update"}
+{"block": 0, "decoded_offset": "0x83d02d", "container_address": "0x40afd04d", "text": "0t~--CapBlu_BluetoothEv1Observer::update"}
+{"block": 0, "decoded_offset": "0x83d072", "container_address": "0x40afd092", "text": "c~z0t~--CapBlu_BluetoothEv2Observer::update"}
+{"block": 0, "decoded_offset": "0x83d189", "container_address": "0x40afd1a9", "text": "5t~]1t~--CapBlu_BluetoothNackObserver::update"}
+{"block": 0, "decoded_offset": "0x83d1d2", "container_address": "0x40afd1f2", "text": "c~u6t~--CapBlu_BluetoothObserver::update"}
+{"block": 0, "decoded_offset": "0x83de97", "container_address": "0x40afdeb7", "text": "updatePage()"}
+{"block": 0, "decoded_offset": "0x83dea4", "container_address": "0x40afdec4", "text": "updatePage inPagePicIndex:%d"}
+{"block": 0, "decoded_offset": "0x83dec1", "container_address": "0x40afdee1", "text": "updatePage inPagePicTable[%d]:%d"}
+{"block": 0, "decoded_offset": "0x83dee2", "container_address": "0x40afdf02", "text": "updatePage displayedPicMax:%d"}
+{"block": 0, "decoded_offset": "0x83df00", "container_address": "0x40afdf20", "text": "updatePage displayedPicTable[%d]:%d"}
+{"block": 0, "decoded_offset": "0x83e157", "container_address": "0x40afe177", "text": "updatePage Get_Event_Value():%d"}
+{"block": 0, "decoded_offset": "0x83e642", "container_address": "0x40afe662", "text": "CapOef_EffectManager(%d) update fail!"}
+{"block": 0, "decoded_offset": "0x84f11b", "container_address": "0x40b0f13b", "text": "isEndPictureReady() 0 != updateLensState()"}
+{"block": 0, "decoded_offset": "0x851320", "container_address": "0x40b11340", "text": "(CMP)movie_record_update(%d)"}
+{"block": 0, "decoded_offset": "0x85192f", "container_address": "0x40b1194f", "text": "send To fw: evTraResShtUpdateLiveBulb"}
+{"block": 0, "decoded_offset": "0x851955", "container_address": "0x40b11975", "text": "(CMP)sendCallBack_UPDATE_SHOOTING_TIME(%d) hour=%d min=%d sec=%d"}
+{"block": 0, "decoded_offset": "0x851996", "container_address": "0x40b119b6", "text": "send To fw: evTraResShtMovUpdateNotify"}
+{"block": 0, "decoded_offset": "0x851da7", "container_address": "0x40b11dc7", "text": "setCtrlReleaseStatus() update _activeRelease=%d _isTakePicture=%d _isTakeMovie=%d, _key1st_AppEvent = %d _key2nd_AppEvent = %d _keyMovie_AppEvent = %d _isReleaseMovie = %d"}
+{"block": 0, "decoded_offset": "0x85237e", "container_address": "0x40b1239e", "text": "TAKEPIC_BULB_LV_UPDATE_send"}
+{"block": 0, "decoded_offset": "0x85bb52", "container_address": "0x40b1bb72", "text": "rcvUpdateThroughAreaPhotoSessionIn_STANDBY() ERROR_FAIL"}
+{"block": 0, "decoded_offset": "0x85bb8a", "container_address": "0x40b1bbaa", "text": "updateThroughArea() clear BIT_ACTIVE_FRAME"}
+{"block": 0, "decoded_offset": "0x85bbb5", "container_address": "0x40b1bbd5", "text": "updateThroughArea() set BIT_ACTIVE_FRAME"}
+{"block": 0, "decoded_offset": "0x8622f3", "container_address": "0x40b22313", "text": "tp_layercustomCurrentShow start line=%d"}
+{"block": 0, "decoded_offset": "0x862374", "container_address": "0x40b22394", "text": "tp_layercustomCurrentShow end line=%d: <Disp_Sync_LayerCustom_Img> vbuff_kind=%d from_area(HW,VW)=(%d,%d) from_target(HW,VW)=(%d,%d) from_coordinate(x,y)=(%d,%d) to_target(HW,VW)=(%d,%d) to_coordinate(x,y)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x86244a", "container_address": "0x40b2246a", "text": "tp_layercustomCurrentShow end line=%d: <Disp_Direct_Custom> vbuff_kind=%d from_area(HW,VW)=(%d,%d) from_target(HW,VW)=(%d,%d) from_coordinate(x,y)=(%d,%d) to_target(HW,VW)=(%d,%d) to_coordinate(x,y)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863208", "container_address": "0x40b23228", "text": "tp_showDirectPic line=%d: <Disp_Direct_Custom: before Disp_ImgUpdateScreen> vbuff_kind=%d from_area(HW,VW)=(%d,%d) from_target(HW,VW)=(%d,%d) from_coordinate(x,y)=(%d,%d) to_target(HW,VW)=(%d,%d) to_coordinate(x,y)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x8633b0", "container_address": "0x40b233d0", "text": "tp_showDirectPic line=%d: <Disp_Direct_Custom: after  Disp_ImgUpdateScreen> vbuff_kind=%d from_area(HW,VW)=(%d,%d) from_target(HW,VW)=(%d,%d) from_coordinate(x,y)=(%d,%d) to_target(HW,VW)=(%d,%d) to_coordinate(x,y)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x86383e", "container_address": "0x40b2385e", "text": "tp_updateDelayDrawingInfo START [DISP_AREA_0] DispMngInfo(y,vw)=(%d,%d) VBUFF%d(y,vw)"}
+{"block": 0, "decoded_offset": "0x863894", "container_address": "0x40b238b4", "text": "tp_updateDelayDrawingInfo START [DISP_AREA_1] DispMngInfo(y,vw)=(%d,%d) VBUFF%d(y,vw)"}
+{"block": 0, "decoded_offset": "0x863928", "container_address": "0x40b23948", "text": "tp_updateDelayDrawingInfo[SHOW][ UP ] entry:%d, vbuff:%d, page:%d, idx:%d, picno:%d, delay_status:%d"}
+{"block": 0, "decoded_offset": "0x86398d", "container_address": "0x40b239ad", "text": "tp_updateDelayDrawingInfo[SHOW][DOWN] entry:%d, vbuff:%d, page:%d, idx:%d, picno:%d, delay_status:%d"}
+{"block": 0, "decoded_offset": "0x8639f2", "container_address": "0x40b23a12", "text": "tp_updateDelayDrawingInfo line=%d, touch_show_display_info: index(begin,end)=(%d,%d) picno(begin,end)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863a60", "container_address": "0x40b23a80", "text": "tp_updateDelayDrawingInfo[HIDE][ UP ] up_area_index(first,last)=(%d,%d), up_area_picno(first,last)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863acb", "container_address": "0x40b23aeb", "text": "tp_updateDelayDrawingInfo[HIDE][ UP ] iRow:%d"}
+{"block": 0, "decoded_offset": "0x863af9", "container_address": "0x40b23b19", "text": "tp_updateDelayDrawingInfo[HIDE][ UP ] target_index:%d, target_picno=%d"}
+{"block": 0, "decoded_offset": "0x863b40", "container_address": "0x40b23b60", "text": "tp_updateDelayDrawingInfo[HIDE][ UP ] entry:%d, vbuff:%d, page:%d, idx:%d, picno:%d, delay_status:%d"}
+{"block": 0, "decoded_offset": "0x863ba5", "container_address": "0x40b23bc5", "text": "tp_updateDelayDrawingInfo[HIDE][DOWN] down_area_index(first,last)=(%d,%d), down_area_picno(first,last)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863c14", "container_address": "0x40b23c34", "text": "tp_updateDelayDrawingInfo[HIDE][DOWN] entry:%d, vbuff:%d, page:%d, idx:%d, picno:%d, delay_status:%d"}
+{"block": 0, "decoded_offset": "0x863c79", "container_address": "0x40b23c99", "text": "tp_updateDelayDrawingInfo line=%d, entry_no:%d, entry_begin_hide:%d"}
+{"block": 0, "decoded_offset": "0x863cbd", "container_address": "0x40b23cdd", "text": "tp_updateDelayDrawingInfo END begin:%d, begin_hide:%d, end:%d, delay_start_demand:%d"}
+{"block": 0, "decoded_offset": "0x863d12", "container_address": "0x40b23d32", "text": "tp_updateShowIndexInfo START [DISP_AREA_0] DispMngInfo(y,vw)=(%d,%d) VBUFF%d(y,vw)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863d6d", "container_address": "0x40b23d8d", "text": "tp_updateShowIndexInfo START [DISP_AREA_1] DispMngInfo(y,vw)=(%d,%d) VBUFF%d(y,vw)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863dc8", "container_address": "0x40b23de8", "text": "tp_updateShowIndexInfo[ UP ] index=%d, picno=%d, _OriginalScrollArea.area_left_top.y=%d, index_left(top_y,bottom_y)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863e44", "container_address": "0x40b23e64", "text": "tp_updateShowIndexInfo[ UP ] entry:%d, vbuff:%d, page:%d, picno:%d, (x,y,hw,vw):(%d,%d,%d,%d)"}
+{"block": 0, "decoded_offset": "0x863ea2", "container_address": "0x40b23ec2", "text": "tp_updateShowIndexInfo[DOWN] index=%d, picno=%d, _OriginalScrollArea.area_left_top.y=%d, index_left(top_y,bottom_y)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x863f1e", "container_address": "0x40b23f3e", "text": "tp_updateShowIndexInfo[DOWN] entry:%d, vbuff:%d, page:%d, picno:%d, (x,y,hw,vw):(%d,%d,%d,%d)"}
+{"block": 0, "decoded_offset": "0x863f7c", "container_address": "0x40b23f9c", "text": "tp_updateShowIndexInfo: row_max=%d, row_top=%d, row_bottom=%d, pic_num=%d"}
+{"block": 0, "decoded_offset": "0x863fc6", "container_address": "0x40b23fe6", "text": "tp_updateShowIndexInfo: begin(pic_index,picno)=(%d,%d) end(pic_index,picno)=(%d,%d) next(pic_index,picno)=(%d,%d)"}
+{"block": 0, "decoded_offset": "0x864038", "container_address": "0x40b24058", "text": "tp_updateShowIndexInfo END"}
+{"block": 0, "decoded_offset": "0x8642ee", "container_address": "0x40b2430e", "text": "playindex_update_image start"}
+{"block": 0, "decoded_offset": "0x86430b", "container_address": "0x40b2432b", "text": "playindex_update_image end"}
+{"block": 0, "decoded_offset": "0x864ec6", "container_address": "0x40b24ee6", "text": "{~CmpPli_PlayNotifyBodyRotateObserver::update start"}
+{"block": 0, "decoded_offset": "0x864efa", "container_address": "0x40b24f1a", "text": "CmpPli_PlayNotifyBodyRotateObserver::update 1"}
+{"block": 0, "decoded_offset": "0x864f42", "container_address": "0x40b24f62", "text": "c~CmpPli_PlayNotifyDrawImageObserver::update start"}
+{"block": 0, "decoded_offset": "0x864f75", "container_address": "0x40b24f95", "text": "CmpPli_PlayNotifyDrawImageObserver::update"}
+{"block": 0, "decoded_offset": "0x864fba", "container_address": "0x40b24fda", "text": "c~CmpPli_PlayNotifyPlayPictureObserver::update start"}
+{"block": 0, "decoded_offset": "0x864fef", "container_address": "0x40b2500f", "text": "CmpPli_PlayNotifyPlayPictureObserver::update"}
+{"block": 0, "decoded_offset": "0x8653c1", "container_address": "0x40b253e1", "text": "Disp_LayerCustom"}
+{"block": 0, "decoded_offset": "0x865eb6", "container_address": "0x40b25ed6", "text": "Disp_LayerCustom SUCCESS"}
+{"block": 0, "decoded_offset": "0x866b5b", "container_address": "0x40b26b7b", "text": "Disp_LayerCustom L999"}
+{"block": 0, "decoded_offset": "0x868b9b", "container_address": "0x40b28bbb", "text": "tp_updateDelayDrawingInfo start dir=%d"}
+{"block": 0, "decoded_offset": "0x868e46", "container_address": "0x40b28e66", "text": "tp_updateDelayDrawingInfo end begin:%d, begin_hide:%d, end:%d, delay_start_demand:%d"}
+{"block": 0, "decoded_offset": "0x869090", "container_address": "0x40b290b0", "text": "Disp_LayerCustom ERROR"}
+{"block": 0, "decoded_offset": "0x86940f", "container_address": "0x40b2942f", "text": "update_image_sync_start_enter start"}
+{"block": 0, "decoded_offset": "0x869433", "container_address": "0x40b29453", "text": "CmpPls_PlaySingleComponent::update_image_sync_start"}
+{"block": 0, "decoded_offset": "0x869467", "container_address": "0x40b29487", "text": "update_image start"}
+{"block": 0, "decoded_offset": "0x86947a", "container_address": "0x40b2949a", "text": "update_image start end"}
+{"block": 0, "decoded_offset": "0x869aec", "container_address": "0x40b29b0c", "text": "    forcus areasize x = %d"}
+{"block": 0, "decoded_offset": "0x869b07", "container_address": "0x40b29b27", "text": "    forcus areasize y = %d"}
+{"block": 0, "decoded_offset": "0x869b22", "container_address": "0x40b29b42", "text": "    forcus areasize w = %d"}
+{"block": 0, "decoded_offset": "0x869b3d", "container_address": "0x40b29b5d", "text": "    forcus areasize h = %d"}
+{"block": 0, "decoded_offset": "0x86a93a", "container_address": "0x40b2a95a", "text": "}~CmpPls_PlayNotifyBodyRotateObserver::update start"}
+{"block": 0, "decoded_offset": "0x86a96e", "container_address": "0x40b2a98e", "text": "CmpPls_PlayNotifyBodyRotateObserver::update 1"}
+{"block": 0, "decoded_offset": "0x86a9b6", "container_address": "0x40b2a9d6", "text": "c~CmpPls_PlayNotifyDrawImageObserver::update start"}
+{"block": 0, "decoded_offset": "0x86a9e9", "container_address": "0x40b2aa09", "text": "CmpPls_PlayNotifyDrawImageObserver::update"}
+{"block": 0, "decoded_offset": "0x86aa2e", "container_address": "0x40b2aa4e", "text": "c~CmpPls_PlayNotifyPlayPictureObserver::update start"}
+{"block": 0, "decoded_offset": "0x86aa63", "container_address": "0x40b2aa83", "text": "CmpPls_PlayNotifyPlayPictureObserver::update"}
+{"block": 0, "decoded_offset": "0x86b1de", "container_address": "0x40b2b1fe", "text": "firmware_make_image() Copy_Image_PIC 1 blink1 %d"}
+{"block": 0, "decoded_offset": "0x86b30b", "container_address": "0x40b2b32b", "text": "firmware_make_image()  Copy_Image_PIC err1 %x"}
+{"block": 0, "decoded_offset": "0x86b339", "container_address": "0x40b2b359", "text": "firmware_make_image() Copy_Image_PIC 2 blink2 %d"}
+{"block": 0, "decoded_offset": "0x86b36a", "container_address": "0x40b2b38a", "text": "firmware_make_image()  Copy_Image_PIC err2 %x"}
+{"block": 0, "decoded_offset": "0x86b398", "container_address": "0x40b2b3b8", "text": "firmware_make_image() Copy_Image_PIC 3 firmupOK %d"}
+{"block": 0, "decoded_offset": "0x86b3cb", "container_address": "0x40b2b3eb", "text": "firmware_make_image()  Copy_Image_PIC err3 %x"}
+{"block": 0, "decoded_offset": "0x86b3f9", "container_address": "0x40b2b419", "text": "firmware_make_image() Copy_Image_PIC 4 firmupNG %d"}
+{"block": 0, "decoded_offset": "0x86b42c", "container_address": "0x40b2b44c", "text": "firmware_make_image()  Copy_Image_PIC err4 %x"}
+{"block": 0, "decoded_offset": "0x86b4c4", "container_address": "0x40b2b4e4", "text": "Execute_FirmwareUpdate start"}
+{"block": 0, "decoded_offset": "0x86b4e1", "container_address": "0x40b2b501", "text": "Execute_FirmwareUpdate end [%x]"}
+{"block": 0, "decoded_offset": "0x86b55c", "container_address": "0x40b2b57c", "text": "Check_FirmwareUpdate start"}
+{"block": 0, "decoded_offset": "0x86b577", "container_address": "0x40b2b597", "text": "Check_FirmwareUpdate end"}
+{"block": 0, "decoded_offset": "0x86b590", "container_address": "0x40b2b5b0", "text": "Check_FirmwareUpdate_Lens start"}
+{"block": 0, "decoded_offset": "0x86b5b0", "container_address": "0x40b2b5d0", "text": "Check_FirmwareUpdate_Lens end"}
+{"block": 0, "decoded_offset": "0x86b5ce", "container_address": "0x40b2b5ee", "text": "Check_FirmwareUpdate_Strobe start"}
+{"block": 0, "decoded_offset": "0x86b5f0", "container_address": "0x40b2b610", "text": "Check_FirmwareUpdate_Strobe end"}
+{"block": 0, "decoded_offset": "0x86b610", "container_address": "0x40b2b630", "text": "[chls]update_firmware() Disp_ImgUpdateScreen err status:%x"}
+{"block": 0, "decoded_offset": "0x86b64b", "container_address": "0x40b2b66b", "text": "Execute_FirmwareUpdate_Lens start"}
+{"block": 0, "decoded_offset": "0x86b66d", "container_address": "0x40b2b68d", "text": "Execute_FirmwareUpdate_Lens end [%x]"}
+{"block": 0, "decoded_offset": "0x86b692", "container_address": "0x40b2b6b2", "text": "Execute_FirmwareUpdate_Strobe start"}
+{"block": 0, "decoded_offset": "0x86b6b6", "container_address": "0x40b2b6d6", "text": "Execute_FirmwareUpdate_Strobe end [%x]"}
+{"block": 0, "decoded_offset": "0x870c5e", "container_address": "0x40b30c7e", "text": "[+++]SUCCESS IMG UPDATE"}
+{"block": 0, "decoded_offset": "0x870c76", "container_address": "0x40b30c96", "text": "[+++]ERR IMG UPDATE"}
+{"block": 0, "decoded_offset": "0x871dbd", "container_address": "0x40b31ddd", "text": "  chls_select_param_option_check_edit_update"}
+{"block": 0, "decoded_offset": "0x8735d2", "container_address": "0x40b335f2", "text": "  chls_select_param_option_check_edit_update"}
+{"block": 0, "decoded_offset": "0x8761c1", "container_address": "0x40b361e1", "text": "getSyncUpdateScreen()"}
+{"block": 0, "decoded_offset": "0x876206", "container_address": "0x40b36226", "text": "syncUpdateScreen()"}
+{"block": 0, "decoded_offset": "0x87624f", "container_address": "0x40b3626f", "text": "sync_update_screen in PictBridge"}
+{"block": 0, "decoded_offset": "0x8762b4", "container_address": "0x40b362d4", "text": "getSyncUpdateScreen() in PictBridge"}
+{"block": 0, "decoded_offset": "0x8764da", "container_address": "0x40b364fa", "text": "CmpPbr0 isPageUpdate: %d"}
+{"block": 0, "decoded_offset": "0x8772a2", "container_address": "0x40b372c2", "text": "playcalendar_update_image start"}
+{"block": 0, "decoded_offset": "0x8772db", "container_address": "0x40b372fb", "text": "playcalendar_update_image start end"}
+{"block": 0, "decoded_offset": "0x878f02", "container_address": "0x40b38f22", "text": "Cmp_Play%s histogram_update"}
+{"block": 0, "decoded_offset": "0x879385", "container_address": "0x40b393a5", "text": "getSyncUpdateScreen()"}
+{"block": 0, "decoded_offset": "0x87a3a6", "container_address": "0x40b3a3c6", "text": "syncUpdateScreen()"}
+{"block": 0, "decoded_offset": "0x87ba0a", "container_address": "0x40b3ba2a", "text": "cw_update_image_layer start"}
+{"block": 0, "decoded_offset": "0x87ba26", "container_address": "0x40b3ba46", "text": "cw_update_image_layer end"}
+{"block": 0, "decoded_offset": "0x87ceb3", "container_address": "0x40b3ced3", "text": "CmpPLgh_PlayLightBoxComponent::playlightbox_update_image_start#"}
+{"block": 0, "decoded_offset": "0x87cef3", "container_address": "0x40b3cf13", "text": "CmpPLgh_PlayLightBoxComponent::playlightbox_update_image_start"}
+{"block": 0, "decoded_offset": "0x87cf62", "container_address": "0x40b3cf82", "text": "CmpPLgh_PlayLightBoxComponent::playlightbox_single_mode_update_start#"}
+{"block": 0, "decoded_offset": "0x87d038", "container_address": "0x40b3d058", "text": "CmpPLgh_PlayLightBoxComponent::playlightbox_single_mode_update_start"}
+{"block": 0, "decoded_offset": "0x87e05e", "container_address": "0x40b3e07e", "text": "Cmp_PlayMovie rcv Update"}
+{"block": 0, "decoded_offset": "0x88036f", "container_address": "0x40b4038f", "text": "CmpPSel_PlaySelectComponent::update_image_sync start"}
+{"block": 0, "decoded_offset": "0x8803a4", "container_address": "0x40b403c4", "text": "CmpPSel_PlaySelectComponent::update_image_sync end"}
+{"block": 0, "decoded_offset": "0x88051a", "container_address": "0x40b4053a", "text": "[CmpPSel]move_current continuos dispUpdate FALSE"}
+{"block": 0, "decoded_offset": "0x881106", "container_address": "0x40b41126", "text": "onekoma_move_current_continuous dispUpdate  = %x"}
+{"block": 0, "decoded_offset": "0x88386e", "container_address": "0x40b4388e", "text": "CmpRPri_ReservePrintComponent::update_image_sync_start#"}
+{"block": 0, "decoded_offset": "0x8838a6", "container_address": "0x40b438c6", "text": "CmpRPri_ReservePrintComponent::update_image_sync_start"}
+{"block": 0, "decoded_offset": "0x88b4fc", "container_address": "0x40b4b51c", "text": "imageUpdate() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x88b516", "container_address": "0x40b4b536", "text": "imageUpdate2() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x88b6d2", "container_address": "0x40b4b6f2", "text": "setThroughPermit(), LayerCustom!"}
+{"block": 0, "decoded_offset": "0x88b6f3", "container_address": "0x40b4b713", "text": "setThroughPermit() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x88b712", "container_address": "0x40b4b732", "text": "standbyCombineAnimation() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x88c17e", "container_address": "0x40b4c19e", "text": "startMultiExposureEffect() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x88c1b7", "container_address": "0x40b4c1d7", "text": "stopMultiExposureEffect() SyncUpdate!"}
+{"block": 0, "decoded_offset": "0x88c7e7", "container_address": "0x40b4c807", "text": "~DevRec_NotifyChangeObserver_update"}
+{"block": 0, "decoded_offset": "0xb24168", "container_address": "0x40de4188", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb2418a", "container_address": "0x40de41aa", "text": " <version>2.20</version>"}
+{"block": 0, "decoded_offset": "0xb25bd7", "container_address": "0x40de5bf7", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb25c13", "container_address": "0x40de5c33", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb25cb5", "container_address": "0x40de5cd5", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb26016", "container_address": "0x40de6036", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb26491", "container_address": "0x40de64b1", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb264c6", "container_address": "0x40de64e6", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb265d6", "container_address": "0x40de65f6", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb26732", "container_address": "0x40de6752", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb2681c", "container_address": "0x40de683c", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb2773a", "container_address": "0x40de775a", "text": "dbg_cgi_updateagps_1"}
+{"block": 0, "decoded_offset": "0xb2775c", "container_address": "0x40de777c", "text": "dbg_cgi_updateagps_2"}
+{"block": 0, "decoded_offset": "0xb2777e", "container_address": "0x40de779e", "text": "dbg_cgi_updateagps_3"}
+{"block": 0, "decoded_offset": "0xb277a0", "container_address": "0x40de77c0", "text": "dbg_cgi_updateagps_4"}
+{"block": 0, "decoded_offset": "0xb2821b", "container_address": "0x40de823b", "text": "HTTP Version not supported"}
+{"block": 0, "decoded_offset": "0xb2fcb5", "container_address": "0x40defcd5", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb32663", "container_address": "0x40df2683", "text": "Usage:qr create NAME [MODEL VERSION MODE LEVEL ZOOM]"}
+{"block": 0, "decoded_offset": "0xb326e6", "container_address": "0x40df2706", "text": "  [VERSION]:"}
+{"block": 0, "decoded_offset": "0xb326f4", "container_address": "0x40df2714", "text": "    INPUT QR VERSION(1-40)"}
+{"block": 0, "decoded_offset": "0xb32833", "container_address": "0x40df2853", "text": "input_param.version = "}
+{"block": 0, "decoded_offset": "0xb32c12", "container_address": "0x40df2c32", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb344c3", "container_address": "0x40df44e3", "text": "~<?xml version=\"1.0\"?><funcidlist><funcid name=\"framesize\"/><funcid name=\"mntmediainfo\"/><funcid name=\"rotation\"/></funcidlist>"}
+{"block": 0, "decoded_offset": "0xb34766", "container_address": "0x40df4786", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb35008", "container_address": "0x40df5028", "text": "<?xml version=\"1.0\"?><funcidlist><funcid name=\"framesize\"/><funcid name=\"afframeinfo\"/><funcid name=\"mntmediainfo\"/><funcid name=\"rotation\"/><funcid name=\"maxtakenum\"/><funcid name=\"temperror\"/><funcid name=\"battempty\"/><funcid name=\"shutspeedvalue\"/><funcid name=\"focalvalue\"/><funcid name=\"expcomp\"/><funcid name=\"wbvalue\"/><funcid name=\"isospeedvalue\"/><funcid name=\"contnotstop\"/><funcid name=\"aspectratio\"/><funcid name=\"liveaddinfo\"/><funcid name=\"expphotowarning\"/><funcid name=\"focusinfo\"/><funcid name=\"zoominfo\"/></funcidlist>"}
+{"block": 0, "decoded_offset": "0xb35591", "container_address": "0x40df55b1", "text": "<?xml version=\"1.0\"?>"}
+{"block": 0, "decoded_offset": "0xb36092", "container_address": "0x40df60b2", "text": "[WIFI_REMOCON_THROUGH] mov update"}
+{"block": 0, "decoded_offset": "0xb360b4", "container_address": "0x40df60d4", "text": "[WIFI_REMOCON_THROUGH] mov update ERR"}
+{"block": 0, "decoded_offset": "0xb36334", "container_address": "0x40df6354", "text": " memory.update          "}
+{"block": 0, "decoded_offset": "0xb364f1", "container_address": "0x40df6511", "text": "       : 1 : enable mvr update buffer log"}
+{"block": 0, "decoded_offset": "0xb3651c", "container_address": "0x40df653c", "text": "       : 2 : enable mvr update timing log"}
+{"block": 0, "decoded_offset": "0xb3935c", "container_address": "0x40df937c", "text": "driver version. "}
+{"block": 0, "decoded_offset": "0xb3b2c7", "container_address": "0x40dfb2e7", "text": "ver                               : Get driver version"}
+{"block": 0, "decoded_offset": "0xb3de78", "container_address": "0x40dfde98", "text": "version"}
+{"block": 0, "decoded_offset": "0xb3feec", "container_address": "0x40dfff0c", "text": "CHANGE_UPDATE"}
+{"block": 0, "decoded_offset": "0xb3fefa", "container_address": "0x40dfff1a", "text": "updateApplicationBase"}
+{"block": 0, "decoded_offset": "0xb417e3", "container_address": "0x40e01803", "text": "COLOR_CREATOR_MODE_SETTING_JUDGE_OK : "}
+{"block": 0, "decoded_offset": "0xb48483", "container_address": "0x40e084a3", "text": "updateParamState"}
+{"block": 0, "decoded_offset": "0xb48494", "container_address": "0x40e084b4", "text": "updateParamStateGuiInfo"}
+{"block": 0, "decoded_offset": "0xb484ac", "container_address": "0x40e084cc", "text": "updateParamGuiInfo"}
+{"block": 0, "decoded_offset": "0xb484bf", "container_address": "0x40e084df", "text": "updateParamStateShooting"}
+{"block": 0, "decoded_offset": "0xb484d8", "container_address": "0x40e084f8", "text": "updateParamStateGuiInfoShooting"}
+{"block": 0, "decoded_offset": "0xb484f8", "container_address": "0x40e08518", "text": "updateParamGuiInfoShooting"}
+{"block": 0, "decoded_offset": "0xb491cf", "container_address": "0x40e091ef", "text": "updateTouchTargetAf"}
+{"block": 0, "decoded_offset": "0xb491e3", "container_address": "0x40e09203", "text": "updateTouchTargetAf Fail"}
+{"block": 0, "decoded_offset": "0xb49999", "container_address": "0x40e099b9", "text": "updateParamState"}
+{"block": 0, "decoded_offset": "0xb49ddc", "container_address": "0x40e09dfc", "text": "updateThroughAreaPhotoSession"}
+{"block": 0, "decoded_offset": "0xb49fd2", "container_address": "0x40e09ff2", "text": "TARGET_AF_CTRL_UPDATE : NOT SUCCESS"}
+{"block": 0, "decoded_offset": "0xb4a09a", "container_address": "0x40e0a0ba", "text": "updateLiveBulb"}
+{"block": 0, "decoded_offset": "0xb4bc5c", "container_address": "0x40e0bc7c", "text": "startVersionCheckMenuSubAppStateMisc"}
+{"block": 0, "decoded_offset": "0xb4bcdc", "container_address": "0x40e0bcfc", "text": "updateFirmwareCard"}
+{"block": 0, "decoded_offset": "0xb4cb2b", "container_address": "0x40e0cb4b", "text": "updateFirmware"}
+{"block": 0, "decoded_offset": "0xb64bef", "container_address": "0x40e24c0f", "text": "OLY_UPDATE_IMAGE_REQUEST"}
+{"block": 0, "decoded_offset": "0xb65608", "container_address": "0x40e25628", "text": "CBK_UPDATE_FLASH_CHARGE"}
+{"block": 0, "decoded_offset": "0xb65620", "container_address": "0x40e25640", "text": "CBK_UPDATE_PROGRESS"}
+{"block": 0, "decoded_offset": "0xb65647", "container_address": "0x40e25667", "text": "CBK_UPDATE_HISTOGRAM"}
+{"block": 0, "decoded_offset": "0xb657a3", "container_address": "0x40e257c3", "text": "CBK_UPDATE_LIVEBULB"}
+{"block": 0, "decoded_offset": "0xb65843", "container_address": "0x40e25863", "text": "CBK_UPDATE_SHOOTING_TIME"}
+{"block": 0, "decoded_offset": "0xb65f2c", "container_address": "0x40e25f4c", "text": "GUI_END_VERSION_CHECK"}
+{"block": 0, "decoded_offset": "0xb6869b", "container_address": "0x40e286bb", "text": "REQ_END_VERSION_CHECK"}
+{"block": 0, "decoded_offset": "0xb6885a", "container_address": "0x40e2887a", "text": "REQ_START_VERSION_CHECK"}
+{"block": 0, "decoded_offset": "0xb69910", "container_address": "0x40e29930", "text": "CBS_UPDATE_FLASH_CHARGE"}
+{"block": 0, "decoded_offset": "0xb69a1c", "container_address": "0x40e29a3c", "text": "CBS_UPDATE_LIVEBULB"}
+{"block": 0, "decoded_offset": "0xb69b88", "container_address": "0x40e29ba8", "text": "CBS_UPDATE_SHOOTING_TIME"}
+{"block": 0, "decoded_offset": "0xb69bfd", "container_address": "0x40e29c1d", "text": "CBS_UPDATE_HISTOGRAM"}
+{"block": 0, "decoded_offset": "0xb6b2a4", "container_address": "0x40e2b2c4", "text": "updateResearchEvInfo"}
+{"block": 0, "decoded_offset": "0xb6bb0f", "container_address": "0x40e2bb2f", "text": "ID_EV_SCR_HISTO_UPDATE"}
+{"block": 0, "decoded_offset": "0xb6bbea", "container_address": "0x40e2bc0a", "text": "ID_EV_SCR_UPDATE"}
+{"block": 0, "decoded_offset": "0xb6c3cf", "container_address": "0x40e2c3ef", "text": "ID_EV_SCR_FORCE_UPDATE"}
+{"block": 0, "decoded_offset": "0xb6cc83", "container_address": "0x40e2cca3", "text": "[GUI gpi]:cw_updateDisplay normal"}
+{"block": 0, "decoded_offset": "0xb6cca5", "container_address": "0x40e2ccc5", "text": "[GUI gpi]:cw_updateDisplay OsdOff"}
+{"block": 0, "decoded_offset": "0xb6cd1b", "container_address": "0x40e2cd3b", "text": "[GUI App]: exeUpdateDisplayCallBack GEDeleteTargetEvent()"}
+{"block": 0, "decoded_offset": "0xb6fc39", "container_address": "0x40e2fc59", "text": "[GUI App   ]:OlyApiPlayCalendar::getInterface()->updateImage() result:%d"}
+{"block": 0, "decoded_offset": "0xb73dd6", "container_address": "0x40e33df6", "text": "[GUI App   ]CPlayIndex::updateScrollBar finish!!!"}
+{"block": 0, "decoded_offset": "0xbbc428", "container_address": "0x40e7c448", "text": "[GUI GCPanel_MENU_1CNL_RS::Update_Select] base[%d]=TRUE"}
+{"block": 0, "decoded_offset": "0xbbc460", "container_address": "0x40e7c480", "text": "[GUI GCPanel_MENU_1CNL_RS::Update_Select] cursor[%d]=TRUE"}
+{"block": 0, "decoded_offset": "0xbf2474", "container_address": "0x40eb2494", "text": "[GUI App   ]:GCPnl_CompScale::UpdateRawMark:image[%d] JPEG"}
+{"block": 0, "decoded_offset": "0xc12d0c", "container_address": "0x40ed2d2c", "text": "[GUI App   ]:GCPnl_Play::UpdateProtected Called BLINK"}
+{"block": 0, "decoded_offset": "0xc168a4", "container_address": "0x40ed68c4", "text": "[GUI App   ] GCPnl_Play_Overall::UpdateISOMode() ISODisplay:%x, usISOMode:%x"}
+{"block": 0, "decoded_offset": "0xc93cb6", "container_address": "0x40f53cd6", "text": "[GUI App lv]:rec_info_update"}
+{"block": 0, "decoded_offset": "0xc9ba37", "container_address": "0x40f5ba57", "text": "[Func_Scp_Actuator::updateCursorDetail %d -> %d]"}
+{"block": 0, "decoded_offset": "0xc9ba68", "container_address": "0x40f5ba88", "text": "[Func_Scp_Actuator::updateCursorRc %d -> %d]"}
+{"block": 0, "decoded_offset": "0xc9ba95", "container_address": "0x40f5bab5", "text": "[Func_Scp_Actuator::updateScpSelectState]"}
+{"block": 0, "decoded_offset": "0xc9bae6", "container_address": "0x40f5bb06", "text": "[Func_Scp_Actuator::updateActModeDetail]"}
+{"block": 0, "decoded_offset": "0xc9bb0f", "container_address": "0x40f5bb2f", "text": "[Func_Scp_Actuator::updateActModeRc]"}
+{"block": 0, "decoded_offset": "0xcc33ec", "container_address": "0x40f8340c", "text": "[GUI App   ]doCmd_SsPlaySingle_StImagePrevNext_EvtGuiEndPlaySin imageType update"}
+{"block": 0, "decoded_offset": "0xcc343d", "container_address": "0x40f8345d", "text": "[GUI App   ]doCmd_SsPlaySingle_StImagePrevNext_EvtGuiEndPlaySin aspect frame update"}
+{"block": 0, "decoded_offset": "0xcc3491", "container_address": "0x40f834b1", "text": "[GUI App   ]doCmd_SsPlaySingle_StImagePrevNext_EvtGuiEndPlaySin select status update"}
+{"block": 0, "decoded_offset": "0xcc351b", "container_address": "0x40f8353b", "text": "[GUI App   ]updateImage MAIN_AREA_SINGLE tLeft.x=%d,tLeft.y=%d, tRight.x=%d,tRight.y=%d, bLeft.x=%d,bLeft.y=%d, bRight.x=%d,bRight.y=%d SUB_AREA=0x%08x"}
+{"block": 0, "decoded_offset": "0xcc35b3", "container_address": "0x40f835d3", "text": "[GUI App   ]updateImage SUB_AREA_SINGLE tLeft.x=%d,tLeft.y=%d, tRight.x=%d,tRight.y=%d, bLeft.x=%d,bLeft.y=%d, bRight.x=%d,bRight.y=%d"}
+{"block": 0, "decoded_offset": "0xcc363a", "container_address": "0x40f8365a", "text": "[GUI App   ]OlyApiPlaySingleFrame::getInterface()->updateImage"}
+{"block": 0, "decoded_offset": "0xceb5f7", "container_address": "0x40fab617", "text": "~GM_DB_REQUEST_UPDATE"}
+{"block": 0, "decoded_offset": "0xceb60d", "container_address": "0x40fab62d", "text": "GM_DB_NOTIFY_UPDATE"}
+{"block": 0, "decoded_offset": "0xceb621", "container_address": "0x40fab641", "text": "GM_DB_SCREEN_NOTIFY_UPDATE"}
+{"block": 0, "decoded_offset": "0xcec482", "container_address": "0x40fac4a2", "text": "EVT_REQ_START_VERSION_CHECK"}
+{"block": 0, "decoded_offset": "0xcec49e", "container_address": "0x40fac4be", "text": "EVT_REQ_END_VERSION_CHECK"}
+{"block": 0, "decoded_offset": "0xced6cd", "container_address": "0x40fad6ed", "text": "EVT_GUI_DISPLAYUPDATE_MONITORING"}
+{"block": 0, "decoded_offset": "0xcee97c", "container_address": "0x40fae99c", "text": "[GPI    ] cw_updateDisplay Side=%d"}
+{"block": 0, "decoded_offset": "0xceebf8", "container_address": "0x40faec18", "text": "[GUI Debug] this version not support [Show canExecute] "}
+{"block": 0, "decoded_offset": "0xcef02e", "container_address": "0x40faf04e", "text": "[GUI App   ]:guiEventFilter::check_Sync_Osd_update"}
+{"block": 0, "decoded_offset": "0xcefa65", "container_address": "0x40fafa85", "text": "[GUI App]: SetSavePalette called <End  Black Screen> IndexID=%d, update=%d"}
+{"block": 0, "decoded_offset": "0xcf036f", "container_address": "0x40fb038f", "text": "[GUI] start userGuiBTAnimation::updateData"}
+{"block": 0, "decoded_offset": "0xcf039a", "container_address": "0x40fb03ba", "text": "[GUI] start userGuiBTAnimation::updateAnimation"}
+{"block": 0, "decoded_offset": "0xcf7bc4", "container_address": "0x40fb7be4", "text": "[GUI-SelfAdjust] userGuiSelfAdjust::UpdateSelfAdjustMenu()"}
+{"block": 0, "decoded_offset": "0xcf8333", "container_address": "0x40fb8353", "text": "[GUI-SelfAdjust] userGuiSelfAdjust::UpdateSelfAdjustSerial"}
+{"block": 0, "decoded_offset": "0xd2272d", "container_address": "0x40fe274d", "text": " libpng version 1.2.37 - June 4, 2009"}
+{"block": 0, "decoded_offset": "0xd227f3", "container_address": "0x40fe2813", "text": " libpng version 1.2.37 - June 4, 2009"}
+{"block": 0, "decoded_offset": "0xd228f8", "container_address": "0x40fe2918", "text": "Incompatible libpng version in application and library"}
+{"block": 0, "decoded_offset": "0xd22947", "container_address": "0x40fe2967", "text": "zlib version error"}
+{"block": 0, "decoded_offset": "0xd22a59", "container_address": "0x40fe2a79", "text": "zlib version"}
+{"block": 0, "decoded_offset": "0xd22a75", "container_address": "0x40fe2a95", "text": "PNG file corrupted by ASCII conversion"}
+{"block": 0, "decoded_offset": "0xd22ace", "container_address": "0x40fe2aee", "text": "Ignoring extra png_read_update_info() call; row buffer not reallocated"}
+{"block": 0, "decoded_offset": "0xd25e4c", "container_address": "0x40fe5e6c", "text": "incompatible version"}
+{"block": 0, "decoded_offset": "0xd4c4b0", "container_address": "0x4100c4d0", "text": "noise_cal_update"}
+{"block": 0, "decoded_offset": "0xd564d9", "container_address": "0x410164f9", "text": "43362a2-roml/sdio-apsta-idsup-idauth-pno Version: 220.10.27.0 CRC: 53ae308 Date: Mon 2012-10-29 13:09:23 IST FWID 01-2d041c50"}
+{"block": 0, "decoded_offset": "0xd6c564", "container_address": "0x4102c584", "text": "rcu_api_upload:::rcuq.name"}
+{"block": 0, "decoded_offset": "0xd6c608", "container_address": "0x4102c628", "text": "rcu_debug: unknown comamnd."}
+{"block": 0, "decoded_offset": "0xd6c641", "container_address": "0x4102c661", "text": "RCU: Mount Error."}
+{"block": 0, "decoded_offset": "0xd6c654", "container_address": "0x4102c674", "text": "RCUOLYMP   "}
+{"block": 0, "decoded_offset": "0xd6c660", "container_address": "0x4102c680", "text": "R0240001RCU"}
+{"block": 0, "decoded_offset": "0xd6c66c", "container_address": "0x4102c68c", "text": "bas_rcu_load:rcu_update:::filereq.buff"}
+{"block": 0, "decoded_offset": "0xd6c693", "container_address": "0x4102c6b3", "text": "RCU: F_Read Error."}
+{"block": 0, "decoded_offset": "0xd6c6f1", "container_address": "0x4102c711", "text": "rcu srv: q_read failed."}
+{"block": 0, "decoded_offset": "0xd6c70a", "container_address": "0x4102c72a", "text": "rcu_srv: unknown com."}
+{"block": 0, "decoded_offset": "0xd6c721", "container_address": "0x4102c741", "text": "rcu srv: q_write failed."}
+{"block": 0, "decoded_offset": "0xd6c73b", "container_address": "0x4102c75b", "text": "rcu srv_exec: q_write failed."}
+{"block": 0, "decoded_offset": "0xd6c75a", "container_address": "0x4102c77a", "text": "rcu_proc: q_read failed."}
+{"block": 0, "decoded_offset": "0xd6c774", "container_address": "0x4102c794", "text": "rcu_serv_upload:rcu_info_search:ERROR!!!"}
+{"block": 0, "decoded_offset": "0xd6c79e", "container_address": "0x4102c7be", "text": "rcu srv:rcu_serv_init:rcu open failed."}
+{"block": 0, "decoded_offset": "0xd6ca76", "container_address": "0x4102ca96", "text": "version"}
+{"block": 0, "decoded_offset": "0xd6d136", "container_address": "0x4102d156", "text": "dpsVersions"}
+{"block": 0, "decoded_offset": "0xd6d14d", "container_address": "0x4102d16d", "text": "vendorSpecificVersion"}
+{"block": 0, "decoded_offset": "0xd6d4a3", "container_address": "0x4102d4c3", "text": "version"}
+{"block": 0, "decoded_offset": "0xde2982", "container_address": "0x410a29a2", "text": "[TPCFirmup]GetFirmwareUpdateMode"}
+{"block": 0, "decoded_offset": "0xde29a3", "container_address": "0x410a29c3", "text": "[TPCFirmup]GetFirmwareUpdateMode OK"}
+{"block": 0, "decoded_offset": "0xde29c7", "container_address": "0x410a29e7", "text": "[TPCFirmup]GetFirmwareUpdateMode NG"}
+{"block": 0, "decoded_offset": "0xde29eb", "container_address": "0x410a2a0b", "text": "[TPCFirmup]GetVersions"}
+{"block": 0, "decoded_offset": "0xde2a38", "container_address": "0x410a2a58", "text": "[TPCFirmup]FirmwareCheck"}
+{"block": 0, "decoded_offset": "0xde2a51", "container_address": "0x410a2a71", "text": "[TPCFirmup]UpdateInitiate"}
+{"block": 0, "decoded_offset": "0xde4ef2", "container_address": "0x410a4f12", "text": "C3D_EXE_UPDATE"}
+{"block": 0, "decoded_offset": "0xde6200", "container_address": "0x410a6220", "text": "spc_ctrl_update_prm start"}
+{"block": 0, "decoded_offset": "0xde621b", "container_address": "0x410a623b", "text": "spc_ctrl_update_prm end"}
+{"block": 0, "decoded_offset": "0xdfdaa5", "container_address": "0x410bdac5", "text": "PRM_CCD_SATURATION_LEVEL,0x7192,,,,23,FLASH,"}
+{"block": 1, "decoded_offset": "0x89c774", "container_address": "0x4305c794", "text": "HuEVWH"}
+{"block": 2, "decoded_offset": "0x62d69", "container_address": "0x43e02d89", "text": "1+3.1#*"}

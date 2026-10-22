@@ -1,0 +1,125 @@
+
+decoded/00_0100_402c0020.decoded.bin:     file format binary
+
+
+Disassembly of section .data:
+
+405bdf00 <.data+0x2fdf00>:
+405bdf00:	d0                                              	llt	
+405bdf01:	ff                                              	break	
+405bdf02:	a0 28                                           	cmp	40,d0
+405bdf04:	f8 03 04                                        	mov	(4,a3),d0
+405bdf07:	fc dc 98 58 55 7e                               	mov	2119522456,a0
+405bdf0d:	dd 70 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf14:	f8 03 08                                        	mov	(8,a3),d0
+405bdf17:	fc dc a8 58 55 7e                               	mov	2119522472,a0
+405bdf1d:	dd 60 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf24:	f8 03 0c                                        	mov	(12,a3),d0
+405bdf27:	fc dc b8 58 55 7e                               	mov	2119522488,a0
+405bdf2d:	dd 50 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf34:	f8 03 10                                        	mov	(16,a3),d0
+405bdf37:	fc dc c8 58 55 7e                               	mov	2119522504,a0
+405bdf3d:	dd 40 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf44:	f8 03 14                                        	mov	(20,a3),d0
+405bdf47:	fc dc e8 54 55 7e                               	mov	2119521512,a0
+405bdf4d:	dd 30 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf54:	9a 18                                           	mov	24,a2
+405bdf56:	f1 7e                                           	add	a3,a2
+405bdf58:	f0 62                                           	movhu	(a2),d0
+405bdf5a:	fc dc d8 58 55 7e                               	mov	2119522520,a0
+405bdf60:	18                                              	exth	d0
+405bdf61:	dd 1c 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf68:	f8 62 02                                        	movhu	(2,a2),d0
+405bdf6b:	fc dc e8 58 55 7e                               	mov	2119522536,a0
+405bdf71:	18                                              	exth	d0
+405bdf72:	dd 0b 7d d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf79:	f8 62 04                                        	movhu	(4,a2),d0
+405bdf7c:	fc dc f8 58 55 7e                               	mov	2119522552,a0
+405bdf82:	18                                              	exth	d0
+405bdf83:	dd fa 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf8a:	f8 62 06                                        	movhu	(6,a2),d0
+405bdf8d:	fc dc 08 59 55 7e                               	mov	2119522568,a0
+405bdf93:	18                                              	exth	d0
+405bdf94:	dd e9 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdf9b:	f8 62 08                                        	movhu	(8,a2),d0
+405bdf9e:	fc dc 18 59 55 7e                               	mov	2119522584,a0
+405bdfa4:	18                                              	exth	d0
+405bdfa5:	dd d8 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdfac:	f8 62 0a                                        	movhu	(10,a2),d0
+405bdfaf:	fc dc 28 59 55 7e                               	mov	2119522600,a0
+405bdfb5:	18                                              	exth	d0
+405bdfb6:	dd c7 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdfbd:	f8 62 0c                                        	movhu	(12,a2),d0
+405bdfc0:	fc dc 38 59 55 7e                               	mov	2119522616,a0
+405bdfc6:	18                                              	exth	d0
+405bdfc7:	dd b6 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdfce:	f8 62 0e                                        	movhu	(14,a2),d0
+405bdfd1:	fc dc 48 59 55 7e                               	mov	2119522632,a0
+405bdfd7:	18                                              	exth	d0
+405bdfd8:	dd a5 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdfdf:	f8 62 10                                        	movhu	(16,a2),d0
+405bdfe2:	fc dc 58 59 55 7e                               	mov	2119522648,a0
+405bdfe8:	18                                              	exth	d0
+405bdfe9:	dd 94 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405bdff0:	f8 63 2a                                        	movhu	(42,a3),d0
+405bdff3:	fc dc 68 59 55 7e                               	mov	2119522664,a0
+405bdff9:	dd 84 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be000:	f8 63 2c                                        	movhu	(44,a3),d0
+405be003:	fc dc 78 59 55 7e                               	mov	2119522680,a0
+405be009:	dd 74 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be010:	f8 63 2e                                        	movhu	(46,a3),d0
+405be013:	fc dc 88 59 55 7e                               	mov	2119522696,a0
+405be019:	dd 64 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be020:	f8 63 30                                        	movhu	(48,a3),d0
+405be023:	fc dc 98 59 55 7e                               	mov	2119522712,a0
+405be029:	dd 54 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be030:	f8 63 32                                        	movhu	(50,a3),d0
+405be033:	fc dc a8 59 55 7e                               	mov	2119522728,a0
+405be039:	dd 44 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be040:	f8 63 34                                        	movhu	(52,a3),d0
+405be043:	fc dc b8 59 55 7e                               	mov	2119522744,a0
+405be049:	dd 34 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be050:	f8 63 36                                        	movhu	(54,a3),d0
+405be053:	fc dc c8 59 55 7e                               	mov	2119522760,a0
+405be059:	dd 24 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be060:	f8 63 38                                        	movhu	(56,a3),d0
+405be063:	fc dc d8 59 55 7e                               	mov	2119522776,a0
+405be069:	dd 14 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be070:	f8 63 3a                                        	movhu	(58,a3),d0
+405be073:	fc dc e8 59 55 7e                               	mov	2119522792,a0
+405be079:	dd 04 7c d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be080:	f8 63 3c                                        	movhu	(60,a3),d0
+405be083:	fc dc f8 59 55 7e                               	mov	2119522808,a0
+405be089:	dd f4 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be090:	f8 63 46                                        	movhu	(70,a3),d0
+405be093:	fc dc 08 5a 55 7e                               	mov	2119522824,a0
+405be099:	18                                              	exth	d0
+405be09a:	dd e3 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be0a1:	f8 63 48                                        	movhu	(72,a3),d0
+405be0a4:	fc dc 18 5a 55 7e                               	mov	2119522840,a0
+405be0aa:	18                                              	exth	d0
+405be0ab:	dd d2 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be0b2:	f8 63 4a                                        	movhu	(74,a3),d0
+405be0b5:	fc dc 28 5a 55 7e                               	mov	2119522856,a0
+405be0bb:	18                                              	exth	d0
+405be0bc:	dd c1 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be0c3:	f8 63 4c                                        	movhu	(76,a3),d0
+405be0c6:	fc dc 38 5a 55 7e                               	mov	2119522872,a0
+405be0cc:	dd b1 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be0d3:	f8 63 4e                                        	movhu	(78,a3),d0
+405be0d6:	fc dc 48 5a 55 7e                               	mov	2119522888,a0
+405be0dc:	dd a1 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be0e3:	f8 63 50                                        	movhu	(80,a3),d0
+405be0e6:	fc dc 58 5a 55 7e                               	mov	2119522904,a0
+405be0ec:	dd 91 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be0f3:	f8 63 52                                        	movhu	(82,a3),d0
+405be0f6:	fc dc 68 5a 55 7e                               	mov	2119522920,a0
+405be0fc:	dd 81 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be103:	f8 43 54                                        	movbu	(84,a3),d0
+405be106:	fc dc 78 5a 55 7e                               	mov	2119522936,a0
+405be10c:	10                                              	extb	d0
+405be10d:	dd 70 7b d0 ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+405be114:	f8 43 55                                        	movbu	(85,a3),d0
+405be117:	fc dc 88 5a 55 7e                               	mov	2119522952,a0
+405be11d:	10                                              	extb	d0
+405be11e:	dd 5f                                 	call	0x402c5c7d,[d2,a2],40

@@ -1,0 +1,60 @@
+
+decoded/00_0100_402c0020.decoded.bin:     file format binary
+
+
+Disassembly of section .data:
+
+402f8800 <.data+0x38800>:
+402f8800:	28 fc                                           	add	-4,d0
+402f8802:	dc ee 78 16 7e                                  	jmp	0xbe4600f0
+402f8807:	fc cc 00 00 10 40                               	mov	1074790400,d0
+402f880d:	dd 70 d4 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f8814:	fc dc fe 78 16 7e                               	mov	2115401982,a0
+402f881a:	fc cc 00 00 12 40                               	mov	1074921472,d0
+402f8820:	dd 5d d4 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f8827:	fc dc 0e 79 16 7e                               	mov	2115401998,a0
+402f882d:	fc cc 00 00 2c 40                               	mov	1076625408,d0
+402f8833:	dd 4a d4 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f883a:	fc dc 1e 79 16 7e                               	mov	2115402014,a0
+402f8840:	fc cc 00 00 1c 41                               	mov	1092354048,d0
+402f8846:	dd 37 d4 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f884d:	fc dc 2e 79 16 7e                               	mov	2115402030,a0
+402f8853:	fc cc 00 00 7c 42                               	mov	1115422720,d0
+402f8859:	dd 24 d4 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f8860:	fc dc 3e 79 16 7e                               	mov	2115402046,a0
+402f8866:	fc cc 00 00 da 43                               	mov	1138360320,d0
+402f886c:	dd 11 d4 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f8873:	fc dc 4e 79 16 7e                               	mov	2115402062,a0
+402f8879:	fc cc 00 00 00 44                               	mov	1140850688,d0
+402f887f:	dd fe d3 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f8886:	fc dc 5e 79 16 7e                               	mov	2115402078,a0
+402f888c:	fc cc 00 00 a0 45                               	mov	1168113664,d0
+402f8892:	cc 22 fc                                        	jmp	0x402f84b4
+402f8895:	72                                              	mov	(a2),d0
+402f8896:	fc dd 6e 79 16 7e                               	mov	2115402094,a1
+402f889c:	f1 e0                                           	mov	d0,a0
+402f889e:	dd 1b b7 08 00 00 00                            	call	0x40383fb9,[],0
+402f88a5:	ac                                              	cmp	d3,d0
+402f88a6:	c8 05                                           	beq	0x402f88ab
+402f88a8:	cc 0b 01                                        	jmp	0x402f89b3
+402f88ab:	fc dc 76 79 16 7e                               	mov	2115402102,a0
+402f88b1:	dd ed 7a fc ff 20 18                            	call	0x402c039e,[a2],24
+402f88b8:	8a 5a                                           	mov	90,d2
+402f88ba:	26 00 03                                        	mov	768,a2
+402f88bd:	4b 44                                           	mov	a2,(68,sp)
+402f88bf:	fc dc 85 79 16 7e                               	mov	2115402117,a0
+402f88c5:	8c                                              	mov	d3,d0
+402f88c6:	dd b7 d3 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f88cd:	58 44                                           	mov	(68,sp),d0
+402f88cf:	fc dc 91 79 16 7e                               	mov	2115402129,a0
+402f88d5:	f8 c0 09                                        	asl	9,d0
+402f88d8:	fc e4 00 00 00 40                               	or	1073741824,d0
+402f88de:	dd 9f d3 fc ff a0 28                            	call	0x402c5c7d,[d2,a2],40
+402f88e5:	16                                              	extbu	d2
+402f88e6:	fc dc 00 60 cb bd                               	mov	-1110745088,a0
+402f88ec:	88                                              	mov	d2,d0
+402f88ed:	fc cd 00 00 02 00                               	mov	131072,d1
+402f88f3:	dd 65 84 fc ff c0 08                            	call	0x402c0d58,[d2,d3],8
+402f88fa:	59 44                                           	mov	(68,sp),d1
+402f88fc:	80 01                                           	mov	1,d0
+402f88fe:	42 50                                           	mov	d0,(80,sp)

@@ -1,0 +1,285 @@
+
+decoded/00_0100_402c0020.decoded.bin:     file format binary
+
+
+Disassembly of section .data:
+
+402c0000 <.data>:
+402c0000:	fa fc ff f0                                     	and	61695,psw
+402c0004:	cb                                              	nop	
+402c0005:	cb                                              	nop	
+402c0006:	f8 fe fc                                        	add	-4,sp
+402c0009:	fc ff dc 00 00 00                               	calls	0x402c00e5
+402c000f:	f8 fe 04                                        	add	4,sp
+402c0012:	f8 fe fc                                        	add	-4,sp
+402c0015:	fc ff c5 00 00 00                               	calls	0x402c00da
+402c001b:	f8 fe 04                                        	add	4,sp
+402c001e:	fa fe 00 ff                                     	add	-256,sp
+402c0022:	fc cd c0 52 44 60                               	mov	1615090368,d1
+402c0028:	fc cc ec 5a 34 60                               	mov	1614043884,d0
+402c002e:	dd 3e 04 00 00 f0 50                            	call	0x402c046c,[d2,d3,a2,a3],80
+402c0035:	fa fe 00 01                                     	add	256,sp
+402c0039:	fa fe 00 ff                                     	add	-256,sp
+402c003d:	fc cd 94 18 88 a0                               	mov	-1601693548,d1
+402c0043:	fc cc 40 20 85 60                               	mov	1619337280,d0
+402c0049:	dd 23 04 00 00 f0 50                            	call	0x402c046c,[d2,d3,a2,a3],80
+402c0050:	fa fe 00 01                                     	add	256,sp
+402c0054:	fa fe 00 ff                                     	add	-256,sp
+402c0058:	fc cd 90 fb 89 a0                               	mov	-1601569904,d1
+402c005e:	fc cc a0 18 88 a0                               	mov	-1601693536,d0
+402c0064:	dd 08 04 00 00 f0 50                            	call	0x402c046c,[d2,d3,a2,a3],80
+402c006b:	fa fe 00 01                                     	add	256,sp
+402c006f:	f8 fe 9c                                        	add	-100,sp
+402c0072:	dd e7 52 00 00 80 08                            	call	0x402c5359,[d2],8
+402c0079:	f8 fe 64                                        	add	100,sp
+402c007c:	fc cf 20 00 11 7e                               	mov	2115043360,d3
+402c0082:	0f 00 80                                        	movhu	d3,(0x8000)
+402c0085:	fc cf 48 00 11 7e                               	mov	2115043400,d3
+402c008b:	0f 04 80                                        	movhu	d3,(0x8004)
+402c008e:	fc cf 50 00 11 7e                               	mov	2115043408,d3
+402c0094:	0f 08 80                                        	movhu	d3,(0x8008)
+402c0097:	fc cf 58 00 11 7e                               	mov	2115043416,d3
+402c009d:	0f 0c 80                                        	movhu	d3,(0x800c)
+402c00a0:	fc cf 60 00 11 7e                               	mov	2115043424,d3
+402c00a6:	0f 10 80                                        	movhu	d3,(0x8010)
+402c00a9:	fc cf 68 00 11 7e                               	mov	2115043432,d3
+402c00af:	0f 14 80                                        	movhu	d3,(0x8014)
+402c00b2:	fc cf 70 00 11 7e                               	mov	2115043440,d3
+402c00b8:	0f 18 80                                        	movhu	d3,(0x8018)
+402c00bb:	0d 1c 80                                        	mov	d3,(0x801c)
+402c00be:	fc cf 00 10 00 47                               	mov	1191186432,d3
+402c00c4:	2e 00 08                                        	mov	2048,d2
+402c00c7:	fc c6 04 00 00 00                               	sub	4,d2
+402c00cd:	eb                                              	add	d2,d3
+402c00ce:	f1 ef                                           	mov	d3,a3
+402c00d0:	f2 fc                                           	mov	a3,sp
+402c00d2:	fc dc 15 11 10 7e                               	mov	2114982165,a0
+402c00d8:	f0 f4                                           	jmp	(a0)
+402c00da:	38 70 80                                        	movhu	(0x8070),d0
+402c00dd:	f8 e4 03                                        	or	3,d0
+402c00e0:	03 70 80                                        	movhu	d0,(0x8070)
+402c00e3:	f0 fc                                           	rets	
+402c00e5:	fc dc 60 00 e0 98                               	mov	-1730150304,a0
+402c00eb:	70                                              	mov	(a0),d0
+402c00ec:	fc dc c0 12 51 60                               	mov	1615925952,a0
+402c00f2:	60                                              	mov	d0,(a0)
+402c00f3:	f0 fc                                           	rets	
+402c00f5:	cf a0                                           	movm	[d2,a2],(sp)
+402c00f7:	f8 fe f4                                        	add	-12,sp
+402c00fa:	fc dc 38 68 10 7e                               	mov	2115004472,a0
+402c0100:	cd 31 55 00 04                                  	call	0x402c5631,[],4
+402c0105:	fc dc 14 f7 10 7e                               	mov	2115041044,a0
+402c010b:	fc dd 20 f0 10 7e                               	mov	2115039264,a1
+402c0111:	fc de e0 0f 00 60                               	mov	1610616800,a2
+402c0117:	f1 d0                                           	mov	a0,d0
+402c0119:	f1 14                                           	sub	a1,d0
+402c011b:	c8 0c                                           	beq	0x402c0127
+402c011d:	85 04                                           	mov	4,d1
+402c011f:	79                                              	mov	(a1),d2
+402c0120:	51                                              	inc4	a1
+402c0121:	6a                                              	mov	d2,(a2)
+402c0122:	52                                              	inc4	a2
+402c0123:	f1 04                                           	sub	d1,d0
+402c0125:	c1 fa                                           	bgt	0x402c011f
+402c0127:	fc dc 3c 68 10 7e                               	mov	2115004476,a0
+402c012d:	cd 04 55 00 04                                  	call	0x402c5631,[],4
+402c0132:	cd 32 0a f0 1c                                  	call	0x402c0b64,[d2,d3,a2,a3],28
+402c0137:	00                                              	clr	d0
+402c0138:	cd f6 09 00 04                                  	call	0x402c0b2e,[],4
+402c013d:	00                                              	clr	d0
+402c013e:	cd f9 09 00 04                                  	call	0x402c0b37,[],4
+402c0143:	00                                              	clr	d0
+402c0144:	cd fc 09 00 04                                  	call	0x402c0b40,[],4
+402c0149:	80 01                                           	mov	1,d0
+402c014b:	cd d7 04 00 00                                  	call	0x402c0622,[],0
+402c0150:	fc dc 40 68 10 7e                               	mov	2115004480,a0
+402c0156:	cd db 54 00 04                                  	call	0x402c5631,[],4
+402c015b:	fc dc 44 68 10 7e                               	mov	2115004484,a0
+402c0161:	cd d0 54 00 04                                  	call	0x402c5631,[],4
+402c0166:	80 01                                           	mov	1,d0
+402c0168:	cd c6 09 00 04                                  	call	0x402c0b2e,[],4
+402c016d:	fc dc 48 68 10 7e                               	mov	2115004488,a0
+402c0173:	cd be 54 00 04                                  	call	0x402c5631,[],4
+402c0178:	fc cc e4 b3 5a 7e                               	mov	2119873508,d0
+402c017e:	fc 81 d4 12 51 60                               	mov	d0,(0x605112d4)
+402c0184:	fc cc c0 5c f4 be                               	mov	-1091281728,d0
+402c018a:	fc 81 d8 12 51 60                               	mov	d0,(0x605112d8)
+402c0190:	fc cc 00 18 1c 7e                               	mov	2115770368,d0
+402c0196:	81                                              	mov	d0,d1
+402c0197:	fc 85 d0 12 51 60                               	mov	d1,(0x605112d0)
+402c019d:	00                                              	clr	d0
+402c019e:	42 04                                           	mov	d0,(4,sp)
+402c01a0:	80 04                                           	mov	4,d0
+402c01a2:	42 08                                           	mov	d0,(8,sp)
+402c01a4:	00                                              	clr	d0
+402c01a5:	fc dc 00 f0 2c 40                               	mov	1076686848,a0
+402c01ab:	fc dd 00 00 11 be                               	mov	-1106182144,a1
+402c01b1:	fc c1 00 00 ef 81                               	add	-2115043328,d1
+402c01b7:	cd a4 06 f0 28                                  	call	0x402c085b,[d2,d3,a2,a3],40
+402c01bc:	fc a5 d4 12 51 60                               	mov	(0x605112d4),d1
+402c01c2:	00                                              	clr	d0
+402c01c3:	42 04                                           	mov	d0,(4,sp)
+402c01c5:	80 04                                           	mov	4,d0
+402c01c7:	42 08                                           	mov	d0,(8,sp)
+402c01c9:	00                                              	clr	d0
+402c01ca:	fc dc 00 e0 74 40                               	mov	1081401344,a0
+402c01d0:	fc dd 40 9b 2a a0                               	mov	-1607820480,a1
+402c01d6:	fc c1 00 10 a7 81                               	add	-2119757824,d1
+402c01dc:	cd 7f 06 f0 28                                  	call	0x402c085b,[d2,d3,a2,a3],40
+402c01e1:	fc a5 d8 12 51 60                               	mov	(0x605112d8),d1
+402c01e7:	00                                              	clr	d0
+402c01e8:	42 04                                           	mov	d0,(4,sp)
+402c01ea:	80 04                                           	mov	4,d0
+402c01ec:	42 08                                           	mov	d0,(8,sp)
+402c01ee:	00                                              	clr	d0
+402c01ef:	fc dc 00 c0 0e 41                               	mov	1091485696,a0
+402c01f5:	fc dd 00 d0 f2 7e                               	mov	2129842176,a1
+402c01fb:	fc c1 00 30 0d 41                               	add	1091383296,d1
+402c0201:	cd 5a 06 f0 28                                  	call	0x402c085b,[d2,d3,a2,a3],40
+402c0206:	00                                              	clr	d0
+402c0207:	42 04                                           	mov	d0,(4,sp)
+402c0209:	80 01                                           	mov	1,d0
+402c020b:	42 08                                           	mov	d0,(8,sp)
+402c020d:	00                                              	clr	d0
+402c020e:	fc dc 00 a0 10 41                               	mov	1091608576,a0
+402c0214:	fc dd 00 b0 f4 be                               	mov	-1091260416,a1
+402c021a:	2d 20 08                                        	mov	2080,d1
+402c021d:	cd 3e 06 f0 28                                  	call	0x402c085b,[d2,d3,a2,a3],40
+402c0222:	fc dc 4c 68 10 7e                               	mov	2115004492,a0
+402c0228:	cd 09 54 00 04                                  	call	0x402c5631,[],4
+402c022d:	fc dc 50 68 10 7e                               	mov	2115004496,a0
+402c0233:	cd fe 53 00 04                                  	call	0x402c5631,[],4
+402c0238:	dd 8c 2a 03 00 a0 0c                            	call	0x402f2cc4,[d2,a2],12
+402c023f:	fc dc 54 68 10 7e                               	mov	2115004500,a0
+402c0245:	dd d5 2d 03 00 20 08                            	call	0x402f301a,[a2],8
+402c024c:	fc dc 5b 68 10 7e                               	mov	2115004507,a0
+402c0252:	cd df 53 00 04                                  	call	0x402c5631,[],4
+402c0257:	cd 8e 4d c0 08                                  	call	0x402c4fe5,[d2,d3],8
+402c025c:	cd b0 5c 00 00                                  	call	0x402c5f0c,[],0
+402c0261:	fc dc 5f 68 10 7e                               	mov	2115004511,a0
+402c0267:	cd ca 53 00 04                                  	call	0x402c5631,[],4
+402c026c:	dd 05 eb 04 00 c0 0c                            	call	0x4030ed71,[d2,d3],12
+402c0273:	fc dc 63 68 10 7e                               	mov	2115004515,a0
+402c0279:	cd b8 53 00 04                                  	call	0x402c5631,[],4
+402c027e:	fc dc 67 68 10 7e                               	mov	2115004519,a0
+402c0284:	cd ad 53 00 04                                  	call	0x402c5631,[],4
+402c0289:	00                                              	clr	d0
+402c028a:	42 04                                           	mov	d0,(4,sp)
+402c028c:	80 04                                           	mov	4,d0
+402c028e:	42 08                                           	mov	d0,(8,sp)
+402c0290:	00                                              	clr	d0
+402c0291:	fc dc 00 00 06 40                               	mov	1074135040,a0
+402c0297:	fc dd 00 a0 f8 bf                               	mov	-1074225152,a1
+402c029d:	fc cd 00 00 04 00                               	mov	262144,d1
+402c02a3:	cd b8 05 f0 28                                  	call	0x402c085b,[d2,d3,a2,a3],40
+402c02a8:	fc dc 6b 68 10 7e                               	mov	2115004523,a0
+402c02ae:	cd 83 53 00 04                                  	call	0x402c5631,[],4
+402c02b3:	fc dc 6f 68 10 7e                               	mov	2115004527,a0
+402c02b9:	cd 78 53 00 04                                  	call	0x402c5631,[],4
+402c02be:	2c 00 03                                        	mov	768,d0
+402c02c1:	dd af fa 0b 00 00 00                            	call	0x4037fd70,[],0
+402c02c8:	dd c9 94 03 00 f0 1c                            	call	0x402f9791,[d2,d3,a2,a3],28
+402c02cf:	00                                              	clr	d0
+402c02d0:	dd a0 fa 0b 00 00 00                            	call	0x4037fd70,[],0
+402c02d7:	fc dc 73 68 10 7e                               	mov	2115004531,a0
+402c02dd:	cd 54 53 00 04                                  	call	0x402c5631,[],4
+402c02e2:	80 01                                           	mov	1,d0
+402c02e4:	dd 7b 35 03 00 00 00                            	call	0x402f385f,[],0
+402c02eb:	82                                              	mov	d0,d2
+402c02ec:	dd 55 a3 04 00 80 08                            	call	0x4030a641,[d2],8
+402c02f3:	88                                              	mov	d2,d0
+402c02f4:	dd 8c 35 03 00 00 00                            	call	0x402f3880,[],0
+402c02fb:	00                                              	clr	d0
+402c02fc:	fc 81 00 01 f0 8f                               	mov	d0,(0x8ff00100)
+402c0302:	fc 81 04 01 f0 8f                               	mov	d0,(0x8ff00104)
+402c0308:	fc 81 80 00 f0 8f                               	mov	d0,(0x8ff00080)
+402c030e:	fc 81 fc a3 87 a0                               	mov	d0,(0xa087a3fc)
+402c0314:	fc dc ed 68 10 7e                               	mov	2115004653,a0
+402c031a:	fc dd 40 01 d0 98                               	mov	-1731198656,a1
+402c0320:	f0 11                                           	mov	a0,(a1)
+402c0322:	fc dd d0 00 80 98                               	mov	-1736441648,a1
+402c0328:	71                                              	mov	(a1),d0
+402c0329:	f8 e4 08                                        	or	8,d0
+402c032c:	61                                              	mov	d0,(a1)
+402c032d:	fc dd f0 00 80 98                               	mov	-1736441616,a1
+402c0333:	80 01                                           	mov	1,d0
+402c0335:	61                                              	mov	d0,(a1)
+402c0336:	fc dc 77 68 10 7e                               	mov	2115004535,a0
+402c033c:	cd f5 52 00 04                                  	call	0x402c5631,[],4
+402c0341:	80 40                                           	mov	64,d0
+402c0343:	fc 81 f0 01 20 99                               	mov	d0,(0x992001f0)
+402c0349:	dd 23 ed 00 00 00 00                            	call	0x402cf06c,[],0
+402c0350:	df a0 14                                        	ret	[d2,a2],20
+402c0353:	fc a1 14 10 00 60                               	mov	(0x60001014),a1
+402c0359:	b5 00                                           	cmp	0,a1
+402c035b:	c8 40                                           	beq	0x402c039b
+402c035d:	08                                              	clr	d2
+402c035e:	00                                              	clr	d0
+402c035f:	db                                              	setlb	
+402c0360:	f4 11                                           	movbu	(d0,a1),d1
+402c0362:	a5 00                                           	cmp	0,d1
+402c0364:	c8 0b                                           	beq	0x402c036f
+402c0366:	82                                              	mov	d0,d2
+402c0367:	48                                              	inc	d2
+402c0368:	88                                              	mov	d2,d0
+402c0369:	18                                              	exth	d0
+402c036a:	fa c8 00 40                                     	cmp	16384,d0
+402c036e:	d0                                              	llt	
+402c036f:	f0 44                                           	movbu	(a0),d1
+402c0371:	a5 00                                           	cmp	0,d1
+402c0373:	c8 1e                                           	beq	0x402c0391
+402c0375:	db                                              	setlb	
+402c0376:	88                                              	mov	d2,d0
+402c0377:	18                                              	exth	d0
+402c0378:	fa c8 ff 3f                                     	cmp	16383,d0
+402c037c:	c2 15                                           	bge	0x402c0391
+402c037e:	f0 44                                           	movbu	(a0),d1
+402c0380:	fc a1 14 10 00 60                               	mov	(0x60001014),a1
+402c0386:	41                                              	inc	a0
+402c0387:	f4 51                                           	movbu	d1,(d0,a1)
+402c0389:	f0 44                                           	movbu	(a0),d1
+402c038b:	82                                              	mov	d0,d2
+402c038c:	48                                              	inc	d2
+402c038d:	11                                              	extb	d1
+402c038e:	a5 00                                           	cmp	0,d1
+402c0390:	d9                                              	lne	
+402c0391:	fc a0 14 10 00 60                               	mov	(0x60001014),a0
+402c0397:	1a                                              	exth	d2
+402c0398:	00                                              	clr	d0
+402c0399:	f4 48                                           	movbu	d0,(d2,a0)
+402c039b:	de 80 04                                        	retf	[d2],4
+402c039e:	92                                              	mov	a0,a2
+402c039f:	38 50 80                                        	movhu	(0x8050),d0
+402c03a2:	a0 00                                           	cmp	0,d0
+402c03a4:	c8 4f                                           	beq	0x402c03f3
+402c03a6:	f0 42                                           	movbu	(a2),d0
+402c03a8:	fa c8 ff 00                                     	cmp	255,d0
+402c03ac:	c9 06                                           	bne	0x402c03b2
+402c03ae:	80 01                                           	mov	1,d0
+402c03b0:	ca 09                                           	bra	0x402c03b9
+402c03b2:	fa c8 fe 00                                     	cmp	254,d0
+402c03b6:	c9 0b                                           	bne	0x402c03c1
+402c03b8:	00                                              	clr	d0
+402c03b9:	fc 83 0e 10 00 60                               	movhu	d0,(0x6000100e)
+402c03bf:	ca 39                                           	bra	0x402c03f8
+402c03c1:	fc ac 0e 10 00 60                               	movhu	(0x6000100e),d0
+402c03c7:	a0 01                                           	cmp	1,d0
+402c03c9:	c8 2f                                           	beq	0x402c03f8
+402c03cb:	cd 88 ff 80 04                                  	call	0x402c0353,[d2],4
+402c03d0:	4b 04                                           	mov	a2,(4,sp)
+402c03d2:	2c 80 00                                        	mov	128,d0
+402c03d5:	42 08                                           	mov	d0,(8,sp)
+402c03d7:	fc ac 3a fb 11 7e                               	movhu	(0x7e11fb3a),d0
+402c03dd:	3c                                              	mov	sp,a0
+402c03de:	18                                              	exth	d0
+402c03df:	50                                              	inc4	a0
+402c03e0:	85 ff                                           	mov	-1,d1
+402c03e2:	dd 9f fe 02 00 f0 18                            	call	0x402f0281,[d2,d3,a2,a3],24
+402c03e9:	a0 00                                           	cmp	0,d0
+402c03eb:	c8 0d                                           	beq	0x402c03f8
+402c03ed:	fc dc 54 ff 15 7e                               	mov	2115370836,a0
+402c03f3:	cd 08 00 20 10                                  	call	0x402c03fb,[a2],16
+402c03f8:	df 20 18                                        	ret	[a2],24
+402c03fb:	92                                              	mov	a0,a2
+402c03fc:	f0 42                                           	movbu	(a2),d0
+402c03fe:	fa c8                                       	cmp	255,d0

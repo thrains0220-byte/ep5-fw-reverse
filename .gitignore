@@ -1,0 +1,26 @@
+# --- 工具链构建产物（可由 tools/build_mn103_objdump.sh 复现，约 6.7 MB） ---
+toolchain/
+reproduce_out/
+
+# --- 固件本体与更新器（Olympus 版权，明确不纳入版本控制） ---
+*.BIN
+*.bin.in
+*.exe
+*.dmg
+*.msi
+*.cab
+updater/
+
+# --- 运行时/临时文件 ---
+__pycache__/
+*.py[cod]
+*.so
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# --- 局部环境 ---
+.env
+.venv/
+venv/
