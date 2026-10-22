@@ -8,13 +8,14 @@ import ep5_lens
 
 
 def decode(img, outdir):
-    if os.path.isdir(outdir):
-        return json.load(open(os.path.join(outdir, "manifest.json"), encoding="utf-8"))
-    os.makedirs(outdir, exist_ok=True)
+    mf = os.path.join(outdir, "manifest.json")
+    if os.path.exists(mf):
+        return json.load(open(mf, encoding="utf-8"))
+    # oly_container.py 自己建目录（exist_ok=False），不要预建
     r = subprocess.run([sys.executable, OLY, img, "--out", outdir],
-                       capture_output=True, text=True, encoding="utf-8")
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
-        raise RuntimeError(r.stderr[:300])
+        raise RuntimeError((r.stderr or r.stdout or "?")[:300])
     return json.loads(r.stdout)
 
 
