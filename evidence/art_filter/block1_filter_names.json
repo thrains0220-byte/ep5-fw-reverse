@@ -1,0 +1,3445 @@
+{
+  "note": "块 1 = UTF-16LE 多语言 UI 字符串池（每条以 UTF-16 NUL 结束）。此处记录 E-P5 照片模式/艺术滤镜相关名字及其在块 1 中的位置。'@A0xx@' 前缀是菜单项的字符串资源 ID（静态观察，语义待定）。",
+  "source": {
+    "file": "decoded/01_0101_427c0020.decoded.bin",
+    "block1_base": "0x427c0000",
+    "block1_size": 22937536
+  },
+  "utf16_string_count": 99694,
+  "filter_names": {
+    "Cross Process": [
+      {
+        "block1_offset": "0x301038",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x3062ce",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x333a72",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x339b6c",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x34ec2a",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x354152",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x3d0446",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x3d5fb2",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x41da46",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x42354a",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x4c5c36",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x4cac38",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x4dd830",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x4e33d4",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x51285a",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x51859a",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x59203c",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x59767c",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      },
+      {
+        "block1_offset": "0x5c0a32",
+        "resource_id": null,
+        "text": "Cross Process"
+      },
+      {
+        "block1_offset": "0x5c5c5c",
+        "resource_id": "A047",
+        "text": "@A047@Cross Process"
+      }
+    ],
+    "Diorama": [
+      {
+        "block1_offset": "0x2e863e",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x2ee0a2",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x2f4800",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x301054",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x306664",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x30cce8",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x319676",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x31f6ca",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x32661c",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x34ec46",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x3544d4",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x35ad90",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x36b86e",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x371198",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x377d12",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x3b6084",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x3bbd54",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x3c2e32",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x3d0462",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x3d6362",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x3dd548",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x404474",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x40a03c",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x410d4c",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x41da62",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x42391c",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x42a772",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x45e68a",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x46460e",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x46b72c",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x492e5e",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x49877c",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x49eeb8",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x4abc6c",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x4b1a10",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x4b8936",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x4c5c52",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x4cafa4",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x4d1370",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x4dd84c",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x4e37ba",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x4ea94c",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x4f7aa2",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x4fdbf2",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x504f46",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x512876",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x51894a",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x51fa86",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x544854",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x549c48",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x55047a",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x55d094",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x5631b4",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x56a3de",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x578462",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x57e0fc",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x58507e",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x592058",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x597a14",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x59e16a",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      },
+      {
+        "block1_offset": "0x5c0a4e",
+        "resource_id": null,
+        "text": "Diorama"
+      },
+      {
+        "block1_offset": "0x5c5fe4",
+        "resource_id": "A046",
+        "text": "@A046@Diorama"
+      },
+      {
+        "block1_offset": "0x5cc86c",
+        "resource_id": "A044",
+        "text": "@A044@Diorama"
+      }
+    ],
+    "Dramatic Tone": [
+      {
+        "block1_offset": "0x34ec56",
+        "resource_id": null,
+        "text": "Dramatic Tone"
+      },
+      {
+        "block1_offset": "0x35417a",
+        "resource_id": "A040",
+        "text": "@A040@Dramatic Tone"
+      },
+      {
+        "block1_offset": "0x35aea4",
+        "resource_id": "A045",
+        "text": "@A045@Dramatic Tone"
+      }
+    ],
+    "Gentle Sepia": [
+      {
+        "block1_offset": "0x34ec72",
+        "resource_id": null,
+        "text": "Gentle Sepia"
+      },
+      {
+        "block1_offset": "0x354b62",
+        "resource_id": "A048",
+        "text": "@A048@Gentle Sepia"
+      },
+      {
+        "block1_offset": "0x41da92",
+        "resource_id": null,
+        "text": "Gentle Sepia"
+      },
+      {
+        "block1_offset": "0x423fba",
+        "resource_id": "A048",
+        "text": "@A048@Gentle Sepia"
+      }
+    ],
+    "Grainy Film": [
+      {
+        "block1_offset": "0x34ec8c",
+        "resource_id": null,
+        "text": "Grainy Film"
+      },
+      {
+        "block1_offset": "0x354492",
+        "resource_id": "A044",
+        "text": "@A044@Grainy Film"
+      },
+      {
+        "block1_offset": "0x35a710",
+        "resource_id": "A042",
+        "text": "@A042@Grainy Film"
+      }
+    ],
+    "Light Tone": [
+      {
+        "block1_offset": "0x34eca4",
+        "resource_id": null,
+        "text": "Light Tone"
+      },
+      {
+        "block1_offset": "0x354470",
+        "resource_id": "A043",
+        "text": "@A043@Light Tone"
+      }
+    ],
+    "Monochrome": [
+      {
+        "block1_offset": "0x3b6d40",
+        "resource_id": null,
+        "text": "Monochrome"
+      },
+      {
+        "block1_offset": "0x3bbea8",
+        "resource_id": null,
+        "text": "Monochrome"
+      }
+    ],
+    "Muted": [
+      {
+        "block1_offset": "0x2ce7c0",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x2d094c",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x2db9f2",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x2ddb96",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x301c64",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x30673a",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x31a396",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x31f780",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x334888",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x33a008",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x34f860",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x354572",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x36c4ce",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x371284",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x385696",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x38a278",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x39dec0",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x3a2b3c",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x3b6dbe",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x3bbe3e",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x3d1192",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x3d6456",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x41e700",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4239ca",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x44cf18",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4500ae",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x45f446",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4646ec",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x47981a",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x47ea9e",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x4ac8d0",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4b1ac6",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x4c686a",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4cb04a",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x4de5b8",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4e388c",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x4f8772",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x4fdcb6",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x54548c",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x549d3a",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x55de38",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x563290",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x579184",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x57e1c4",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x592c88",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x597ac2",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x5ab642",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x5af79c",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x5c1632",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x5c6090",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      },
+      {
+        "block1_offset": "0x5d9ba8",
+        "resource_id": null,
+        "text": "Muted"
+      },
+      {
+        "block1_offset": "0x5deb58",
+        "resource_id": "A033",
+        "text": "@A033@Muted"
+      }
+    ],
+    "Natural": [
+      {
+        "block1_offset": "0x2b58a6",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2ba056",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x2c5986",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2c5cb0",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x2cedb2",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2d0930",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x2d5c2c",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2d5f56",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x2dbff6",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2ddb7a",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x2e2e32",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2e315c",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x2e9d52",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2ee160",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x2f8dd4",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x2f90fe",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x302666",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x30671e",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x3113e8",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x311712",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x31ae22",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x31f764",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x32b19e",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x32b4c8",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x33537e",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x339fec",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x34632c",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x346656",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x35026a",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x354556",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x35f6ee",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x35fa18",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x36cef6",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x371268",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x37c576",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x37c8a0",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x386108",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x38a25c",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x394e18",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x395142",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x39e92c",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3a2b20",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x3adeb8",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3ae1e2",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x3b78b6",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3bbe22",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x3c7b50",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3c7e7a",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x3d1caa",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3d643a",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x3e22ba",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3e25e4",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x3ebdb0",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3f057e",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x3fc0ca",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x3fc3f4",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x405bd6",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x40a112",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x41593c",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x415c66",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x41f148",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4239ae",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x42f37c",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x42f6a6",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x4388be",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x43b2d0",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x442dc0",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4430ea",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x44d5fc",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x450092",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x457de6",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x458110",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x45ff92",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4646d0",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x470404",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x47072e",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x47a2f2",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x47ea82",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x48aa84",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x48adae",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x494502",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x498808",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x4a3862",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4a3b8c",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x4ad316",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4b1aaa",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x4bd660",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4bd98a",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x4c7242",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4cb02e",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x4d59c2",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4d5cec",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x4df040",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4e3870",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x4ef788",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4efab2",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x4f9262",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x4fdc9a",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x509d9e",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x50a0c8",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x514062",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x518a16",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x5247ec",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x524b16",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x52e38a",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x53208a",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x53c77e",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x53caa8",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x545eb8",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x549d1e",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x554c86",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x554fb0",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x55e974",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x563274",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x56f570",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x56f89a",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x579c18",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x57e1a8",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x589d82",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x58a0ac",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x593666",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x597aa6",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x5a2a80",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5a2daa",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x5ac088",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5af780",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x5b8d2a",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5b9054",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x5c1fec",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5c6074",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x5d102c",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5d1356",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      },
+      {
+        "block1_offset": "0x5da670",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5deb3c",
+        "resource_id": "A07B",
+        "text": "@A07B@Natural"
+      },
+      {
+        "block1_offset": "0x5ea362",
+        "resource_id": null,
+        "text": "Natural"
+      },
+      {
+        "block1_offset": "0x5ea68c",
+        "resource_id": "A088",
+        "text": "@A088@Natural"
+      }
+    ],
+    "Pale&Light Color": [
+      {
+        "block1_offset": "0x34ecba",
+        "resource_id": null,
+        "text": "Pale&Light Color"
+      },
+      {
+        "block1_offset": "0x354442",
+        "resource_id": "A042",
+        "text": "@A042@Pale&Light Color"
+      }
+    ],
+    "Pin Hole": [
+      {
+        "block1_offset": "0x2b4176",
+        "resource_id": null,
+        "text": "Pin Hole "
+      },
+      {
+        "block1_offset": "0x2b9f64",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole "
+      },
+      {
+        "block1_offset": "0x2c0968",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole "
+      },
+      {
+        "block1_offset": "0x333b5a",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x339efc",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x340e78",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x34ed02",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x3544b6",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x35aa0e",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x3d0530",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x3d6344",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x3dd18c",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x3ea74a",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x3f0492",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x3f708c",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x478b60",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x47e994",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x4856c8",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x492f24",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x49875e",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x49eb18",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x51294c",
+        "resource_id": null,
+        "text": "Pin Hole"
+      },
+      {
+        "block1_offset": "0x51892c",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole"
+      },
+      {
+        "block1_offset": "0x51f728",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole"
+      },
+      {
+        "block1_offset": "0x544910",
+        "resource_id": null,
+        "text": "Pin Hole Fotoapar"
+      },
+      {
+        "block1_offset": "0x549c14",
+        "resource_id": "A045",
+        "text": "@A045@Pin Hole Fotoapar"
+      },
+      {
+        "block1_offset": "0x5500c4",
+        "resource_id": "A043",
+        "text": "@A043@Pin Hole Fotoapar"
+      }
+    ],
+    "Pop Art": [
+      {
+        "block1_offset": "0x31971e",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x31f5f0",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x333b2e",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x339e3e",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x34ecdc",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x354404",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x36b8f0",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x3710c4",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x3b612e",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x3bbc5c",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x3d0506",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x3d6280",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x3ea722",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x3f03ca",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x41db16",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x423824",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x4dd90e",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x4e36a4",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      },
+      {
+        "block1_offset": "0x51291c",
+        "resource_id": null,
+        "text": "Pop Art"
+      },
+      {
+        "block1_offset": "0x518858",
+        "resource_id": "A03F",
+        "text": "@A03F@Pop Art"
+      }
+    ],
+    "Portrait": [
+      {
+        "block1_offset": "0x2b58d2",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2b9e6e",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x2c59b2",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2c5ccc",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x2cedde",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2d080c",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x2d5c58",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2d5f72",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x2dc022",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2dda54",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x2e2e5e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2e3178",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x2e9d7e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2edf98",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x2f8e00",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x2f911a",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x302692",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x306572",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x311414",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x31172e",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x31ae4e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x31f5d2",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x32b1ca",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x32b4e4",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x3353aa",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x339e20",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x346358",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x346672",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x34fda0",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x350296",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3543e6",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x35f71a",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x35fa34",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x36cf22",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3710a6",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x37c5a2",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x37c8bc",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x386134",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x38a0c8",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x394e44",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x39515e",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x39e958",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3a2942",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x3adee4",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3ae1fe",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x3b739a",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3b78e2",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3bbc3e",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x3c7b7c",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3c7e96",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x3d1cd6",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3d6262",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x3e22e6",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3e2600",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x3ebddc",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3f03ac",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x3fc0f6",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x3fc410",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x405c02",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x409f38",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x415968",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x415c82",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x41f174",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x423806",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x42f3a8",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x42f6c2",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x4388ea",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x43b1a0",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x442dec",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x443106",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x44d628",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x44ff78",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x457e12",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x45812c",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x45ffbe",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4644f0",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x470430",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x47074a",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x47a31e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x47e8aa",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x48aab0",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x48adca",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x49452e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x498684",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x4a388e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4a3ba8",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x4ad342",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4b1918",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x4bd68c",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4bd9a6",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x4c726e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4caeb4",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x4d59ee",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4d5d08",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x4df06c",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4e3686",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x4ef7b4",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4eface",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x4f928e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x4fdaee",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x509dca",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x50a0e4",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x51408e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x51883a",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x524818",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x524b32",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x52e3b6",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x531ed2",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x53c7aa",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x53cac4",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x545ee4",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x549b44",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x554cb2",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x554fcc",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x55e9a0",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x563082",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x56f59c",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x56f8b6",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x579c44",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x57dff2",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x589dae",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x58a0c8",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x593692",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x597920",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x5a2aac",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5a2dc6",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x5ac0b4",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5af602",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x5b8d56",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5b9070",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x5c2018",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5c5eee",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x5d1058",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5d1372",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      },
+      {
+        "block1_offset": "0x5da69c",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5de966",
+        "resource_id": "A07C",
+        "text": "@A07C@Portrait"
+      },
+      {
+        "block1_offset": "0x5ea38e",
+        "resource_id": null,
+        "text": "Portrait"
+      },
+      {
+        "block1_offset": "0x5ea6a8",
+        "resource_id": "A089",
+        "text": "@A089@Portrait"
+      }
+    ],
+    "Soft Focus": [
+      {
+        "block1_offset": "0x34ecec",
+        "resource_id": null,
+        "text": "Soft Focus"
+      },
+      {
+        "block1_offset": "0x354420",
+        "resource_id": "A041",
+        "text": "@A041@Soft Focus"
+      },
+      {
+        "block1_offset": "0x3b613e",
+        "resource_id": null,
+        "text": "Soft Focus"
+      },
+      {
+        "block1_offset": "0x3bbc78",
+        "resource_id": "A041",
+        "text": "@A041@Soft Focus"
+      },
+      {
+        "block1_offset": "0x3bd552",
+        "resource_id": null,
+        "text": "Soft Focus"
+      },
+      {
+        "block1_offset": "0x41db26",
+        "resource_id": null,
+        "text": "Soft Focus"
+      },
+      {
+        "block1_offset": "0x423840",
+        "resource_id": "A041",
+        "text": "@A041@Soft Focus"
+      }
+    ],
+    "Star Light": [
+      {
+        "block1_offset": "0x33b7be",
+        "resource_id": null,
+        "text": " Star Light"
+      }
+    ],
+    "Vivid": [
+      {
+        "block1_offset": "0x2b589a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2b9e56",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x2c597a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2c5c98",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x2ceda6",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2d07f4",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x2d5c20",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2d5f3e",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x2dbfea",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2dda3c",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x2e2e26",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2e3144",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x2e9d46",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2edf80",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x2f8dc8",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x2f90e6",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x30265a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x30655a",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x3113dc",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3116fa",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x31ae16",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x31f5ba",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x32b192",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x32b4b0",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x335372",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x339e08",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x346320",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x34663e",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x35025e",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3543ce",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x35f6e2",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x35fa00",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x36ceea",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x37108e",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x37c56a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x37c888",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x3860fc",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x38a0b0",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x394e0c",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x39512a",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x39e920",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3a292a",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x3adeac",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3ae1ca",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x3b78aa",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3bbc26",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x3c7b44",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3c7e62",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x3d1c9e",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3d624a",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x3e22ae",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3e25cc",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x3ebda4",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3f0394",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x3fc0be",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x3fc3dc",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x405bca",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x409f20",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x415930",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x415c4e",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x41f13c",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4237ee",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x42f370",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x42f68e",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x4388b2",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x43b188",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x442db4",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4430d2",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x44d5f0",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x44ff60",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x457dda",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4580f8",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x45ff86",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4644d8",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x4703f8",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x470716",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x47a2e6",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x47e892",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x48aa78",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x48ad96",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x4944f6",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x49866c",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x4a3856",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4a3b74",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x4ad30a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4b1900",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x4bd654",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4bd972",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x4c7236",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4cae9c",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x4d59b6",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4d5cd4",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x4df034",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4e366e",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x4ef77c",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4efa9a",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x4f9256",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x4fdad6",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x509d92",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x50a0b0",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x514056",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x518822",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x5247e0",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x524afe",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x52e37e",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x531eba",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x53c772",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x53ca90",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x545eac",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x549b2c",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x554c7a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x554f98",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x55e968",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x56306a",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x56f564",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x56f882",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x579c0c",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x57dfda",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x589d76",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x58a094",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x59365a",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x597908",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x5a2a74",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5a2d92",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x5ac07c",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5af5ea",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x5b8d1e",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5b903c",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x5c1fe0",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5c5ed6",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x5d1020",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5d133e",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      },
+      {
+        "block1_offset": "0x5da664",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5de94e",
+        "resource_id": "A07A",
+        "text": "@A07A@Vivid"
+      },
+      {
+        "block1_offset": "0x5ea356",
+        "resource_id": null,
+        "text": "Vivid"
+      },
+      {
+        "block1_offset": "0x5ea674",
+        "resource_id": "A087",
+        "text": "@A087@Vivid"
+      }
+    ],
+    "i-Enhance": [
+      {
+        "block1_offset": "0x2b4a92",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x2b9e36",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x2ce5de",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x2d07d4",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x2db806",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x2dda1c",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x2e8f9c",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x2edf60",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x30192a",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x30653a",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x31a056",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x31f59a",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x3344f4",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x339de8",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x34f532",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x3543ae",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x36c17c",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x37106e",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x385352",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x38a090",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x39dbb2",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x3a290a",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x3b6a76",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x3bbc06",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x3d0e34",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x3d622a",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x3eafd6",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x3f0374",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x404dce",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x409f00",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x41e3bc",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x4237ce",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x44cd0c",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x44ff40",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x45f0ba",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x4644b8",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x493740",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x49864c",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x4ac596",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x4b18e0",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x4c6544",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x4cae7c",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x4de254",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x4e364e",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x4f8414",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x4fdab6",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x513218",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x518802",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x52d5c0",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x531e9a",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x545160",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x549b0c",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x55daca",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x56304a",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x578e08",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x57dfba",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x59293e",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x5978e8",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x5ab2f2",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x5af5ca",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x5c1308",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x5c5eb6",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      },
+      {
+        "block1_offset": "0x5d9854",
+        "resource_id": null,
+        "text": "i-Enhance"
+      },
+      {
+        "block1_offset": "0x5de92e",
+        "resource_id": "A021",
+        "text": "@A021@i-Enhance"
+      }
+    ]
+  }
+}

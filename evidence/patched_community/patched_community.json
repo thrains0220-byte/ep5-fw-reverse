@@ -1,0 +1,390 @@
+[
+  {
+    "label": "E-M5 II v4.1",
+    "archive": "e-m5ii_v41.zip",
+    "patched_bin": "e1189999.bin",
+    "patched_sha256": "f07cd122c7273d467edb6d7260b7ddb9c90cdc2c4bd95efb8d5131ace12368ee",
+    "stock_sha256": "c03050db130b051e446fa08dec1ad6f29afc890308888383428f4938a57edef0",
+    "patches": [
+      {
+        "block": 0,
+        "decoded_start": "0x3f2ad5",
+        "decoded_end": "0x3f2ad6",
+        "flash_start": "0x406f2ad5",
+        "bin_file_start": "0x3f2af4",
+        "bin_file_end": "0x3f2af5",
+        "stock": "c8 07",
+        "patched": "cb cb",
+        "stock_bytes": [
+          200,
+          7
+        ],
+        "patched_bytes": [
+          203,
+          203
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x534866",
+        "decoded_end": "0x534867",
+        "flash_start": "0x40834866",
+        "bin_file_start": "0x534887",
+        "bin_file_end": "0x534888",
+        "stock": "cc 06",
+        "patched": "90 7e",
+        "stock_bytes": [
+          204,
+          6
+        ],
+        "patched_bytes": [
+          144,
+          126
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x53486c",
+        "decoded_end": "0x53486d",
+        "flash_start": "0x4083486c",
+        "bin_file_start": "0x53488d",
+        "bin_file_end": "0x53488e",
+        "stock": "20 1c",
+        "patched": "90 7e",
+        "stock_bytes": [
+          32,
+          28
+        ],
+        "patched_bytes": [
+          144,
+          126
+        ]
+      }
+    ]
+  },
+  {
+    "label": "E-M1 II v3.4",
+    "archive": "e-m1-ii-v34.zip",
+    "patched_bin": "e1259999.bin",
+    "patched_sha256": "63120941042b9ca36ac97a6546e7f8f79399dcebd0a6157d17d121d6a0fdeb79",
+    "stock_sha256": "c081564086227ee4c92b8d9e55bfd9b75e57a9667f65e9ab9f12940a1c9426f9",
+    "patches": [
+      {
+        "block": 0,
+        "decoded_start": "0x33399f",
+        "decoded_end": "0x3339aa",
+        "flash_start": "0x4089399f",
+        "bin_file_start": "0x3339bf",
+        "bin_file_end": "0x3339ca",
+        "stock": "1c a0 06 c8 14 a0 03 c8 10 a0 08 c8",
+        "patched": "fc cc 10 00 00 70 60 88 1c df 80 1c",
+        "stock_bytes": [
+          28,
+          160,
+          6,
+          200,
+          20,
+          160,
+          3,
+          200,
+          16,
+          160,
+          8,
+          200
+        ],
+        "patched_bytes": [
+          252,
+          204,
+          16,
+          0,
+          0,
+          112,
+          96,
+          136,
+          28,
+          223,
+          128,
+          28
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x635a7b",
+        "decoded_end": "0x635a7c",
+        "flash_start": "0x40b95a7b",
+        "bin_file_start": "0x635a98",
+        "bin_file_end": "0x635a99",
+        "stock": "c8 07",
+        "patched": "cb cb",
+        "stock_bytes": [
+          200,
+          7
+        ],
+        "patched_bytes": [
+          203,
+          203
+        ]
+      }
+    ]
+  },
+  {
+    "label": "E-M1 II v3.6",
+    "archive": "e-m1-ii-v36.zip",
+    "patched_bin": "E1259999.BIN",
+    "patched_sha256": "79a01d8648f1bfbe282047ca16efc46e15c7a33c2024ff874d51bb0f0b446105",
+    "stock_sha256": "5fcd7314d808c06f8c867700e39eaaea4c0f240b86bfab94d4bb484c50ed0c07",
+    "patches": [
+      {
+        "block": 0,
+        "decoded_start": "0x3339b3",
+        "decoded_end": "0x3339b3",
+        "flash_start": "0x408939b3",
+        "bin_file_start": "0x3339d2",
+        "bin_file_end": "0x3339d2",
+        "stock": "09",
+        "patched": "04",
+        "stock_bytes": [
+          9
+        ],
+        "patched_bytes": [
+          4
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x3339b6",
+        "decoded_end": "0x3339b6",
+        "flash_start": "0x408939b6",
+        "bin_file_start": "0x3339d7",
+        "bin_file_end": "0x3339d7",
+        "stock": "2c",
+        "patched": "fc",
+        "stock_bytes": [
+          44
+        ],
+        "patched_bytes": [
+          252
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x3339b8",
+        "decoded_end": "0x3339bd",
+        "flash_start": "0x408939b8",
+        "bin_file_start": "0x3339db",
+        "bin_file_end": "0x3339e0",
+        "stock": "06 ca 05 2c 20 1c",
+        "patched": "70 70 70 70 cb cb",
+        "stock_bytes": [
+          6,
+          202,
+          5,
+          44,
+          32,
+          28
+        ],
+        "patched_bytes": [
+          112,
+          112,
+          112,
+          112,
+          203,
+          203
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x635a2a",
+        "decoded_end": "0x635a2b",
+        "flash_start": "0x40b95a2a",
+        "bin_file_start": "0x635a49",
+        "bin_file_end": "0x635a4a",
+        "stock": "c9 04",
+        "patched": "cb cb",
+        "stock_bytes": [
+          201,
+          4
+        ],
+        "patched_bytes": [
+          203,
+          203
+        ]
+      }
+    ]
+  },
+  {
+    "label": "E-M1 III v1.2",
+    "archive": "e-m1-iii-v12.zip",
+    "patched_bin": "e1399999.bin",
+    "patched_sha256": "4786323ca6a558c4ad03a67ae064feb46138a79938e5ae1f7434f8487a846cc2",
+    "stock_sha256": "e1ebee7df66b4632b16eea8036f444823fc496857a4059af9e79fe918046ec92",
+    "patches": [
+      {
+        "block": 0,
+        "decoded_start": "0x3232ed",
+        "decoded_end": "0x3232f8",
+        "flash_start": "0x40b232ed",
+        "bin_file_start": "0x32330e",
+        "bin_file_end": "0x323319",
+        "stock": "1c a0 06 c8 14 a0 03 c8 10 a0 08 c8",
+        "patched": "fc cc 10 00 00 70 60 88 1c df 80 1c",
+        "stock_bytes": [
+          28,
+          160,
+          6,
+          200,
+          20,
+          160,
+          3,
+          200,
+          16,
+          160,
+          8,
+          200
+        ],
+        "patched_bytes": [
+          252,
+          204,
+          16,
+          0,
+          0,
+          112,
+          96,
+          136,
+          28,
+          223,
+          128,
+          28
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x677430",
+        "decoded_end": "0x677431",
+        "flash_start": "0x40e77430",
+        "bin_file_start": "0x677451",
+        "bin_file_end": "0x677452",
+        "stock": "c8 07",
+        "patched": "cb cb",
+        "stock_bytes": [
+          200,
+          7
+        ],
+        "patched_bytes": [
+          203,
+          203
+        ]
+      }
+    ]
+  },
+  {
+    "label": "E-M5 III v1.4",
+    "archive": "e-m5-iii-v14.zip",
+    "patched_bin": "e1379999.bin",
+    "patched_sha256": "24e7cca97d75d00ac383e277ec2738527c57684ce3c39015e17beadf6fd8e66a",
+    "stock_sha256": "7f0414de124546c03135209af493c49876a7bfb977542cad72bc60f13000ff8b",
+    "patches": [
+      {
+        "block": 0,
+        "decoded_start": "0x316b1c",
+        "decoded_end": "0x316b27",
+        "flash_start": "0x40a96b1c",
+        "bin_file_start": "0x316b3d",
+        "bin_file_end": "0x316b48",
+        "stock": "1c a0 06 c8 14 a0 03 c8 10 a0 08 c8",
+        "patched": "fc cc 10 00 00 70 60 88 1c df 80 1c",
+        "stock_bytes": [
+          28,
+          160,
+          6,
+          200,
+          20,
+          160,
+          3,
+          200,
+          16,
+          160,
+          8,
+          200
+        ],
+        "patched_bytes": [
+          252,
+          204,
+          16,
+          0,
+          0,
+          112,
+          96,
+          136,
+          28,
+          223,
+          128,
+          28
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x63d61d",
+        "decoded_end": "0x63d61e",
+        "flash_start": "0x40dbd61d",
+        "bin_file_start": "0x63d63e",
+        "bin_file_end": "0x63d63f",
+        "stock": "c8 07",
+        "patched": "cb cb",
+        "stock_bytes": [
+          200,
+          7
+        ],
+        "patched_bytes": [
+          203,
+          203
+        ]
+      }
+    ]
+  },
+  {
+    "label": "PEN-F v3.1",
+    "archive": "pen_f_v31.zip",
+    "patched_bin": "e1229999.bin",
+    "patched_sha256": "c3b287871164efcf98dd23c1ba45246fa5fd815cb89d52d378903d5a5c53561d",
+    "stock_sha256": "212a1c14ac5ebf615ce18896f45d5382eabc99d700acd24fa21841eafeea4b4c",
+    "patches": [
+      {
+        "block": 0,
+        "decoded_start": "0x5452ff",
+        "decoded_end": "0x545300",
+        "flash_start": "0x408e52ff",
+        "bin_file_start": "0x54531f",
+        "bin_file_end": "0x545320",
+        "stock": "cc 06",
+        "patched": "90 7e",
+        "stock_bytes": [
+          204,
+          6
+        ],
+        "patched_bytes": [
+          144,
+          126
+        ]
+      },
+      {
+        "block": 0,
+        "decoded_start": "0x545305",
+        "decoded_end": "0x545306",
+        "flash_start": "0x408e5305",
+        "bin_file_start": "0x545324",
+        "bin_file_end": "0x545325",
+        "stock": "20 1c",
+        "patched": "90 7e",
+        "stock_bytes": [
+          32,
+          28
+        ],
+        "patched_bytes": [
+          144,
+          126
+        ]
+      }
+    ]
+  }
+]

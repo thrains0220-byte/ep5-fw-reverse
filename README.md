@@ -46,14 +46,119 @@ report/    完整逆向分析报告（v2，含全部字段表、结构体偏移�
 decoded/   混淆还原后的 4 个块 + 容器元数据 + 全部字符串索引
 disasm/    MN103 反汇编样本（入口代码 / 内存映射表 / 镜头信息函数 / 镜头状态机）
 evidence/  REA 6.4.0 原始 Evidence JSON（Binwalk 扫描 / Unblob 提取 / PE 资源）
-           + af_fix_2018/：1.8 松下镜头 AF 修复的跨机型对照数据
+           + af_fix_2018/：AF 修复专题（含 v2.2→v2.3 否定结果）
+           + art_filter/：艺术（创意）滤镜子系统专题
+           + patched_community/：社区改机归档的字节级补丁表
 scripts/   可复现分析脚本 + Olympus 官方 oly_fw_tools 源码（格式权威定义）
 tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+ 工具链构建脚本
+           + ep5_lens.py / lens_compare.py / fw_diff.py（镜头结构提取与跨版本差分）
+           + ghidra/（MN10300 Ghidra 模块部署 + 本项目 GhidraScript）
 reproduce.sh              一键复现：校验 → 解混淆 → 反汇编
 PROVENANCE.md             逐项来源、许可与再分发边界
 工作日志.md                逐日工作日志（结论、证据、阻塞与下一步）
 固件本体说明.md            固件获取与校验说明
 ```
+
+---
+
+## 2026-10-22 新增：艺术滤镜子系统 / 解锁 / AF 修复定位
+
+### A. 艺术（创意）滤镜：**确认在固件内实现**
+
+块 0 内存在完整 `art_*` 子系统（`evidence/art_filter/art_filter_analysis.md`）：
+
+| 效果 ID | 名称 | pass 管线 |
+|---|---|---|
+| 10 | `star_light`（星光） | pass1..pass15 + `get_inf` |
+| 20 | `pinhole`（针孔） | pass1..pass5 + `set_gainmap` |
+| 30 | `frame`（画框） | pass1..pass5 + JPEG 边框处理 |
+| 40 | `soft_focus`（柔焦） | 多 pass |
+| 50 | `white_edge`（白边） | 多 pass |
+
+门控函数：`art_init` / `art_IsSupportType` / `art_GetFilterType` /
+`art_chk_effect` / `art_chk_type_rec`（拍照） / `art_chk_type_mov`（**录像**）。
+
+> `art_chk_type_rec` 与 `art_chk_type_mov` 成对存在 ⇒
+> **「某滤镜是否允许用于录像」是一处独立开关**，即奥林巴斯后来用官方固件
+> 解锁「电影艺术滤镜」那一类判定。
+
+**滤镜 UI 名字在块 1**（UTF-16LE 多语言字符串池），E-P5 照片模式菜单定义带连续资源 ID：
+`A03F` Pop Art、`A040` Dramatic Tone、`A041` Soft Focus、`A042` Pale&Light Color、
+`A043` Light Tone、`A044` Grainy Film、`A045` Pin Hole、`A046` Diorama、
+`A047` Cross Process、`A048` Gentle Sepia。
+
+### B. 工具链：Ghidra 现可原生反汇编 MN1030
+
+`tools/ghidra/README.md` —— 第三方 SLEIGH 模块（`txt231/GhidraMn10300`）
++ Olympus 调用约定（`cmdada/em10-fw`），**与 objdump 基准逐指令一致（77/77，0 差异）**，
+识别 **56,984** 个函数（艺术滤镜区 1,423 个）。
+
+### C. 2018-12-18 松下 AF 修复：**已证伪"落在镜头 ID 结构"**
+
+首次拿到**同机型"修复前/后"两版**（xdel.ru 的 E-M5 v2.2 / v2.3）：
+
+| 结构 | v2.2（修复前） | v2.3（含修复） |
+|---|---|---|
+| 镜头 ID 前缀比较链 | 7 项 | **7 项，完全相同** |
+| LENS_INFO 镜头主表 | 106 条 / 105 个唯一 ID | **完全相同** |
+
+⇒ **修复不在镜头 ID 白名单、也不在镜头主表**，而在 AF 控制流程 /
+每镜头 AF 参数组 / 镜头 I²C 应答处理。
+详见 `evidence/af_fix_2018/af_fix_v22_v23_negative_result.md`。
+
+### D. 社区"改机"归档：解锁功能的字节级先例
+
+`evidence/patched_community/patched_community.json` —— xdel.ru 上 13 个社区
+patched 归档，与原版固件逐字节差分后得到的**精确补丁表**。
+两个反复出现的通用模式：
+
+```
+模式 A（12 字节，"解除某项限制"）:
+  stock   1c a0 06 c8 14 a0 03 c8 10 a0 08 c8
+  patched fc cc 10 00 00 70 60 88 1c df 80 1c
+
+模式 B（2 字节，跳过一处判定）:
+  stock   c8 07   ->   cb cb
+
+模式 C（2 字节 ×2，改写跳转）:
+  stock   cc 06   ->   90 7e
+  stock   20 1c   ->   90 7e
+```
+
+出现于 E-M1 II v3.4/v3.6、E-M1 III v1.2、E-M5 III v1.4、E-M5 II v4.1、PEN-F v3.1。
+⇒ **这些就是奥林巴斯"解锁功能"在固件里的真实字节级形态**，
+是新增滤镜 / 解锁功能最直接的可复用模板。
+
+### E. 本轮新增的否定性结论（重要）
+
+- **`art_*` 字符串无法用于定位代码**：Ghidra 全量扫描 6,488,149 条指令，
+  对 art 字符串区（`0x40714000..0x40718000`）**命中 0 条**；
+  查询引用管理器，引用数同样为 **0**；裸地址扫描 752 条中仅 2 条偶然命中。
+  ⇒ 它们是**残留的符号名表**，记录了子系统词汇表，却不指向实现。
+  推论：块 0 的 62,167 条字符串里**只有 1 条**被立即数寻址，
+  奥林巴斯固件的块内字符串普遍不能用"搜 `fc <imm32>`"的方式定位。
+- **AF 修复不在镜头 ID 结构**（见 C）。
+- **Wayback 无"修复前"基线**：5 个域名 / 21,038 URL 全量普查确认，
+  2012–2013 代机型每个只存档了最新一版；更新器目录 `/ww/ud2/` 只有说明页。
+  ⇒ 修复前基线只能来自 xdel.ru 这类镜像（E-M5 v2.0/v2.1/v2.2 即由此获得）。
+- **公开世界不存在"机身侧 4 字节镜头 ID ↔ 镜头型号"对照表**
+  （GitHub 仓库/代码搜索、grep.app、Sourcegraph、DuckDuckGo、archive.org 全查）。
+
+---
+
+## 已知未解问题
+
+| 项 | 状态 |
+|---|---|
+| **1.8 AF 修复的补丁字节** | **原假设已证伪**：修复**不在**镜头 ID 前缀比较链、**不在** LENS_INFO 镜头主表（E-M5 v2.2 vs v2.3 结构完全相同）。剩余候选：AF 控制流程、每镜头 AF 参数组、镜头 I²C 应答处理。**修复前基线已获得**（E-M5 v2.0/v2.1/v2.2，来自 xdel.ru）。 |
+| **艺术滤镜效果注册表**（效果 ID → 处理函数/参数块） | 未解。Ghidra 侧已锁定 3 个候选分派函数（`FUN_4047975c` / `FUN_4048b6d2` / `FUN_4049893c`），但尚未证明哪个是 art 效果表。`art_*` 名字表无引用，无法直接定位。 |
+| **滤镜增益表 / 参数表位置** | 未解。块 0 / 块 2 六位加密区 / 机身 mask ROM 三选一未定。 |
+| **录像艺术滤镜解锁的确切字节** | 未解。门控函数 `art_chk_type_mov` 的地址尚未确定。 |
+| **块 1 多语言资源的菜单定义表** | 部分解。已定位 UTF-16LE 字符串池与 `@A0xx@` 资源 ID（照片模式 A03F–A048），但**"资源 ID → 效果 ID"的对应表未找到**。 |
+| **H-ES200 / H-ES50200 的 4 字节镜头 ID** | 未解。固件内无镜头型号名字符串；ID 由镜头经 I²C 应答。公开世界亦无对照表。 |
+| **块 2 的 6-bit 编码算法** | 未解。该 blob 与 E-PL3(2011) 逐字节相同，属跨代共享资产。 |
+| ROM 描述符表 `0x7E5558E8` | 位于机身 mask ROM，不在固件镜像内。 |
+| E-P5 SoC 全貌 | 本文件只含 1 个 MN103 核的代码；`IMG_CPU0_*` 暗示多核，其余核不在本镜像。 |
 
 ### `evidence/af_fix_2018/`（1.8 松下镜头 AF 修复专题）
 
@@ -163,7 +268,10 @@ toolchain/binutils/objdump -b binary -m mn10300 -D -z --insn-width=16 \
 
 ---
 
-## 已知未解问题
+## 已知未解问题（旧版，已被上方 2026-10-22 章节取代）
+
+> ⚠️ 下列「1.8 AF 修复落点在比较链」的结论**已被 2026-10-22 的 v2.2→v2.3 差分证伪**，
+> 请以本文档上方「已知未解问题」表格为准。保留原文以留痕。
 
 | 项 | 状态 |
 |---|---|

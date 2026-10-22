@@ -1,0 +1,860 @@
+{
+  "note": "块 0 数据段的 LENS_INFO 镜头主表。8 字节记录：{uint16 category, uint16 slot, uint8 maker, uint8 model, uint16 extra}。maker/model 即 4 字节镜头 ID 的高两字节。定位依据：字符串 'LENS_INFO SIZE' 之前、ASCII 字符串区起点处的连续记录。",
+  "source": {
+    "file": "decoded/00_0100_402c0020.decoded.bin",
+    "block0_base": "0x402c0000"
+  },
+  "table_start": "0x405e8ee0",
+  "record_count": 106,
+  "records": [
+    {
+      "addr": "0x405e8ee0",
+      "category": 5,
+      "slot": "0x0",
+      "lens_id": "B0:FE",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8ee8",
+      "category": 5,
+      "slot": "0x5",
+      "lens_id": "B0:A0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8ef0",
+      "category": 3,
+      "slot": "0x0",
+      "lens_id": "B0:A1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8ef8",
+      "category": 3,
+      "slot": "0x1",
+      "lens_id": "B0:A2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f00",
+      "category": 3,
+      "slot": "0x2",
+      "lens_id": "B0:A3",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f08",
+      "category": 3,
+      "slot": "0x3",
+      "lens_id": "B0:A4",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f10",
+      "category": 3,
+      "slot": "0x4",
+      "lens_id": "B0:AA",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f18",
+      "category": 3,
+      "slot": "0x8",
+      "lens_id": "B0:AC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f20",
+      "category": 3,
+      "slot": "0xa",
+      "lens_id": "B0:AD",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f28",
+      "category": 3,
+      "slot": "0xb",
+      "lens_id": "B0:D0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f30",
+      "category": 2,
+      "slot": "0x0",
+      "lens_id": "B0:D7",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f38",
+      "category": 2,
+      "slot": "0x1",
+      "lens_id": "B0:D1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f40",
+      "category": 2,
+      "slot": "0x21",
+      "lens_id": "B0:D2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f48",
+      "category": 2,
+      "slot": "0x22",
+      "lens_id": "B0:DC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f50",
+      "category": 2,
+      "slot": "0x24",
+      "lens_id": "B0:DD",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f58",
+      "category": 2,
+      "slot": "0x25",
+      "lens_id": "B1:F2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f60",
+      "category": 5,
+      "slot": "0x0",
+      "lens_id": "B1:FE",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f68",
+      "category": 5,
+      "slot": "0x5",
+      "lens_id": "B1:FF",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f70",
+      "category": 5,
+      "slot": "0x48",
+      "lens_id": "B1:88",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f78",
+      "category": 5,
+      "slot": "0x49",
+      "lens_id": "B1:89",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f80",
+      "category": 5,
+      "slot": "0x4a",
+      "lens_id": "B1:A0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f88",
+      "category": 3,
+      "slot": "0x0",
+      "lens_id": "B1:A1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f90",
+      "category": 3,
+      "slot": "0x1",
+      "lens_id": "B1:A2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8f98",
+      "category": 3,
+      "slot": "0x2",
+      "lens_id": "B1:A3",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fa0",
+      "category": 3,
+      "slot": "0x3",
+      "lens_id": "B1:A4",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fa8",
+      "category": 3,
+      "slot": "0x4",
+      "lens_id": "B1:AA",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fb0",
+      "category": 3,
+      "slot": "0x8",
+      "lens_id": "B1:AC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fb8",
+      "category": 3,
+      "slot": "0xa",
+      "lens_id": "B1:AD",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fc0",
+      "category": 3,
+      "slot": "0xb",
+      "lens_id": "B1:D0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fc8",
+      "category": 2,
+      "slot": "0x0",
+      "lens_id": "B1:D1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fd0",
+      "category": 2,
+      "slot": "0x21",
+      "lens_id": "B1:D2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fd8",
+      "category": 2,
+      "slot": "0x22",
+      "lens_id": "B1:D7",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fe0",
+      "category": 2,
+      "slot": "0x1",
+      "lens_id": "B1:DC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8fe8",
+      "category": 2,
+      "slot": "0x24",
+      "lens_id": "B1:DD",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8ff0",
+      "category": 2,
+      "slot": "0x25",
+      "lens_id": "C0:F6",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e8ff8",
+      "category": 5,
+      "slot": "0x1",
+      "lens_id": "C0:F8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9000",
+      "category": 5,
+      "slot": "0x2",
+      "lens_id": "C0:F9",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9008",
+      "category": 5,
+      "slot": "0x3",
+      "lens_id": "C0:FA",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9010",
+      "category": 5,
+      "slot": "0x4",
+      "lens_id": "C0:F4",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9018",
+      "category": 5,
+      "slot": "0x9",
+      "lens_id": "C0:E1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9020",
+      "category": 5,
+      "slot": "0x10",
+      "lens_id": "C0:E6",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9028",
+      "category": 5,
+      "slot": "0x12",
+      "lens_id": "C0:E8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9030",
+      "category": 5,
+      "slot": "0x13",
+      "lens_id": "C0:E9",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9038",
+      "category": 5,
+      "slot": "0x14",
+      "lens_id": "C0:EA",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9040",
+      "category": 5,
+      "slot": "0x16",
+      "lens_id": "C0:F0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9048",
+      "category": 5,
+      "slot": "0x20",
+      "lens_id": "C0:F1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9050",
+      "category": 5,
+      "slot": "0x21",
+      "lens_id": "C0:FB",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9058",
+      "category": 5,
+      "slot": "0x23",
+      "lens_id": "C0:E0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9060",
+      "category": 5,
+      "slot": "0x30",
+      "lens_id": "C1:F6",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9068",
+      "category": 5,
+      "slot": "0x1",
+      "lens_id": "C1:F8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9070",
+      "category": 5,
+      "slot": "0x2",
+      "lens_id": "C1:F9",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9078",
+      "category": 5,
+      "slot": "0x3",
+      "lens_id": "C1:FA",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9080",
+      "category": 5,
+      "slot": "0x4",
+      "lens_id": "C1:E1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9088",
+      "category": 5,
+      "slot": "0x10",
+      "lens_id": "C1:E6",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9090",
+      "category": 5,
+      "slot": "0x12",
+      "lens_id": "C1:E8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9098",
+      "category": 5,
+      "slot": "0x13",
+      "lens_id": "C1:E9",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90a0",
+      "category": 5,
+      "slot": "0x14",
+      "lens_id": "C1:F0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90a8",
+      "category": 5,
+      "slot": "0x20",
+      "lens_id": "C1:F1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90b0",
+      "category": 5,
+      "slot": "0x21",
+      "lens_id": "C1:FB",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90b8",
+      "category": 5,
+      "slot": "0x23",
+      "lens_id": "C1:E0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90c0",
+      "category": 5,
+      "slot": "0x30",
+      "lens_id": "C1:F2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90c8",
+      "category": 5,
+      "slot": "0x41",
+      "lens_id": "C1:FC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90d0",
+      "category": 5,
+      "slot": "0x42",
+      "lens_id": "C1:80",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90d8",
+      "category": 5,
+      "slot": "0x45",
+      "lens_id": "C1:12",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90e0",
+      "category": 5,
+      "slot": "0x46",
+      "lens_id": "C1:FE",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90e8",
+      "category": 5,
+      "slot": "0x47",
+      "lens_id": "C1:01",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90f0",
+      "category": 5,
+      "slot": "0x4d",
+      "lens_id": "C1:20",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e90f8",
+      "category": 5,
+      "slot": "0x4e",
+      "lens_id": "C1:D0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9100",
+      "category": 5,
+      "slot": "0x4f",
+      "lens_id": "C1:02",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9108",
+      "category": 5,
+      "slot": "0x50",
+      "lens_id": "C1:00",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9110",
+      "category": 5,
+      "slot": "0x51",
+      "lens_id": "C1:E2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9118",
+      "category": 5,
+      "slot": "0x61",
+      "lens_id": "C1:2F",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9120",
+      "category": 5,
+      "slot": "0x59",
+      "lens_id": "C2:F3",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9128",
+      "category": 5,
+      "slot": "0x7",
+      "lens_id": "C2:F5",
+      "extra": "0x6"
+    },
+    {
+      "addr": "0x405e9130",
+      "category": 5,
+      "slot": "0x43",
+      "lens_id": "C2:F5",
+      "extra": "0x7"
+    },
+    {
+      "addr": "0x405e9138",
+      "category": 5,
+      "slot": "0x44",
+      "lens_id": "C2:E0",
+      "extra": "0x2"
+    },
+    {
+      "addr": "0x405e9140",
+      "category": 5,
+      "slot": "0x60",
+      "lens_id": "C3:F0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9148",
+      "category": 5,
+      "slot": "0x40",
+      "lens_id": "E0:C3",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9150",
+      "category": 3,
+      "slot": "0x8001",
+      "lens_id": "60:80",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9158",
+      "category": 3,
+      "slot": "0x60",
+      "lens_id": "60:81",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9160",
+      "category": 3,
+      "slot": "0x61",
+      "lens_id": "60:00",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9168",
+      "category": 3,
+      "slot": "0x63",
+      "lens_id": "60:01",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9170",
+      "category": 3,
+      "slot": "0x64",
+      "lens_id": "60:F0",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9178",
+      "category": 3,
+      "slot": "0x65",
+      "lens_id": "80:12",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9180",
+      "category": 5,
+      "slot": "0x8",
+      "lens_id": "81:12",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9188",
+      "category": 5,
+      "slot": "0x8",
+      "lens_id": "81:E4",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9190",
+      "category": 5,
+      "slot": "0x4c",
+      "lens_id": "70:C2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9198",
+      "category": 3,
+      "slot": "0x8000",
+      "lens_id": "70:C4",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91a0",
+      "category": 3,
+      "slot": "0x8002",
+      "lens_id": "70:C6",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91a8",
+      "category": 3,
+      "slot": "0x8003",
+      "lens_id": "70:C7",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91b0",
+      "category": 3,
+      "slot": "0x8004",
+      "lens_id": "70:CA",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91b8",
+      "category": 3,
+      "slot": "0x8005",
+      "lens_id": "70:CB",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91c0",
+      "category": 3,
+      "slot": "0x8006",
+      "lens_id": "70:C8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91c8",
+      "category": 3,
+      "slot": "0x8007",
+      "lens_id": "D0:A7",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91d0",
+      "category": 3,
+      "slot": "0x1000",
+      "lens_id": "D0:A8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91d8",
+      "category": 3,
+      "slot": "0x1001",
+      "lens_id": "D0:A9",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91e0",
+      "category": 3,
+      "slot": "0x1002",
+      "lens_id": "D1:A7",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91e8",
+      "category": 3,
+      "slot": "0x800",
+      "lens_id": "D1:A8",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91f0",
+      "category": 3,
+      "slot": "0x801",
+      "lens_id": "D1:AC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e91f8",
+      "category": 3,
+      "slot": "0x802",
+      "lens_id": "D1:AD",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9200",
+      "category": 3,
+      "slot": "0x803",
+      "lens_id": "D1:D1",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9208",
+      "category": 2,
+      "slot": "0x800",
+      "lens_id": "D1:D2",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9210",
+      "category": 2,
+      "slot": "0x801",
+      "lens_id": "D1:DC",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9218",
+      "category": 2,
+      "slot": "0x803",
+      "lens_id": "D1:DD",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9220",
+      "category": 2,
+      "slot": "0x804",
+      "lens_id": "D1:AE",
+      "extra": "0x0"
+    },
+    {
+      "addr": "0x405e9228",
+      "category": 2,
+      "slot": "0x805",
+      "lens_id": "D1:DE",
+      "extra": "0x0"
+    }
+  ],
+  "unique_lens_ids": [
+    "60:00",
+    "60:01",
+    "60:80",
+    "60:81",
+    "60:F0",
+    "70:C2",
+    "70:C4",
+    "70:C6",
+    "70:C7",
+    "70:C8",
+    "70:CA",
+    "70:CB",
+    "80:12",
+    "81:12",
+    "81:E4",
+    "B0:A0",
+    "B0:A1",
+    "B0:A2",
+    "B0:A3",
+    "B0:A4",
+    "B0:AA",
+    "B0:AC",
+    "B0:AD",
+    "B0:D0",
+    "B0:D1",
+    "B0:D2",
+    "B0:D7",
+    "B0:DC",
+    "B0:DD",
+    "B0:FE",
+    "B1:88",
+    "B1:89",
+    "B1:A0",
+    "B1:A1",
+    "B1:A2",
+    "B1:A3",
+    "B1:A4",
+    "B1:AA",
+    "B1:AC",
+    "B1:AD",
+    "B1:D0",
+    "B1:D1",
+    "B1:D2",
+    "B1:D7",
+    "B1:DC",
+    "B1:DD",
+    "B1:F2",
+    "B1:FE",
+    "B1:FF",
+    "C0:E0",
+    "C0:E1",
+    "C0:E6",
+    "C0:E8",
+    "C0:E9",
+    "C0:EA",
+    "C0:F0",
+    "C0:F1",
+    "C0:F4",
+    "C0:F6",
+    "C0:F8",
+    "C0:F9",
+    "C0:FA",
+    "C0:FB",
+    "C1:00",
+    "C1:01",
+    "C1:02",
+    "C1:12",
+    "C1:20",
+    "C1:2F",
+    "C1:80",
+    "C1:D0",
+    "C1:E0",
+    "C1:E1",
+    "C1:E2",
+    "C1:E6",
+    "C1:E8",
+    "C1:E9",
+    "C1:F0",
+    "C1:F1",
+    "C1:F2",
+    "C1:F6",
+    "C1:F8",
+    "C1:F9",
+    "C1:FA",
+    "C1:FB",
+    "C1:FC",
+    "C1:FE",
+    "C2:E0",
+    "C2:F3",
+    "C2:F5",
+    "C3:F0",
+    "D0:A7",
+    "D0:A8",
+    "D0:A9",
+    "D1:A7",
+    "D1:A8",
+    "D1:AC",
+    "D1:AD",
+    "D1:AE",
+    "D1:D1",
+    "D1:D2",
+    "D1:DC",
+    "D1:DD",
+    "D1:DE",
+    "E0:C3"
+  ]
+}
