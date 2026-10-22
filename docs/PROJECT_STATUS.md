@@ -57,6 +57,29 @@
 
 ### 2.4 艺术（创意）滤镜子系统 ★
 
+**固件实现了 15 个艺术效果，机身菜单只暴露了一部分** —— 这是"新增滤镜"最关键的发现。
+
+| 实现 | pass | 编号 | 首现 |
+|---|---|---|---|
+| `art_star_light` | 15 | ID 10 | 0x454F0D |
+| `art_artclearline` | 13 | NN 19 | 0x457FBF |
+| `art_filter_dramatic_tone` | 12 | NN 14 | 0x457738 |
+| `art_pastel_art` | 11 | NN 21 | 0x458AAD |
+| `art_diorama` | 9 | NN 9 | 0x456EF6 |
+| `art_filter_rough_monochrome` | 9 | NN 6 | 0x4567B3 |
+| `art_stl2ycc` | 7 | — | 0x45A8A8 |
+| `art_soft_focus` | 6 | ID 40 | 0x455F35 |
+| `art_frame` | 5 | ID 30 | 0x45589C |
+| `art_pinhole` | 5 | ID 20 | 0x4555C6 |
+| `art_white_edge` | 5 | ID 50 | 0x456311 |
+| `art_composite` | 4 | — | 0x458794 |
+| `art_filter_gentle_sepia` | 3 | — | 0x4573BB |
+| `art_stl2ycc2` | 3 | — | 0x45A948 |
+| `art_mirror` | 2 | — | 0x458611 |
+
+**已实现但未在照片模式菜单出现的**：`art_artclearline`（净化直线）、
+`art_star_light`（星光）、`art_pastel_art`（粉彩）—— 三个都是 10+ pass 的完整管线。
+
 | 语义 | 地址 |
 |---|---|
 | 效果 ID 全局 | `0x605FCD3C`（9 处引用全在 `0x4078844C–0x40789522`） |
@@ -65,21 +88,35 @@
 | 效果回调指针 | `0x602AEB54` |
 | 效果参数区（当前生效） | `0x605FCD44`（312 B） |
 | 效果 50 参数模板 | `0x605FCE7C`（312 B，恰好相隔 0x138） |
-| 拍照参数区 / ROM 源 | `0x605FCA00` / `0x7E5C9809` |
-| 录像参数区 / ROM 源 | `0x605FCCC4` / `0x7E5C9B1C` |
+| 拍照参数区 / 录像参数区 | `0x605FCA00` / `0x605FCCC4` |
 | 效果 ID 设置器 / 复位器 | `FUN_407887E0` / `FUN_40789519` |
 | 子系统总初始化 | `FUN_407883DD` |
-| 按类型初始化 | `FUN_40788616`（通用）/ `FUN_4078866A`（star_light 专用） |
-
-**效果 ID 空间**：10 `star_light` / 20 `pinhole` / 30 `frame` / 40 `soft_focus` / 50 `white_edge`
+| 按类型初始化 | `FUN_40788616` / `FUN_4078866A` |
+| 效果回调派发 | `FUN_40788CAC` |
+| 模式分派器 | `FUN_40788978`（模式 `1` / `0x80000000` / 默认拍照） |
+| 录像/照片判定 | `FUN_40788A6C`（标志 `0x20000000`） |
 
 **两个新增滤镜模板**：
 - **A（参数覆盖式）**：312 B 参数块 + 复用既有效果管线（效果 50 = 效果 10 + 参数覆盖）
 - **B（独立式）**：新 ID(60) + 独立参数块 + 独立 pass + 初始化登记
 
 **三个解锁落点**：`0x602AEB94` 位掩码 / `FUN_40788616` 的 `param_1 == 2` 判定 /
-各效果初始化函数的类型白名单（star_light 同时处理 type 1 与 type 2 ⇒
-"只处理拍照"即被锁形态）。
+各效果初始化函数的类型白名单。
+
+### 2.5 固件子系统全景
+
+`docs/subsystem_map.md`（92 KB）给出块 0 的**完整子系统清单**：
+
+| 类别 | 数量 | 样例 |
+|---|---|---|
+| 日志标签（子系统锚点） | **752** | `[GUI App]`710 / `[chls]`393 / `[exp]`307 / `[AVCHD]`169 / `[WIFI@]`101 / `[firmup]`84 / `[MOV_ART]`50 / `[exp_debug]`91 / `[disp_sync]`99 |
+| `g_*` 全局状态变量 | 16 | `g_lens_speed` / `g_fcs_step` / `g_drive_mode` / `g_contrast_dma_addr` |
+| 函数名簇（≥2 段） | **638** | `api_*`1110 / `art_*`752 / `chls_*`290 / `aud_*`110 / `se1_3d_*` / `dbg_cgi_*` |
+
+⇒ 已识别的子系统：GUI/触摸、色彩（chls）、曝光（exp）、录像（AVCHD/MOV/QT/MOOV）、
+WLAN+httpd+olnet、音频（aud/wm8946）、固件升级（firmup）、显示（disp/OUT/IN）、
+文件分析（analyze/CLIP/chunk）、3D 立体（se1_3d/se2）、GPS、CGI 调试（dbg_cgi_*）、
+图像处理 API 与校准（api/api_adj）、IOE、TPC、GPU、AF/镜头、菜单与 OSD。
 
 ### 2.5 UI 资源（块 1）
 
