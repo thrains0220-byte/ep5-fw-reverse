@@ -1,0 +1,95 @@
+# E-P5_1.8  镜头 ID 前缀比较链反汇编  (block0 线性基址 0x402C0000)
+# 生成: objdump -b binary -m mn10300 --adjust-vma=0x402C0000
+
+
+/home/sanyu/Projects/work/ep5-fw-reverse/decoded/00_0100_402c0020.decoded.bin:     file format binary
+
+
+Disassembly of section .data:
+
+403b7965 <.data+0xf7965>:
+403b7965:	cf f0                                           	movm	[d2,d3,a2,a3],(sp)
+403b7967:	f8 fe e4                                        	add	-28,sp
+403b796a:	92                                              	mov	a0,a2
+403b796b:	f8 93 18                                        	movhu	d0,(24,sp)
+403b796e:	fc cc ff ff 00 00                               	mov	65535,d0
+403b7974:	42 14                                           	mov	d0,(20,sp)
+403b7976:	fc a4 a0 39 53 60                               	mov	(0x605339a0),d0
+403b797c:	f8 ec 02                                        	btst	2,d0
+403b797f:	c9 7d                                           	bne	0x403b79fc
+403b7981:	f8 ec 01                                        	btst	1,d0
+403b7984:	c9 05                                           	bne	0x403b7989
+403b7986:	cc a1 00                                        	jmp	0x403b7a27
+403b7989:	90 0e                                           	mov	14,a0
+403b798b:	f1 78                                           	add	a2,a0
+403b798d:	f0 40                                           	movbu	(a0),d0
+403b798f:	2d c1 00                                        	mov	193,d1
+403b7992:	a4                                              	cmp	d1,d0
+403b7993:	c9 0e                                           	bne	0x403b79a1
+403b7995:	f8 42 0f                                        	movbu	(15,a2),d0
+403b7998:	fa c8 80 00                                     	cmp	128,d0
+403b799c:	c9 05                                           	bne	0x403b79a1
+403b799e:	cc 89 00                                        	jmp	0x403b7a27
+403b79a1:	f0 40                                           	movbu	(a0),d0
+403b79a3:	a4                                              	cmp	d1,d0
+403b79a4:	c9 09                                           	bne	0x403b79ad
+403b79a6:	f8 42 0f                                        	movbu	(15,a2),d0
+403b79a9:	a0 00                                           	cmp	0,d0
+403b79ab:	c8 7c                                           	beq	0x403b7a27
+403b79ad:	f0 40                                           	movbu	(a0),d0
+403b79af:	2d c0 00                                        	mov	192,d1
+403b79b2:	a4                                              	cmp	d1,d0
+403b79b3:	c9 0b                                           	bne	0x403b79be
+403b79b5:	f8 42 0f                                        	movbu	(15,a2),d0
+403b79b8:	fa c8 f1 00                                     	cmp	241,d0
+403b79bc:	c8 6b                                           	beq	0x403b7a27
+403b79be:	f0 40                                           	movbu	(a0),d0
+403b79c0:	a4                                              	cmp	d1,d0
+403b79c1:	c9 0b                                           	bne	0x403b79cc
+403b79c3:	f8 42 0f                                        	movbu	(15,a2),d0
+403b79c6:	fa c8 e1 00                                     	cmp	225,d0
+403b79ca:	c8 5d                                           	beq	0x403b7a27
+403b79cc:	f0 40                                           	movbu	(a0),d0
+403b79ce:	fa c8 80 00                                     	cmp	128,d0
+403b79d2:	c9 0b                                           	bne	0x403b79dd
+403b79d4:	f8 42 0f                                        	movbu	(15,a2),d0
+403b79d7:	fa c8 f1 00                                     	cmp	241,d0
+403b79db:	c8 4c                                           	beq	0x403b7a27
+403b79dd:	f0 40                                           	movbu	(a0),d0
+403b79df:	2d 81 00                                        	mov	129,d1
+403b79e2:	a4                                              	cmp	d1,d0
+403b79e3:	c9 0b                                           	bne	0x403b79ee
+403b79e5:	f8 42 0f                                        	movbu	(15,a2),d0
+403b79e8:	fa c8 e3 00                                     	cmp	227,d0
+403b79ec:	c8 3b                                           	beq	0x403b7a27
+403b79ee:	f0 40                                           	movbu	(a0),d0
+403b79f0:	a4                                              	cmp	d1,d0
+403b79f1:	c9 0b                                           	bne	0x403b79fc
+403b79f3:	f8 42 0f                                        	movbu	(15,a2),d0
+403b79f6:	fa c8 f1 00                                     	cmp	241,d0
+403b79fa:	c8 2d                                           	beq	0x403b7a27
+403b79fc:	f8 42 0e                                        	movbu	(14,a2),d0
+403b79ff:	f8 4a 0f                                        	movbu	(15,a2),d2
+403b7a02:	90 10                                           	mov	16,a0
+403b7a04:	f1 78                                           	add	a2,a0
+403b7a06:	f0 44                                           	movbu	(a0),d1
+403b7a08:	f8 4c 01                                        	movbu	(1,a0),d3
+403b7a0b:	fc dc 8c 01 43 7e                               	mov	2118320524,a0
+403b7a11:	f8 c0 18                                        	asl	24,d0
+403b7a14:	f8 c2 10                                        	asl	16,d2
+403b7a17:	f2 18                                           	or	d2,d0
+403b7a19:	f8 c1 08                                        	asl	8,d1
+403b7a1c:	f2 14                                           	or	d1,d0
+403b7a1e:	f2 1c                                           	or	d3,d0
+403b7a20:	dd b7 e2 f0 ff a0 28                            	call	0x402c5cd7,[d2,a2],40
+403b7a27:	fc a4 a0 39 53 60                               	mov	(0x605339a0),d0
+403b7a2d:	f8 ec 04                                        	btst	4,d0
+403b7a30:	c8 27                                           	beq	0x403b7a57
+403b7a32:	f8 4a 0e                                        	movbu	(14,a2),d2
+403b7a35:	f8 46 0f                                        	movbu	(15,a2),d1
+403b7a38:	90 10                                           	mov	16,a0
+403b7a3a:	f1 78                                           	add	a2,a0
+403b7a3c:	f0 40                                           	movbu	(a0),d0
+403b7a3e:	f8 4c 01                                        	movbu	(1,a0),d3
+403b7a41:	f8 c2 18                                        	asl	24,d2
+403b7a44:	f8 c1                                         	asl	16,d1

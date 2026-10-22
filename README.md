@@ -46,12 +46,25 @@ report/    完整逆向分析报告（v2，含全部字段表、结构体偏移�
 decoded/   混淆还原后的 4 个块 + 容器元数据 + 全部字符串索引
 disasm/    MN103 反汇编样本（入口代码 / 内存映射表 / 镜头信息函数 / 镜头状态机）
 evidence/  REA 6.4.0 原始 Evidence JSON（Binwalk 扫描 / Unblob 提取 / PE 资源）
+           + af_fix_2018/：1.8 松下镜头 AF 修复的跨机型对照数据
 scripts/   可复现分析脚本 + Olympus 官方 oly_fw_tools 源码（格式权威定义）
 tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+ 工具链构建脚本
 reproduce.sh              一键复现：校验 → 解混淆 → 反汇编
 PROVENANCE.md             逐项来源、许可与再分发边界
 固件本体说明.md            固件获取与校验说明
 ```
+
+### `evidence/af_fix_2018/`（1.8 松下镜头 AF 修复专题）
+
+| 文件 | 说明 |
+|---|---|
+| `model_release_history.json` | 从 Wayback 取回的**官方发布说明页**重建的 28 个型号完整版本沿革（含日期、是否含 H-ES200 条目） |
+| `af_fix_cross_model.json` | 6 个固件（E-P5 1.8 / E-P3 1.6 / E-M10 1.4 / E-M10 III 1.2 / E-M5 III 1.1 / E-M1X 2.1）的镜头 ID 前缀比较链 + 厂商码比较表，含块 0 SHA-256 |
+| `lens_prefix_chain_E-P5_1.8.txt` | E-P5 1.8 前缀链（`0x403B7965`）反汇编快照 |
+| `lens_prefix_chain_E-P3_1.6.txt` | E-P3 v1.6 同一函数（`0x403EFBC5`）反汇编快照，用于逐指令对照 |
+
+对照固件本体**不在本仓库**（版权），用 `scripts/get_one.sh` / `scripts/get_par.sh` 从
+Wayback 重新取回后，用 `tools/decode_any.py` 解混淆即可复现上表。
 
 ### 根目录脚本
 
@@ -88,8 +101,20 @@ PROVENANCE.md             逐项来源、许可与再分发边界
 | `semantic_search.py` | 版本/型号字符串检索 |
 | `lens_af_locate.py` | 镜头/AF 相关字符串与结构定位 |
 | `xrefs.py` | MN103 绝对寻址交叉引用工具 |
+| `get_par.sh` | 从 Wayback 并行分块下载对照机型固件（整文件 GET 会被限流成 4730 B 错误页，须用 Range） |
+| `get_one.sh` | 单目标、耐心重试的同类下载器（深度 URL 走 `http://`，`https://` 会间歇性 SSL 失败） |
 | `OlympusFw*.hxx` | **Olympus 官方工具源码**——容器格式的权威定义 |
 | `EstimateLoadAddress.hxx` | 官方加载地址/字符串扫描辅助 |
+
+### `tools/`
+
+| 文件 | 用途 |
+|---|---|
+| `oly_container.py` | 容器解析/解混淆（支持 `OE` 与 `OM` 两种块签名），往返校验 |
+| `decode_any.py` | 用 `oly_container.py` 解混淆任意机型固件（机型无关） |
+| `lens_prefix_chain.py` | 提取「镜头 ID 两字节前缀比较链」的常量集合（跨机型比对用） |
+| `maker_code_table.py` | 提取「镜头厂商码比较表」的常量集合 |
+| `build_mn103_objdump.sh` | 自建 GNU objdump 2.45（`--target=mn10300-elf`） |
 
 ---
 
@@ -141,7 +166,8 @@ toolchain/binutils/objdump -b binary -m mn10300 -D -z --insn-width=16 \
 
 | 项 | 状态 |
 |---|---|
-| **1.8 AF 修复的补丁字节** | 已排除块 2/1/3；落点锁定在块 0 的 `LENS_INFO_MAKERNOTE`（`a2+10`）厂商分支与 `LENS_INFO_AF_CON`（`a3+42`/`a3+52`，全块访问 52 次）填充逻辑，以及 `vh/vl/vv/hk` × `af_c/af_u_d/af_l_r` AF 调校表。**补丁字节尚未逐位定位。** |
+| **1.8 AF 修复的补丁字节** | **落点已收敛到 1 个比较链**：E-P5 1.8 块 0 的「镜头 ID 两字节前缀比较链」`0x403B7989`（7 对 `{C1:80, C1:00, C0:F1, C0:E1, 80:F1, 81:E3, 81:F1}`）。跨机型对照（E-P3 v1.6 同日同修复，链长 4 对）推出**候选补丁字节 = `0xC0F1` / `0xC0E1` 两项**（推断）。仍缺「修复前」基线：Wayback 未存档这 9 个机型的 2018-12-18 之前任何版本（E-P5 v1.7 官方沿革存在但本体未被抓取，官方直链 403），无法做同代码族前后差分。详见报告 §5.5。 |
+| **H-ES200 / H-ES50200 的 4 字节镜头 ID** | 未解。固件内无镜头型号名字符串；ID 由镜头经 I²C 应答，型号↔ID 对应表在 mask ROM 或镜头内部。 |
 | **块 2 的 6-bit 编码算法** | 未解。该 blob 与 E-PL3(2011) 逐字节相同，属跨代共享资产；E-PL3、E-M1 III、fishcu、oly_fw_tools 四个独立项目均未解开。 |
 | ROM 描述符表 `0x7E5558E8` | 位于机身 mask ROM，不在固件镜像内。 |
 | E-P5 SoC 全貌 | 本文件只含 1 个 MN103 核的代码；`IMG_CPU0_*` 暗示多核，其余核不在本镜像。 |

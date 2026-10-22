@@ -1,0 +1,294 @@
+{
+  "note": "镜头识别代码跨机型对比。chains=镜头ID两字节前缀比较链；makers=镜头厂商码比较表。全部为静态反汇编观察，不含执行证据。",
+  "firmwares": [
+    {
+      "camera": "E-P5",
+      "firmware": "1.8",
+      "panasonic_fix_tag": "fixed",
+      "block0_base": "0x402c0000",
+      "block0_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+      "lens_prefix_chains": [
+        {
+          "addr": "0x403b7965",
+          "second_byte_cmps": [
+            "0x80",
+            "0x00",
+            "0xF1",
+            "0xE1",
+            "0xF1",
+            "0xE3",
+            "0xF1"
+          ],
+          "high_byte_cmps": [
+            "0xC1",
+            "0xC0",
+            "0x81"
+          ]
+        }
+      ],
+      "lens_maker_tables": [
+        {
+          "addr": "0x403b5acf",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0xB2",
+            "0x70",
+            "0xC0",
+            "0xC1",
+            "0xC2",
+            "0xC3",
+            "0x80",
+            "0x81"
+          ]
+        },
+        {
+          "addr": "0x40cf8e7c",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0x03",
+            "0x02",
+            "0x01",
+            "0x00"
+          ]
+        }
+      ],
+      "firmware_bin_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
+      "firmware_bin_size": 44826624
+    },
+    {
+      "camera": "E-P3",
+      "firmware": "1.6",
+      "panasonic_fix_tag": "fixed",
+      "block0_base": "0x402c0000",
+      "block0_sha256": "cbb40cf70deebd5371cc11e52a011efe4738ab245f18634e4cface57070343de",
+      "lens_prefix_chains": [
+        {
+          "addr": "0x403efbc5",
+          "second_byte_cmps": [
+            "0x80",
+            "0x00",
+            "0xF1",
+            "0xE1"
+          ],
+          "high_byte_cmps": [
+            "0xC1",
+            "0xC0"
+          ]
+        }
+      ],
+      "lens_maker_tables": [
+        {
+          "addr": "0x403edccd",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0xB2",
+            "0x70",
+            "0xC0",
+            "0xC1",
+            "0xC2",
+            "0xC3",
+            "0x80",
+            "0x81"
+          ]
+        },
+        {
+          "addr": "0x40c7db0b",
+          "codes": [
+            "0xB0",
+            "0xBA",
+            "0xB6",
+            "0xB7"
+          ]
+        }
+      ],
+      "firmware_bin_sha256": "1fb43cbd58ba5d16672bcf304546c4787c279a29f6eb5c5e7626351a5a2a1e13",
+      "firmware_bin_size": 46596160
+    },
+    {
+      "camera": "E-M10",
+      "firmware": "1.4",
+      "panasonic_fix_tag": "fixed",
+      "block0_base": "0x40300000",
+      "block0_sha256": "e2b227662d782a2c75c6c6e872bc34fdfa45d34a9b1b2cee04a4435a00c54f0e",
+      "lens_prefix_chains": [],
+      "lens_maker_tables": [
+        {
+          "addr": "0x40430e33",
+          "codes": [
+            "0xB0",
+            "0x70",
+            "0xC0",
+            "0x80"
+          ]
+        },
+        {
+          "addr": "0x4043489a",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0xB2",
+            "0x70"
+          ]
+        },
+        {
+          "addr": "0x40cbcaae",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0x03",
+            "0x02",
+            "0x01",
+            "0x00"
+          ]
+        }
+      ],
+      "firmware_bin_sha256": "84d81b2dbd80ea2e94ec70e35acbba0e3193ccee8b51db14976fd0d9c4e3590c",
+      "firmware_bin_size": 70254592
+    },
+    {
+      "camera": "E-M10 III",
+      "firmware": "1.2",
+      "panasonic_fix_tag": "fixed",
+      "block0_base": "0x406e0000",
+      "block0_sha256": "8c3099214a3ec1aa29a9058997c4472072bdeddda8c8df93ec707d7a0bc31eb9",
+      "lens_prefix_chains": [],
+      "lens_maker_tables": [
+        {
+          "addr": "0x408d5b20",
+          "codes": [
+            "0xB0",
+            "0x70",
+            "0xC0",
+            "0x80"
+          ]
+        },
+        {
+          "addr": "0x408d7bcf",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0xB2",
+            "0x70"
+          ]
+        },
+        {
+          "addr": "0x414e2a55",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0x03",
+            "0x02",
+            "0x01",
+            "0x00"
+          ]
+        }
+      ],
+      "firmware_bin_sha256": "a2283338a79f8d0fa212d9a6d2677b9b686f6a9cd4bd664fd9b0709af63f94e1",
+      "firmware_bin_size": 91445280
+    },
+    {
+      "camera": "E-M5 III",
+      "firmware": "1.1",
+      "panasonic_fix_tag": "no_entry_in_release_notes",
+      "block0_base": "0x40780000",
+      "block0_sha256": "357453894c89b5805f060b3b3a14893e77932db9895f0412af8f2b4ca6c7c5d2",
+      "lens_prefix_chains": [],
+      "lens_maker_tables": [
+        {
+          "addr": "0x40979d8d",
+          "codes": [
+            "0xB0",
+            "0x70",
+            "0xC0",
+            "0x80"
+          ]
+        },
+        {
+          "addr": "0x4097c2b8",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0xB2",
+            "0x70"
+          ]
+        },
+        {
+          "addr": "0x4159af09",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0x03",
+            "0x02",
+            "0x01",
+            "0x00"
+          ]
+        }
+      ],
+      "firmware_bin_sha256": "646903f1e9cfa02595bbf5e8ef599428f2d53e718ad3fcdf279f0f01eb042ca0",
+      "firmware_bin_size": 118620160
+    },
+    {
+      "camera": "E-M1X",
+      "firmware": "2.1",
+      "panasonic_fix_tag": "no_entry_in_release_notes",
+      "block0_base": "0x407e0000",
+      "block0_sha256": "c5f95528b1fe2aaf2307c233bd89fd6c3134bacac3bb3439f063dc5e4a1372e7",
+      "lens_prefix_chains": [],
+      "lens_maker_tables": [
+        {
+          "addr": "0x409e4284",
+          "codes": [
+            "0xB0",
+            "0x70",
+            "0xC0",
+            "0x80"
+          ]
+        },
+        {
+          "addr": "0x409e6e11",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0xB2",
+            "0x70"
+          ]
+        },
+        {
+          "addr": "0x414a9222",
+          "codes": [
+            "0xB0",
+            "0x9F",
+            "0xA0",
+            "0xAD",
+            "0xAE",
+            "0xC9",
+            "0xCA",
+            "0xAA",
+            "0xB7",
+            "0xAB",
+            "0xDF",
+            "0xC4",
+            "0xCB",
+            "0xC0"
+          ]
+        },
+        {
+          "addr": "0x416ed157",
+          "codes": [
+            "0xB0",
+            "0xB1",
+            "0x03",
+            "0x02",
+            "0x01",
+            "0x00"
+          ]
+        }
+      ],
+      "firmware_bin_sha256": "e404562ef2ad2c2fe256adce55773ca0fa52f492778d9c531f43d5cff348dc61",
+      "firmware_bin_size": 126222368
+    }
+  ]
+}

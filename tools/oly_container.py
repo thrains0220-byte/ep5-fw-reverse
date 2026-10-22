@@ -106,8 +106,8 @@ def parse(data):
         if len(data) - offset < 64:
             raise ValueError(f"truncated block at {offset:#x}")
         header = data[offset:offset + 32]
-        if header[:2] != b"OE":
-            raise ValueError(f"unsupported signature at {offset:#x}; this tool covers scrambled OE blocks only")
+        if header[:2] not in (b"OE", b"OM"):
+            raise ValueError(f"unsupported signature at {offset:#x}; this tool covers scrambled OE/OM blocks only")
         if struct.unpack_from("<I", header, 20)[0] == 0:
             raise ValueError(f"unscrambled block is unsupported at {offset:#x}")
         if model is None:
