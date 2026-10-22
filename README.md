@@ -5,7 +5,12 @@
 **容器格式已 100% 破解并逐字节验证**；指令集确认为 **Panasonic MN1030/MN103S**；已建立可用的 MN103 反汇编管线，
 并还原出机身内存映射、镜头信息结构体布局与固件升级状态机。
 
-> **本仓库不含固件本体**（版权原因）。所有内容均可由官方镜像重新生成，见 [`reproduce.sh`](reproduce.sh)。
+> **固件本体说明**：本仓库的 `firmware/` 目录**收录了分析所需的原始固件与社区改机归档**
+> （66 个原版 + 17 个修复前基线 + 12 个社区归档 + 59 份采集资料，1,250 MB）。
+> 固件著作权属 **Olympus / OM SYSTEM（横滨奥林巴斯 / Taiyo Yuden）**，本项目**不主张任何权利**；
+> 收录目的为**离线逆向研究、备份与互操作分析**。
+> 逐文件 SHA-256 与还原校验见 [`firmware/README.md`](firmware/README.md) 与 [`firmware/MANIFEST.sha256`](firmware/MANIFEST.sha256)。
+> **本项目原创部分**（代码 / 文档 / 证据）适用 [`LICENSE`](LICENSE)。
 
 ---
 
@@ -45,17 +50,26 @@
 report/    完整逆向分析报告（v2，含全部字段表、结构体偏移、引用来源）
 decoded/   混淆还原后的 4 个块 + 容器元数据 + 全部字符串索引
 disasm/    MN103 反汇编样本（入口代码 / 内存映射表 / 镜头信息函数 / 镜头状态机）
+firmware/  ★ 原始固件与社区改机归档（1,250 MB；含 SHA-256 清单与还原说明）
 evidence/  REA 6.4.0 原始 Evidence JSON（Binwalk 扫描 / Unblob 提取 / PE 资源）
            + af_fix_2018/：AF 修复专题
                ├ af_fix_v22_v23_negative_result.md —— v2.2→v2.3 证伪「修复在镜头 ID 结构」
                ├ af_fix_block_scope.md              —— 双机型复现 + 全块差分（修复只在块 0）
-               └ af_fix_localization.md            —— 排除清单 + 下一步的确切做法
+               ├ af_fix_localization.md            —— 排除清单 + 下一步的确切做法
+               └ lens_info_af_layout.md            —— LENS_INFO 结构自描述字段图 + mask ROM 边界
            + art_filter/：艺术（创意）滤镜子系统专题
+               ├ art_filter_menu_and_ids.md        —— ★ 两套 ID 命名空间 / 13 个模块 / 菜单资源映射
+               ├ menu_descriptor_typecode.md       —— ★ 类型码 → mask ROM 描述符机制 + 1 字节补丁配方
+               └ art_filter_address_map.md         —— 完整地址地图 + 新增滤镜/解锁模板
            + patched_community/：社区改机归档的字节级补丁表（解锁功能模板）
+               ├ community_patch_table.md          —— ★ 12/12 归档全量补丁表
+               └ unlock_semantics.md               —— ★ 社区解锁补丁的语义解码
 scripts/   可复现分析脚本 + Olympus 官方 oly_fw_tools 源码（格式权威定义）
 tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+ 工具链构建脚本
            + ep5_lens.py / lens_compare.py / fw_diff.py（镜头结构提取与跨版本差分）
            + ghidra/（MN10300 Ghidra 模块部署 + 本项目 GhidraScript）
+docs/      PROJECT_STATUS.md（现状总表）/ RE_METHOD_PLAYBOOK.md（方法论）/ subsystem_map.md
+           / external_research.md（GitHub 奥林巴斯逆向项目调研）
 reproduce.sh              一键复现：校验 → 解混淆 → 反汇编
 PROVENANCE.md             逐项来源、许可与再分发边界
 工作日志.md                逐日工作日志（结论、证据、阻塞与下一步）
@@ -265,6 +279,87 @@ Wayback 重新取回后，用 `tools/decode_any.py` 解混淆即可复现上表�
 
 ---
 
+## 2026-10-23 新增：解锁落点的确定化 + 社区补丁语义解码
+
+### A. 社区「解锁」补丁的**语义**（首次读出，而非只是字节）
+
+把**已打补丁的** E-M1 III v1.2 块 0 单独导入 Ghidra 并与原版逐指令对照：
+
+```c
+/* 原版   */ if (id==6||3||8||9) *p = 0x6cc;
+             else if (id==4)     *p = 0x1c20;
+             else { 报错 }
+
+/* 补丁后 */ *p = 0x70000010;     /* 无条件 */
+```
+
+⇒ **社区改机的「解锁」= 把一个「按模式 ID 取值/分派」的 switch 整体替换成常量返回**
+（12 字节**等长**覆盖，不需要移动任何代码）。
+这是本项目可复用的**解锁手术模板**。
+
+完整分析：[`evidence/patched_community/unlock_semantics.md`](evidence/patched_community/unlock_semantics.md)
+
+### B. 12/12 个社区归档全部解出，补丁模式表补全
+
+- 阻塞原因：`7zr.exe` **不含 RAR 解码器**；完整版 `7z_full/7z.exe` 才有。
+- **模式 A（12 字节）覆盖 9 个机型**，并发现两个比较常量变体：
+
+| 变体 | stock → patched | 机型 |
+|---|---|---|
+| A1 | `1c a0 06 c8 14 a0 03 c8 10 a0 08 c8` → `fc cc 10 00 00 70 60 88 1c df 80 1c` | E-M1 II v3.0/v3.4、E-M1 III v1.2、E-M5 III v1.4、E-M10 III v1.2、E-PL9 v1.1 |
+| A2 | `1c a0 06 c8 0c a0 03 c8 08 a0 04 c8` → `fc cc 10 00 00 70 60 88 1c df 80 08` | E-M10 II v1.3/v1.4、E-M1 v4.6 |
+
+- **模式 B**（`c8 07 → cb cb`）覆盖 8 个机型；**模式 C**（2×2 字节）覆盖 2 个机型。
+- **新观察**：E-M10 II v1.3/v1.4 **只有模式 A、没有模式 B** ⇒ A/B/C 是三个独立开关。
+
+完整表：[`evidence/patched_community/community_patch_table.md`](evidence/patched_community/community_patch_table.md)
+
+### C. ★「录像艺术滤镜只 4 项」的落点：类型码 → mask ROM 描述符
+
+| 事实 | 证据 |
+|---|---|
+| 照片艺术菜单 = 资源 ID `A03F`–`A048`（连续 **10** 项） | 块 1 UTF-16 整池解析 |
+| **录像艺术菜单 = 资源 ID `A042`–`A045`（只有 4 项）** | 同上 |
+| 菜单项清单在**机身 mask ROM** | 块 0 的「UI 资源描述符表」99 条全部指向 `0x7E…` |
+| **但「用哪一份清单」由块 0 的 1 个字节决定** | `mode_state + 0x6B` → `FUN_403ED4B4` 解码成 0..6 规范码 → 6 个平行函数返回**不同**的 mask ROM 描述符 |
+| 9 个写入点里**只有 1 个**选到另一张描述符 | `FUN_405731F7` 写 raw `4` → 规范码 2 → `0x7E452BE4`；其余 8 个写 0/2/3 → 规范码 0 → `0x7E452BDC` |
+
+⇒ **★ 单字节补丁位置**：`FUN_405731F7`（`rt 0x405731F7`）末尾的
+
+```c
+*(undefined1 *)(param_1[0x18] + 0x6b) = 4;      /* ← 改成 0 即改用另一张描述符 */
+```
+
+⇒ **推断**（待实机证实）：把 `4` 改成 `0`，录像艺术滤镜菜单就应从 4 项变成 10 项。
+
+完整分析：[`evidence/art_filter/menu_descriptor_typecode.md`](evidence/art_filter/menu_descriptor_typecode.md)
+
+### D. 艺术滤镜的 ID 体系与菜单资源映射
+
+- **13 个实现模块、两套 ID 命名空间**（任务名里直接带 ID，跨机型跨版本稳定）：
+  `art_effect_10/20/30/40/50`（star_light/pinhole/frame/soft_focus/white_edge）
+  与 `art_filter_06/09/0E/14/19/1C/1D/21`（rough_monochrome/diorama/gentle_sepia/
+  dramatic_tone/artclearline/mirror/composite/pastel_art）。
+- 另有 **3 张互不相同的名字集合**：`MODE_EXPOSE_*`（22 项创意模式 + 9 项场景模式）、
+  `COLORTONE_*`（12 项艺术滤镜 + 7 项基础色彩模式，**3 份不同顺序**，其中一份是录像侧重排）。
+- **滤镜「子 ID → 处理函数」的分派表在 mask ROM `0x7E897CF4`**（16 槽 × 8 字节，
+  按 `id & 0xF` 索引）⇒ 块 0 里只有实现，"还有哪些 ID 可用"要靠实机 dump 全知。
+
+完整分析：[`evidence/art_filter/art_filter_menu_and_ids.md`](evidence/art_filter/art_filter_menu_and_ids.md)
+
+### E. AF 修复（2018-12-18 松下镜头）的落点收窄
+
+- 固件自带调试转储把 **`LENS_INFO` 结构逐字段打印**出来 ⇒ 直接得到 20 个子结构
+  （`LENS_INFO_AF_CON` / `_IS` / `_LAF` / `_AF` / `_DIST` / `_DISTORTION` / `_SHADING` /
+  `_MAKERNOTE` / `_FOURTHIRDS` / `_EZ` / `_PRIVATE` / `_LENS_OIS` / `_ENABLE` /
+  `_CHARACTER(_ZM)` / `_STATE` / `_ALL_DATA` / `_CURRENT_CONSUMPTION` / `_RESERVED` …）。
+- 每镜头 AF 参数挂在 **`LENS_INFO_LAF.af_data_pos[%d]`**，而周边 6 张表**全部指向 mask ROM**
+  ⇒ **参数本体改不了** ⇒ AF 修复只可能是"改代码行为 / 改选哪一组参数"。
+
+完整分析：[`evidence/af_fix_2018/lens_info_af_layout.md`](evidence/af_fix_2018/lens_info_af_layout.md)
+
+---
+
 ## 复现
 
 一键复现（校验源文件 → 解混淆 → 往返与校验和验证 → 反汇编）：
@@ -278,7 +373,7 @@ bash reproduce.sh /path/to/OLY_E_108_1800_0000_0000.BIN
 ```
 
 `reproduce.sh` 生成的 `decoded/` 与 `disasm/` 与本仓库内已提交的产物**逐字节一致**。
-固件本体需自行准备（见 [`PROVENANCE.md`](PROVENANCE.md) §2）。
+固件本体见 [`firmware/`](firmware/)（已收录）或按 [`PROVENANCE.md`](PROVENANCE.md) §2 自行获取。
 
 ### 1. 解混淆
 
@@ -328,9 +423,30 @@ toolchain/binutils/objdump -b binary -m mn10300 -D -z --insn-width=16 \
 
 见 [`PROVENANCE.md`](PROVENANCE.md)。
 
-- 本仓库为**个人研究归档**，私有仓库。
-- 奥林巴斯/OM SYSTEM 固件本体与更新器二进制**均未包含**（版权）。
+### 本项目原创部分（代码 / 文档 / 证据）
+
+适用 [`LICENSE`](LICENSE)（MIT）。包括：`tools/`、`scripts/`、`docs/`、`evidence/`、
+`report/`、`decoded/`、`disasm/`、`reproduce.sh` 及全部中文文档。
+
+### 第三方组件
+
 - `scripts/OlympusFw*.hxx` 与 `scripts/EstimateLoadAddress.hxx` 来自 `cmdada/em10-fw` 内 vendor 的
   Olympus 官方工具 `oly_fw_tools`（用于说明格式定义）。
 - `tools/oly_container.py` 来自 `fishcu/oly_fw_analysis`，其实现注明源自 Altsoph / mx3
   （CHDK thread 2471）。
+- `tools/ghidra/` 中的 MN10300 SLEIGH 模块基于 `txt231/GhidraMn10300`，
+  调用约定补丁与 cspec 参考 `cmdada/em10-fw`。
+
+### ⚠️ 固件本体（`firmware/` 目录）
+
+- `firmware/` 下的 `.BIN` / `.zip` / `.rar` 均为 **Olympus / OM SYSTEM（横滨奥林巴斯 /
+  Taiyo Yuden）** 的专有固件与更新产物，**著作权属于原厂，本项目不主张任何权利**。
+- 来源：**xdel.ru**（泰语镜像站，含历史版本与社区改机归档）与
+  **Wayback Machine** 上的 `ol01.om-digitalsolutions.net` 官方镜像。
+- 收录目的：**离线逆向研究、版本对照、备份与互操作分析**。
+  **不得**用于商业目的；**不得**用于生成可分发的改机固件。
+- 压缩件 `*.BIN.lzma` 为 **LZMA 无损**压缩，与原 `.BIN` 逐字节等价；
+  `firmware/MANIFEST.sha256` 同时记录了每个压缩件与**每个原始 `.BIN`** 的 SHA-256。
+  验证：`python tools/verify_firmware_bundle.py --deep`（当前 121/121 + 50/50 全部通过）。
+- `firmware/community/` 是第三方社区的改机归档，著作权同样属于原厂与社区作者，
+  本项目仅作**补丁字节分析**用途。

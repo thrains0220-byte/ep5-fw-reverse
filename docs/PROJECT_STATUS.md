@@ -1,7 +1,7 @@
 # 项目现状总表（E-P5 固件逆向）
 
 > 更新：2026-10-22
-> 仓库：[thrains0220-byte/ep5-fw-reverse](https://github.com/thrains0220-byte/ep5-fw-reverse)（私有）
+> 仓库：[thrains0220-byte/ep5-fw-reverse](https://github.com/thrains0220-byte/ep5-fw-reverse)（公开）
 > 主报告：[`report/逆向分析报告_E-P5_Ver1.8.md`](../report/逆向分析报告_E-P5_Ver1.8.md)
 > 方法论：[`RE_METHOD_PLAYBOOK.md`](RE_METHOD_PLAYBOOK.md)
 
@@ -297,7 +297,7 @@ docs/
   共 121 个文件 / 1,250 MB，**Git LFS** 存储）。
 - 固件著作权**属于 Olympus（横滨奥林巴斯 / Taiyo Yuden）**，本项目不主张任何权利；
   这些文件取自 **xdel.ru**（泰语镜像站）与 Wayback。
-- 仓库为**私有**仓库，文件仅供本项目的**逆向研究、备份与互操作分析**使用；
+- 文件仅供本项目的**逆向研究、备份与互操作分析**使用；
   **不得**用于商业目的、**不得**再分发、**不得**用于生成可分发的改机固件。
 - 压缩件 `*.BIN.lzma` 为 **LZMA 无损**压缩：
   `firmware/MANIFEST.sha256` 的 ORIG 段记录了每个原始 `.BIN` 的 SHA-256，
