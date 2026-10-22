@@ -12,6 +12,8 @@ import sys, os, json, zipfile, subprocess, shutil
 OLY = r"D:\0_Project\01Test\ep5-fw-reverse\tools\oly_container.py"
 WORK = r"D:\0_Project\01Test\fw-work\patched"
 X = r"D:\0_Project\01Test\fw-work\fw2_xdel"
+# 完整版 7-Zip（含 RAR 解码器）。7zr.exe 只有 7z 格式支持，不能解 RAR。
+SEVEN_ZIP = r"D:\0_Project\01Test\fw-work\xdel_notes\tools\7z_full\7z.exe"
 
 DECODE_ORDER = (1, 3, 0, 2, 6, 4, 7, 5, 11, 10, 9, 8, 13, 14, 12, 15)
 
@@ -23,7 +25,7 @@ PAIRS = [
     ("e-m5-iii-v14.zip",   "em5mk3/OLY_E_137_1400_0000_0000.BIN",   "E-M5 III v1.4"),
     ("pen_f_v31.zip",      "penf/OLY_E_122_3100_0000_0000.BIN",     "PEN-F v3.1"),
     ("e-m10ii_v13.rar",    "em10mk2/OLY_E_120_1300_0000_0000.BIN",  "E-M10 II v1.3"),
-    ("e-m10ii_v14.rar",    "em10mk2/OLY_E_120_1400_0000_0000.BIN",  "E-M10 II v1.4"),
+    ("e_m10ii_v14.rar",    "em10mk2/OLY_E_120_1400_0000_0000.BIN",  "E-M10 II v1.4"),
     ("e-m1ii_v30.rar",     "em1mk2/OLY_E_125_3001_0000_0000.BIN",   "E-M1 II v3.0"),
     ("e-m1_v46.rar",       "em1/OLY_E_109_4600_0000_0000.BIN",      "E-M1 v4.6"),
     ("e_m10iii_v12.rar",   "em10mk3/OLY_E_130_1200_0000_0000.BIN",  "E-M10 III v1.2"),
@@ -69,8 +71,12 @@ def extract(arc, tag):
         if arc.lower().endswith(".zip"):
             with zipfile.ZipFile(arc) as z:
                 z.extractall(ex)
+        elif SEVEN_ZIP and os.path.exists(SEVEN_ZIP):
+            # 完整版 7-Zip（含 RAR 解码器）；7zr.exe 不含 RAR 过滤器，不可用
+            subprocess.run([SEVEN_ZIP, "x", "-y", "-o" + ex, arc],
+                           capture_output=True)
         else:
-            # bsdtar 解 RAR 时可能因不支持过滤器而返回非零，但文件已解出
+            # 退路：bsdtar 解 RAR 时可能因不支持过滤器而返回非零，但文件已解出
             subprocess.run(["tar.exe", "-xf", arc, "-C", ex],
                            capture_output=True)
     except Exception as e:

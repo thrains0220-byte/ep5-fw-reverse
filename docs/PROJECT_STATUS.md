@@ -290,7 +290,24 @@ docs/
 
 ## 8. 版权与再分发边界
 
-- 仓库内**不含**任何奥林巴斯固件本体或更新器二进制（仅坐标 / 长度 / SHA-256 / 指令文本）。
+### 8.1 固件本体（自本轮起纳入仓库）
+
+- **`firmware/` 目录收录了全部原始固件与社区改机归档**
+  （66 个原版 + 17 个修复前基线 + 12 个社区归档 + 59 份采集资料，
+  共 121 个文件 / 1,250 MB，**Git LFS** 存储）。
+- 固件著作权**属于 Olympus（横滨奥林巴斯 / Taiyo Yuden）**，本项目不主张任何权利；
+  这些文件取自 **xdel.ru**（泰语镜像站）与 Wayback。
+- 仓库为**私有**仓库，文件仅供本项目的**逆向研究、备份与互操作分析**使用；
+  **不得**用于商业目的、**不得**再分发、**不得**用于生成可分发的改机固件。
+- 压缩件 `*.BIN.lzma` 为 **LZMA 无损**压缩：
+  `firmware/MANIFEST.sha256` 的 ORIG 段记录了每个原始 `.BIN` 的 SHA-256，
+  `tools/verify_firmware_bundle.py --deep` 会逐个解压还原并比对（当前 **50/50 全部一致**）。
+- 详见 [`firmware/README.md`](../firmware/README.md)。
+
+### 8.2 其余内容
+
+- 分析产物（`evidence/`、`docs/`、`tools/`、`decoded/`、`disasm/`）为本项目原创，
+  只含**坐标 / 长度 / SHA-256 / 指令文本 / 伪代码**，不含原厂二进制。
 - `scripts/OlympusFw*.hxx`、`scripts/EstimateLoadAddress.hxx` 来自 `cmdada/em10-fw` 内的 vendor
   Olympus 官方工具 `oly_fw_tools`（仅用于说明格式定义）。
 - `tools/oly_container.py` 来自 `fishcu/oly_fw_analysis`（其实现注明源自 Altsoph / mx3，

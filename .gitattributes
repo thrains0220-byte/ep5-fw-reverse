@@ -1,0 +1,16 @@
+# Firmware images and community archives are stored as plain git blobs.
+#
+# Rationale: the Git LFS endpoint (lfs.github.com) was unreachable / unusably
+# slow from the environment this repository was assembled in (all LFS object
+# uploads ended in EOF / stalled), while the regular git HTTPS endpoint
+# works reliably. Every file in firmware/ is below GitHub's 100 MB per-file
+# limit, so plain blobs are sufficient and keep the archive self-contained.
+#
+# Files are stored as LZMA (.BIN.lzma) to keep the repo size manageable;
+# `firmware/MANIFEST.sha256` records the SHA-256 of every stored file AND of
+# the original .BIN recovered from it, so integrity can be verified with
+# `python tools/verify_firmware_bundle.py --deep`.
+
+# Build/temp artefacts
+*.pyc
+__pycache__/
