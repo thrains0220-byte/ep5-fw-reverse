@@ -51,6 +51,7 @@ scripts/   可复现分析脚本 + Olympus 官方 oly_fw_tools 源码（格式�
 tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+ 工具链构建脚本
 reproduce.sh              一键复现：校验 → 解混淆 → 反汇编
 PROVENANCE.md             逐项来源、许可与再分发边界
+工作日志.md                逐日工作日志（结论、证据、阻塞与下一步）
 固件本体说明.md            固件获取与校验说明
 ```
 
