@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <script>
+        window.POW_CHALLENGE_DATA={
+            challenge_nonce:'e0710ec6446df9030feb53536823d1ec',
+            challenge_hmac:'c5cb3d22c15c7eea914111c5',
+            difficulty:'3',
+            difficulty_char:'b',
+            issued_at:'1792673652',
+            cookie_duration:'3600',
+            cookie_domain:'.mu-43.com',
+            referrer:'(null)',
+            headless_check:'1',
+            ua_hash:'bd33e731a9dc71ed698fb3458da6dbe5d3ecceab239d26bc9d1da14c96e63705'
+        };
+        let _isMobile=()=>{const u=navigator.userAgent;return /Macintosh/i.test(u)?false:/Android|iPhone|iPad|iPod|Mobile/i.test(u)};
+        let _wgChecked=false,_wgMissing=false;
+        let _testWebGL=()=>{if(!_wgChecked){try{const c=document.createElement('canvas');_wgMissing=!(c.getContext('webgl')||c.getContext('experimental-webgl'))}catch(e){_wgMissing=true}_wgChecked=true}return _wgMissing};
+        let _testTouch=()=>{if(!_isMobile())return false;const m=navigator.userAgent.match(/OS (\d+)_(\d+)/i);if(m&&parseInt(m[1],10)<13)return false;return navigator.maxTouchPoints===0};
+        let _testUA=async(h,d)=>d.ua_hash!==''&&(await h(navigator.userAgent))!==d.ua_hash;
+        let _signals=async(h,d)=>{const run=f=>{try{return f()===true}catch(e){return false}},s=[];if(run(()=>!!navigator.webdriver))s.push('webdriver');if(run(_testWebGL))s.push('webgl_unsupported');if(run(_testTouch))s.push('touch_mismatch');try{if(await _testUA(h,d))s.push('ua_mismatch')}catch(e){}return s.join(',')};
+        (async(d=window.POW_CHALLENGE_DATA)=>{if(!d)return;const utmSources={'google.com':'google','bing.com':'bing','yahoo.com':'yahoo','duckduckgo.com':'duckduckgo','yandex.com':'yandex','baidu.com':'baidu','ecosia.org':'ecosia'};function getUtmParams(ref){try{const h=new URL(ref).hostname.replace(/^www\./,'');const s=utmSources[h];return s?'utm_source='+s+'&utm_medium=organic':null}catch(e){return null}}let f=async t=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))).map(b=>b.toString(16).padStart(2,0)).join(''),i=0;while(i++<1e7){let u=i.toString(),c=await f(d.challenge_nonce+d.issued_at+u);if(c.startsWith(d.difficulty_char.repeat(d.difficulty))){const sig=d.headless_check==='1'?await _signals(f,d):'';document.cookie='pow_bypass='+d.challenge_nonce+'|'+d.issued_at+'|'+u+'|'+c+'|'+d.challenge_hmac+(sig?'|'+sig:'')+'; domain='+d.cookie_domain+'; path=/; max-age='+d.cookie_duration+'; SameSite=Lax; Secure';const utms=d.referrer&&getUtmParams(d.referrer);if(utms){const url=new URL(location.href);utms.split('&').forEach(p=>{const[k,v]=p.split('=');if(!url.searchParams.has(k))url.searchParams.set(k,v)});location.href=url.toString()}else{location.reload()}break}}})()
+    </script>
+  </head>
+  <body>
+    <noscript><h1>JavaScript Required</h1><p>Please enable JavaScript to continue.</p></noscript>
+  </body>
+  </html>

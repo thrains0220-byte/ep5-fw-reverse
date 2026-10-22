@@ -1,0 +1,153 @@
+"This spreadsheet used to provide the locations to download the OM and Olympus camera firmware.  Unfortunately, as of December 20th, 2025, firmware files are no longer available as downloads without using something like the shell script below.  Now, it just provides the instructions on how to update the firmware assuming you can get the firmware from some other location, giving the name of the file to rename the firmware to on the memory card (SD, micro-SD, CF, or Xd cards).",,,,
+,,,,
+,,,,
+,,,,
+This file location:,,,,
+https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?usp=sharing,,,,
+,,,,
+Post with Linux shell script to download firmware:,,,,
+https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/page-6#post-1837553,,,,
+,,,,
+Site that caches the newest firmware files for direct download,,,,
+https://ofu.infinityfreeapp.com/?i=1,,,,
+,,,,
+Also see the following posts:,,,,
+https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/page-4#post-1727753,,,,
+https://www.dpreview.com/forums/threads/cant-access-om-systems-firmware-binaries.4824828/#post-68591818,,,,
+https://www.mu-43.com/threads/e-m1-mark-iii-bricked-stuck-on-one-moment-after-card-flash-firmware-download-tip-inside.129159/,,,,
+,,,,
+OM firware information pages:,,,,
+https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/,,,,
+https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/,,,,
+https://explore.omsystem.com/us/en/firmware-update-instructions-mac,,,,
+,,,,
+To install the firmware:,,,,
+,,,,
+1:,Mount the SD/CF/XD card on your computer.,,,
+2:,Create a folder on the SD/CF/XD named 'DCOLYMP' using captial letters.,,,
+3:,Download the appropriate file from the internet.,,,
+4:,Copy the file to the name specified in the 'Name in DCOLYMP directory' column to the 'DCOLYMP' directory.,,,
+5:,Turn off your camera,,,
+6:,Be sure to fully charge the camera's batteries before you start.,,,
+7:,"Unmount the card from the computer, and put it in the camera.",,,
+8:,"If your camera has 2 card slots, use the first card slot.  The OM-1 and E-m1 mark II require the SD card to be in the top slot.  On the E-5, the firmware can be in the SD card slot in addition to the CF card slot.",,,
+9:,"If you are using SD cards on older cameras, use a SD card that is 32 gigabytes or smaller.  The oldest camera that I have that uses SD cards is the E-P2 that was released in 2009.  The E-P2 does not support 64 gigabyte cards or larger, and the firmware must be on a 32 gigabyte crd or smaller using the FAT32 file system.  My newer cameras, starting with the E-5 (announced in 2010) can load their firmware from 64 gigabyte cards or larger using the exFat file system.",,,
+,,,,
+,,,,
+10:,Start the camera while pressing the OK button,,,
+11:,The screen will go black and the focus assist LED will turn on steady.,,,
+12:,DO NOT TURN OFF THE CAMERA WHILE THE FOCUS ASSIST LIGHT IS ON STEADY,,,
+13:,Wait until the focus assist light blinks rapidly.,,,
+14:,"When the focus assist light blinks rapidly, turn off the camera.",,,
+15:,"When you turn on the camera, it should have the new firmware installed.",,,
+16:,You might want to remove the 'DCOLYMP' directory from the SD/CF/Xd card.,,,
+17:,This method is only for updating the body firmware.  You must use the official methods to update the firmware of lenses.,,,
+18:,"Since each camera's firmware has a unique name (based on the camera internal model number), you can create a SD/CF/Xd card with firmware for all of your cameras on a single card.  As I understand it, this is used by OM Systems (and Olympus before that) service personal to update any camera to the current firmware.  As of November 4th, 2025, the total size for all current firmware files is 3.1 gigabytes.",,,
+,,,,
+,,,,
+OM cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+OM-1 mark II,,1.3,E1469999.BIN,https://dl01.om-digitalsolutions.net/dslr/1460/v1300/ENU/index03a.html
+OM-1 mark I,,1.9,E1439999.BIN,https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html
+,,,,
+OM-3,,1.1,E1479999.BIN,https://dl01.om-digitalsolutions.net/dslr/1470/v1100/ENU/index01a.html
+,,,,
+OM-5 mark I,,1.2,E1449999.BIN,https://dl01.om-digitalsolutions.net/dslr/1440/v1200/ENU/index02a.html
+,,,,
+Olympus E-m cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+E-m1x,,2.4,E1349999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html
+,,,,
+E-m1 mark III,,1.6,E1399999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html
+E-m1 mark II,,3.7,E1259999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html
+E-m1 mark I,,4.6,E1099999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html
+,,,,
+E-m5 mark III,,1.7,E1379999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html
+E-m5 mark II,,4.1,E1189999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1180/index41a.html
+E-m5 mark I,,2.3,E0979999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html
+,,,,
+E-m10 mark IV,,1.1,E1409999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1400/index01a.html
+E-m10 mark III,,1.2,E1309999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1300/index02a.html
+E-m10 mark II,,1.4,E1209999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html
+E-m10 mark I,,1.4,E1139999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1130/index04a.html
+,,,,
+Olympus Pen cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+Pen-f,,3.1,E1229999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1220/index31a.html
+,,,,
+E-p7,,1.1,E1429999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1420/index01a.html
+E-p5,,1.8,E1089999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1080/index08a.html
+E-p3,,1.6,E0859999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0850/index06a.html
+E-p2,,1.3,E0709999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/pen/ep2.html
+E-p1,,1.4,E0689999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/ep1.html
+,,,,
+E-pl9,,1.1,E1339999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1330/index01a.html
+E-pl8,,1.1,E1269999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1260/index01a.html
+E-pl7,,1.4,E1159999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1150/index04a.html
+E-pl6,,1.4,E1129999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1120/index04a.html
+E-pl5,,1.6,E1009999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1000/index06a.html
+E-pl3,,1.6,E0869999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0860/index06a.html
+E-pl1s,,1.2,E0889999.BIN,
+E-pl1,,1.3,E0749999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/pen/epl1.html
+,,,,
+E-pm2,,1.6,E1019999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html
+E-pm1,,1.6,E0879999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0870/index06a.html
+,,,,
+Olympus DSLR cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+E-5,,1.3,E0799999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e5.html
+E-3,,1.4,E0429999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e3.html
+,,,,
+E-30,,1.1,E0609999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0600/index01a.html
+,,,,
+E-330,,1.3,E0369999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e330.html
+E-300,,1.5,E0129999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e300.html
+,,,,
+E-410,,1.3,E0489999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e410.html
+E-400,,1.2,G0409999.BIN,
+,,,,
+E-520,,1.1,E0599999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0590/index01a.html
+E-510,,1.3,E0419999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e510.html
+E-500,,1.3,E0359999.BIN,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e500.html
+,,,,
+Olympus Stylus cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+Stylus-1,,2.0,E1119999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1110/index20a.html
+,,,,
+Stylus-795sw,,1.0,E0509999.BIN,
+Stylus-790sw,,1.0,E0499999.BIN,
+Stylus-780,,1.1,E0479999.BIN,
+Stylus-770sw,,1.1,E0459999.BIN,
+Stylus-760,,1.1,E0469999.BIN,
+Stylus-725sw,,1.0,E0449999.BIN,
+,,,,
+Stylus-850sw,,1.2,E0569999.BIN,
+Stylus-840,,1.2,E0529999.BIN,
+Stylus-830,,1.0,E0519999.BIN,
+,,,,
+Stylus-1030sw,,1.2,E0559999.BIN,
+Stylus-1020,,1.2,E0539999.BIN,
+Stylus-1010,,1.2,E0549999.BIN,
+,,,,
+SZ-20,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0002/4940/index01a.html
+SZ-14,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0002/5190/index01a.html
+SZ-12,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0002/5410/index01a.html
+,,,,
+XZ-10,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0002/5460/index01a.html
+XZ-2,,1.3,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0002/5310/index03a.html
+XZ-1,,1.5,,https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/xz1/xz1.html
+,,,,
+OM Tough camera,,Version,Name in DCOLYMP directory,Firmware Information URL
+TG-7,,1.1,E1459999.BIN,https://dl01.om-digitalsolutions.net/compact/1450/v1100/ENU/index01a.html
+,,,,
+Olympus Tough cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+TG-5,,1.1,E1299999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1290/index01a.html
+TG-4,,2.0,E1219999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1210/index20a.html
+TG-2,,1.1,E1069999.BIN,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1060/index01a.html
+TG-1,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0950/index01a.html
+,,,,
+TG-630,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1070/index01a.html
+TG-310,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0820/index01a.html
+,,,,
+TG-Tracker,,1.2,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0002/5900/index02a.html
+,,,,
+Olympus other cameras,,Version,Name in DCOLYMP directory,Firmware Information URL
+VH-520,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0007/5560/index01a.html
+,,,,
+VR-320,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0007/4840/index01a.html
+VR-310,,1.1,,https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0007/4820/index01a.html

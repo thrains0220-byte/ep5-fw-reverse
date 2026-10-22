@@ -1,0 +1,294 @@
+#!/usr/bin/python
+
+
+try:
+    from lxml.etree import Element, SubElement, tostring as _tostring, fromstring
+    def tostring(x):
+        return _tostring(x, pretty_print=True)
+except:
+    from xml.etree.cElementTree import Element, SubElement, tostring, fromstring
+    
+
+
+class XMLDemand:
+    revision = "0001"
+    mac_address = "08-00-27-6B-5D-F0"
+    time = "20120329005912"
+    language = "ENU"
+    application = "FWUT"
+    type = "0000"
+    version = "00001030"
+    os = "WIN"
+    country_code = "0001"
+    firmup_mode = "1"
+    hard_code = "OLYE071000000000"
+    firmware_version = "00001401"
+    serial_no = "AAN501141"
+
+    langs = ["ARA", "BGR", "PTB", "HRV", "CHS", "CHT", "CSY", "DAN",
+            "DEU", "ENU", "ESP",  "ETI", "FIN", "FRA", "ELL", "HUN",
+            "IND", "ITA", "JPN", "KOR", "LTH", "LVI", "MSL", "NLD", 
+            "NOR", "PLK", "FAR", "PTG", "ROM", "RUS", "SKY", "SLV", 
+            "SRB", "SVE", "THA", "TRK", "UKR", "VIT"]
+
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+    def __str__(self):
+        d = Element("firmware_demand")
+        for i in ["revision", "mac_address", "time", "language", 
+                "application", "type", "version", "os", "country_code"]:
+            SubElement(d, i).text = getattr(self, i)
+
+        h = SubElement(d, "hardwares")
+        SubElement(h, "firmup_mode").text = getattr(self, "firmup_mode")
+
+        hi = SubElement(h, "hardware_info")
+        for i in ["hard_code", "firmware_version", "serial_no"]:
+            SubElement(hi, i).text = getattr(self, i)
+
+        l = SubElement(hi, "default_languages")
+        for i in getattr(self, "langs"):
+            e = SubElement(l, "code")
+            e.text = i
+        
+        return tostring(d)
+
+
+    def post(self, host="fw01.olympus-imaging.com"):
+        data = str(self)
+        print data
+
+        import httplib 
+
+        h = httplib.HTTP(host)
+        h.putrequest("POST", "/ww_inform/firmware2.do")
+        h.putheader("User-Agent","Olympus")
+        h.putheader("Accept", "*/*")
+        h.putheader("Content-Type", "text/xml")
+        h.putheader("Content-Length", len(data))
+        h.putheader("Host", "fw01.olympus-imaging.com")
+        h.putheader("Connection", "Close")
+        h.endheaders()
+        h.send(data)
+        reply, msg, hdrs = h.getreply()
+        data = h.getfile().read()
+
+        data = fromstring(data)
+        print tostring(data)
+        return data
+
+class XMLResponse:
+    license_agreement = r"""SOFTWARE LICENSE AGREEMENT\n\nNOTE: Please read the following terms and conditions carefully before downloading this Software. \n\nBy downloading the firmware/software update (hereafter "Software") for Olympus Digital or Four Thirds products, you (hereafter "User") agree to the following End User License Agreement (EULA) provided by Olympus Imaging Corporation and its licensed vendor (hereafter "Olympus"). \n\n1. Subject to the terms and conditions herein contained, Olympus shall grant to User a non-exclusive and non-transferable license to use the Software and the copy thereof (hereinafter, the copy of the Software are included in the Software) only for the purpose of applying to the Olympus products which is introduced and accepted by Olympus.\n\n2. User shall be prohibited to do or perform the following matters.\n(1) To make any copy of the Software, whether in whole or in part, for any other purpose than back-up purpose.\n(2) To sell, distribute or upload the Software, whether in whole or in part. \n(3) To change, modify, reverse engineer, decompile or disassemble the Software, whether in whole or in part.\n(4) To rent, lease or sublicense the Software, whether in whole or in part.\n(5) To export the Software, directly or indirectly, whether in whole or in part, without obtaining necessary approvals of relevant governmental authority in Japan or in any relevant country.\n\n3. Any right, title or interest in and to the Software shall be owned by or vested to Olympus or its licensor respectively. \n\n4. User acknowledges and understands that the software is provided to User on an ''as-is'' basis without warranty of any kind, either expressed or implied, including, but not limited to:\n(1) Warranties for merchantability and/or fitness for a User's particular purpose.\n(2) Warranty for no bug, error, failure or defects in the software; or\n(3) Warranties for non-infringement of rights or interests of any third party, including, but not limited to, intellectual property right.\n\n5. In no event shall Olympus be liable nor responsible for any damages suffered or incurred by User or any other third party (including, but not limited to, general, special, direct, indirect, consequential or incidental loss or damages including damages for loss of business profits, business interruption, loss of business information and the like), arising out of or in connection with the use of the software.\n\n6. If User fails in complying with any terms and conditions under this Agreement, OLYMPUS may terminate this Agreement and seek to remedy for any loss or damage, including damages for loss of business profit, business interpretation, loss of business information and the like) or loss of profit incurred by Olympus, arising out of or in connection with such User's failure.  In such event, User shall immediately destroy or return to Olympus any and all copies thereof, whether in whole or in part."""
+    
+    comment = 'For more information about the improved features on this camera, click the "Details" button.'
+    extension_comment = "---" 
+    model_names = {
+        # lens
+        "0110": "M.ZUIKO DIGITAL ED 14-42mm F3.5-5.6",
+        "0800": "Extension Tube EX-25", 
+        "3500": "ZUIKO DIGITAL 14-54mm F2.8-3.5 II",
+        "0500": "ZUIKO DIGITAL 14-54mm F2.8-3.5",
+        "3300": "ZUIKO DIGITAL 25mm F2.8",
+        "2000": "ZUIKO DIGITAL 35mm F3.5 Macro", 
+        "0101": "ZUIKO DIGITAL 40-150mm F3.5-4.5",
+        "3100": "ZUIKO DIGITAL ED 12-60mm F2.8-4.0 SWD",
+        "2300": "ZUIKO DIGITAL ED 14-42mm F3.5-5.6",
+        "0701": "ZUIKO DIGITAL ED 18-180mm F3.5-6.3",
+        "1700": "ZUIKO DIGITAL ED 35-100mm F2.0",
+        "2400": "ZUIKO DIGITAL ED 40-150mm F4.0-5.6",
+        "0600": "ZUIKO DIGITAL ED 50-200mm F2.8-3.5",
+        "0801": "ZUIKO DIGITAL ED 70-300mm F4.0-5.6",
+        "0601": "ZUIKO DIGITAL ED 8mm F3.5 Fisheye",
+        "0501": "ZUIKO DIGITAL ED 90-250mm F2.8",
+        "3400": "ZUIKO DIGITAL ED 9-18mm F4.0-5.6",
+        "0400": "Tele Converter EC-14", 
+        "1000": "Tele Converter EC-20", 
+        # body
+        "0240": "u-mini,Stylus V",
+        "0260": "X500,D590Z,C470Z",
+        "0280": "u-40,STYLUS,u[mju:]DIGITAL 500",
+        "0310": "u-miniS,StylusVS",
+        "0320": "uD800 / S800",
+        "0340": "uD600,S600",
+        "0350": "E-500",
+        "0360": "E-330",
+        "0370": "u720SW,Stylus720SW",
+        "0390": "u710,Stylus710,u700,Stylus700",
+        "0400": "E-400",
+        "0410": "E-510",
+        "0420": "E-3",
+        "0430": "u[mju:]740/750,STYLUS 740/750",
+        "0440": "u725SW,Stylus 725SW", 
+        "0450": "u-770,STYLUS 770SW", 
+        "0460": "u760,Stylus 760",
+        "0470": "u780,Stylus 780",
+        "0480": "E-410",
+        "0490": "u-790SW,STYLUS 790SW", 
+        "0500": "u-795SW,STYLUS 795SW", 
+        "0510": "u830,Stylus 830",
+        "0520": "u[mju:]840,Stylus 840",
+        "0530": "u[mju:]1020,Stylus 1020",
+        "0540": "u[mju:]1010,Stylus 1010",
+        "0550": "u[mju:]1030SW,Stylus 1030SW",
+        "0560": "u[mju:]850SW,Stylus 850SW", 
+        "0590": "E-520",
+        "0600": "E-30",
+        "0630": "u1050SW/Stylus1050sw",
+        "0640": "E-620",
+        "0650": "u[mju:] TOUGH-6000/STYLUS TOUGH-6000",
+        "0660": "u[mju:] TOUGH-8000/STYLUS TOUGH-8000",
+        "0670": "u[mju:]-9000/STYLUS-9000",
+        "0680": "E-P1",
+        "0700": "E-P2",
+        "0720": "u[mju:] TOUGH-6010/STYLUS TOUGH-6010",
+        "0730": "E-600",
+        "0740": "E-PL1",
+        # new 
+        "0710": "XZ-1",
+    }
+
+    def __init__(self, fname, **kwargs):
+        self.file_name = fname
+        p = fname.split("_")
+        self.maker_code = p[0]
+        self.hardware_kind = p[1]
+        self.model_id = p[2]+"0"
+        self.file_version = p[3] # version in firmware_result
+        self.model_name = self.model_names.get(self.model_id, "???")
+
+        import os, time
+        self.file_size = str(os.path.getsize(fname))
+        self.url = "http://dl01.olympus-imaging.com/OLYMPUS_MASTER/FIRMWARES/0001/"+self.model_id+"/"+fname
+
+        self.up_date = time.strftime("%Y/%m/%d",time.localtime(os.stat(fname).st_mtime))
+        self.detail_url = "http://dl01.olympus-imaging.com/ww/ud2/ENU/0001/"+self.model_id+"/index0"+self.file_version[1]+"a.html"
+
+        for i in ["revision", "mac_address", "time", "application", "version", 
+                "language", "type", "os", "country_code", "hard_code", "firmware_version"]:
+            setattr(self, i, "")
+
+        self.__dict__.update(kwargs)
+
+    def parse_demand(self, data):
+        d = fromstring(data)
+        for i in ["revision", "mac_address", "time", "application", "version", 
+                "language", "type", "os", "country_code", "hard_code", "firmware_version"]:
+            setattr(self, i, d.findtext(".//"+i))
+
+        if (self.maker_code != self.hard_code[:3]) or \
+           (self.hardware_kind !=  self.hard_code[3]) or \
+           (self.model_id != self.hard_code[4:8]) or \
+           (int(self.file_version, 16) <= int(self.firmware_version[-4:], 16)):
+            # demand does not match supplied file, dont return firmware info
+            
+            self.maker_code = self.hard_code[:3]
+            self.hardware_kind = self.hard_code[3]
+            self.model_id = self.hard_code[4:8]
+            self.file_version = self.firmware_version[-4:]
+            self.model_name = self.model_names.get(self.model_id, "???")
+            
+            self.file_name = ""
+            self.file_size = ""
+            self.url = ""
+            self.up_date = ""
+            self.comment = ""
+            self.detail_url = ""
+            self.extension_comment = ""
+
+            return False
+
+        return True
+
+    
+    def check(self):
+        return (self.hard_code[:3] == self.maker_code) and \
+            (int(self.file_version) > int(self.firmware_version)) and \
+            (self.model_id == self.hard_code[4:8]) and \
+            (self.hardware_kind == self.hard_code[3])
+            
+   
+    def __str__(self):
+        r = Element("firmware_result")    
+        for i in ["revision", "mac_address", "time", "application", "version", "language", "type", "os", "country_code", "license_agreement"]:
+            SubElement(r,i).text = getattr(self, i)
+    
+        f = SubElement(r, "firmwares")
+        fi = SubElement(f, "firmware_info")
+        for i in ["maker_code", "model_name", "model_id", "hardware_kind"]:
+            SubElement(fi,i).text = getattr(self, i)
+
+        SubElement(fi,"version").text = getattr(self, "file_version")
+
+        for i in ["file_name", "file_size", "url", "up_date", "comment", "detail_url", "extension_comment"]:
+            SubElement(fi,i).text = getattr(self, i)
+
+        return tostring(r)
+
+
+def server(fname):
+    import BaseHTTPServer
+
+    class OlyHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+        
+        def do_GET(self):
+            print self.command, self.path, self.request_version
+            print self.headers
+
+            if not self.path.endswith(fname):
+                self.send_error(404, "File not found")
+                return 
+            try:
+                f = open(fname, 'rb')
+            except IOError:
+                self.send_error(404, "File not found")
+                return 
+
+            import os
+            fs = os.fstat(f.fileno())
+
+            self.send_response(200)
+            self.send_header("Content-type", "application/octet-stream")
+            self.send_header("Content-Length", str(fs[6]))
+            self.end_headers()
+            import shutil
+            shutil.copyfileobj(f, self.wfile)
+            f.close() 
+
+        def do_POST(self):
+            print self.command, self.path, self.request_version
+            print self.headers
+
+            length = int(self.headers.getheader('content-length'))
+            data = self.rfile.read(length)
+            print data
+
+            r = XMLResponse(fname)            
+            r.parse_demand(data)
+            data = str(r)
+
+            self.send_response(200)
+            self.send_header("Content-type", "text/xml") 
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+
+
+    httpd = BaseHTTPServer.HTTPServer(("", 80), OlyHTTPRequestHandler)
+    print "Fake (fw|dl)01.olympus-imaging.com serving", fname, "..."
+    print
+    httpd.serve_forever()
+
+def unpack(fname):
+    pass 
+
+if __name__ == "__main__":
+
+    import sys
+    if "server" in sys.argv[1:]:
+        server("OLY_E_071_1901_0000_0000.BIN")
+    else:
+        d = XMLDemand(firmware_version="00000000", firmup_mode="2")
+        d.post()
+        #d = XMLDemand()
+        #d.post("localhost")

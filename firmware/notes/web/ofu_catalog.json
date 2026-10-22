@@ -1,0 +1,1764 @@
+{
+ "series": {
+  "OM": [
+   {
+    "id": 143,
+    "name": "OM-1 Mark I"
+   },
+   {
+    "id": 146,
+    "name": "OM-1 Mark II"
+   },
+   {
+    "id": 147,
+    "name": "OM-3"
+   },
+   {
+    "id": 144,
+    "name": "OM-5 Mark I"
+   }
+  ],
+  "E-M": [
+   {
+    "id": 109,
+    "name": "E-M1 Mark I"
+   },
+   {
+    "id": 125,
+    "name": "E-M1 Mark II"
+   },
+   {
+    "id": 139,
+    "name": "E-M1 Mark III"
+   },
+   {
+    "id": 134,
+    "name": "E-M1X"
+   },
+   {
+    "id": "097",
+    "name": "E-M5 Mark I"
+   },
+   {
+    "id": 118,
+    "name": "E-M5 Mark II"
+   },
+   {
+    "id": 137,
+    "name": "E-M5 Mark III"
+   },
+   {
+    "id": 113,
+    "name": "E-M10 Mark I"
+   },
+   {
+    "id": 120,
+    "name": "E-M10 Mark II"
+   },
+   {
+    "id": 130,
+    "name": "E-M10 Mark III"
+   },
+   {
+    "id": 140,
+    "name": "E-M10 Mark IV"
+   }
+  ],
+  "PEN": [
+   {
+    "id": "068",
+    "name": "E-P1"
+   },
+   {
+    "id": "070",
+    "name": "E-P2"
+   },
+   {
+    "id": "085",
+    "name": "E-P3"
+   },
+   {
+    "id": 108,
+    "name": "E-P5"
+   },
+   {
+    "id": 142,
+    "name": "E-P7"
+   },
+   {
+    "id": "074",
+    "name": "E-PL1"
+   },
+   {
+    "id": "088",
+    "name": "E-PL1s"
+   },
+   {
+    "id": "086",
+    "name": "E-PL3"
+   },
+   {
+    "id": 100,
+    "name": "E-PL5"
+   },
+   {
+    "id": 112,
+    "name": "E-PL6"
+   },
+   {
+    "id": 115,
+    "name": "E-PL7"
+   },
+   {
+    "id": 126,
+    "name": "E-PL8"
+   },
+   {
+    "id": 133,
+    "name": "E-PL9"
+   },
+   {
+    "id": "087",
+    "name": "E-PM1"
+   },
+   {
+    "id": 101,
+    "name": "E-PM2"
+   },
+   {
+    "id": 122,
+    "name": "PEN-F"
+   }
+  ],
+  "FT 4/3": [
+   {
+    "id": "042",
+    "name": "E-3"
+   },
+   {
+    "id": "079",
+    "name": "E-5"
+   },
+   {
+    "id": "060",
+    "name": "E-30"
+   },
+   {
+    "id": "012",
+    "name": "E-300"
+   },
+   {
+    "id": "036",
+    "name": "E-330"
+   },
+   {
+    "id": "040",
+    "name": "E-400"
+   },
+   {
+    "id": "048",
+    "name": "E-410"
+   },
+   {
+    "id": "058",
+    "name": "E-420"
+   },
+   {
+    "id": "035",
+    "name": "E-500"
+   },
+   {
+    "id": "041",
+    "name": "E-510"
+   },
+   {
+    "id": "059",
+    "name": "E-520"
+   }
+  ],
+  "TG": [
+   {
+    "id": "095",
+    "name": "TG-1"
+   },
+   {
+    "id": 106,
+    "name": "TG-2"
+   },
+   {
+    "id": 121,
+    "name": "TG-4"
+   },
+   {
+    "id": 129,
+    "name": "TG-5"
+   },
+   {
+    "id": 145,
+    "name": "TG-7"
+   },
+   {
+    "id": "082",
+    "name": "TG-310"
+   },
+   {
+    "id": 107,
+    "name": "TG-630"
+   }
+  ],
+  "Stylus": [
+   {
+    "id": 111,
+    "name": "Stylus-1"
+   },
+   {
+    "id": "044",
+    "name": "Stylus-725sw"
+   },
+   {
+    "id": "046",
+    "name": "Stylus-760"
+   },
+   {
+    "id": "045",
+    "name": "Stylus-770sw"
+   },
+   {
+    "id": "047",
+    "name": "Stylus-780"
+   },
+   {
+    "id": "049",
+    "name": "Stylus-790sw"
+   },
+   {
+    "id": "050",
+    "name": "Stylus-795sw"
+   },
+   {
+    "id": "052",
+    "name": "Stylus-840"
+   },
+   {
+    "id": "056",
+    "name": "Stylus-850sw"
+   },
+   {
+    "id": "054",
+    "name": "Stylus-1010"
+   },
+   {
+    "id": "053",
+    "name": "Stylus-1020"
+   },
+   {
+    "id": "055",
+    "name": "Stylus-1030sw"
+   }
+  ]
+ },
+ "models": {
+  "143": {
+   "id": 143,
+   "name": "OM-1 Mark I"
+  },
+  "146": {
+   "id": 146,
+   "name": "OM-1 Mark II"
+  },
+  "147": {
+   "id": 147,
+   "name": "OM-3"
+  },
+  "144": {
+   "id": 144,
+   "name": "OM-5 Mark I"
+  },
+  "109": {
+   "id": 109,
+   "name": "E-M1 Mark I"
+  },
+  "125": {
+   "id": 125,
+   "name": "E-M1 Mark II"
+  },
+  "139": {
+   "id": 139,
+   "name": "E-M1 Mark III"
+  },
+  "134": {
+   "id": 134,
+   "name": "E-M1X"
+  },
+  "097": {
+   "id": "097",
+   "name": "E-M5 Mark I"
+  },
+  "118": {
+   "id": 118,
+   "name": "E-M5 Mark II"
+  },
+  "137": {
+   "id": 137,
+   "name": "E-M5 Mark III"
+  },
+  "113": {
+   "id": 113,
+   "name": "E-M10 Mark I"
+  },
+  "120": {
+   "id": 120,
+   "name": "E-M10 Mark II"
+  },
+  "130": {
+   "id": 130,
+   "name": "E-M10 Mark III"
+  },
+  "140": {
+   "id": 140,
+   "name": "E-M10 Mark IV"
+  },
+  "068": {
+   "id": "068",
+   "name": "E-P1"
+  },
+  "070": {
+   "id": "070",
+   "name": "E-P2"
+  },
+  "085": {
+   "id": "085",
+   "name": "E-P3"
+  },
+  "108": {
+   "id": 108,
+   "name": "E-P5"
+  },
+  "142": {
+   "id": 142,
+   "name": "E-P7"
+  },
+  "074": {
+   "id": "074",
+   "name": "E-PL1"
+  },
+  "088": {
+   "id": "088",
+   "name": "E-PL1s"
+  },
+  "086": {
+   "id": "086",
+   "name": "E-PL3"
+  },
+  "100": {
+   "id": 100,
+   "name": "E-PL5"
+  },
+  "112": {
+   "id": 112,
+   "name": "E-PL6"
+  },
+  "115": {
+   "id": 115,
+   "name": "E-PL7"
+  },
+  "126": {
+   "id": 126,
+   "name": "E-PL8"
+  },
+  "133": {
+   "id": 133,
+   "name": "E-PL9"
+  },
+  "087": {
+   "id": "087",
+   "name": "E-PM1"
+  },
+  "101": {
+   "id": 101,
+   "name": "E-PM2"
+  },
+  "122": {
+   "id": 122,
+   "name": "PEN-F"
+  },
+  "042": {
+   "id": "042",
+   "name": "E-3"
+  },
+  "079": {
+   "id": "079",
+   "name": "E-5"
+  },
+  "060": {
+   "id": "060",
+   "name": "E-30"
+  },
+  "012": {
+   "id": "012",
+   "name": "E-300"
+  },
+  "036": {
+   "id": "036",
+   "name": "E-330"
+  },
+  "040": {
+   "id": "040",
+   "name": "E-400"
+  },
+  "048": {
+   "id": "048",
+   "name": "E-410"
+  },
+  "058": {
+   "id": "058",
+   "name": "E-420"
+  },
+  "035": {
+   "id": "035",
+   "name": "E-500"
+  },
+  "041": {
+   "id": "041",
+   "name": "E-510"
+  },
+  "059": {
+   "id": "059",
+   "name": "E-520"
+  },
+  "095": {
+   "id": "095",
+   "name": "TG-1"
+  },
+  "106": {
+   "id": 106,
+   "name": "TG-2"
+  },
+  "121": {
+   "id": 121,
+   "name": "TG-4"
+  },
+  "129": {
+   "id": 129,
+   "name": "TG-5"
+  },
+  "145": {
+   "id": 145,
+   "name": "TG-7"
+  },
+  "082": {
+   "id": "082",
+   "name": "TG-310"
+  },
+  "107": {
+   "id": 107,
+   "name": "TG-630"
+  },
+  "111": {
+   "id": 111,
+   "name": "Stylus-1"
+  },
+  "044": {
+   "id": "044",
+   "name": "Stylus-725sw"
+  },
+  "046": {
+   "id": "046",
+   "name": "Stylus-760"
+  },
+  "045": {
+   "id": "045",
+   "name": "Stylus-770sw"
+  },
+  "047": {
+   "id": "047",
+   "name": "Stylus-780"
+  },
+  "049": {
+   "id": "049",
+   "name": "Stylus-790sw"
+  },
+  "050": {
+   "id": "050",
+   "name": "Stylus-795sw"
+  },
+  "052": {
+   "id": "052",
+   "name": "Stylus-840"
+  },
+  "056": {
+   "id": "056",
+   "name": "Stylus-850sw"
+  },
+  "054": {
+   "id": "054",
+   "name": "Stylus-1010"
+  },
+  "053": {
+   "id": "053",
+   "name": "Stylus-1020"
+  },
+  "055": {
+   "id": "055",
+   "name": "Stylus-1030sw"
+  }
+ },
+ "versions": {
+  "042": {
+   "F04214": {
+    "category": "FT 4/3",
+    "name": "E-3",
+    "version": "1.4 (latest)",
+    "cardfile": "G0429999.BIN",
+    "dlfile": "OLY_G_042_1400_0001_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e3.html",
+    "date": "2009-04-09"
+   }
+  },
+  "060": {
+   "F06011": {
+    "category": "FT 4/3",
+    "name": "E-30",
+    "version": "1.1 (latest)",
+    "cardfile": "E0609999.BIN",
+    "dlfile": "OLY_E_060_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0600/index01a.html",
+    "date": "2009-04-02"
+   }
+  },
+  "012": {
+   "F01215": {
+    "category": "FT 4/3",
+    "name": "E-300",
+    "version": "1.5 (latest)",
+    "cardfile": "E0129999.BIN",
+    "dlfile": "OLY_E_012_1501_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e300.html",
+    "date": "2007-11-20"
+   }
+  },
+  "036": {
+   "F03613": {
+    "category": "FT 4/3",
+    "name": "E-330",
+    "version": "1.3 (latest)",
+    "cardfile": "E0369999.BIN",
+    "dlfile": "OLY_E_036_1301_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e330.html",
+    "date": "2007-11-20"
+   }
+  },
+  "040": {
+   "F04012": {
+    "category": "FT 4/3",
+    "name": "E-400",
+    "version": "1.2 (latest)",
+    "cardfile": "G0409999.BIN",
+    "dlfile": "OLY_G_040_1202_0001_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0400/index01a.html",
+    "date": "2007-11-20"
+   }
+  },
+  "048": {
+   "F04813": {
+    "category": "FT 4/3",
+    "name": "E-410",
+    "version": "1.3 (latest)",
+    "cardfile": "E0489999.BIN",
+    "dlfile": "OLY_E_048_1301_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e410.html",
+    "date": "2007-11-20"
+   }
+  },
+  "058": {
+   "": {
+    "category": null,
+    "name": null,
+    "version": " (latest)",
+    "cardfile": null,
+    "dlfile": null,
+    "info": null,
+    "date": null
+   }
+  },
+  "079": {
+   "F07913": {
+    "category": "FT 4/3",
+    "name": "E-5",
+    "version": "1.3 (latest)",
+    "cardfile": "E0799999.BIN",
+    "dlfile": "OLY_E_079_1300_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e5.html",
+    "date": "2012-03-21"
+   }
+  },
+  "035": {
+   "F03513": {
+    "category": "FT 4/3",
+    "name": "E-500",
+    "version": "1.3 (latest)",
+    "cardfile": "E0359999.BIN",
+    "dlfile": "OLY_E_035_1303_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/e500.html",
+    "date": "2007-11-20"
+   }
+  },
+  "041": {
+   "F04113": {
+    "category": "FT 4/3",
+    "name": "E-510",
+    "version": "1.3 (latest)",
+    "cardfile": "G0419999.BIN",
+    "dlfile": "OLY_G_041_1300_0001_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0410/index01a.html",
+    "date": "2008-01-29"
+   }
+  },
+  "059": {
+   "F05911": {
+    "category": "FT 4/3",
+    "name": "E-520",
+    "version": "1.1 (latest)",
+    "cardfile": "G0599999.BIN",
+    "dlfile": "OLY_G_059_1101_0001_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0590/index01a.html",
+    "date": "2008-09-30"
+   }
+  },
+  "109": {
+   "E10946": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "4.6 (latest)",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_4600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10945": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "4.5",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_4500_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10944": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "4.4",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_4400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10943": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "4.3",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_4300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10941": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "4.1",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_4100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10940": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "4.0",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_4003_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10931": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "3.1",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_3100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   },
+   "E10930": {
+    "category": "E-M",
+    "name": "E-M1 Mark I",
+    "version": "3.0",
+    "cardfile": "E1099999.BIN",
+    "dlfile": "OLY_E_109_3001_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1090/index46a.html",
+    "date": "2019-02-14"
+   }
+  },
+  "125": {
+   "E12537": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.7 (latest)",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3700_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12536": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.6",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12535": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.5",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3500_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12534": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.4",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12533": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.3",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12532": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.2",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12530": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "3.0",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_3001_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   },
+   "E12523": {
+    "category": "E-M",
+    "name": "E-M1 Mark II",
+    "version": "2.3",
+    "cardfile": "E1259999.BIN",
+    "dlfile": "OLY_E_125_2300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1250/index37a.html",
+    "date": "2023-01-19"
+   }
+  },
+  "139": {
+   "E13916": {
+    "category": "E-M",
+    "name": "E-M1 Mark III",
+    "version": "1.6 (latest)",
+    "cardfile": "E1399999.BIN",
+    "dlfile": "OLY_E_139_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+    "date": "2023-01-19"
+   },
+   "E13915": {
+    "category": "E-M",
+    "name": "E-M1 Mark III",
+    "version": "1.5",
+    "cardfile": "E1399999.BIN",
+    "dlfile": "OLY_E_139_1500_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+    "date": "2022-02-28"
+   },
+   "E13914": {
+    "category": "E-M",
+    "name": "E-M1 Mark III",
+    "version": "1.4",
+    "cardfile": "E1399999.BIN",
+    "dlfile": "OLY_E_139_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+    "date": "2021-07-19"
+   },
+   "E13913": {
+    "category": "E-M",
+    "name": "E-M1 Mark III",
+    "version": "1.3",
+    "cardfile": "E1399999.BIN",
+    "dlfile": "OLY_E_139_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+    "date": "2021-09-04"
+   },
+   "E13912": {
+    "category": "E-M",
+    "name": "E-M1 Mark III",
+    "version": "1.2",
+    "cardfile": "E1399999.BIN",
+    "dlfile": "OLY_E_139_1201_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+    "date": "2020-12-03"
+   },
+   "E13911": {
+    "category": "E-M",
+    "name": "E-M1 Mark III",
+    "version": "1.1",
+    "cardfile": "E1399999.BIN",
+    "dlfile": "OLY_E_139_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+    "date": "2020-08-04"
+   }
+  },
+  "113": {
+   "E11314": {
+    "category": "E-M",
+    "name": "E-M10 Mark I",
+    "version": "1.4 (latest)",
+    "cardfile": "E1139999.BIN",
+    "dlfile": "OLY_E_113_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1130/index04a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "120": {
+   "E12014": {
+    "category": "E-M",
+    "name": "E-M10 Mark II",
+    "version": "1.4 (latest)",
+    "cardfile": "E1209999.BIN",
+    "dlfile": "OLY_E_120_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+    "date": "2019-03-07"
+   },
+   "E12013": {
+    "category": "E-M",
+    "name": "E-M10 Mark II",
+    "version": "1.3",
+    "cardfile": "E1209999.BIN",
+    "dlfile": "OLY_E_120_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+    "date": "2019-03-07"
+   },
+   "E12012": {
+    "category": "E-M",
+    "name": "E-M10 Mark II",
+    "version": "1.2",
+    "cardfile": "E1209999.BIN",
+    "dlfile": "OLY_E_120_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+    "date": "2019-03-07"
+   },
+   "E12011": {
+    "category": "E-M",
+    "name": "E-M10 Mark II",
+    "version": "1.1",
+    "cardfile": "E1209999.BIN",
+    "dlfile": "OLY_E_120_1103_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+    "date": "2019-03-07"
+   }
+  },
+  "130": {
+   "E13012": {
+    "category": "E-M",
+    "name": "E-M10 Mark III",
+    "version": "1.2 (latest)",
+    "cardfile": "E1309999.BIN",
+    "dlfile": "OLY_E_130_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1300/index02a.html",
+    "date": "2019-03-07"
+   },
+   "E13011": {
+    "category": "E-M",
+    "name": "E-M10 Mark III",
+    "version": "1.1",
+    "cardfile": "E1309999.BIN",
+    "dlfile": "OLY_E_130_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1300/index02a.html",
+    "date": "2019-03-07"
+   }
+  },
+  "140": {
+   "E14011": {
+    "category": "E-M",
+    "name": "E-M10 Mark IV",
+    "version": "1.1 (latest)",
+    "cardfile": "E1409999.BIN",
+    "dlfile": "OLY_E_140_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1400/index01a.html",
+    "date": "2022-02-28"
+   }
+  },
+  "134": {
+   "E13424": {
+    "category": "E-M",
+    "name": "E-M1X",
+    "version": "2.4 (latest)",
+    "cardfile": "E1349999.BIN",
+    "dlfile": "OLY_E_134_2400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html",
+    "date": "2023-01-19"
+   },
+   "E13423": {
+    "category": "E-M",
+    "name": "E-M1X",
+    "version": "2.3",
+    "cardfile": "E1349999.BIN",
+    "dlfile": "OLY_E_134_2300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html",
+    "date": "2022-02-28"
+   },
+   "E13422": {
+    "category": "E-M",
+    "name": "E-M1X",
+    "version": "2.2",
+    "cardfile": "E1349999.BIN",
+    "dlfile": "OLY_E_134_2200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html",
+    "date": "2021-01-19"
+   },
+   "E13421": {
+    "category": "E-M",
+    "name": "E-M1X",
+    "version": "2.1",
+    "cardfile": "E1349999.BIN",
+    "dlfile": "OLY_E_134_2100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html",
+    "date": "2021-04-06"
+   },
+   "E13413": {
+    "category": "E-M",
+    "name": "E-M1X",
+    "version": "1.3",
+    "cardfile": "E1349999.BIN",
+    "dlfile": "OLY_E_134_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html",
+    "date": "2020-08-04"
+   },
+   "E13412": {
+    "category": "E-M",
+    "name": "E-M1X",
+    "version": "1.2",
+    "cardfile": "E1349999.BIN",
+    "dlfile": "OLY_E_134_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1340/index24a.html",
+    "date": "2020-02-11"
+   }
+  },
+  "097": {
+   "E09723": {
+    "category": "E-M",
+    "name": "E-M5 Mark I",
+    "version": "2.3 (latest)",
+    "cardfile": "E0979999.BIN",
+    "dlfile": "OLY_E_097_2300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+    "date": "2018-12-18"
+   },
+   "E09722": {
+    "category": "E-M",
+    "name": "E-M5 Mark I",
+    "version": "2.2",
+    "cardfile": "E0979999.BIN",
+    "dlfile": "OLY_E_097_2202_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+    "date": "2018-12-18"
+   },
+   "E09721": {
+    "category": "E-M",
+    "name": "E-M5 Mark I",
+    "version": "2.1",
+    "cardfile": "E0979999.BIN",
+    "dlfile": "OLY_E_097_2100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+    "date": "2018-12-18"
+   },
+   "E09720": {
+    "category": "E-M",
+    "name": "E-M5 Mark I",
+    "version": "2.0",
+    "cardfile": "E0979999.BIN",
+    "dlfile": "OLY_E_097_2000_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "118": {
+   "E11841": {
+    "category": "E-M",
+    "name": "E-M5 Mark II",
+    "version": "4.1 (latest)",
+    "cardfile": "E1189999.BIN",
+    "dlfile": "OLY_E_118_4100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1180/index41a.html",
+    "date": "2019-01-24"
+   }
+  },
+  "137": {
+   "E13717": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.7 (latest)",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1700_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   },
+   "E13716": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.6",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   },
+   "E13715": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.5",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1500_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   },
+   "E13714": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.4",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   },
+   "E13713": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.3",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   },
+   "E13712": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.2",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   },
+   "E13711": {
+    "category": "E-M",
+    "name": "E-M5 Mark III",
+    "version": "1.1",
+    "cardfile": "E1379999.BIN",
+    "dlfile": "OLY_E_137_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+    "date": "2023-01-19"
+   }
+  },
+  "068": {
+   "P06814": {
+    "category": "PEN",
+    "name": "E-P1",
+    "version": "1.4 (latest)",
+    "cardfile": "E0689999.BIN",
+    "dlfile": "OLY_E_068_1402_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/e1/ep1.html",
+    "date": "2010-04-22"
+   }
+  },
+  "070": {
+   "P07013": {
+    "category": "PEN",
+    "name": "E-P2",
+    "version": "1.3 (latest)",
+    "cardfile": "E0709999.BIN",
+    "dlfile": "OLY_E_070_1302_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/pen/ep2.html",
+    "date": "2013-06-12"
+   },
+   "P07012": {
+    "category": "PEN",
+    "name": "E-P2",
+    "version": "1.2",
+    "cardfile": "E0709999.BIN",
+    "dlfile": "OLY_E_070_1201_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/pen/ep2.html",
+    "date": "2013-06-12"
+   },
+   "P07011": {
+    "category": "PEN",
+    "name": "E-P2",
+    "version": "1.1",
+    "cardfile": "E0709999.BIN",
+    "dlfile": "OLY_E_070_1102_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/pen/ep2.html",
+    "date": "2013-06-12"
+   }
+  },
+  "085": {
+   "P08516": {
+    "category": "PEN",
+    "name": "E-P3",
+    "version": "1.6 (latest)",
+    "cardfile": "E0859999.BIN",
+    "dlfile": "OLY_E_085_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0850/index06a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "108": {
+   "P10818": {
+    "category": "PEN",
+    "name": "E-P5",
+    "version": "1.8 (latest)",
+    "cardfile": "E1089999.BIN",
+    "dlfile": "OLY_E_108_1800_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1080/index08a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "142": {
+   "P14211": {
+    "category": "PEN",
+    "name": "E-P7",
+    "version": "1.1 (latest)",
+    "cardfile": "E1429999.BIN",
+    "dlfile": "OLY_E_142_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1420/index01a.html",
+    "date": "2022-02-28"
+   }
+  },
+  "074": {
+   "P07413": {
+    "category": "PEN",
+    "name": "E-PL1",
+    "version": "1.3 (latest)",
+    "cardfile": "E0749999.BIN",
+    "dlfile": "OLY_E_074_1302_0000_0000.BIN",
+    "info": "https://support.jp.omsystem.com/en/support/imsg/digicamera/download/software/firm/pen/epl1.html",
+    "date": "2013-06-12"
+   }
+  },
+  "088": {
+   "P08812": {
+    "category": "PEN",
+    "name": "E-PL1s",
+    "version": "1.2 (latest)",
+    "cardfile": "E0889999.BIN",
+    "dlfile": "OLY_E_088_1202_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0880/index02a.html",
+    "date": "2013-06-12"
+   }
+  },
+  "086": {
+   "P08616": {
+    "category": "PEN",
+    "name": "E-PL3",
+    "version": "1.6 (latest)",
+    "cardfile": "E0869999.BIN",
+    "dlfile": "OLY_E_086_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0860/index06a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "100": {
+   "P10016": {
+    "category": "PEN",
+    "name": "E-PL5",
+    "version": "1.6 (latest)",
+    "cardfile": "E1009999.BIN",
+    "dlfile": "OLY_E_100_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1000/index06a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "112": {
+   "P11214": {
+    "category": "PEN",
+    "name": "E-PL6",
+    "version": "1.4 (latest)",
+    "cardfile": "E1129999.BIN",
+    "dlfile": "OLY_E_112_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1120/index04a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "115": {
+   "P11514": {
+    "category": "PEN",
+    "name": "E-PL7",
+    "version": "1.4 (latest)",
+    "cardfile": "E1159999.BIN",
+    "dlfile": "OLY_E_115_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1150/index04a.html",
+    "date": "2018-05-10"
+   }
+  },
+  "126": {
+   "P12611": {
+    "category": "PEN",
+    "name": "E-PL8",
+    "version": "1.1 (latest)",
+    "cardfile": "E1269999.BIN",
+    "dlfile": "OLY_E_126_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1260/index01a.html",
+    "date": "2018-05-10"
+   }
+  },
+  "133": {
+   "P13311": {
+    "category": "PEN",
+    "name": "E-PL9",
+    "version": "1.1 (latest)",
+    "cardfile": "E1339999.BIN",
+    "dlfile": "OLY_E_133_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1330/index01a.html",
+    "date": "2018-04-26"
+   }
+  },
+  "087": {
+   "P08716": {
+    "category": "PEN",
+    "name": "E-PM1",
+    "version": "1.6 (latest)",
+    "cardfile": "E0879999.BIN",
+    "dlfile": "OLY_E_087_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0870/index06a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "101": {
+   "P10116": {
+    "category": "PEN",
+    "name": "E-PM2",
+    "version": "1.6 (latest)",
+    "cardfile": "E1019999.BIN",
+    "dlfile": "OLY_E_101_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html",
+    "date": "2018-12-18"
+   },
+   "P10115": {
+    "category": "PEN",
+    "name": "E-PM2",
+    "version": "1.5",
+    "cardfile": "E1019999.BIN",
+    "dlfile": "OLY_E_101_1501_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html",
+    "date": "2018-12-18"
+   },
+   "P10114": {
+    "category": "PEN",
+    "name": "E-PM2",
+    "version": "1.4",
+    "cardfile": "E1019999.BIN",
+    "dlfile": "OLY_E_101_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html",
+    "date": "2018-12-18"
+   },
+   "P10113": {
+    "category": "PEN",
+    "name": "E-PM2",
+    "version": "1.3",
+    "cardfile": "E1019999.BIN",
+    "dlfile": "OLY_E_101_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html",
+    "date": "2018-12-18"
+   },
+   "P10112": {
+    "category": "PEN",
+    "name": "E-PM2",
+    "version": "1.2",
+    "cardfile": "E1019999.BIN",
+    "dlfile": "OLY_E_101_1203_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html",
+    "date": "2018-12-18"
+   },
+   "P10111": {
+    "category": "PEN",
+    "name": "E-PM2",
+    "version": "1.1",
+    "cardfile": "E1019999.BIN",
+    "dlfile": "OLY_E_101_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1010/index06a.html",
+    "date": "2018-12-18"
+   }
+  },
+  "143": {
+   "O14319": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.9 (latest)",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1900_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2025-11-04"
+   },
+   "O14318": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.8",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1800_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2025-10-09"
+   },
+   "O14317": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.7",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1700_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2024-08-29"
+   },
+   "O14316": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.6",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1600_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2024-04-11"
+   },
+   "O14315": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.5",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1500_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2023-05-16"
+   },
+   "O14314": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.4",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1400_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2023-02-16"
+   },
+   "O14313": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.3",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2022-11-24"
+   },
+   "O14312": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.2",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2022-06-30"
+   },
+   "O14311": {
+    "category": "OM",
+    "name": "OM-1 Mark I",
+    "version": "1.1",
+    "cardfile": "E1439999.BIN",
+    "dlfile": "OLY_E_143_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1430/v1900/ENU/index09a.html",
+    "date": "2022-05-24"
+   }
+  },
+  "146": {
+   "O14613": {
+    "category": "OM",
+    "name": "OM-1 Mark II",
+    "version": "1.3 (latest)",
+    "cardfile": "E1469999.BIN",
+    "dlfile": "OLY_E_146_1300_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1460/v1300/ENU/index03a.html",
+    "date": "2025-07-01"
+   },
+   "O14612": {
+    "category": "OM",
+    "name": "OM-1 Mark II",
+    "version": "1.2",
+    "cardfile": "E1469999.BIN",
+    "dlfile": "OLY_E_146_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1460/v1300/ENU/index03a.html",
+    "date": "2024-08-29"
+   },
+   "O14611": {
+    "category": "OM",
+    "name": "OM-1 Mark II",
+    "version": "1.1",
+    "cardfile": "E1469999.BIN",
+    "dlfile": "OLY_E_146_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1460/v1300/ENU/index03a.html",
+    "date": "2024-04-11"
+   }
+  },
+  "147": {
+   "O14711": {
+    "category": "OM",
+    "name": "OM-3",
+    "version": "1.1 (latest)",
+    "cardfile": "E1479999.BIN",
+    "dlfile": "OLY_E_147_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1470/v1100/ENU/index01a.html",
+    "date": "2025-07-01"
+   }
+  },
+  "144": {
+   "O14412": {
+    "category": "OM",
+    "name": "OM-5 Mark I",
+    "version": "1.2 (latest)",
+    "cardfile": "E1449999.BIN",
+    "dlfile": "OLY_E_144_1200_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1440/v1200/ENU/index02a.html",
+    "date": "2024-04-11"
+   },
+   "O14411": {
+    "category": "OM",
+    "name": "OM-5 Mark I",
+    "version": "1.1",
+    "cardfile": "E1449999.BIN",
+    "dlfile": "OLY_E_144_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/dslr/1440/v1200/ENU/index02a.html",
+    "date": "2023-06-19"
+   }
+  },
+  "122": {
+   "P12231": {
+    "category": "PEN",
+    "name": "PEN-F",
+    "version": "3.1 (latest)",
+    "cardfile": "E1229999.BIN",
+    "dlfile": "OLY_E_122_3101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1220/index31a.html",
+    "date": "2019-01-24"
+   }
+  },
+  "111": {
+   "S11120": {
+    "category": "Stylus",
+    "name": "Stylus-1",
+    "version": "2.0 (latest)",
+    "cardfile": "E1119999.BIN",
+    "dlfile": "OLY_E_111_2004_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1110/index20a.html",
+    "date": "2015-01-15"
+   },
+   "S11111": {
+    "category": "Stylus",
+    "name": "Stylus-1",
+    "version": "1.1",
+    "cardfile": "E1119999.BIN",
+    "dlfile": "OLY_E_111_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1110/index20a.html",
+    "date": "2015-01-15"
+   }
+  },
+  "054": {
+   "S05412": {
+    "category": "Stylus",
+    "name": "Stylus-1010",
+    "version": "1.2 (latest)",
+    "cardfile": "E0549999.BIN",
+    "dlfile": "OLY_E_054_1202_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081221111136/http://www.olympus-europa.com/consumer/29_digital_camera_firmware_update_mju_1010_19229.htm",
+    "date": "2008-04-16"
+   },
+   "S05411": {
+    "category": "Stylus",
+    "name": "Stylus-1010",
+    "version": "1.1",
+    "cardfile": "E0549999.BIN",
+    "dlfile": "OLY_E_054_1101_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081221111136/http://www.olympus-europa.com/consumer/29_digital_camera_firmware_update_mju_1010_19229.htm",
+    "date": "2008-04-16"
+   },
+   "S05410": {
+    "category": "Stylus",
+    "name": "Stylus-1010",
+    "version": "1.0",
+    "cardfile": "E0549999.BIN",
+    "dlfile": "OLY_E_054_1001_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081221111136/http://www.olympus-europa.com/consumer/29_digital_camera_firmware_update_mju_1010_19229.htm",
+    "date": "2008-04-16"
+   }
+  },
+  "053": {
+   "S05312": {
+    "category": "Stylus",
+    "name": "Stylus-1020",
+    "version": "1.2 (latest)",
+    "cardfile": "E0539999.BIN",
+    "dlfile": "OLY_E_053_1202_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081222183751/http://www.olympus-europa.com/consumer/29_mju_1020_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   },
+   "S05311": {
+    "category": "Stylus",
+    "name": "Stylus-1020",
+    "version": "1.1",
+    "cardfile": "E0539999.BIN",
+    "dlfile": "OLY_E_053_1101_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081222183751/http://www.olympus-europa.com/consumer/29_mju_1020_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   },
+   "S05310": {
+    "category": "Stylus",
+    "name": "Stylus-1020",
+    "version": "1.0",
+    "cardfile": "E0539999.BIN",
+    "dlfile": "OLY_E_053_1001_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081222183751/http://www.olympus-europa.com/consumer/29_mju_1020_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   }
+  },
+  "055": {
+   "S05512": {
+    "category": "Stylus",
+    "name": "Stylus-1030sw",
+    "version": "1.2 (latest)",
+    "cardfile": "E0559999.BIN",
+    "dlfile": "OLY_E_055_1202_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20090118191420/http://www.olympus-europa.com/consumer/29_mju_1030_SW_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   },
+   "S05511": {
+    "category": "Stylus",
+    "name": "Stylus-1030sw",
+    "version": "1.1",
+    "cardfile": "E0559999.BIN",
+    "dlfile": "OLY_E_055_1102_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20090118191420/http://www.olympus-europa.com/consumer/29_mju_1030_SW_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   }
+  },
+  "044": {
+   "S04410": {
+    "category": "Stylus",
+    "name": "Stylus-725sw",
+    "version": "1.0 (latest)",
+    "cardfile": "E0449999.BIN",
+    "dlfile": "OLY_E_044_1001_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   }
+  },
+  "046": {
+   "S04611": {
+    "category": "Stylus",
+    "name": "Stylus-760",
+    "version": "1.1 (latest)",
+    "cardfile": "E0469999.BIN",
+    "dlfile": "OLY_E_046_1102_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   },
+   "S04610": {
+    "category": "Stylus",
+    "name": "Stylus-760",
+    "version": "1.0",
+    "cardfile": "E0469999.BIN",
+    "dlfile": "OLY_E_046_1002_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   }
+  },
+  "045": {
+   "S04511": {
+    "category": "Stylus",
+    "name": "Stylus-770sw",
+    "version": "1.1 (latest)",
+    "cardfile": "E0459999.BIN",
+    "dlfile": "OLY_E_045_1102_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   },
+   "S04510": {
+    "category": "Stylus",
+    "name": "Stylus-770sw",
+    "version": "1.0",
+    "cardfile": "E0459999.BIN",
+    "dlfile": "OLY_E_045_1003_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   }
+  },
+  "047": {
+   "S04711": {
+    "category": "Stylus",
+    "name": "Stylus-780",
+    "version": "1.1 (latest)",
+    "cardfile": "E0479999.BIN",
+    "dlfile": "OLY_E_047_1100_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   },
+   "S04710": {
+    "category": "Stylus",
+    "name": "Stylus-780",
+    "version": "1.0",
+    "cardfile": "E0479999.BIN",
+    "dlfile": "OLY_E_047_1001_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   }
+  },
+  "049": {
+   "S04911": {
+    "category": "Stylus",
+    "name": "Stylus-790sw",
+    "version": "1.1 (latest)",
+    "cardfile": "E0499999.BIN",
+    "dlfile": "OLY_E_049_1101_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   },
+   "S04910": {
+    "category": "Stylus",
+    "name": "Stylus-790sw",
+    "version": "1.0",
+    "cardfile": "E0499999.BIN",
+    "dlfile": "OLY_E_049_1002_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   }
+  },
+  "050": {
+   "S05010": {
+    "category": "Stylus",
+    "name": "Stylus-795sw",
+    "version": "1.0 (latest)",
+    "cardfile": "E0509999.BIN",
+    "dlfile": "OLY_E_050_1004_0000_0000.BIN",
+    "info": "",
+    "date": ""
+   }
+  },
+  "052": {
+   "S05212": {
+    "category": "Stylus",
+    "name": "Stylus-840",
+    "version": "1.2 (latest)",
+    "cardfile": "E0529999.BIN",
+    "dlfile": "OLY_E_052_1202_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081222184646/http://www.olympus-europa.com/consumer/29_mju_840_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   }
+  },
+  "056": {
+   "S05612": {
+    "category": "Stylus",
+    "name": "Stylus-850sw",
+    "version": "1.2 (latest)",
+    "cardfile": "E0569999.BIN",
+    "dlfile": "OLY_E_056_1202_0000_0000.BIN",
+    "info": "https://web.archive.org/web/20081222182134/http://www.olympus-europa.com/consumer/29_mju_850SW_Firmware_Updates.htm",
+    "date": "2008-09-04"
+   }
+  },
+  "095": {
+   "T09511": {
+    "category": "TG",
+    "name": "TG-1",
+    "version": "1.1 (latest)",
+    "cardfile": "E0959999.BIN",
+    "dlfile": "OLY_E_095_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0950/index01a.html",
+    "date": "2012-09-12"
+   }
+  },
+  "106": {
+   "T10611": {
+    "category": "TG",
+    "name": "TG-2",
+    "version": "1.1 (latest)",
+    "cardfile": "E1069999.BIN",
+    "dlfile": "OLY_E_106_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1060/index01a.html",
+    "date": "2015-06-11"
+   }
+  },
+  "082": {
+   "T08211": {
+    "category": "TG",
+    "name": "TG-310",
+    "version": "1.1 (latest)",
+    "cardfile": "E0829999.BIN",
+    "dlfile": "OLY_E_082_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0820/index01a.html",
+    "date": "2011-09-21"
+   }
+  },
+  "121": {
+   "T12120": {
+    "category": "TG",
+    "name": "TG-4",
+    "version": "2.0 (latest)",
+    "cardfile": "E1219999.BIN",
+    "dlfile": "OLY_E_121_2000_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1210/index20a.html",
+    "date": "2016-03-29"
+   }
+  },
+  "129": {
+   "T12911": {
+    "category": "TG",
+    "name": "TG-5",
+    "version": "1.1 (latest)",
+    "cardfile": "E1299999.BIN",
+    "dlfile": "OLY_E_129_1101_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1290/index01a.html",
+    "date": "2017-11-01"
+   }
+  },
+  "107": {
+   "T10711": {
+    "category": "TG",
+    "name": "TG-630",
+    "version": "1.1 (latest)",
+    "cardfile": "E1079999.BIN",
+    "dlfile": "OLY_E_107_1100_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1070/index01a.html",
+    "date": "2015-06-11"
+   }
+  },
+  "145": {
+   "T14511": {
+    "category": "TG",
+    "name": "TG-7",
+    "version": "1.1 (latest)",
+    "cardfile": "E1459999.BIN",
+    "dlfile": "OLY_E_145_1103_0000_0000.BIN",
+    "info": "https://dl01.om-digitalsolutions.net/compact/1450/v1100/ENU/index01a.html",
+    "date": "2024-04-11"
+   }
+  }
+ }
+}

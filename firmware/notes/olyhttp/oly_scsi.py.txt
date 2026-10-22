@@ -1,0 +1,210 @@
+#!/usr/bin/python 
+
+tab = "".join(chr(i) for i in range(256))
+def hexdump(data):
+    from string import digits, letters, punctuation
+    for i in range(0,len(data), 16):
+        print "%04x" % (i,), 
+        print "", " ".join(x.encode("hex") for x in data[i:i+16]).ljust(32+15), 
+        print "", repr("".join(x in (digits+letters+punctuation+" ") and x or "." for x in data[i:i+16]))
+
+debug = 50
+
+def scsi(dev, cmd="", data=None, rsize=None):
+    import subprocess
+    if debug > 50:
+        print "cmd"
+        hexdump(cmd)
+
+    if debug > 50 and data:
+        print "data out"
+        hexdump(data)
+    
+    args = ["sg_raw", "-b"]
+    rargs = sargs = []
+    if data:
+        args += ["-s", str(len(data)) ]
+    if rsize:
+        args += ["-r", str(rsize)]
+        
+    args += [ dev ]
+    args += [ x.encode("hex") for x in cmd]
+   
+    if debug > 50:
+        import sys
+        err = sys.stdout
+    else:
+        err = open("/dev/null","w") 
+
+    if debug > 100:
+        if rsize:
+            ret = "\x00" * rsize 
+    else:
+        p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=err)
+        if data:
+            p.stdin.write(data)
+        p.stdin.close()
+        if rsize:
+            ret = p.stdout.read(rsize)
+        p.stdout.close()
+
+    if debug > 50 and rsize:
+        print "data in"
+        hexdump(ret)
+
+    if rsize:
+        return ret
+
+import struct
+class oly:
+    def __init__(self, dev):
+        self.dev = dev
+        import os
+        assert os.access(dev, os.W_OK)
+        self.idx = 0
+        self.code = None
+
+    def c0(self, code, *args):
+        self.idx += 1
+        self.code = code
+        cmd = struct.pack(">B 7x H 6x", 0xc0, 0x40)
+        data = struct.pack("< %sL" % (len(args),), *args)
+        data = struct.pack("<L BxH L", 0x0c+len(data), 0x1, code, self.idx) + data
+        data += "\x00" * (0x40-len(data))
+        if debug > 30:
+            print
+            print "-"*10
+            print "-> 0xc0", hex(0x1), hex(code), hex(self.idx), map(hex, args)
+        scsi(self.dev, cmd, data)
+
+    def c2(self, size):
+        cmd = struct.pack(">B 7x H 6x", 0xc2, size)
+        if debug > 30:
+            print "-> 0xc2", hex(size)
+        data = scsi(self.dev, cmd, rsize=size)
+        assert len(data) == size
+        size2, type, code, idx = struct.unpack("<L BxH L", data[:12])
+        assert idx == self.idx
+        assert type == 0x2 
+        assert code == self.code
+        assert size2 == size
+
+        ret = data[12:size]
+        if debug > 30:
+            print "<-     ", hex(type), hex(code), hex(idx)
+            hexdump(ret)
+        return ret
+
+    def c3(self):
+        cmd = struct.pack(">B 7x H 6x", 0xc3, 0x40)
+        if debug > 30:
+            print "-> 0xc3"
+        data = scsi(self.dev, cmd, rsize=0x40)
+        assert len(data) == 0x40
+        size, type, code, idx = struct.unpack("<L BxH L", data[:12])
+        assert idx == self.idx
+        assert type == 0x3 
+        assert code == 0x2001 or (self.code == 0x1002 and code == 0x201e) or (self.code == 0x9124 and code == 0x201d)
+        assert size % 4 == 0
+        ret = struct.unpack("<%sL" % (size/4-3,), data[12:size])
+        if debug > 30:
+            print "<-     ", hex(type), hex(code), hex(idx), map(hex, ret)
+        return ret
+
+    def c4(self):
+        cmd = struct.pack(">B 7x H 6x", 0xc4, 0x40)
+        if debug > 30:
+            print "-> 0xc4"
+        data = scsi(self.dev, cmd, rsize=0x40)
+        assert len(data) == 0x40
+        size, type, code, idx = struct.unpack("<L BxH L", data[:12])
+        assert idx == self.idx
+        assert type == 0x2 
+        assert code == 0x2001
+
+        assert size == 0x10
+        ret = struct.unpack("<L", data[12:size])
+        if debug > 30:
+            print "<-     ", hex(type), hex(code), hex(idx), map(hex,ret)
+        return ret
+    
+    def read(self, arg, *args): 
+        self.c0(arg, *args)
+        l, = self.c4()
+        data = self.c2(l)
+        self.c3()
+
+    def cmd(self, arg, *args):
+        self.c0(arg, *args)
+        self.c3()
+
+    def write(self, arg, offset, data):
+        self.c0(arg, offset, len(data))
+        self.c1(data)
+        self.c3()
+    
+    def verify(self):
+        a, = self.cmd(0x9121)
+        assert a == 0
+        a = 1
+        while a == 1:
+            a,b = self.cmd(0x9122)
+            assert b == 0
+        assert a == 2
+        self.cmd(0x9123)
+
+    def session_start(self):
+        self.cmd(0x1002, 0x1)
+        #o.cmd(0x911c) # ???
+
+    def session_end(self):
+        self.cmd(0x1003)
+
+
+errors = { 
+0x201e: "Session already started",
+0x2003: "No session",
+0x201d: "Bad arg",
+}
+
+def main():
+    o = oly("/dev/sdb")
+
+    # get info
+    o.read(0x1001) # can be any time
+    o.session_start()
+    # only inside session
+    o.read(0x9120) 
+    o.read(0x9124, 0x0001)
+    o.read(0x9124, 0x8000)
+    o.session_end()
+    
+
+    # update firmware 
+    o.session_start()
+    # short write 
+    # write 
+    #o.verify()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except AssertionError:
+        import traceback
+        traceback.print_exc()
+        import sys
+        tb_last = sys.exc_traceback
+        while tb_last.tb_next:
+            tb_last = tb_last.tb_next
+        d = tb_last.tb_frame.f_locals
+        for v in ["type", "code", "idx", "size"]:
+            if v in d:
+                print v, "=", hex(d[v])
+        if "data" in d:
+            print "len(data)", "=", len(d["data"])
+        print d
+
+
+
+        

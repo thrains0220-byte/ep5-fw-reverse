@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Olympus/OM System unofficial firmware download</title>
+  <style>
+    * {margin:0; padding: 0}
+    body {font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: column; justify-content:space-between; min-height: 100vh}
+
+    header, footer {background-color: #f1f1f1; height:10rem; display: flex; justify-content: center; align-items: center;}
+    header h1 {max-width: 30rem; text-align: center}
+
+    main { flex:1; padding: 1rem; margin:1rem auto; max-width:50rem; }
+    section {margin-bottom: 2rem}
+    ol, ul {padding-left: 1rem}
+    li {margin-bottom: 0.3rem}
+    p {margin-bottom: 0.5rem}
+    p.note {padding:0.75rem; margin-top: 1rem;background-color: #ecf4fe; border:1px solid #dcf4fe;font-size:90%; }
+    h2 {margin: 1rem 0}
+    h2:first-of-type { margin-top:0 }
+
+    details[open]::details-content {margin: 0 0 1rem 1rem; padding:1rem; background-color:#f8f8f8; border:1px solid #dedede}
+    summary {margin-bottom: 1rem;font-weight: bold; font-size: 1.2rem; cursor: pointer; background-color: #fff}
+
+    form {display:flex; flex-wrap: wrap; margin:1rem 0 0}
+    .control { }
+    .control:not(:first-of-type) {visibility: hidden; padding-left:1rem}
+    label { font-weight:bold; padding-right:.25rem }
+    select {padding:0.3rem; border-radius: 4px; border: 1px solid #ccc;}
+    button {padding:0.3rem 1rem; border-radius: 2px; border: 1px solid #ccc; box-shadow: 1px 2px 12px #ccc}
+    #dlinfo {display: none; margin:1rem 0 0 0; padding: 0.5rem .75rem; border: 1px solid #ddd; background-color:#f1f1f1; font-family:Consolas, monospace; font-size: 90%;}
+    #dliframe {display:none}
+
+    footer {height:5rem;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Olympus/OM System<br>Unofficial firmware download</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>About</h2>
+      <p>This page allows you to download the latest firmware for <em>Olympus/OM System</em> cameras to your computer to
+         install it offline via a SD/CF/XD card following the procedure detailed bellow.
+      </p>
+
+      <p>It may also help you in case your camera is bricked while performing an official upgrade.</p>
+
+      <p>This method is only for updating the body firmware. You must use the official methods to update the firmware of your lenses.</p>
+
+      <p>The file for the latest version is downloaded directly from <em>Olympus/OM System</em> servers, this page just streamlines the process since
+         direct access to the files is not possible anymore.
+      </p>
+
+      <p>Files for older firmware versions are downloaded from a local copy. Again, direct access to the files directly
+        from <em>Olympus/OM System</em> is not possible.
+      </p>
+
+      <p>The main source of information for this page comes from
+        <a href="https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?usp=sharing" target="_blank">the excel file</a>
+        mantained by <a href="https://www.mu-43.com/" target="_blank">mu-43.com</a> member Michael Meissner and the information provided
+        in <a href="https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/" target="_blank">this thread</a>.
+      </p>
+
+      <p class="note">
+        I'm collecting old firmware versions of all <em>Olympus/OM System</em> cameras to make this page a public and permanent archive.
+        So if you happen to have an old firmware version not listed here, please <a href="mailto:archivero@sind-wir.com?subject=Firmware">contact me</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Disclaimer</h2>
+
+      <p>While this method of updating your firmware is secure (is how technicians do it at the repair center), threre's always the
+        risk of bricking your camera, so proceed with caution and follow carefully the steps provided bellow.
+      </p>
+
+      <p>Also, depending of the actual firmware version in your camera, your custom settings and configurations may be reset.</p>
+
+      <p>This procedure is provided for informational purposes only, and the author assumes no responsibility for any damage, data loss,
+         or hardware failure incurred during the upgrade process. By proceeding, you acknowledge that you are acting at your own risk
+         and that any potential bricking or malfunction of the device is your sole responsibility.
+      </p>
+    </section>
+
+    <section>
+      <h2>Step by step guide</h2>
+
+      <details name="steps" open>
+        <summary>Step 1: Download the firmware</summary>
+
+        <p>Choose your camera model an download the file to your computer</p>
+
+        <form>
+          <div class="control" id="series">
+            <label>Series</label>
+            <select>
+              <option selected disabled>Choose one</option>
+              <option>OM</option>
+<option>E-M</option>
+<option>PEN</option>
+<option>FT 4/3</option>
+<option>TG</option>
+<option>Stylus</option>
+            </select>
+          </div>
+
+          <div class="control" id="model">
+            <label>Model</label>
+            <select>
+            </select>
+          </div>
+
+          <div class="control" id="version">
+            <label>Version</label>
+            <select>
+            </select>
+          </div>
+
+          <div class="control" id="download">
+            <button type="button">Download</button>
+          </div>
+        </form>
+
+        <p id="dlinfo"></p>
+      </details>
+
+      <details name="steps">
+        <summary>Step 2: Prepare the card</summary>
+        <ol>
+          <li>Mount the SD/CF/XD card on your computer.</li>
+          <li>Create a folder in the card named <strong>DCOLYMP</strong> using captial letters.</li>
+          <li>Copy in the <strong>DCOLYMP</strong> directory the downloaded file<span id="cardfile"></span></li>
+          <li>Unmount the card from the computer.</li>
+        </ol>
+      </details>
+
+      <details name="steps">
+        <summary>Step 3: Prepare the camera</summary>
+        <ol>
+          <li>Be sure to fully charge the camera's batteries before you start.</li>
+          <li>Turn off your camera.</li>
+          <li>Put the card in the camera.</li>
+          <li>If your camera has 2 card slots, use the first card slot.
+            <ul>
+              <li>The OM-1 and E-m1 mark II require the SD card to be in the top slot.  </li>
+              <li>On the E-5, the firmware can be in the SD card slot in addition to the CF card slot.</li>
+            </ul>
+          </li>
+          <li>If you are using SD cards on older cameras, use a SD card that is 32 gigabytes or smaller.</li>
+        </ol>
+      </details>
+
+      <details name="steps">
+        <summary>Step 4: Perform the upgrade</summary>
+        <ol>
+          <li>Start the camera while pressing the OK button.</li>
+          <li>The screen will go black and the focus assist LED will turn on steady.</li>
+          <li>Stop pressing the OK button.</li>
+          <li><strong>DO NOT TURN OFF THE CAMERA WHILE THE FOCUS ASSIST LIGHT IS ON STEADY</strong></li>
+          <li>Wait until the focus assist light blinks rapidly.</li>
+          <li>When the focus assist light blinks rapidly, turn off the camera.</li>
+          <li>The update has finished, when you turn on the camera, it should have the new firmware installed.</li>
+          <li>You might want to remove the 'DCOLYMP' directory from the SD/CF/XD card.</li>
+        </ol>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <a href="mailto:archivero@sind-wir.com?subject=Firmware">Contact</a>
+  </footer>
+
+  <iframe id="dliframe"></iframe>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

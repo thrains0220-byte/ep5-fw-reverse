@@ -1,0 +1,260 @@
+Title: Modified firmware, looking for users
+
+URL Source: https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/
+
+Published Time: 2018-08-14T04:36:05+00:00
+
+Markdown Content:
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184700)
+*   [#1](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184700)
+
+Hi there,
+
+I've made two small hacks in E-M5ii firmware v.4.0.  
+ 1. An arbitrary autofocus lens can be used for the in-camera focus stacking.  
+ 2. The video recording time limitations increased from 29 minutes. Now the recording is limited by 5 MOV files the video can be split into (the detailed description is in the bottom of this message).
+
+A couple of proof pics for the first hack:
+
+[![Image 1: 43944116391_1fb0f9fbf0_c.jpg](https://www.mu-43.com/attachments/43944116391_1fb0f9fbf0_c-jpg.671273/)](https://flic.kr/p/29Xc5Pa)
+
+[Subscribe](https://www.mu-43.com/account/upgrades)
+to see EXIF info for this image (if available)
+
+  
+
+[![Image 2: 43895753192_d8989e9ec9_c.jpg](https://www.mu-43.com/attachments/43895753192_d8989e9ec9_c-jpg.671274/)](https://flic.kr/p/29SVd7U)
+
+[Subscribe](https://www.mu-43.com/account/upgrades)
+to see EXIF info for this image (if available)
+
+The stacking was already tested with Oly 45/1.8, Leica 15/1.7 and Oly MZ 9-18.
+
+The same modifications are available for other cameras (the focus stacking will only work in E-M1, E-M1ii and E-M5ii, of course). Here are the links to the firmwares:
+
+*   E-M5ii
+    *   [e-m5ii_v4.rar](https://yadi.sk/d/fcc_B1kB3aDfG9), video duration limit removed, focus stacking works.
+    *   [e-m5ii_v41.zip](https://yadi.sk/d/F6vA--ML2XO5kQ) (courtesy of [@PhotoDmiK](https://www.mu-43.com/members/25822/)), video duration limit removed, focus stacking works.
+
+*   E-M1
+    *   [e-m1_v44.rar](https://yadi.sk/d/9Je3cNtP3aDenp), video duration limit - does not work, focus stacking works.
+    *   [e-m1_v45.rar](https://yadi.sk/d/HN1LjKuZ2XZpBw) - not tested yet.
+    *   [e-m1_v46.rar](https://yadi.sk/d/7RhiBRPuuKJvMQ), video duration limit - does not work, focus stacking works.
+
+*   E-M1ii
+    *   [e-m1ii_v21.rar](https://yadi.sk/d/RVpLpnAF3aL9du), video duration limit removed, focus stacking works.
+    *   [e-m1ii_v22.rar](https://yadi.sk/d/Pc_k68yRQaZtrA), video duration limit - not tested yet, focus stacking works.
+    *   [e-m1ii_v23.rar](https://yadi.sk/d/VMphCx6t9AMvNQ), video duration limit - not tested yet, focus stacking works.
+    *   [e-m1ii_v30.rar](https://yadi.sk/d/XWMfigPPT8rBfg), video duration limit removed, focus stacking works.
+
+*   Pen-F
+    *   [pen_f_v3.rar](https://yadi.sk/d/Y60m2c1N3aDwjj), video duration limit removed.
+    *   [pen_f_v31.zip](https://yadi.sk/d/F0shK0wVmNI0oQ) (courtesy of [@PhotoDmiK](https://www.mu-43.com/members/25822/)), video duration limit removed.
+
+*   E-M10ii
+    *   [e-m10ii_v13.rar](https://yadi.sk/d/kcfYpEFS3aGehd), video duration limit removed.
+    *   [e_m10ii_v14.rar](https://yadi.sk/d/0N9wzBhXsk1rDg)- not tested.
+
+*   E-M10iii
+    *   [e_m10iii_v12.ra](https://yadi.sk/d/G4IZ59xQ_SDWug)[r](https://yadi.sk/d/0N9wzBhXsk1rDg)- video duration limit removed (up to 13 parts of video supported).
+
+*   Pen E-PL9
+    *   [pen-e-pl9_v11.rar](https://yadi.sk/d/jPmjdIIHHX_K-w)[](https://yadi.sk/d/0N9wzBhXsk1rDg)- video duration limit removed (up to 13 parts of video supported).
+
+To install the firmware, you'll need to:
+
+* Make sure the battery is fully charged.  
+ * Extract the firmware file from archive into a folder called "DCOLYMP" on your SD-Card.  
+ * Put the SD-Card into your camera. Start the camera while holding the OK button pressed. The focus assist LED should turn on - this means the firmware is installing, and you can release the OK button.  
+ * When the installation ends, the focus assist LED will start to blink. Now you can switch the camera off, and then on again. That's all.
+
+It's also possible to revert to the original firmware.  
+ The files and the instructions can be found [here](https://lightsnowdev.com/Olympus/index.html).
+
+**Some details on the video recording limitations.**
+
+1.   With the original firmware, you cannot record video more than 28:59.
+2.   If you try to make a long enough video in high quality, it will be split into several separate MOV files. This was made because of 4Gb file size limitation imposed by FAT filesystem used in the SD cards. In the most of the cameras it's only possible to have 5 such "splits", while E-M1ii, E-M10iii and Pen E-PL9 record up to 13 parts of a video.
+
+My modification only removes the first of these limitations, so you can go beyond 29 minutes, and the video duration is only limited by the max number of MOV files.  
+ With the modified firmware, E-M5ii shows the following max recording duration depending on the video quality:
+
+*   FHD All-I - 0:36:14.
+*   FHD SF - 0:53:49.
+*   FHD F - 1:34:09.
+*   FHD N - 2:38:49.
+
+The durations can be different for other camera models.
+
+Last edited: Jun 25, 2019
+
+[![Image 3: WaltP](https://www.mu-43.com/data/avatars/m/13/13170.jpg?1563584242)](https://www.mu-43.com/members/waltp.13170/)
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184743)
+*   [#2](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184743)
+
+Oh Bravo! Best news I've heard in awhile! I don't have the 5.2 or I'd love to test for you.  
+ Thank you for continuing the art of hacking camera software to make improvements. I think it's an important tradition to keep alive.  
+ Would love to see you hack Panasonic software as well.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184757)
+*   [#3](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184757)
+
+I'd love to see some hacks to the Pen-F firmware! (Hint hint...)
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184764)
+*   [#4](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184764)
+
+[@ABel](https://www.mu-43.com/members/31516/) can you share any information around how you did these hacks?
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184773)
+*   [#5](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184773)
+
+@[dlentini](https://www.mu-43.com/members/dlentini.26134/)  
+ I've used the tools from [this](https://www.personal-view.com/talks/discussion/comment/102152#Comment_102152) message and then analysed the main firmware file in IDA disassembler.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184781)
+*   [#6](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184781)
+
+This is amazing news! I hope that firmware hack does work. I switched from Sony E to MFT and on the Sony's I was able to sideload an APK (sony's optional "apps" were based on android .apk apps) called the tweak app from the Openmemories project and unlock the recording limit on my a6000, 6300, and a7rii, this was awesome.
+
+To have the ability to do that on my Em1 mk2 at some point would be fantastic. I find myself shooting video of events sometimes and that would be so helpful if possible on models other than the m5ii
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184822)
+*   [#7](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184822)
+
+Abel, Awesome! Have you ran these firmwares on any of your own camera models at all?
+
+I am very tempted to try your Em1ii firmware on mine. I currently have 2.1 installed, will the updater tool allow me to install the firmware being that I am already current version 2.1?
+
+Last edited: Aug 14, 2018
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184830)
+*   [#8](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184830)
+
+> Abel, Awesome! Have you ran these firmwares on any of your own camera models at all?
+
+Yes, I've tested the firmware for E-M5ii on my camera.
+
+> I am very tempted to try your Em1ii firmware on mine. I currently have 2.1 installed, will the updater tool allow me to install the firmware?
+
+It's possible to install any version above any other.
+
+Last edited: Aug 15, 2018
+
+[![Image 4: Mack](https://www.mu-43.com/data/avatars/m/30/30694.jpg?1532529192)](https://www.mu-43.com/members/mack.30694/)
+
+#### [Mack](https://www.mu-43.com/members/mack.30694/)
+
+##### Mu-43 Hall of Famer
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184834)
+*   [#9](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184834)
+
+Interesting, but Windows 10 (USA) blocked the rar download as unsafe (Windows Smartscreen or something like that.).
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184835)
+*   [#10](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184835)
+
+> Interesting, but Windows 10 (USA) blocked the rar download as unsafe (Windows Smartscreen or something like that.).
+
+Scanned with up-to-date Sophos enterprise security endpoint - clean
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184836)
+*   [#11](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184836)
+
+> Interesting, but Windows 10 (USA) blocked the rar download as unsafe (Windows Smartscreen or something like that.).
+
+I can upload ZIP archives, but I'm not sure they won't be blocked too.  
+ If you've used Edge to download the file, the easiest solution would be to try to re-download it with Firefox or Chrome.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184837)
+*   [#12](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184837)
+
+> Interesting, but Windows 10 (USA) blocked the rar download as unsafe (Windows Smartscreen or something like that.).
+
+When you click on the link it isn't Windows that does the download, it is your browser. I just tried it in Firefox - no problem.  
+ Perhaps you have an anti-virus installed that isn't the one that comes with Windows 10, and that is blocking it.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184838)
+*   [#13](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184838)
+
+I've done this type of hack in the past, and I applaud to your efforts. In my case it was for a 10 € Chinese (not so) smart watch, so no biggie if I had bricked it. I shiver just thinking the courage you had to try that on a 500 €+ camera ! ![Image 5: :eek-31:](https://cdn.mu-43.com/styles/default/xenforo/smilies/old/eek.gif)  
+![Image 6: :bravo-009:](https://cdn.mu-43.com/styles/default/xenforo/smilies/old/bravo-009.gif)
+
+M.
+
+[![Image 7: Mack](https://www.mu-43.com/data/avatars/m/30/30694.jpg?1532529192)](https://www.mu-43.com/members/mack.30694/)
+
+#### [Mack](https://www.mu-43.com/members/mack.30694/)
+
+##### Mu-43 Hall of Famer
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184840)
+*   [#14](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184840)
+
+> I can upload ZIP archives, but I'm not sure they won't be blocked too.  
+>  If you've used Edge to download the file, the easiest solution would be to try to re-download it with Firefox or Chrome.
+
+Yes, it was Edge that blocked it via Windows Smartscreen (???). Firefox just sat there, but it has some adware and other stuff loaded which usually blocks Javascript so I have to use Windows Edge.
+
+However, I tried same Pen-F RAR file again in Edge and it is downloading it this time. Also tried the E-M1ii and is is also downloading as well. Dunno.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184852)
+*   [#15](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184852)
+
+> Yes, it was Edge that blocked it via Windows Smartscreen (???). Firefox just sat there, but it has some adware and other stuff loaded which usually blocks Javascript so I have to use Windows Edge.
+> 
+> 
+> However, I tried same Pen-F RAR file again in Edge and it is downloading it this time. Also tried the E-M1ii and is is also downloading as well. Dunno.
+
+Smartscreen uses really strange heuristics, and sometimes it blocks a file just because nobody else has downloaded it before. "It's a new file. It can possibly be harmful! I'll better block it."
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184986)
+*   [#16](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1184986)
+
+> I've done this type of hack in the past, and I applaud to your efforts. In my case it was for a 10 € Chinese (not so) smart watch, so no biggie if I had bricked it. I shiver just thinking the courage you had to try that on a 500 €+ camera ! ![Image 8: :eek-31:](https://cdn.mu-43.com/styles/default/xenforo/smilies/old/eek.gif)  
+> ![Image 9: :bravo-009:](https://cdn.mu-43.com/styles/default/xenforo/smilies/old/bravo-009.gif)
+> 
+> 
+> M.
+
+I'm modifying the device firmwares for 8 years already, and I'm used to the risk of bricking ![Image 10: :(](blob:http://localhost/b9a31d3949b1882a09ed2f8508d538f3)  
+ As long as you double-check what you are doing, make only small local changes and don't forget to charge the batteries before firmware flashing, everything goes smoothly. Of course there's always a slight chance to screw up even in a completely safe situations ![Image 11: :(](blob:http://localhost/b9a31d3949b1882a09ed2f8508d538f3)
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185076)
+*   [#17](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185076)
+
+Alright, I flashed your modified firmware to my EM1II. Success, and even all of my settings stuck. I currently am testing video recording. I just started a video capture. I see that the time remaining in the corner of the display started at 29minutes though, should this not be a concern ? I guess I'll be finding out in about a half hour.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185084)
+*   [#18](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185084)
+
+Update: The camera stopped recording at 28:59 ![Image 12: :(](blob:http://localhost/b9a31d3949b1882a09ed2f8508d538f3) Quite sure my memory card is not filling up. 64gb UHS-II card recording in 4k 24
+
+The camera shows 40~ minutes remaining on the card before pressing record. As soon as I press record, the counter starts from 28:59
+
+Tried a 128gb UHS-1 card, too. Same result: Video clip attached
+
+Last edited: Aug 15, 2018
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185097)
+*   [#19](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185097)
+
+> Update: The camera stopped recording at 28:59 ![Image 13: :(](blob:http://localhost/b9a31d3949b1882a09ed2f8508d538f3) Quite sure my memory card is not filling up. 64gb UHS-II card recording in 4k 24  
+>  The camera shows 40~ minutes remaining on the card before pressing record. As soon as I press record, the counter starts from 28:59
+
+Thanks a lot for the testing and for the reporting!
+
+In the firmware for E-M5II, there's only one place in the code where the video limitation is set.  
+ Looks like in E-M1II there are more than one such place. I'll look further to find others.
+
+Could you also please check if the focus stacking is working for previously unsupported lenses?  
+ Supported are the lenses listed [here](https://cs.olympus-imaging.jp/en/support/imsg/digicamera/qa/products/em1m2/#08) plus Oly 12-100 Pro.
+
+*   [](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185099)
+*   [#20](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1185099)
+
+Oops, it's not the limitation checking routines.  
+ The problem is I've uploaded the original E-M1II firmware instead of patched version by mistake. Sorry for the confusion!  
+ I'll re-upload the file and let you know.

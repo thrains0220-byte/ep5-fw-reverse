@@ -1,0 +1,139 @@
+#!/usr/bin/python
+
+import struct
+
+class Dump:
+    # read  wireshark "plain tex export"
+    # with filter: (scsi.sbc.opcode >= 0xc0 || scsi.spc.opcode >= 0xc0) && !(scsi.status == 0x00)
+    # and data field expanded
+
+    def __init__(self, fname):
+        self.buf = ""
+        self.f = open(fname)
+
+    def read(self, num):
+        import re
+        r = re.compile("^[0-9a-fA-F]{4}  ")
+        while len(self.buf) < num:
+            l = self.f.readline()
+            if not l:
+                break            
+#            print "#", l.rstrip("\n\r")
+            if re.match(r,l):
+                self.buf += l[6:53].replace(" ","").decode("hex")
+            else:
+                continue
+    
+        ret = self.buf[:num]
+        self.buf = self.buf[num:]
+        return ret 
+
+class Parser:
+
+    def __init__(self, fname):
+        self.f = Dump(fname)
+        self.next_cmd = 0xc0
+        self.next_idx = 1
+        self.next_c2_size = 0
+        self.next_c1_offset = 0
+        self.next_c1_size = 0
+
+
+    def parse(self):
+        while True:
+            cmd, type, code, idx, data = self.get_cmd()
+            
+            assert cmd == self.next_cmd
+            assert idx == self.next_idx
+
+            if cmd == 0xc0:
+                print 
+            print hex(cmd), type, hex(code), hex(idx), 
+
+            if cmd == 0xc0:
+                assert type == 1
+                self.next_code = code
+
+                if code in [0x1001, 0x9120, 0x9124]:
+                    # info
+                    self.next_cmd = 0xc4
+                    if code == 0x9124:
+                        data_repr = " ".join(map(hex,struct.unpack("<L", data)))
+                    else:
+                        assert data == ""
+                        data_repr = ""
+ 
+                elif code in [0x1002, 0x1003, 0x911c, 0x9121, 0x9122, 0x9123]:
+                    # cmd
+                    self.next_cmd = 0xc3
+                    if code == 0x1002:
+                        data_repr = " ".join(map(hex,struct.unpack("<L", data)))
+                    else:
+                        assert data == ""
+                        data_repr = ""
+ 
+                elif code in [0x100c, 0x9119]:
+                    # write
+                    self.next_cmd = 0xc1
+                    if code == 0x9119:
+                        check_offset = self.next_c1_offset + self.next_c1_size
+                        self.next_c1_offset, self.next_c1_size = struct.unpack("<LL", data)
+                        assert self.next_c1_offset == check_offset
+                        data_repr = hex(self.next_c1_offset) + " " + hex(self.next_c1_size)
+                    elif code == 0x100c:
+                        data_repr = " ".join(map(hex,struct.unpack("<L", data)))
+                else:
+                    self.next_cmd = -1
+                
+            elif cmd == 0xc4:
+                assert type == 2
+                assert code == 0x2001
+                self.next_cmd = 0xc2
+                self.next_c2_size, = struct.unpack("<L", data)
+                data_repr = hex(self.next_c2_size)
+
+            elif cmd == 0xc3: 
+                assert type == 3
+                assert code == 0x2001
+                self.next_cmd = 0xc0
+                self.next_idx += 1
+
+                if self.next_code == 0x911c:
+                    data_repr = " ".join(map(hex,struct.unpack("<L", data)))
+                elif self.next_code == 0x100c:
+                    data_repr = " ".join(map(hex,struct.unpack("<LLL", data)))
+                else:
+                    assert data == ""
+                    data_repr = ""
+
+            elif cmd == 0xc1: 
+                assert type == 2
+                assert code == self.next_code
+                self.next_cmd = 0xc3
+                if code == 0x9119:
+                    assert len(data) == self.next_c1_size
+
+                data_repr = repr(data[:16].encode("hex")+"...") + " len=" + hex(len(data))
+    
+            elif cmd == 0xc2: 
+                assert type == 2
+                assert code == self.next_code
+                assert len(data)+12 == self.next_c2_size
+                self.next_cmd = 0xc3
+                data_repr = repr(data.encode("hex")) + " len=" + hex(len(data))
+
+            print data_repr
+
+    def get_cmd(self):
+        #print
+        data1 = self.f.read(16)
+        cmd, size1 = struct.unpack(">B 7x H 6x", data1)
+        #print hex(cmd), hex(size1)
+        data2 = self.f.read(size1)
+        #print hex(len(data2))
+        size2, type, code, idx = struct.unpack("<L BxH L", data2[:12])
+        return cmd, type, code, idx, data2[12:size2]
+
+
+if __name__ == "__main__":
+    Parser("update.usb.hex").parse()

@@ -1,0 +1,259 @@
+Title: Lightsnow down...how to update fw without USB cable?
+
+URL Source: https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/
+
+Published Time: 2024-04-01T21:45:13+00:00
+
+Markdown Content:
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1699929)
+*   [#1](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1699929)
+
+I just got a used E-M5ii and it didn't come with a USB cable. I didn't even think to get one as all cameras I've ever used could be updated via SDCARD. Anyway I see there used to be a way to get the new firmware but that site isn't working anymore (at least for me). I am currently on v1.2. I saw the new 'hacked' version someone posted but I'm afraid of updating directly to that since on the olympus website it says using OM Workspace I'd have to update twice so I assume there's some intermediate FW I'd need. Can anyone help me out?
+
+Thanks
+
+[![Image 1: Michael Meissner](https://www.mu-43.com/data/avatars/m/31/31630.jpg?1557755768)](https://www.mu-43.com/members/michael-meissner.31630/)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1699991)
+*   [#2](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1699991)
+
+Until somebody discovers the new naming scheme or unless somebody offers you a pointer to a preserved version of the existing firmware file, you won't be able to use the SD method to update the firmware. Lightsnowdev never contained the actual binary. Instead, it pointed to the images on the system '**dl01.olympus-imaging.com**'. Note, Lightsnowdev has not been updated in a while, and some of the newer firmwares that were released were not listed on the system.
+
+Presumably this action is part of the required required cleansing of using the name Olympus that OM Systems has to do (i.e. at some point as per their contract, OM systems had to turn off '**dl01.olympus-imaging.com**'.
+
+People that have not updated OM Workspace, OM Updater, etc. recently probably also discovered today that they will need to download new versions of these programs (i.e. the updates for OM Workspace, etc. was also on the **olympus-imaging.com** site). I recall chatter going out that said people had to update OM Workspace, OM Updater before April 1st (i.e. the new versions look in the new place). Here is the warning OM put on their system:
+
+> Depending on the version of our application, the update function will no longer be available from April 2024.  
+>  We recommend that you update your application to the latest version by the end of March 2024.  
+>  If you cannot update the application already, download the latest version from the download page and install it again.
+
+I tried getting firmware from the new system ('**dl01.om-digitalsolutions.net**'), but the name used is different than the name used on '**dl01.olympus-imaging.com**'. So somebody is going to have to figure out the new naming scheme.
+
+What you need to do is rig your system to trace outgoing http requests, looking for filenames. There are various ways to do this, but since I don't run Windows or MAC, I can't do this. Then run OW Updater, etc. to update firmware, and see the pathname that is downloaded. From there, we can probably deduce the general naming scheme.
+
+Last edited: Apr 1, 2024
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700061)
+*   [#3](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700061)
+
+Just buy a USB cable. There are/were more than 50 Olympus camera models that used that cable.
+
+Last edited: Apr 2, 2024
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700087)
+*   [#4](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700087)
+
+> I tried getting firmware from the new system ('**dl01.om-digitalsolutions.net**'), but the name used is different than the name used on '**dl01.olympus-imaging.com**'. So somebody is going to have to figure out the new naming scheme.
+
+I guessed new scheme and it works. Here is link for OM-1as example
+
+Code:
+
+```
+old link
+http://dl01.olympus-imaging.com/OLYMPUS_MASTER/FIRMWARES/0001/1430/OLY_E_143_1500_0000_0000.BIN
+
+new link
+https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1430/OLY_E_143_1500_0000_0000.BIN
+```
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700089)
+*   [#5](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700089)
+
+Link for E-M5ii is
+
+Code:
+
+`https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1180/OLY_E_118_4100_0000_0000.BIN`
+
+[![Image 2: Michael Meissner](https://www.mu-43.com/data/avatars/m/31/31630.jpg?1557755768)](https://www.mu-43.com/members/michael-meissner.31630/)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700095)
+*   [#6](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700095)
+
+> I guessed new scheme and it works. Here is link for OM-1as example
+> 
+> 
+> 
+> Code:
+> 
+> 
+> 
+> ```
+> old link
+> http://dl01.olympus-imaging.com/OLYMPUS_MASTER/FIRMWARES/0001/1430/OLY_E_143_1500_0000_0000.BIN
+> 
+> new link
+> https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1430/OLY_E_143_1500_0000_0000.BIN
+> ```
+
+Cool, thank you.
+
+BTW, I just re-downloaded the private copies I keep of various cameras (4.6 gigabytes) and all of the files that were on the old system that I kept the links for seem to be on the renamed system.
+
+Last edited: Apr 2, 2024
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700273)
+*   [#7](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700273)
+
+> Link for E-M5ii is
+> 
+> 
+> 
+> Code:
+> 
+> 
+> 
+> `https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1180/OLY_E_118_4100_0000_0000.BIN`
+
+Any luck finding 2.0? I think I have to update to that first, but maybe not?
+
+[![Image 3: Michael Meissner](https://www.mu-43.com/data/avatars/m/31/31630.jpg?1557755768)](https://www.mu-43.com/members/michael-meissner.31630/)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700287)
+*   [#8](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1700287)
+
+> Any luck finding 2.0? I think I have to update to that first, but maybe not?
+
+I would suspect if you are doing the SD card method, you don't need to do the update in 2 steps.
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1768227)
+*   [#9](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1768227)
+
+Sorry to bring up this old thread again but does anyone have the code (link) for the OMD E-M10 mark I? I don't have a cable for it and would like to update it from version 1.1
+
+Last edited: Mar 12, 2025
+
+[![Image 4: Michael Meissner](https://www.mu-43.com/data/avatars/m/31/31630.jpg?1557755768)](https://www.mu-43.com/members/michael-meissner.31630/)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1768257)
+*   [#10](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1768257)
+
+> Sorry to bring up this old thread again but does anyone have the code (link) for the OMD E-M10 mark I? I don't have a cable for it and would like to update it from version 1.1
+
+E-m10 mark I is listed in my spreadsheet of firmware locations for firmware 1.4:
+
+*   [Olympus/OM firmware by SD cards](https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?usp=sharing)
+
+#### [MoB](https://www.mu-43.com/members/mob.61613/)
+
+##### New to Mu-43
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1782971)
+*   [#11](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1782971)
+
+> E-m10 mark I is listed in my spreadsheet of firmware locations for firmware 1.4:
+> 
+> 
+> *   [Olympus/OM firmware by SD cards](https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?usp=sharing)
+
+Thank you so much for creating this! I updated my E-M5 from 1.3 to 2.3 successfully!
+
+Finally that fan-like sound from the camera is gone and it is much more quiet ![Image 5: 😁](https://cdn.jsdelivr.net/joypixels/assets/6.6/png/unicode/64/1f601.png)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1783017)
+*   [#12](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1783017)
+
+> Thank you so much for creating this! I updated my E-M5 from 1.3 to 2.3 successfully!
+> 
+> 
+> Finally that fan-like sound from the camera is gone and it is much more quiet ![Image 6: 😁](https://cdn.jsdelivr.net/joypixels/assets/6.6/png/unicode/64/1f601.png)
+
+Glad that Michael could help you.
+
+And ![Image 7: :Welcome:](https://cdn.mu-43.com/styles/default/xenforo/smilies/old/Welcome.gif) to this forum.
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827823)
+*   [#13](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827823)
+
+> Thank you so much for creating this! I updated my E-M5 from 1.3 to 2.3 successfully!
+> 
+> 
+> Finally that fan-like sound from the camera is gone and it is much more quiet ![Image 8: 😁](https://cdn.jsdelivr.net/joypixels/assets/6.6/png/unicode/64/1f601.png)
+
+Hi, do you happen to have the BIN file? I checked today, and it looks like the resource is having an outage or they changed their backend configuration:  
+[https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN](https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN)
+
+This results in an XML file with the following error:  
+
+```
+<Error>
+<Code>MissingKey</Code>
+<Message>
+Missing Key-Pair-Id query parameter or cookie value
+</Message>
+</Error>
+```
+
+Any help would be appreciated!
+
+[![Image 9: Michael Meissner](https://www.mu-43.com/data/avatars/m/31/31630.jpg?1557755768)](https://www.mu-43.com/members/michael-meissner.31630/)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827825)
+*   [#14](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827825)
+
+> Hi, do you happen to have the BIN file? I checked today, and it looks like the resource is having an outage or they changed their backend configuration:  
+> [https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN](https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN)
+> 
+> 
+> This results in an XML file with the following error:  
+> 
+> ```
+> <Error>
+> <Code>MissingKey</Code>
+> <Message>
+> Missing Key-Pair-Id query parameter or cookie value
+> </Message>
+> </Error>
+> ```
+> 
+> 
+> Any help would be appreciated!
+
+I did a spot check (OM-1 mark I/II, OM-3, and your E-m5) and it looks like the files have been moved or you need some extra html options beyond just the pathname. Somebody who is more used to tracing network packets may need to do some debugging to find the new pathnames.
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827869)
+*   [#16](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827869)
+
+Thanks [@Michael Meissner](https://www.mu-43.com/members/31630/) and [@PhotoDmiK](https://www.mu-43.com/members/25822/) for your responses.
+
+Yeah, it looks like the request requires some additional parameters for it to be parsed as a valid request.
+
+[@PhotoDmiK](https://www.mu-43.com/members/25822/) , thanks so much for digging into this. You are an absolute legend. This is what I did to get the request.
+
+1. I copied the contents of all.xml from the post you wrote and saved it onto my working directory.  
+ 2. I updated the values from the master spreadsheet, changing the values of OLYE143000000000 (which identifies requests the link for OM-1 Mk. I)  
+ to OLYE097000000000 (since 097 is the identifier for the E-M5 Mk I).  
+ 3. After running the updated curl request with the updated all.xml, a file called all_do.xml is downloaded  
+ 4. From the all_do.xml, I located the <url> element in the XML which contained a link to the BIN file with the appropriate required attributes: Expires, Signature, and Key-Pair-Id. The only caveat is that there is de-entitized HTML for the ampersand symbol showing &amp instead of the actual & character. A find and replace for &amp ->& will result in a working URL.  
+ 5. I copied the entire URL, and the file was downloaded.
+
+Update:  
+ 6. After downloading the BIN file, I created a directory in my SD card called "DCOLYMP"  
+ 7. I renamed the BIN file with the appropriate SD card title of "E0979999.BIN" for my E-M5 Mk I.  
+ 8. After I popped it into the camera, held down OK, powered on, saw the orange light, orange light stopped flashing, power off!
+
+I'm updated!! Cheers for your help guys. It is much appreciated.
+
+Last edited: Dec 20, 2025
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1831865)
+*   [#17](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1831865)
+
+[@PhotoDmiK](https://www.mu-43.com/members/25822/) , [@Michael Meissner](https://www.mu-43.com/members/31630/) and [@beesyrup](https://www.mu-43.com/members/47873/) were you able to download a firmware older than the current (latest) one? While using your method I unfortunately was not. Current version was easy doable, so thanks for this at least.
+
+[![Image 10: Michael Meissner](https://www.mu-43.com/data/avatars/m/31/31630.jpg?1557755768)](https://www.mu-43.com/members/michael-meissner.31630/)
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1831955)
+*   [#18](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1831955)
+
+> [@PhotoDmiK](https://www.mu-43.com/members/25822/) , [@Michael Meissner](https://www.mu-43.com/members/31630/) and [@beesyrup](https://www.mu-43.com/members/47873/) were you able to download a firmware older than the current (latest) one? While using your method I unfortunately was not. Current version was easy doable, so thanks for this at least.
+
+OM deleted a bunch of the old links some time ago. And now, you can't download the files directly.
+
+*   [](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1831981)
+*   [#19](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1831981)
+
+> OM deleted a bunch of the old links some time ago. And now, you can't download the files directly.
+
+Those people are totally on BS.

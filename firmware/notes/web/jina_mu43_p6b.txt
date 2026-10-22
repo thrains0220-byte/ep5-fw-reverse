@@ -1,0 +1,528 @@
+Title: Firmware updates for OM and EM cameras - January 2023
+
+URL Source: https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/page-6
+
+Published Time: 2023-01-19T06:36:01+00:00
+
+Markdown Content:
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1827465)
+*   [#101](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1827465)
+
+All D/L links now in following format, and XXX is something unique
+
+Code:
+
+`https://dl01.om-digitalsolutions.net/dslr/1430/v1900/OLY_E_143_1900_0000_0000.BIN?Expires=XXXX&amp;Signature=XXXX&amp;Key-Pair-Id=XXXX`
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1828535)
+*   [#102](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1828535)
+
+Hi all, my OM-3 is currently bricked after a failed update. Since the official download server is blocking direct access (MissingKey error), I can't get the .bin file for an SD card flash.
+
+Does anyone have a mirror link (Google Drive, MEGA, etc.) for the OM-3 firmware .bin file?
+
+Thanks in advance for the help!
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829445)
+*   [#103](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829445)
+
+> Hi all, my OM-3 is currently bricked after a failed update. Since the official download server is blocking direct access (MissingKey error), I can't get the .bin file for an SD card flash.
+> 
+> 
+> Does anyone have a mirror link (Google Drive, MEGA, etc.) for the OM-3 firmware .bin file?
+> 
+> 
+> Thanks in advance for the help!
+
+I had this experience as well, but I posted some steps on how to grab the files on [this thread](https://www.mu-43.com/threads/lightsnow-down-how-to-update-fw-without-usb-cable.123161/post-1827869).  
+ I don't have access to Mega or any of those file sharing services. Do you have one that I can upload to without having to register/login? If so I can get the file to you.
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829559)
+*   [#104](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829559)
+
+> Hi all, my OM-3 is currently bricked after a failed update.
+
+Reading that really makes my blood run cold!
+
+Was this while using the OM approved method?
+
+[![Image 1: StephenB](https://www.mu-43.com/data/avatars/m/31/31561.jpg?1541890529)](https://www.mu-43.com/members/stephenb.31561/)
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829563)
+*   [#105](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829563)
+
+> Reading that really makes my blood run cold!
+
+Exactly. I saw there was a firmware update, I started the process and a message on the camera's screen told me I did not need to update. I'm guessing it was because the update was for touchscreen functions I don't use; therefore, the camera is 'smart' when it comes to updates.
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829575)
+*   [#106](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829575)
+
+A lucky escape for you.
+
+[![Image 2: Holoholo55](https://www.mu-43.com/data/avatars/m/22/22897.jpg?1769290614)](https://www.mu-43.com/members/holoholo55.22897/)
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829641)
+*   [#107](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829641)
+
+> Exactly. I saw there was a firmware update, I started the process and a message on the camera's screen told me I did not need to update. I'm guessing it was because the update was for touchscreen functions I don't use; therefore, the camera is 'smart' when it comes to updates.
+
+Hmm... I would expect the firmware update to proceed regardless. At least on OM Workspace, selecting update will check the firmware versions on the body and whatever lens is attached. Gives you the option to proceed or not. Thankfully, I have not had a firmware update freeze on me.
+
+[![Image 3: StephenB](https://www.mu-43.com/data/avatars/m/31/31561.jpg?1541890529)](https://www.mu-43.com/members/stephenb.31561/)
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829727)
+*   [#108](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829727)
+
+> Hmm... I would expect the firmware update to proceed regardless. At least on OM Workspace, selecting update will check the firmware versions on the body and whatever lens is attached. Gives you the option to proceed or not. Thankfully, I have not had a firmware update freeze on me.
+
+Just for clarification, the message not to update was on the camera screen. I was using to OM app. I haven't updated any of my other camera bodies, I won't bother again with this one.
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829873)
+*   [#109](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1829873)
+
+> Just for clarification, the message not to update was on the camera screen. I was using to OM app. I haven't updated any of my other camera bodies, I won't bother again with this one.
+
+Well then, obviouly the 'app' shows it on the camera that your camera didn't need the FW update, which would mean it should be at FW1.1 then?
+
+Last edited: Jan 6, 2026
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1831141)
+*   [#110](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1831141)
+
+I updated my version 1.7 om1 today to version 1.9. I was worried because of all the stories but found the process to be simple and fast. Just put a fresh battery in the camera, connect to computer via cable, open up the OM system software on computer, select camera then update, and follow the instructions. The only (brief) issue I had was getting computer and camera to connect but chat gpt explained to me the camera menu setting to use. In 10 minutes I was done. I was also able to easily mirror the settings on my existing camera to a new one (used) just received by using the OM system software. Note this only works for two of the exact same cameras. Just select camera then save to get settings into computer, then camera and load to get them on second camera.
+
+![Image 4: 1767744403207.jpeg](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/1767744403207.jpeg)
+
+[Subscribe](https://www.mu-43.com/account/upgrades)
+to see EXIF info for this image (if available)
+
+Last edited: Jan 7, 2026
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1831151)
+*   [#111](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1831151)
+
+> I updated my version 1.7 om1 today to version 1.9. I was worried because of all the stories but found the process to be simple and fast. Just put a fresh battery in the camera, connect to computer via cable, open up the OM system software on computer, select camera then update, and follow the instructions. The only (brief) issue I had was getting computer and camera to connect but chat gpt explained to me the camera menu setting to use. In 10 minutes I was done. I was also able to easily mirror the settings on my existing camera to a new one just received by using the OM system software. Note this only works for two of the exact same cameras. Just select camera then save to get settings into computer, then camera and load to get them on second camera.
+> 
+> 
+> [View attachment 1123993](https://www.mu-43.com/attachments/1123993/)
+
+Congrats, Bret.
+
+There is a lot of hyperbole bagging this process but I've even talked my technologically challenged brother through this process more than once, without a single problem.
+
+I've personally updated hundreds of devices using this method. It's bulletproof, unless someone makes the mistake of disconnecting something, or turning it off while it's still doing the update. Usually after failing to read the instructions ...
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1837391)
+*   [#112](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1837391)
+
+> All D/L links now in following format, and XXX is something unique
+> 
+> 
+> 
+> Code:
+> 
+> 
+> 
+> `https://dl01.om-digitalsolutions.net/dslr/1430/v1900/OLY_E_143_1900_0000_0000.BIN?Expires=XXXX&amp;Signature=XXXX&amp;Key-Pair-Id=XXXX`
+
+I have written a bash script to **easily** download OM firmware on Linux. You then have to use the SD card installation method. See [https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?gid=0#gid=0](https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?gid=0#gid=0)  
+ To use the script, copy it to a file such as om-download.sh. Then edit the line CAMERA_CODE= to select your camera type. The type codes can be found in the above link. Then run the script. Let me know if there are any problems!
+
+Bash:
+
+```
+#! /bin/bash
+#
+# Download Olympus firmware
+#
+# Note: Make sure you have the following programs installed:
+#       curl
+#       wget
+#       xmllint
+#
+# Edit the CAMERA_CODE line below to suit your camera before running the script
+#
+# Refer to the spreadsheet with Camera codenames & firmware filenames:
+#    https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?gid=0#gid=0
+# Use the first 4 characters of the "SD/CF/Xd name" for your camera
+# Eg: E146 for OM-1 Mark II
+
+CAMERA_CODE=E146
+
+# This seems to be ignored by the OM server, so shouldn't need changing.
+# If there is a problem, try setting it to your camera's serial number.
+CAMERA_SERIAL=V5PF30000
+
+# The directory to download to
+DOWNLOAD_DIR=/tmp
+
+# *** There should be no need to change anything below here ***
+
+REPLY_FILE=om-reply.xml
+SD_FILE=${CAMERA_CODE}9999.BIN
+
+cd $DOWNLOAD_DIR
+rm -f $REPLY_FILE
+
+echo "Finding download file ..."
+curl --ssl-no-revoke --no-progress-meter --user-agent "Olympus" --header "Content-Type: text/xml; Charset=UTF-8" --data "@-" https://fw01.om-digitalsolutions.net/ww_inform/fcache.do --output $REPLY_FILE << EOF
+<?xml version="1.0"?>
+<firmware_demand>
+<revision>0001</revision>
+<mac_address>00-00-00-00-80-D6</mac_address>
+<time>`date +%Y%m%d%H%M%S`</time>
+<language>ENU</language>
+<application>FWUT</application>
+<type>0000</type>
+<version>00005000</version>
+<os>WIN</os>
+<country_code>0001</country_code>
+<hardwares>
+<firmup_mode>0</firmup_mode>
+<hardware_info>
+<hard_code>OLY${CAMERA_CODE}000000000</hard_code>
+<firmware_version>00001000</firmware_version>
+<serial_no>$CAMERA_SERIAL</serial_no>
+<default_languages>
+<code>JPN</code><code>ENU</code><code>DEU</code><code>FRA</code><code>ESP</code>
+<code>CHS</code><code>CHT</code><code>KOR</code><code>PTG</code><code>ITA</code>
+<code>RUS</code><code>CSY</code><code>NLD</code><code>SVE</code><code>DAN</code>
+<code>NOR</code><code>FIN</code><code>HRV</code><code>SLV</code><code>HUN</code>
+<code>PLK</code><code>ELL</code><code>SKY</code><code>TRK</code><code>LVI</code>
+<code>ETI</code><code>LTH</code><code>UKR</code><code>SRB</code><code>THA</code>
+<code>BGR</code><code>IND</code><code>MSL</code><code>ROM</code>
+</default_languages>
+</hardware_info>
+</hardwares>
+</firmware_demand>
+EOF
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+        echo "*** ERROR:" >&2
+        cat $REPLY_FILE >&2
+        exit $STATUS
+fi
+
+URL=`xmllint --xpath 'string(//url)' $REPLY_FILE`
+FILENAME=`xmllint --xpath 'string(//file_name)' $REPLY_FILE`
+CAMERA_MODEL=`xmllint --xpath 'string(//model_name)' $REPLY_FILE`
+if [ -z "$URL" -o -z "$FILENAME" -o -z "$CAMERA_MODEL" ]; then
+        echo "No firmware found for camera code $CAMERA_CODE" >&2
+        exit 1
+fi
+FILESIZE=`xmllint --xpath 'string(//file_size)' $REPLY_FILE`
+echo
+echo "Downloading $FILENAME for $CAMERA_MODEL into $DOWNLOAD_DIR..."
+wget --quiet --show-progress -O $FILENAME $URL
+if [ $? -ne 0 ]; then
+        echo "Download failed" >&2
+        exit 1
+fi
+echo "Download complete"
+echo
+if [ `stat -c%s $FILENAME` -ne $FILESIZE ]; then
+        echo "The downloaded file seems corrupted" >&2
+        echo "Filesize expected to be $FILESIZE" >&2
+        exit 1
+fi
+echo "Renaming to $SD_FILE"
+mv $FILENAME $SD_FILE || exit 1
+cat <<- EOF
+
+Your firmware file has been downloaded to $SD_FILE (in $DOWNLOAD_DIR).
+
+Now create a folder DCOLYMP on your SD card and copy $SD_FILE there.
+To install the new firmware, load the SD card into your $CAMERA_MODEL and
+turn on the camera holding the OK button.
+
+Disclaimer: This script only downloads the firmware file to your computer.
+You are responsible for the correct firmware installation on your camera!
+Make sure that you battery is full and that the installation is not
+interrupted.
+EOF
+exit 0
+```
+
+Last edited: Feb 3, 2026
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1837553)
+*   [#113](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1837553)
+
+In addition to the above, here is an even easier to use version of the script to download OM firmware on Linux. Just run the script and enter your camera model.
+
+Bash:
+
+```
+#! /bin/bash
+#
+# Download Olympus firmware
+#
+# By Michael Selig, Feb 2026
+#
+# Note: Make sure you have the following programs installed:
+#    curl
+#    wget
+#    xmllint
+#
+# Refer to the spreadsheet with Camera codenames & firmware filenames:
+#    https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?gid=0#gid=0
+# Use the first 4 characters of the "SD/CF/Xd name" for your camera
+# Eg: E146 for OM-1 Mark II
+
+# The camera's serial number seems to be ignored by the OM server, so
+# shouldn't need setting.
+# If there is a problem, try setting it to your camera's serial number.
+CAMERA_SERIAL=V5PF30000
+
+# The OM server URL to query
+OM_URL=https://fw01.om-digitalsolutions.net/ww_inform/fcache.do
+
+# List of camera and their codes
+CAMERAS=(
+    E143    "OM-1 Mark I"
+    E146    "OM-1 Mark II"
+    E147    "OM-3"
+    E144    "OM-5 Mark I"
+    E134    "E-M1X"
+    E109    "E-M1 Mark I"
+    E125    "E-M1 Mark II"
+    E139    "E-M1 Mark III"
+    E097    "E-M5 Mark I"
+    E118    "E-M5 Mark II"
+    E137    "E-M5 Mark III"
+    E113    "E-M10 Mark I"
+    E120    "E-M10 Mark II"
+    E130    "E-M10 Mark III"
+    E140    "E-M10 Mark IV"
+    E068    "E-P1"
+    E070    "E-P2"
+    E085    "E-P3"
+    E108    "E-P5"
+    E142    "E-P7"
+    E074    "E-PL1"
+    E088    "E-PL1S"
+    E086    "E-PL3"
+    E100    "E-PL5"
+    E112    "E-PL6"
+    E115    "E-PL7"
+    E126    "E-PL8"
+    E133    "E-PL9"
+    E042    "E-3"
+    E079    "E-5"
+    E111    "Stylus 1"
+    E106    "TG-2"
+    E121    "TG-4"
+    E129    "TG-5"
+    E145    "TG-7"
+    E122    "PEN-F"
+)
+
+NUM_CAMERAS=$((${#CAMERAS[@]} / 2))
+
+echo
+echo "*** OM Firmware downloader ***"
+echo
+
+# Check that certain programs are installed
+if ! command -v curl > /dev/null 2>&1; then
+    echo "*** ERROR: Cannot find CURL. Please install it." >&2
+    exit 1
+fi
+if ! command -v wget > /dev/null 2>&1; then
+    echo "*** ERROR: Cannot find WGET. Please install it." >&2
+    exit 1
+fi
+if ! command -v xmllint > /dev/null 2>&1; then
+    echo "*** ERROR: Cannot find XMLLINT. Please install it." >&2
+    exit 1
+fi
+
+# Prompt for camera
+echo "Please select your camera model:"
+echo
+i=1
+while [ $i -le $NUM_CAMERAS ]; do
+    printf "%2d: %-20s" $i "${CAMERAS[$((i*2 - 1))]}"
+    [ $((i++ % 3)) = 0 ] && echo
+done
+[ $((i % 3)) != 1 ] && echo
+echo -n "Enter the number for your camera [1..$NUM_CAMERAS]: "
+read NUM
+if [ -z "$NUM" -o "$NUM" -le 0 -o "$NUM" -gt $NUM_CAMERAS ]; then
+    echo "*** ERROR: The camera number must be between 1 and $NUM_CAMERAS" >&2
+    exit 1
+fi
+CAMERA_CODE=${CAMERAS[$((NUM * 2 - 2))]}
+CAMERA_MODEL=${CAMERAS[$((NUM * 2 - 1))]}
+echo "*** You have selected $CAMERA_MODEL (code $CAMERA_CODE)"
+echo
+
+# Prompt for download directory
+echo -n "Enter the directory to download to [default: current directory]: "
+read DOWNLOAD_DIR
+if [ -n "$DOWNLOAD_DIR" ]; then
+    if [ ! -d "$DOWNLOAD_DIR" ]; then
+    echo "*** ERROR: Directory $DOWNLOAD_DIR does not exist" >&2
+    exit 1
+    fi
+    if [ ! -w "$DOWNLOAD_DIR" ]; then
+    echo "*** ERROR: You do not have write access to Directory $DOWNLOAD_DIR" >&2
+    exit 1
+    fi
+fi
+
+REPLY_FILE=om-reply.xml
+SD_FILE=${CAMERA_CODE}9999.BIN
+
+[ -n "$DOWNLOAD_DIR" ] && cd $DOWNLOAD_DIR
+rm -f $REPLY_FILE
+
+echo -n "Finding download file ..."
+curl --ssl-no-revoke --no-progress-meter --user-agent "Olympus" --header "Content-Type: text/xml; Charset=UTF-8" --data "@-" $OM_URL --output $REPLY_FILE << EOF
+<?xml version="1.0"?>
+<firmware_demand>
+<revision>0001</revision>
+<mac_address>00-00-00-00-80-D6</mac_address>
+<time>$(date +%Y%m%d%H%M%S)</time>
+<language>ENU</language>
+<application>FWUT</application>
+<type>0000</type>
+<version>00005000</version>
+<os>WIN</os>
+<country_code>0001</country_code>
+<hardwares>
+<firmup_mode>0</firmup_mode>
+<hardware_info>
+<hard_code>OLY${CAMERA_CODE}000000000</hard_code>
+<firmware_version>00001000</firmware_version>
+<serial_no>$CAMERA_SERIAL</serial_no>
+<default_languages>
+<code>JPN</code><code>ENU</code><code>DEU</code><code>FRA</code><code>ESP</code>
+<code>CHS</code><code>CHT</code><code>KOR</code><code>PTG</code><code>ITA</code>
+<code>RUS</code><code>CSY</code><code>NLD</code><code>SVE</code><code>DAN</code>
+<code>NOR</code><code>FIN</code><code>HRV</code><code>SLV</code><code>HUN</code>
+<code>PLK</code><code>ELL</code><code>SKY</code><code>TRK</code><code>LVI</code>
+<code>ETI</code><code>LTH</code><code>UKR</code><code>SRB</code><code>THA</code>
+<code>BGR</code><code>IND</code><code>MSL</code><code>ROM</code>
+</default_languages>
+</hardware_info>
+</hardwares>
+</firmware_demand>
+EOF
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+    echo
+    echo "*** ERROR:" >&2
+    cat $REPLY_FILE >&2
+    exit $STATUS
+fi
+
+URL=$(xmllint --xpath 'string(//url)' $REPLY_FILE)
+FILENAME=$(xmllint --xpath 'string(//file_name)' $REPLY_FILE)
+CAMERA_MODEL=$(xmllint --xpath 'string(//model_name)' $REPLY_FILE)
+if [ -z "$URL" -o -z "$FILENAME" -o -z "$CAMERA_MODEL" ]; then
+    echo
+    echo "*** ERROR: No firmware found for camera code $CAMERA_CODE" >&2
+    exit 1
+fi
+echo " OK"
+
+FILESIZE=$(xmllint --xpath 'string(//file_size)' $REPLY_FILE)
+echo
+echo "Downloading $FILENAME for $CAMERA_MODEL${DOWNLOAD_DIR:+ into $DOWNLOAD_DIR} ..."
+wget --quiet --show-progress -O $FILENAME $URL
+if [ $? -ne 0 ]; then
+    echo "Download failed" >&2
+    exit 1
+fi
+echo "Download complete"
+echo
+if [ $(stat -c%s $FILENAME) -ne $FILESIZE ]; then
+    echo "*** ERROR: The downloaded file seems corrupted" >&2
+    echo "Filesize expected to be $FILESIZE" >&2
+    exit 1
+fi
+echo "Renaming to $SD_FILE"
+mv $FILENAME $SD_FILE || exit 1
+cat <<- EOF
+
+Your firmware file has been downloaded to $SD_FILE${DOWNLOAD_DIR:+ (in $DOWNLOAD_DIR)}.
+
+Now create a folder DCOLYMP on your SD card and copy $SD_FILE there.
+To install the new firmware, load the SD card into your $CAMERA_MODEL and
+turn on the camera holding the OK button.
+
+See https://docs.google.com/spreadsheets/d/10vaBZZrfVLeotlAjfGy5Vo_qtelXevRkdPMBd-VN53k/edit?gid=0#gid=0
+for more details.
+
+Disclaimer: This script only downloads the firmware file to your computer.
+You are responsible for the correct firmware installation on your camera!
+Make sure that you battery is full and that the installation is not
+interrupted.
+EOF
+exit 0
+```
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1837581)
+*   [#114](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1837581)
+
+Mike you are a CHAMP! ![Image 5: :thumbup:](https://cdn.mu-43.com/styles/default/xenforo/smilies/old/thumbup.gif)
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1840697)
+*   [#115](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1840697)
+
+Mike this is amazing! I signed up just to thank you, you saved me from buying the proprietary USB cable for my e-pl3.  
+ I replaced the `wget` command with the equivalent `curl` command to remove the dependency on wget:
+
+Bash:
+
+`curl -# -o $FILENAME $URL`
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1841247)
+*   [#116](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1841247)
+
+I've managed to put a website to automate this process and making it easier to download the firmware files:  
+[https://ofu.infinityfreeapp.com/](https://ofu.infinityfreeapp.com/)
+
+I'm collecting old firmware versions of all Olympus/OM System cameras to make a public and permanent archive.  
+ When done, this page will allow you to download those older versions too, so if you have old firmware files, please send me a PM
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1850329)
+*   [#117](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1850329)
+
+I've updated the site and thanks to a generous donor, now you can also download old firmware versions.  
+ If you happen to have an old firmware version not listed there, please contact me!
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1877411)
+*   [#118](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1877411)
+
+> I've managed to put a website to automate this process and making it easier to download the firmware files:  
+> [https://ofu.infinityfreeapp.com/](https://ofu.infinityfreeapp.com/)
+> 
+> 
+> I'm collecting old firmware versions of all Olympus/OM System cameras to make a public and permanent archive.  
+>  When done, this page will allow you to download those older versions too, so if you have old firmware files, please send me a PM
+
+Thanks for the webpage. Just one comment: as you get this when you ask for the firmware on the server, the license agreement of OM Digitalsolutions explicitly says that it is not allowed to store those files.
+
+*   [](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1877757)
+*   [#119](https://www.mu-43.com/threads/firmware-updates-for-om-and-em-cameras-january-2023.118773/post-1877757)
+
+> I've managed to put a website to automate this process and making it easier to download the firmware files:  
+> [https://ofu.infinityfreeapp.com/](https://ofu.infinityfreeapp.com/)
+> 
+> 
+> I'm collecting old firmware versions of all Olympus/OM System cameras to make a public and permanent archive.  
+>  When done, this page will allow you to download those older versions too, so if you have old firmware files, please send me a PM
+
+  
+
+> I've updated the site and thanks to a generous donor, now you can also download old firmware versions.  
+>  If you happen to have an old firmware version not listed there, please contact me!
+
+this is an amazing resource, unfortunately i was looking for e-m5 mark ii BINs from late 2015(?) to late 2016(?) so some version of 2.X
+
+i managed to get in touch with a person who used to run a previous iteration of a similar BIN repository, but i'm afraid they're no longer in possession of the files
+
+it is a terribly anti-consumer stance olympus/OMs has taken by making the older firmware unattainable...

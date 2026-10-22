@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<firmware_demand>
+<revision>0001</revision>
+<mac_address>00-00-00-00-80-D6</mac_address>
+<time>20261022205527</time>
+<language>ENU</language>
+<application>FWUT</application>
+<type>0000</type>
+<version>00005000</version>
+<os>WIN</os>
+<country_code>0001</country_code>
+<hardwares>
+<firmup_mode>0</firmup_mode>
+<hardware_info>
+<hard_code>OLYE108000000000</hard_code>
+<firmware_version>00001700</firmware_version>
+<serial_no>V5PF30000</serial_no>
+<default_languages>
+<code>JPN</code><code>ENU</code><code>DEU</code>
+</default_languages>
+</hardware_info>
+</hardwares>
+</firmware_demand>
