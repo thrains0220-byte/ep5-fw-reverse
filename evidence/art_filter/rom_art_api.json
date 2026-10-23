@@ -1,0 +1,364 @@
+{
+ "source": "E-P5 v1.8 块 0 字符串池",
+ "total_art_names": 752,
+ "effects": [
+  {
+   "addr": "0x40714EF4",
+   "name": "art_effect_10_star_light",
+   "kind": "effect",
+   "id": "10"
+  },
+  {
+   "addr": "0x407155B0",
+   "name": "art_effect_20_pinhole",
+   "kind": "effect",
+   "id": "20"
+  },
+  {
+   "addr": "0x40715888",
+   "name": "art_effect_30_frame",
+   "kind": "effect",
+   "id": "30"
+  },
+  {
+   "addr": "0x40715F1C",
+   "name": "art_effect_40_soft_focus",
+   "kind": "effect",
+   "id": "40"
+  },
+  {
+   "addr": "0x407162F8",
+   "name": "art_effect_50_white_edge",
+   "kind": "effect",
+   "id": "50"
+  },
+  {
+   "addr": "0x40716794",
+   "name": "art_filter_06_rough_monochrome",
+   "kind": "filter",
+   "id": "06"
+  },
+  {
+   "addr": "0x407167B3",
+   "name": "art_filter_rough_monochrome_pass1",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407167D5",
+   "name": "art_filter_rough_monochrome_pass2",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407167F7",
+   "name": "art_filter_rough_monochrome_pass3",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40716819",
+   "name": "art_filter_rough_monochrome_pass4",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071683B",
+   "name": "art_filter_rough_monochrome_pass5",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071685D",
+   "name": "art_filter_rough_monochrome_pass6",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071687F",
+   "name": "art_filter_rough_monochrome_pass7",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407168A1",
+   "name": "art_filter_rough_monochrome_pass8",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407168C3",
+   "name": "art_filter_rough_monochrome_pass9",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407168E5",
+   "name": "art_filter_rough_monochrome_pass_err",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071690A",
+   "name": "art_filter_rough_monochrome_skip_all_check",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40716935",
+   "name": "art_filter_rough_monochrome_mov_check",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40716EE0",
+   "name": "art_filter_09_diorama",
+   "kind": "filter",
+   "id": "09"
+  },
+  {
+   "addr": "0x407173A0",
+   "name": "art_filter_0e_gentle_sepia",
+   "kind": "filter",
+   "id": "0e"
+  },
+  {
+   "addr": "0x407173BB",
+   "name": "art_filter_gentle_sepia_pass1",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407173D9",
+   "name": "art_filter_gentle_sepia_pass2",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407173F7",
+   "name": "art_filter_gentle_sepia_pass3",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717415",
+   "name": "art_filter_gentle_sepia_pass_err",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071771C",
+   "name": "art_filter_14_dramatic_tone",
+   "kind": "filter",
+   "id": "14"
+  },
+  {
+   "addr": "0x40717738",
+   "name": "art_filter_dramatic_tone_pass1",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717757",
+   "name": "art_filter_dramatic_tone_pass2",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717776",
+   "name": "art_filter_dramatic_tone_pass3",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717795",
+   "name": "art_filter_dramatic_tone_pass4",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407177B4",
+   "name": "art_filter_dramatic_tone_pass5",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407177D3",
+   "name": "art_filter_dramatic_tone_pass6",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407177F2",
+   "name": "art_filter_dramatic_tone_pass7",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717811",
+   "name": "art_filter_dramatic_tone_pass8",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717830",
+   "name": "art_filter_dramatic_tone_pass9",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071784F",
+   "name": "art_filter_dramatic_tone_pass10",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071786F",
+   "name": "art_filter_dramatic_tone_pass11",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071788F",
+   "name": "art_filter_dramatic_tone_pass12",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407178AF",
+   "name": "art_filter_dramatic_tone_pass_err",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x407178D1",
+   "name": "art_filter_dramatic_tone_skip_all_check",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717927",
+   "name": "art_filter_dramatic_tone_free",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x40717FA4",
+   "name": "art_filter_19_artclearline",
+   "kind": "filter",
+   "id": "19"
+  },
+  {
+   "addr": "0x407185FC",
+   "name": "art_filter_1c_mirror",
+   "kind": "filter",
+   "id": "1c"
+  },
+  {
+   "addr": "0x4071877C",
+   "name": "art_filter_1d_composite",
+   "kind": "filter",
+   "id": "1d"
+  },
+  {
+   "addr": "0x40718A94",
+   "name": "art_filter_21_pastel_art",
+   "kind": "filter",
+   "id": "21"
+  },
+  {
+   "addr": "0x4071A89C",
+   "name": "art_stl2ycc",
+   "kind": "filter",
+   "id": null
+  },
+  {
+   "addr": "0x4071A93B",
+   "name": "art_stl2ycc2",
+   "kind": "filter",
+   "id": null
+  }
+ ],
+ "effect_subfunctions": {
+  "art_stl2ycc": [
+   "pass1",
+   "pass2",
+   "pass3",
+   "pass4",
+   "pass5",
+   "pass6",
+   "pass7",
+   "pass_err",
+   "free_yc",
+   "buffer_check",
+   "pass1 in ",
+   "pass2 in ",
+   "pass2 out ",
+   "pass3 in ",
+   "pass3 out ",
+   "pass4 in ",
+   "pass4 out ",
+   "pass5 in ",
+   "pass5 out ",
+   "pass6 in ",
+   "pass6 out ",
+   "pass7 in ",
+   "pass_err in ",
+   "buffer_check in ",
+   "buffer_check out "
+  ],
+  "art_stl2ycc2": [
+   "pass1",
+   "pass2",
+   "pass3",
+   "pass_err",
+   "pass1 in ",
+   "pass2 in ",
+   "pass2 out ",
+   "pass3 in ",
+   "pass_err in "
+  ]
+ },
+ "checks_and_api": [
+  "art_chk_effect",
+  "art_chk_effect_monotorn",
+  "art_chk_empty_tsk",
+  "art_chk_empty_tsk out pos:",
+  "art_chk_list_empty",
+  "art_chk_proccont",
+  "art_chk_submode",
+  "art_chk_tsk_status",
+  "art_chk_type",
+  "art_chk_type_mov",
+  "art_chk_type_rec",
+  "art_get_filterlist_tbl",
+  "art_get_msg",
+  "art_get_tsk_tbl",
+  "art_init_filter_proc",
+  "art_main_init",
+  "art_mov_check",
+  "art_mov_check out ",
+  "art_mov_check_thr",
+  "art_mov_check_thr out ",
+  "art_send_msg",
+  "art_set_func_effect"
+ ],
+ "menu10": {
+  "Pop Art": "art_composite",
+  "Dramatic Tone": "art_filter_dramatic_tone",
+  "Soft Focus": "art_soft_focus",
+  "Pale&Light Color": "art_stl2ycc",
+  "Light Tone": "art_stl2ycc2",
+  "Grainy Film": "art_filter_rough_monochrome",
+  "Pin Hole": "art_pinhole",
+  "Diorama": "art_diorama",
+  "Cross Process": "art_mirror",
+  "Gentle Sepia": "art_filter_gentle_sepia"
+ },
+ "movie4": [
+  "Diorama",
+  "Dramatic Tone",
+  "Grainy Film",
+  "Pin Hole"
+ ]
+}

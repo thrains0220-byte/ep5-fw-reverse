@@ -73,6 +73,8 @@ tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+
            + ep5_lens.py / lens_compare.py / fw_diff.py（镜头结构提取与跨版本差分）
            + ghidra/（MN10300 Ghidra 模块部署 + 本项目 GhidraScript）
 docs/      PROJECT_STATUS.md（现状总表）/ RE_METHOD_PLAYBOOK.md（方法论）/ subsystem_map.md
+           / MOD_ROADMAP.md（★ 固件魔改实现路线图：新增滤镜 / LUT 直出 / 计算摄影解锁）
+           / HARDWARE_RUNBOOK.md（★ 实机操作手册：卡刷 / 补丁 / 取 mask ROM）
            / external_research.md（GitHub 奥林巴斯逆向项目调研）
 reproduce.sh              一键复现：校验 → 解混淆 → 反汇编
 PROVENANCE.md             逐项来源、许可与再分发边界
@@ -691,6 +693,59 @@ mask ROM `0x7E429774` 的 6 项表里查，命中则把该项的参数数组拷�
 ```sh
 python tools/rom_fill_report.py --rom maskrom.bin --rom-base 0x7E000000
 ```
+
+---
+
+## 2026-10-24 新增（第二十五轮）：★ ROM 侧艺术效果全清单 + 魔改实现路线图
+
+> 完整文档：[`docs/MOD_ROADMAP.md`](docs/MOD_ROADMAP.md)
+
+### A. ★ ROM 里到底实现了哪些艺术效果（菜单没露出来的就是可解锁的）
+
+【观察】块 0 字符串池里有 **752 个 `art_*` 名字**（带 `in`/`out` 标记与 `.c` 源文件名），
+这是**随主控固件下发的 ROM 侧图像引擎函数名表**。由此得到 ROM 里实现的滤镜效果：
+
+| ROM ID | 名字 | E-P5 菜单 |
+|---|---|---|
+| `0x10` | `art_effect_10_star_light`（星芒，15 个 pass） | ❌ **隐藏** |
+| `0x20` | `art_effect_20_pinhole` | ✅ Pin Hole |
+| `0x30` | `art_effect_30_frame`（边框） | ❌ **隐藏** |
+| `0x40` | `art_effect_40_soft_focus` | ✅ Soft Focus |
+| `0x50` | `art_effect_50_white_edge`（白边） | ❌ **隐藏** |
+| `0x06` | `art_filter_06_rough_monochrome` | ✅ Grainy Film |
+| `0x09` | `art_filter_09_diorama` | ✅ Diorama |
+| `0x0E` | `art_filter_0e_gentle_sepia` | ✅ Gentle Sepia |
+| `0x14` | `art_filter_14_dramatic_tone` | ✅ Dramatic Tone |
+| `0x19` | `art_filter_19_artclearline`（去线条） | ❌ **隐藏** |
+| `0x1C` | `art_filter_1c_mirror` | ✅ Cross Process |
+| `0x1D` | `art_filter_1d_composite` | ✅ Pop Art |
+| `0x21` | `art_filter_21_pastel_art`（粉彩，**2016 后机型才上市**） | ❌ **隐藏** |
+| — | `art_stl2ycc` / `art_stl2ycc2` | ✅ Pale&Light / Light Tone |
+
+⇒ **ROM 里 15 个具 ID 效果，E-P5 菜单只暴露 10 个；5 个是白送的弹药。**
+
+### B. ★ 一个必须纠正的旧结论
+
+【方法错误】第 20 轮「艺术滤镜字符串在块 0 内 0 引用 ⇒ 实现在 ROM」——**这个搜索方法本身无效**：
+块 0 的字符串**不以绝对地址立即数出现**，而是「基址 + 索引」经查表助手取用 + 字符串驻留表按 hash 查
+（已用 `art_white_edge_pass_err` 的唯一一处引用验证字节形态）。
+本轮的 ROM API 清单正是用正确方法得到的替代证据。
+
+### C. 六条改造路线（详见 `docs/MOD_ROADMAP.md`）
+
+| 路线 | 内容 | 状态 |
+|---|---|---|
+| **R-1** | 解锁 5 个隐藏滤镜（星芒/边框/白边/去线条/粉彩） | 需 ROM dump |
+| **R-2** | 录像形态解锁（照片 10 项 → 录像 10 项） | 需 ROM dump（细筛在 ROM） |
+| **R-3** | AF 驱动步数上限解除 | ✅ **配方已验证**（6 字节） |
+| **R-4** | **ROM 可写 → 自制 LUT 直出** | 一次 `memload` 回读实验即可判定 |
+| **R-5** | 计算摄影限制常量分诊 | 已扫出 89,295 个比较点，待按子系统收敛 |
+| **R-6** | 取 mask ROM（`memdump` 通道） | 工具就绪，入口待定位 |
+
+### D. 不变砖的保证
+
+只做**等长覆盖**、**命中数必须唯一**、**块校验和自动重算**、**不碰块头/块尾元数据**、
+**保留官方原版可回刷**、**改过的固件不入库（只留配方+工具）**。
 
 ---
 

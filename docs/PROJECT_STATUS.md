@@ -559,6 +559,47 @@ Wayback CDX 全量存档 21,038 条 URL 中**无任何 E-P5 更新器**。
 | 官方下发通道 B/D | ⛔ **已穷尽关闭** |
 | AF 上限彻底放开（量程公式 `0x800000`） | 🔜 **需实机** |
 
+### 2.15 ★ ROM 侧艺术效果全清单 + 魔改实现路线图（第二十五轮新增）
+
+> 完整文档：[`docs/MOD_ROADMAP.md`](../docs/MOD_ROADMAP.md)、
+> [`evidence/art_filter/rom_art_api.json`](../evidence/art_filter/rom_art_api.json)
+
+#### 2.15.1 ROM 里实现了哪些艺术效果
+
+【观察】块 0 字符串池里有 **752 个 `art_*` 名字**（带 `in`/`out` 与 `.c` 源文件名），
+这是**随主控固件下发的 ROM 侧图像引擎函数名表**。
+【观察】ROM 里实现 **15 个具 ID 的效果 + 2 个 stl2ycc**，而 E-P5 菜单只暴露 10 个：
+
+| ROM ID | 名字 | 菜单 |
+|---|---|---|
+| `0x10` / `0x30` / `0x50` / `0x19` / `0x21` | star_light / frame / white_edge / artclearline / **pastel_art** | ❌ **未暴露** |
+| `0x20` / `0x40` / `0x06` / `0x09` / `0x0E` / `0x14` / `0x1C` / `0x1D` / stl2ycc(2) | 其余 10 个 | ✅ 已暴露 |
+
+【观察】ROM 侧还有调度与判定接口：`art_get_filterlist_tbl` `art_set_func_effect`
+`art_init_filter_proc` `art_chk_type` `art_chk_type_rec` `art_chk_type_mov` `art_mov_check`
+`art_get_dramatic_tone_addr` `art_get_ldata_size`
+⇒ **「滤镜链表」与「录像形态细筛」都在 ROM**，主控侧那个 `0x602AEB94` 位掩码只是粗筛。
+
+#### 2.15.2 ★ 必须纠正的第 20 轮结论
+
+【方法错误】第 20 轮「艺术滤镜字符串在块 0 内 0 引用 ⇒ 实现在 ROM」**不成立**：
+块 0 的字符串**不以绝对地址立即数出现**，而是「基址 + 索引」经查表助手取用 +
+**字符串驻留表按 hash 查**（用 `art_white_edge_pass_err` 的唯一一处引用验证过字节形态）。
+⇒ 第 20 轮那条否定性结论作废，本节的 ROM API 清单是替代证据。
+
+#### 2.15.3 其它本轮事实
+
+| 项 | 内容 |
+|---|---|
+| 块 0 立即数分布 | 6.49 M 条指令里，落在块 0 自身地址范围内的标量只有 **144 个不同值**（全是页对齐 RAM 区基址） |
+| 内存分区 | 块 0 模块装载器 `FUN_4050919b` 列出 7 个模块基址；**`0x7E000000` 不在其中** |
+| 限制常量清单 | `Mn103FindLimitCmp.java` 扫出 **89,295 个 `CMP #立即数`** 点 / 22,471 个函数（R-5 的原料） |
+
+#### 2.15.4 六条改造路线
+
+R-1 隐藏滤镜解锁 / R-2 录像形态解锁 / R-3 AF 步数上限（✅ 配方已验证）/
+**R-4 ROM 可写 → 自制 LUT 直出** / R-5 计算摄影限制常量分诊 / R-6 取 mask ROM。
+
 ---
 
 ## 3. 已排除的假设（全部有可复现证据）
