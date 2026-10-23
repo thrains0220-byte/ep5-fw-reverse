@@ -7,65 +7,192 @@
     "historical_base_used_in_older_docs": "0x402C0000 (on decoded payload) => 旧坐标比规范低 0x20"
   },
   "ep5_1_8_corrected_coordinates": {
-    "lens_chain_function":   {"payload_offset": "0xF7989", "legacy": "0x403B7989", "canonical": "0x403B79A9"},
-    "mask_rom_ptr_mov":     {"payload_offset": "0xF7A0B", "bytes": "fc dc 8c 01 43 7e", "operand": "0x7E43018C", "legacy": "0x403B7A0B", "canonical": "0x403B7A2B"},
-    "whitelist_switch_word": {"payload_offset": "0xF7A27", "operand": "0x605339A0", "legacy": "0x403B7A27", "canonical": "0x403B7A47"},
-    "lens_info_main_table":  {"payload_offset": "0x328EE0", "legacy": "0x405E8EE0", "canonical": "0x405E8F00"}
+    "lens_chain_function": {
+      "payload_offset": "0xF7989",
+      "legacy": "0x403B7989",
+      "canonical": "0x403B79A9"
+    },
+    "mask_rom_ptr_mov": {
+      "payload_offset": "0xF7A0B",
+      "bytes": "fc dc 8c 01 43 7e",
+      "operand": "0x7E43018C",
+      "legacy": "0x403B7A0B",
+      "canonical": "0x403B7A2B"
+    },
+    "whitelist_switch_word": {
+      "payload_offset": "0xF7A27",
+      "operand": "0x605339A0",
+      "legacy": "0x403B7A27",
+      "canonical": "0x403B7A47"
+    },
+    "lens_info_main_table": {
+      "payload_offset": "0x328EE0",
+      "legacy": "0x405E8EE0",
+      "canonical": "0x405E8F00"
+    }
   },
   "container_layers": {
     "outer_update_container": {
-      "header_bytes": 32, "trailer_bytes": 32,
-      "fields": {"sig": "OE/OM", "model": "u16 hex-string", "runtime_addr": "u32 @8", "payload_size": "u32 @12", "version": "u16 @16", "kind": "u16 @20", "checksum": "trailer u32 @28"},
+      "header_bytes": 32,
+      "trailer_bytes": 32,
+      "fields": {
+        "sig": "OE/OM",
+        "model": "u16 hex-string",
+        "runtime_addr": "u32 @8",
+        "payload_size": "u32 @12",
+        "version": "u16 @16",
+        "kind": "u16 @20",
+        "checksum": "trailer u32 @28"
+      },
       "payload_scramble": "16-byte group byte-plane transposition (DECODE_ORDER) + per-byte 0xFF inversion",
       "checksum": "(sum32(header) + sum32(payload) + sum32(trailer)) mod 2^32 == 0"
     },
     "inner_runtime_image": {
-      "header_bytes": 32, "trailer_bytes": 32,
+      "header_bytes": 32,
+      "trailer_bytes": 32,
       "payload_scramble": "none (plaintext)",
       "checksum": "none",
-      "build_timestamp": {"offset": "24", "type": "u32 little-endian Unix time (UTC)", "confidence": "observation+inference"},
+      "build_timestamp": {
+        "offset": "24",
+        "type": "u32 little-endian Unix time (UTC)",
+        "confidence": "observation+inference"
+      },
       "kind_value": "0x0006"
     }
   },
   "blk106_resource_container": {
     "directory_entries": 40,
     "entry_layout": "16 bytes: u32 runtime_addr, u32 size, u32 0, u32 0",
-    "entry0": {"runtime_addr": "model-specific", "size": "0x240000", "content": "六比特 blob"},
+    "entry0": {
+      "runtime_addr": "model-specific",
+      "size": "0x240000",
+      "content": "六比特 blob"
+    },
     "e_pm1_1130_extra": "14 个 JPEG（4608x3456 / 3456x3456 / 640x480 / 1280x720 ...）"
   },
   "six_bit_blob": {
     "length": 2359296,
     "sha256": "93c4e55881cde2ae...",
-    "data_offset_in_decoded_block": {"legacy_format": "0x3E0", "new_format": "0x7E0"},
+    "data_offset_in_decoded_block": {
+      "legacy_format": "0x3E0",
+      "new_format": "0x7E0"
+    },
     "distinct_symbols": 63,
     "absent_symbol": "0x3C",
     "entropy_bits_per_byte": 5.8326,
     "symbol_probability_quantum": "1/256 (每个符号频率都是 1/256 的整数倍)",
-    "autocorrelation": {"shift1": 0.0199, "shift2": 0.0232, "shift3": 0.0258, "shift64": 0.0249, "shift1024": 0.0182, "baseline_sum_p2": 0.0199},
+    "autocorrelation": {
+      "shift1": 0.0199,
+      "shift2": 0.0232,
+      "shift3": 0.0258,
+      "shift64": 0.0249,
+      "shift1024": 0.0182,
+      "baseline_sum_p2": 0.0199
+    },
     "residue_class_structure": "无：k=2..64 每个残余类都出现全部 63 个符号且分布几乎相同",
-    "per_bit_probability": {"bit0": 0.5322, "bit1": 0.5075, "bit2": 0.4614, "bit3": 0.4375, "bit4": 0.4094, "bit5": 0.3828},
+    "per_bit_probability": {
+      "bit0": 0.5322,
+      "bit1": 0.5075,
+      "bit2": 0.4614,
+      "bit3": 0.4375,
+      "bit4": 0.4094,
+      "bit5": 0.3828
+    },
     "immutable_across": [
-      "E-P5 1.8 (1080)", "OLY_E_085/086/087 1.6", "E-M10 1.6 (1000)", "E-M10 III 1.4/1.5/1.6 (1010)",
-      "E-P3 1.4 (1120)", "E-PM1 1.4 (1130)", "E-M1 4.6 (1090)", "E-M10 II 1.3/1.4 (1200)", "E-P7 1.2 (1300)"
+      "E-P5 1.8 (1080)",
+      "OLY_E_085/086/087 1.6",
+      "E-M10 1.6 (1000)",
+      "E-M10 III 1.4/1.5/1.6 (1010)",
+      "E-P3 1.4 (1120)",
+      "E-PM1 1.4 (1130)",
+      "E-M1 4.6 (1090)",
+      "E-M10 II 1.3/1.4 (1200)",
+      "E-P7 1.2 (1300)"
     ],
     "conclusion": "平台级静态资源；不可能承载任何版本差异（含 2018-12-18 松下镜头 AF 修复）",
     "decoder_status": "未找到：块 0 全量反汇编中无任何指令以立即数引用 0x43DA0400/0x43DA0020/0x43DA0000/0x427C0800；疑在 mask ROM"
   },
   "new_diff_pair": {
-    "a": "E-M10 II v1.3 (OLY_E_120_1300)", "b": "E-M10 II v1.4 (OLY_E_120_1400)",
-    "build_utc": {"v1.3": "2018-04-11T00:49:04Z .. 00:49:08Z", "v1.4": "2018-12-13T02:59:41Z .. 02:59:53Z"},
-    "compiler_date_string": {"v1.3": "Apr 11 2018", "v1.4": "Dec 13 2018"},
-    "block_01_data": {"size": 27262912, "diff_bytes": 0},
-    "block_02_resources": {"size": 20971456, "diff_bytes": 48, "diff_runs": 12, "all_in": "内层块头构建时间戳"},
-    "block_00_code": {"size": 21364672, "diff_bytes": 2290985, "diff_pct": 10.723, "diff_runs": 231959,
-      "mask_rom_displacement": "+0x1F（示例：disp=0x1C 簇 0x530B2E -> 0x530B4D）"},
-    "same_address_clusters": ["0x26412B..0x2643A9", "0x13D4A6..0x13D5CA", "0x166F78..0x1671C5", "0xEA466B..0xEA47D7", "0x13DEA4..0x13DF78"],
-    "status": "尚未验证 v1.4 是否含松下镜头 AF 修复（镜头链未定位）"
+    "a": "E-M10 II v1.3 (OLY_E_120_1300)",
+    "b": "E-M10 II v1.4 (OLY_E_120_1400)",
+    "build_utc": {
+      "v1.3": "2018-04-11T00:49:04Z .. 00:49:08Z",
+      "v1.4": "2018-12-13T02:59:41Z .. 02:59:53Z"
+    },
+    "compiler_date_string": {
+      "v1.3": "Apr 11 2018",
+      "v1.4": "Dec 13 2018"
+    },
+    "block_01_data": {
+      "size": 27262912,
+      "diff_bytes": 0
+    },
+    "block_02_resources": {
+      "size": 20971456,
+      "diff_bytes": 48,
+      "diff_runs": 12,
+      "all_in": "内层块头构建时间戳"
+    },
+    "block_00_code": {
+      "size": 21364672,
+      "diff_bytes": 2290985,
+      "diff_pct": 10.723,
+      "diff_runs": 231959,
+      "mask_rom_displacement": "+0x1F（示例：disp=0x1C 簇 0x530B2E -> 0x530B4D）"
+    },
+    "same_address_clusters": [
+      "0x26412B..0x2643A9",
+      "0x13D4A6..0x13D5CA",
+      "0x166F78..0x1671C5",
+      "0xEA466B..0xEA47D7",
+      "0x13DEA4..0x13DF78"
+    ],
+    "status": "尚未验证 v1.4 是否含松下镜头 AF 修复（镜头链未定位）",
+    "lens_id_path": {
+      "e_p5_fingerprint": "90 0e f1 78 f0 40 (mov 14,a0 / add a2,a0 / movbu (a0),d0)",
+      "v1_3": {
+        "payload_offset": "0x53C6D2",
+        "runtime": "0x4083C6F2",
+        "hits": 1
+      },
+      "v1_4": {
+        "payload_offset": "0x53C6F1",
+        "runtime": "0x4083C711",
+        "hits": 1
+      },
+      "code_displacement": "+0x1F",
+      "ram_displacement": "+0x10",
+      "instruction_level_result": "镜头 ID 处理函数及其查表段在两版中逐条指令完全相同（仅地址重链接）",
+      "lens_main_table": {
+        "payload_offset": "0x17A3E0",
+        "runtime": "0x4047A400",
+        "records": 90,
+        "maker_codes": [
+          160,
+          176,
+          177,
+          178,
+          192,
+          193
+        ],
+        "diff_bytes": 0
+      },
+      "lens_string_region_diff_bytes": 160,
+      "conclusion": "E-M10 II v1.3→v1.4 在镜头子系统的代码与数据上均无语义变化"
+    },
+    "diff_distribution": {
+      "unchanged_bytes": 19073687,
+      "unchanged_pct": 89.3,
+      "changed_bytes": 2290985,
+      "changed_pct": 10.723,
+      "hot_region": "0x40500000-0x409FFFFF（约 5 MB）",
+      "cold_region": "0x40300020-0x404FFFFF（镜头字符串所在，仅 81+1755 差异字节）"
+    }
   },
   "unknowns": [
     "六比特层的语义与解码器",
     "资源目录 40 条各自的业务含义",
-    "E-M10 II v1.4 是否含松下镜头 AF 修复",
+    "E-M10 II v1.4 是否含松下镜头 AF 修复：未验证（差分对已就位，且已证明镜头子系统无语义变化；仍缺独立证据）",
     "内层运行映像为何无校验和",
     "块头 [18:20]、[22:24] 的含义",
     "E-P5 v1.8 的 kind 0x106 为何只有 blob"
