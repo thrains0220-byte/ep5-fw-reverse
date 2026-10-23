@@ -1,5 +1,13 @@
 # ep5-fw-reverse — 奥林巴斯 PEN E-P5 固件 (Ver. 1.8) 逆向分析
 
+> ## 📌 项目状态：已结项（2026-10-23）
+>
+> 分析到此收尾。最终状态、已验证成果、被推翻的结论、以及「如果接着做该从哪下手」，
+> 全部汇总在 **[`docs/PROJECT_CLOSURE.md`](docs/PROJECT_CLOSURE.md)**。
+> 一句话版本：容器格式 100% 破解；**已产出用户实机验证通过的固件补丁**（AF 步数上限解除）；
+> 艺术滤镜的**实现与菜单名都在 `.BIN` 内可改**，但「菜单显示哪几项」的选择表在另一侧存储区，
+> 单靠官方更新包拿不到（详见结项说明第 1 节）。
+
 对官方 E-P5 机身固件 `OLY_E_108_1800_0000_0000.BIN` 的离线静态逆向成果。
 
 **容器格式已 100% 破解并逐字节验证**；指令集确认为 **Panasonic MN1030/MN103S**；已建立可用的 MN103 反汇编管线，
@@ -60,7 +68,10 @@ evidence/  REA 6.4.0 原始 Evidence JSON（Binwalk 扫描 / Unblob 提取 / PE 
            + art_filter/：艺术（创意）滤镜子系统专题
                ├ art_filter_menu_and_ids.md        —— ★ 两套 ID 命名空间 / 13 个模块 / 菜单资源映射
                ├ menu_descriptor_typecode.md       —— ★ 类型码 → mask ROM 描述符机制 + 1 字节补丁配方
-               └ art_filter_address_map.md         —— 完整地址地图 + 新增滤镜/解锁模板
+               ├ art_filter_address_map.md         —— 完整地址地图 + 新增滤镜/解锁模板
+               ├ round28_art_subsystem.md          —— ★ 子系统解剖：类型闸门 / ROM 回调 / 13 个实现
+               ├ round29_art_corrected.md          —— ★ 实机更正轮：撤回 C1/C2/C3/D2/D3
+               └ round30_art_menu_rename.md        —— ★ ART 菜单项表结构 + 改名补丁
            + patched_community/：社区改机归档的字节级补丁表（解锁功能模板）
                ├ community_patch_table.md          —— ★ 12/12 归档全量补丁表
                └ unlock_semantics.md               —— ★ 社区解锁补丁的语义解码
@@ -72,7 +83,8 @@ scripts/   可复现分析脚本 + Olympus 官方 oly_fw_tools 源码（格式�
 tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+ 工具链构建脚本
            + ep5_lens.py / lens_compare.py / fw_diff.py（镜头结构提取与跨版本差分）
            + ghidra/（MN10300 Ghidra 模块部署 + 本项目 GhidraScript）
-docs/      PROJECT_STATUS.md（现状总表）/ RE_METHOD_PLAYBOOK.md（方法论）/ subsystem_map.md
+docs/      PROJECT_CLOSURE.md（★ 项目结项说明：最终状态 / 已验证成果 / 被推翻的结论 / 后续切入点）
+           / PROJECT_STATUS.md（现状总表）/ RE_METHOD_PLAYBOOK.md（方法论）/ subsystem_map.md
            / MOD_ROADMAP.md（★ 固件魔改实现路线图：新增滤镜 / LUT 直出 / 计算摄影解锁）
            / HARDWARE_RUNBOOK.md（★ 实机操作手册：卡刷 / 补丁 / 取 mask ROM）
            / external_research.md（GitHub 奥林巴斯逆向项目调研）
