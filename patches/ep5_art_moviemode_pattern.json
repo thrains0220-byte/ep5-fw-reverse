@@ -1,7 +1,8 @@
 {
-  "name": "E-P5 艺术滤镜：把「电影艺术模式(mode 2)」的描述符改指到「照片 ART 模式(mode 6)」",
-  "note": "FUN_403e7b79 / FUN_403e7c3f 是 ROM 回调进来的「拍摄模式 → ROM 滤镜描述符」选择器。mode 2（类型码 4）与 mode 6（类型码 0xC0）各返回一张不同的 ROM 表。本补丁把 mode 2 分支的返回值改成与 mode 6 完全相同，等于让电影艺术模式使用照片 ART 模式的滤镜清单。",
-  "evidence": "evidence/art_filter/round28_art_subsystem.md §5",
+  "name": "【已撤回 / WITHDRAWN】E-P5 艺术滤镜：把「电影艺术模式(mode 2)」的描述符改指到「照片 ART 模式(mode 6)」",
+  "withdrawn": "第 29 轮撤回：前提被实机反馈证伪 —— E-P5 的 ART 照片与录像都是同一组 12 项，不存在「照片多/录像少」的分表。本配方假设的「mode 2 = 电影艺术(少)、mode 6 = 照片 ART(多)」不成立，故不再产出固件。文件保留仅供追溯。",
+  "note": "FUN_403e7b79 / FUN_403e7c3f 是 ROM 回调进来的「拍摄模式 → ROM 滤镜描述符」选择器。mode 2（类型码 4）与 mode 6（类型码 0xC0）各返回一张不同的 ROM 表。",
+  "evidence": "evidence/art_filter/round28_art_subsystem.md §5 / round29_art_corrected.md",
   "blocks": [
     {
       "block_index": 0,
