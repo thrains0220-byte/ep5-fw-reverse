@@ -27,6 +27,7 @@ firmware/
   pre_fix/*.BIN.lzma           17 个「修复前」基线固件（LZMA 无损）
   community/*.zip|*.rar        12 个社区改机归档（原样存放）
   notes/                       更新协议 / 服务器报文 / 站点索引等文本资料
+  notes/release_notes/*.html   官方发布说明页存档（16 页，含各机型全部版本沿革）
 ```
 
 | 目录 | 内容 | 数量 |
@@ -34,7 +35,7 @@ firmware/
 | `stock/` | 从 xdel.ru `original/` 取得的全部机型原版固件 | 66 |
 | `pre_fix/` | xdel.ru `pre_fix/` 目录的早期版本（含 E-M5 v2.0–v2.3、E-PM2 v1.1–v1.6 等**AF 修复前基线**） | 17 |
 | `community/` | xdel.ru `patched/` 与 `patched_yandex/` 的社区改机归档 | 12 |
-| `notes/` | `olyhttp/`（奥林巴斯 HTTP 更新协议）、`omsrv/`（MSRV 服务器报文样例）、`orig_index/`（机型索引页）、`web/`（固件目录页与 `ofu_catalog.json`） | 59 |
+| `notes/` | `olyhttp/`（奥林巴斯 HTTP 更新协议）、`omsrv/`（MSRV 服务器报文样例）、`orig_index/`（机型索引页）、`web/`（固件目录页与 `ofu_catalog.json`）、`release_notes/`（官方发布说明页存档） | 75 |
 
 ### 机型目录名对照
 
