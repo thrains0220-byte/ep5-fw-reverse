@@ -1,11 +1,23 @@
 #!/usr/bin/env python3
-"""扫描 OMSRV 官方服务器（fw01.om-digitalsolutions.net/ww_inform/*）的请求参数，
-看能否让服务器返回**指定的历史版本**固件（而不是永远只给最新版）。
+"""OMSRV 官方服务器（fw01.om-digitalsolutions.net/ww_inform/fcache.do）客户端。
 
-服务器会为它返回的文件动态签发带 ?Expires=&Signature=&Key-Pair-Id= 的直链，
-因此若能指定版本，就能拿到「修复前基线」固件本体。
+## 已验证的请求格式（2026-10-23 实测）
 
-用法: omsrv_sweep.py [model_hard_code_prefix] [model_id]
+请求体 `firmware_demand` XML，**`hard_code` 必须是 16 字符**：
+`OLYE` + **机型码前 3 位** + 9 个 `0`（例：`OLYE108000000000` 对应机型码 1080）。
+
+`<firmware_version>` = 机身当前版本：
+    * < 最新版  → 返回**最新版** + 带签名的直链（`?Expires=&Signature=&Key-Pair-Id=`）
+    * ≥ 最新版  → 返回该版本号但 `file_name`/`file_size`/`url` **为空**（无需更新）
+⇒ **该接口只提供每个机型的最新版**，无法取到历史版本。
+
+服务器会覆盖响应里的 `<time>`（回填服务器当前时间）并回显 `<mac_address>`；
+`<time>`/`<mac_address>` 用非样本值会导致响应退化（只回显版本号、无文件信息）。
+
+## 用法
+  omsrv_sweep.py --models 1080,1120,1130      # 查这些机型的最新版 + 签名直链
+  omsrv_sweep.py --models 1080 --download DIR  # 并下载签名直链
+  omsrv_sweep.py --models 1080 --sweep         # 参数扫描（确认无法指定旧版本）
 """
 import subprocess, time, re, sys, itertools, json, os
 
@@ -38,12 +50,24 @@ TPL = """<?xml version="1.0"?>
 ENDPOINTS = ["fcache.do", "firmware2.do", "firmware.do", "fcache2.do"]
 OUT = "/tmp/omsrv_sweep"
 
+# 官方样本 req_E108.xml 中的其它字段（保持不变，否则响应会退化）
+SAMPLE = {
+    "revision": "0001", "mac_address": "00-00-00-00-80-D6",
+    "time": "20261022215527", "language": "ENU", "application": "FWUT",
+    "type": "0000", "version": "00005000", "os": "WIN", "country_code": "0001",
+    "firmup_mode": "0", "serial_no": "V5PF30000",
+}
+
+
+def hard_code(model_id):
+    """机型码 1080 -> OLYE108000000000（16 字符，机型码只取前 3 位）。"""
+    return "OLYE" + str(model_id)[:3].zfill(3) + "0" * 9
+
 
 def call(endpoint, base, **kw):
-    p = dict(revision='0001', time=time.strftime('%Y%m%d%H%M%S'), application='FWUT',
-             type='0000', version='00005000', firmup_mode='0',
-             hard_code=base + '0000000000', firmware_version='00001000',
-             serial_no='V5PF30000')
+    p = dict(SAMPLE)
+    p['hard_code'] = hard_code(base)
+    p['firmware_version'] = '00001000'
     p.update(kw)
     body = TPL.format(**p)
     fn = os.path.join(OUT, 'req_tmp.xml')
@@ -79,7 +103,37 @@ def fields(xml):
 
 
 def main():
-    model = sys.argv[1] if len(sys.argv) > 1 else '1080'
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--models", default="1080", help="逗号分隔的机型码")
+    ap.add_argument("--download", default=None, help="下载目录")
+    ap.add_argument("--sweep", action="store_true", help="参数扫描")
+    args = ap.parse_args()
+
+    if not args.sweep:
+        for mid in args.models.split(','):
+            mid = mid.strip()
+            xml = call("fcache.do", mid)
+            b = info_blocks(xml)
+            if not b:
+                print(f"{mid}: 无 firmware_info"); continue
+            f = fields(xml)
+            print(f"{mid} -> {f.get('model_name')} ver={f.get('version')} "
+                  f"{f.get('file_name')} size={f.get('file_size')} date={f.get('up_date')}")
+            u = re.search(r'<url>(.*?)</url>', b[0], re.S)
+            if u and u.group(1).strip():
+                url = u.group(1).replace('&amp;', '&').strip()
+                if args.download:
+                    out = os.path.join(args.download, f.get('file_name') or f"m{mid}.BIN")
+                    os.makedirs(args.download, exist_ok=True)
+                    print(f"   下载 {url[:90]}...")
+                    subprocess.run(['curl', '-sL', '-C', '-', '--max-time', '300',
+                                    '-o', out, url])
+                    print(f"   → {out}  {os.path.getsize(out) if os.path.exists(out) else 0} B")
+            time.sleep(1)
+        return
+
+    model = '1080'
     base = 'OLYE%s' % model
     trials = []
     for ep in ENDPOINTS:

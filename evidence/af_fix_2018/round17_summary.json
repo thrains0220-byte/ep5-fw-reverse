@@ -3,44 +3,130 @@
   "title": "松下 H-ES200/H-ES50200 AF 修复：官方发布说明矩阵、地面真值差分对、镜头 ID 链证伪",
   "date": "2026-10-23",
   "conclusion_level": "重新定性（未产出新补丁字节坐标，但证伪上一轮一个核心推断）",
-
   "official_fix_waves": {
     "2018-02-28": {
-      "lenses": ["H-ES200"],
+      "lenses": [
+        "H-ES200"
+      ],
       "models": [
-        { "model_id": "1180", "name": "E-M5 II", "fix_version": "4.0" },
-        { "model_id": "1250", "name": "E-M1 II", "fix_version": "2.0" }
+        {
+          "model_id": "1180",
+          "name": "E-M5 II",
+          "fix_version": "4.0"
+        },
+        {
+          "model_id": "1250",
+          "name": "E-M1 II",
+          "fix_version": "2.0"
+        }
       ]
     },
     "2018-05-10": {
-      "lenses": ["H-ES200", "H-ES50200"],
+      "lenses": [
+        "H-ES200",
+        "H-ES50200"
+      ],
       "models": [
-        { "model_id": "1150", "name": "E-P7 (E-PL7)", "fix_version": "1.4" },
-        { "model_id": "1200", "name": "E-M10 II", "fix_version": "1.3" },
-        { "model_id": "1300", "name": "E-M10 III", "fix_version": "1.1" }
+        {
+          "model_id": "1150",
+          "name": "E-P7 (E-PL7)",
+          "fix_version": "1.4"
+        },
+        {
+          "model_id": "1200",
+          "name": "E-M10 II",
+          "fix_version": "1.3"
+        },
+        {
+          "model_id": "1300",
+          "name": "E-M10 III",
+          "fix_version": "1.1"
+        }
       ]
     },
     "2018-12-18": {
-      "lenses": ["H-ES200", "H-ES50200"],
+      "lenses": [
+        "H-ES200",
+        "H-ES50200"
+      ],
       "target_wave": true,
       "models": [
-        { "model_id": "0850", "name": "E-P3", "fix_version": "1.6", "local": true },
-        { "model_id": "0860", "name": "E-PL3", "fix_version": "1.6", "local": true },
-        { "model_id": "0870", "name": "E-PM1", "fix_version": "1.6", "local": true },
-        { "model_id": "0970", "name": "E-M5", "fix_version": "2.3", "local": true, "has_pre_fix": true },
-        { "model_id": "1000", "name": "E-PL5", "fix_version": "1.6", "local": true },
-        { "model_id": "1010", "name": "E-PM2", "fix_version": "1.6", "local": true, "has_pre_fix": true },
-        { "model_id": "1080", "name": "E-P5", "fix_version": "1.8", "local": true, "is_target": true },
-        { "model_id": "1120", "name": "E-PL6", "fix_version": "1.4", "local": "repo_file_zero_bytes" },
-        { "model_id": "1130", "name": "E-M10", "fix_version": "1.4", "local": "repo_file_zero_bytes" }
+        {
+          "model_id": "0850",
+          "name": "E-P3",
+          "fix_version": "1.6",
+          "local": true
+        },
+        {
+          "model_id": "0860",
+          "name": "E-PL3",
+          "fix_version": "1.6",
+          "local": true
+        },
+        {
+          "model_id": "0870",
+          "name": "E-PM1",
+          "fix_version": "1.6",
+          "local": true
+        },
+        {
+          "model_id": "0970",
+          "name": "E-M5",
+          "fix_version": "2.3",
+          "local": true,
+          "has_pre_fix": true
+        },
+        {
+          "model_id": "1000",
+          "name": "E-PL5",
+          "fix_version": "1.6",
+          "local": true
+        },
+        {
+          "model_id": "1010",
+          "name": "E-PM2",
+          "fix_version": "1.6",
+          "local": true,
+          "has_pre_fix": true
+        },
+        {
+          "model_id": "1080",
+          "name": "E-P5",
+          "fix_version": "1.8",
+          "local": true,
+          "is_target": true
+        },
+        {
+          "model_id": "1120",
+          "name": "E-PL6",
+          "fix_version": "1.4",
+          "local": "repo blob 完整（工作区曾为 0 字节残留，已恢复并三重校验）"
+        },
+        {
+          "model_id": "1130",
+          "name": "E-M10",
+          "fix_version": "1.4",
+          "local": "repo blob 完整（工作区曾为 0 字节残留，已恢复并三重校验）"
+        }
       ]
     },
     "related_panasonic_entries": [
-      { "model_id": "1250", "name": "E-M1 II", "version": "2.1", "date": "2018-03-08", "lens": "H-ES200 (C-AF)" },
-      { "model_id": "1250", "name": "E-M1 II", "version": "2.2", "date": "2018-08-30", "lens": "H-X025 (C-AF)" }
+      {
+        "model_id": "1250",
+        "name": "E-M1 II",
+        "version": "2.1",
+        "date": "2018-03-08",
+        "lens": "H-ES200 (C-AF)"
+      },
+      {
+        "model_id": "1250",
+        "name": "E-M1 II",
+        "version": "2.2",
+        "date": "2018-08-30",
+        "lens": "H-X025 (C-AF)"
+      }
     ]
   },
-
   "ground_truth_pairs": [
     {
       "label": "E-PM2 v1.5.0.1 -> v1.6.0.0",
@@ -69,27 +155,69 @@
       "non_code_blocks_identical": true
     }
   ],
-
   "lens_id_chain": {
     "tool": "tools/lens_chain_scan.py",
     "epm2_v1_5_pre_fix": {
       "window": "0x403D3D3E..0x403D3E3E",
-      "high_bytes": ["0xC1", "0xC0", "0x81"],
-      "low_bytes": ["0x80", "0x00", "0xF1", "0xE1", "0x80", "0xF1", "0xE3", "0xF1", "0x28"]
+      "high_bytes": [
+        "0xC1",
+        "0xC0",
+        "0x81"
+      ],
+      "low_bytes": [
+        "0x80",
+        "0x00",
+        "0xF1",
+        "0xE1",
+        "0x80",
+        "0xF1",
+        "0xE3",
+        "0xF1",
+        "0x28"
+      ]
     },
     "epm2_v1_6_post_fix": {
       "window": "0x403D3D3E..0x403D3E3E",
-      "high_bytes": ["0xC1", "0xC0", "0x81"],
-      "low_bytes": ["0x80", "0x00", "0xF1", "0xE1", "0x80", "0xF1", "0xE3", "0xF1", "0x28"]
+      "high_bytes": [
+        "0xC1",
+        "0xC0",
+        "0x81"
+      ],
+      "low_bytes": [
+        "0x80",
+        "0x00",
+        "0xF1",
+        "0xE1",
+        "0x80",
+        "0xF1",
+        "0xE3",
+        "0xF1",
+        "0x28"
+      ]
     },
     "ep5_v1_8_target": {
       "window": "0x403B7975..0x403B7A75",
-      "high_bytes": ["0xC1", "0xC0", "0x81"],
-      "low_bytes": ["0x39", "0x80", "0x00", "0xF1", "0xE1", "0x80", "0xF1", "0xE3", "0xF1", "0x28", "0x39"]
+      "high_bytes": [
+        "0xC1",
+        "0xC0",
+        "0x81"
+      ],
+      "low_bytes": [
+        "0x39",
+        "0x80",
+        "0x00",
+        "0xF1",
+        "0xE1",
+        "0x80",
+        "0xF1",
+        "0xE3",
+        "0xF1",
+        "0x28",
+        "0x39"
+      ]
     },
     "verdict": "修复未新增/删除/修改任何镜头 ID 白名单项 ⇒ 上一轮『补丁 = 0xC0F1/0xC0E1』被证伪"
   },
-
   "fcs_signature": {
     "token": "fcs_lens_mfts_move_lens_ofset_target",
     "hits": {
@@ -97,15 +225,33 @@
       "E-PM2 v1.6 (fix)": 0,
       "E-M5 v2.2 (pre-fix)": 1,
       "E-M5 v2.3 (fix)": 0,
-      "E-P5 v1.8 (target)": 0
+      "E-P5 v1.8 (target)": 0,
+      "E-PL6 v1.4 (fix, new)": 0,
+      "E-M10 v1.4 (fix, new, different platform)": 0
     },
-    "identifier_set_diff_empm2": ["fcs_lens_mfts_move_lens_ofset_target (removed)"],
-    "identifier_set_diff_em5": ["fcs_lens_mfts_move_lens_ofset_target (removed)"],
-    "total_identifiers_empm2": { "pre": 6806, "post": 6805 },
-    "total_identifiers_em5": { "pre": 6547, "post": 6546 },
-    "inference": "修复落点在 fcs_lens_mfts（镜头 AF 驱动）模块内，形态为 move_lens_ofset_target() 被移除或合并"
+    "identifier_set_diff_empm2": [
+      "fcs_lens_mfts_move_lens_ofset_target (removed)"
+    ],
+    "identifier_set_diff_em5": [
+      "fcs_lens_mfts_move_lens_ofset_target (removed)"
+    ],
+    "total_identifiers_empm2": {
+      "pre": 6806,
+      "post": 6805
+    },
+    "total_identifiers_em5": {
+      "pre": 6547,
+      "post": 6546
+    },
+    "inference": "修复落点在 fcs_lens_mfts（镜头 AF 驱动）模块内，形态为 move_lens_ofset_target() 被移除或合并；四个独立机型族（其中 E-M10 属不同平台代）给出一致签名",
+    "model_families_confirmed": [
+      "E-PM2 (1010)",
+      "E-M5 (0970)",
+      "E-PL6 (1120)",
+      "E-M10 (1130)",
+      "E-P5 (1080, target)"
+    ]
   },
-
   "code_diff_nature": {
     "field_classification_empm2": {
       "2B_instruction_field": 1113865,
@@ -120,7 +266,15 @@
       "zones": 8769,
       "moved_zones": 205,
       "moved_bytes": 413391,
-      "top_shifts": [16, 684, 648, 8, 4, -660, -2344]
+      "top_shifts": [
+        16,
+        684,
+        648,
+        8,
+        4,
+        -660,
+        -2344
+      ]
     },
     "unmatched_big_zone": {
       "a_range": "0x004E3B12..0x004F1BB2",
@@ -128,7 +282,6 @@
       "resolution": "fc 82 <imm32> = movbu d0,(0x605CD2xx)，RAM 地址整体 +0x10，写入值序列相同 ⇒ RAM 布局位移，非语义改动"
     }
   },
-
   "calibration_pair": {
     "label": "E-M5 III v1.4 -> v1.5 (focus stacking 8-25mm F4.0 PRO)",
     "block0_diff_bytes": 4323317,
@@ -136,10 +289,11 @@
     "block1_0101_identical": true,
     "block2_0106_diff_bytes": 96,
     "block2_diff_is_all_build_timestamps": true,
-    "new_strings": ["seek_last_wait"],
+    "new_strings": [
+      "seek_last_wait"
+    ],
     "inference": "真实功能新增 = 新标识符串 + 新数据表 + 代码块差异；松下修复只有标识符串被移除，无新参数表"
   },
-
   "omsrv": {
     "endpoint": "POST https://fw01.om-digitalsolutions.net/ww_inform/fcache.do",
     "alive": true,
@@ -152,9 +306,36 @@
       "per_version_index_pages": "HTTP 200 但无 .BIN 链接",
       "wayback": "每机型仅最新版",
       "xdel.ru": "DNS sinkhole 198.18.0.13"
+    },
+    "hard_code_format": "OLYE + 机型码前3位 + 9个0（共16字符），长度必须与官方样本一致",
+    "signature_ttl": "约 3 分钟（Expires 字段），大文件需断点续传",
+    "up_date_cross_validation": {
+      "note": "第二个独立官方源；9/9 与发布说明页一致",
+      "2018-12-18": [
+        "0850 E-P3 v1.6",
+        "0860 E-PL3 v1.6",
+        "0870 E-PM1 v1.6",
+        "0970 E-M5 v2.3",
+        "1000 E-PL5 v1.6",
+        "1010 E-PM2 v1.6",
+        "1080 E-P5 v1.8",
+        "1120 E-PL6 v1.4",
+        "1130 E-M10 v1.4"
+      ],
+      "2018-05-10": [
+        "1150 E-PL7 v1.4"
+      ],
+      "2019-03-07": [
+        "1200 E-M10 II v1.4",
+        "1300 E-M10 III v1.2"
+      ]
+    },
+    "triple_hash_validation": {
+      "E-PL6 v1.4": "f7b76ac82d545148bfc1c00bc165fb855b2e7d044dcaae1033601496e1bd116f",
+      "E-M10 v1.4": "84d81b2dbd80ea2e94ec70e35acbba0e3193ccee8b51db14976fd0d9c4e3590c",
+      "conclusion": "OMSRV 下载件 ≡ MANIFEST ≡ 仓库 git blob；仓库本体从未损坏，0 字节只是工作区残留"
     }
   },
-
   "new_tools": [
     "tools/omsrv_sweep.py",
     "tools/moved_or_changed.py",
@@ -164,7 +345,6 @@
     "tools/relink_detect.py",
     "tools/diff_field_classify.py"
   ],
-
   "unknowns": [
     "断言串在固件内无 u32 直接指针引用 ⇒ 字符串池引用机制未解，阻塞函数体定位",
     "AF 修复在 E-P5 v1.8 内的精确字节坐标未定",
@@ -172,11 +352,14 @@
     "move_lens_ofset_target 是删除还是合并进 move_lens_ofset，未定",
     "2018-02-28 波（E-M5 II v4.0 / E-M1 II v2.0）是否同形态，缺修复前样本"
   ],
-
   "next_steps": [
     "解开断言串引用机制 ⇒ 定位 move_lens_ofset_target 函数入口与调用点",
     "在 E-PM2 v1.5 vs v1.6 上比对函数体 ⇒ 得到补丁指令级形态",
     "用同样形态在 E-P5 v1.8 内定位 ⇒ 给出补丁字节坐标",
     "用 E-M5 v2.2 vs v2.3 独立复核"
+  ],
+  "new_samples_obtained": [
+    "E-PL6 v1.4 (1120)",
+    "E-M10 v1.4 (1130)"
   ]
 }
