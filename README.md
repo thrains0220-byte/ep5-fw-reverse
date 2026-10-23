@@ -374,6 +374,26 @@ E-P5 的 4 项是**机型配置**，不是产品线上限。
 `0x7E452BDC` / `0x7E452BE4` 两张描述符里，ID 列表是否独立。
 
 完整分析：[`evidence/art_filter/cross_model_art_menu_map.md`](evidence/art_filter/cross_model_art_menu_map.md)
+### I. ★ 艺术滤镜在 `.BIN` 内的可见性边界
+
+| 检验 | 结果 |
+|---|---|
+| 艺术滤镜字符串在块 0 内的引用 | **0**（立即数 / 指针表 / 基址+位移 三法皆无） |
+| 「子 ID → 处理函数」分派表 | **mask ROM `0x7E897CF4`**（16 槽 × 8 B，按 `id & 0x0F` 索引） |
+| 拍照/录像参数装载函数的调用者 | **只有 2 个**（通用 + star_light 专用），各自又只有 2 个调用者 |
+
+⇒ **块 0 内没有「逐滤镜初始化」这层代码**，
+所以「逐滤镜判定录像形态是否被锁」在 `.BIN` 层面**做不出来**。
+⇒ **`.BIN` 层面能给艺术滤镜做的，只剩「换一张 mask ROM 里已有的清单」**：
+`FUN_407731F7` 的 `+0x6B` 类型码 **1 字节**。
+
+**附带结构**：mask ROM 里的菜单描述符**每个只有 4 字节**
+（`0x7E452B30`–`0x7E452BFC` 连续 52 项，4 字节步长，被 6 个平行选择函数各取一项），
+⇒ **「照片 10 项 / 录像 4 项」就写在这 8 个字节里**
+⇒ 拿到 mask ROM 的需求从「13 MB 映像」压缩到「**8 个字节**」。
+
+完整分析：[`evidence/art_filter/art_filter_block0_visibility.md`](evidence/art_filter/art_filter_block0_visibility.md)
+
 
 
 ### E. AF 修复（2018-12-18 松下镜头）的落点收窄
