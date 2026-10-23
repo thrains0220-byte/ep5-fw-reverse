@@ -1,0 +1,26 @@
+{
+  "name": "E-P5 AF 驱动步数上限解除（模式字节版，版本免疫）",
+  "note": "按唯一字节模式定位，不依赖偏移，可用于任意 E-P5 固件版本；命中数不为 1 即拒绝修改。",
+  "evidence": "evidence/unlock/community_patch_A_semantics.md §3 / evidence/unlock/ep5_v1_8_patch_recipe.md",
+  "blocks": [
+    {
+      "block_index": 0,
+      "patches": [
+        {
+          "name": "cap-0x6cc",
+          "find": "2ccd0f420427cc06",
+          "replace": "2ccd0f420427ffff",
+          "expect_hits": 1,
+          "note": "MOV 0x6cc,A3  ->  MOV 0xffff,A3   （step 6/3/5 的 AF 驱动步数上限 1740 -> 65535）"
+        },
+        {
+          "name": "cap-0x1c20",
+          "find": "2cd103420427201c",
+          "replace": "2cd103420427ffff",
+          "expect_hits": 1,
+          "note": "MOV 0x1c20,A3 ->  MOV 0xffff,A3  （step 4 的 AF 驱动步数上限 7200 -> 65535）"
+        }
+      ]
+    }
+  ]
+}

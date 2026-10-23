@@ -28,3 +28,4 @@ venv/
 # --- OMSRV / 固件服务探测的临时请求体 ---
 tools/_omsrv_req.xml
 tools/_toolprobe_req.xml
+tools/_verprobe_req.xml
