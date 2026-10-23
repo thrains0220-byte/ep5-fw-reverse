@@ -53,6 +53,8 @@
 | 记录格式 | `{uint16 category, uint16 slot, uint8 maker, uint8 model, uint16 extra}` |
 | 厂商码 | `60 70 80 81 B0 B1 C0 C1 C2 C3 D0 D1 E0`（13 组） |
 | 镜头 ID 前缀比较链 | E-P5 `0x403B7989` 7 对；E-P3 `0x403EFBC5` 4 对；E-M5 v2.2/v2.3 均 7 对 |
+| 链函数中的 mask ROM 指针 | E-P5 1.8 `0x403B7A0B` = `mov 0x7E43018C,a0`；E-PM2 v1.5 `0x7E741BFC` → v1.6 `0x7E741EA8`；E-M5 v2.2 `0x7E8766A6` → v2.3 `0x7E876968` |
+| mask ROM 映像位移（修复版） | E-PM2 **+0x2AC / +0x288**；E-M5 **+0x2C0 / +0x298** ⇒ ROM 映像被扩充 |
 | 每镜头标定表 | 结构体 `+0x46C` / `+0x48C`，16 字节步长（`FUN_4048B6D2` = 镜头畸变校正） |
 | LENS_INFO 结构字段表 | **固件自带调试转储**，完整列出 20 个子结构（`LENS_INFO_AF_CON` / `_IS` / `_LAF` / `_AF` / `_DIST` / `_DISTORTION` / `_SHADING` / `_MAKERNOTE` / `_FOURTHIRDS` / `_EZ` / `_PRIVATE` / `_LENS_OIS` / `_ENABLE` / `_CHARACTER(_ZM)` / `_STATE` / `_ALL_DATA` / `_CURRENT_CONSUMPTION` / `_RESERVED`），见 `evidence/af_fix_2018/lens_info_af_layout.md` |
 | 每镜头 AF 参数挂载点 | `LENS_INFO_LAF.af_data_pos[%d]`（格式串 @ `0x405ED07B`）；**数据本体在 mask ROM** ⇒ 固件补丁不可改写 |
@@ -201,6 +203,11 @@ ID `0x36`–`0x92`（连续）+ `0x9D`–`0xA2`，字段
 | 11 | `art_*` 函数名目录旁边有**同序的函数地址表** | 用 21 项互异、跨度 ≤0x40000 的函数指针数组全块搜索：**0 组** | `find_fn_ptr_arrays.py` |
 | 12 | 第十三轮结论「A04F 是唯一空缺资源 ID」「4 个已实现滤镜名字已在块 1」 | `A04F` = "MF" 辅助文字；空闲 ID 是 `A049/A04B/A04C/A04E`；`Clear Line` 在 v1.8 块 1 **0 次** | `block1_art_id_map.py` |
 | 13 | E-M10 的 Picture Mode 地址模板可直接套到 E-P5 | E-P5 是**资源 ID 段**（`A03F`–`A048`）+ 录像 4 项，组织方式不同 | `block1_art_id_dump.py` |
+| 14 | AF 修复在「镜头 ID 前缀比较链」 | **指令级差分**：E-PM2 1.5 MB 窗口 645,858 条指令**零插入零删除**；链在两版**地址完全不动** | `instr_diff.py` |
+| 15 | AF 修复在「镜头 ID 组装 / 选 ROM 参数」指令 | 该函数 4 KB 窗口修复前后**仅 2 字节**不同，且为 ROM 地址位移 | `instr_diff.py` |
+| 16 | AF 修复在镜头子系统 6 张 mask ROM 指针表 | 按表位移归一化后**逐项相同**（E-PM2 + E-M5 双机型） | `lens_rom_tables.py` |
+| 17 | AF 修复在镜头/AF 代码区 | 指令级差分：零插入零删除，差异全为 ROM 位移 + 链接噪声 | `instr_diff.py` |
+| 18 | AF 修复在块 1/2/3/4 | 逐字节相同（E-PM2 三版、E-M5 两版交叉验证） | `decode_any.py` |
 
 ---
 
@@ -280,7 +287,8 @@ docs/
 | P0 | 按模板 A 实做一个新滤镜的 312 B 参数块，验证落盘方案 | 🔜 |
 | P1 | 追 `mov_art.c` 16 字节记录表的 `id` 字段 → 建立 `MODE_EXPOSE` 22 项 ↔ `COLORTONE` 12 项 ↔ 模块 ID 的映射 | 🔜 |
 | P1 | AF 修复：定位打印 `af_data_pos[%d]` 的函数 → 读出 `LENS_INFO` 各字段偏移与 `af_data_pos[]` 项数（须按**指令解码**反解基址，不能按 2 字节模式统计） | 🔜 |
-| P1 | AF 修复：转而查「AF 控制流程的新分支」与「镜头 I²C 应答处理（`LENS_ASKDATA_MODE_*`，34 字段）」—— 参数在 ROM，这两条是仅存的路 | 🔜 |
+| P1 | AF 修复：转而查「AF 控制流程的新分支」与「镜头 I²C 应答处理（`LENS_ASKDATA_MODE_*`，34 字段）」—— 参数在 ROM，这两条是仅存的路 | ⚠️ **第十五轮已把范围压到「镜头/AF 代码区」**：E-PM2 1.5 MB / E-M5 576 KB 窗口内指令级零改动 ⇒ **AF 控制流程若在 `.BIN` 里，必在镜头子系统之外** | 
+| **P0** | **确认机身 mask ROM 映像（`0x7Exxxxxx`）的交付方式**：`.BIN` 的 4~5 个块运行时地址都不覆盖该区段；官方更新包里是否有独立 ROM 映像文件？ | 🔜 **第十五轮新增的最高优先级**：这是「AF 参数本体到底能不能改」的决定性问题 |
 | P1 | 块 1 主文本池零填充段清单 → 确认是否有"不需等长替换"的新增名字途径 | 🔜 |
 | P2 | 解 6 个 RAR 改机归档，补全社区补丁表（需 `unrar` / 7-Zip，本机均缺失） | 🔜 |
 | P2 | 块 2 的 6-bit 编码 | ⛔ 四项目未解，低优先（见 `docs/external_research.md` §3） |

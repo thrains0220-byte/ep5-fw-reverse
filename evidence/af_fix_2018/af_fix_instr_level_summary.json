@@ -1,0 +1,360 @@
+{
+  "title": "2018-12-18 Panasonic lens AF fix — instruction-level diff (E-PM2 / E-M5)",
+  "date": "2026-10-23",
+  "nature": "observation (static). No execution / flashing evidence.",
+  "method": "GNU objdump --target=mn10300-elf --insn-width=16 over decoded block0; per-address compare of (mnemonic, operands).",
+  "anchors": {
+    "lens_id_prefix_chain_window": {
+      "E-PM2_v1.5.0.1": "0x403D3D1E-0x403D3E0E",
+      "E-PM2_v1.6.0.0": "0x403D3D1E-0x403D3E0E",
+      "E-M5_v2.2": "0x904B26CC-0x904B27BC",
+      "E-M5_v2.3": "0x904B26CC-0x904B27BC",
+      "E-P5_1.8": "0x403B7965-0x403B7A30"
+    },
+    "note": "chain address identical in pre-fix and post-fix builds => instruction boundaries align exactly"
+  },
+  "pairs": {
+    "E-PM2_v1.5.0.1_to_v1.6.0.0": {
+      "range": [
+        "0x40300000",
+        "0x40480000"
+      ],
+      "instr_a": null,
+      "instr_b": null,
+      "operand_diffs": 8429,
+      "only_a": 0,
+      "only_b": 0,
+      "delta_histogram": {
+        "0x2ac": 7896,
+        "0x0": 529,
+        "0x10": 3,
+        "0x280": 1
+      },
+      "rom_layout_shift": "0x2ac",
+      "non_rom_shift_diffs": 533,
+      "non_rom_shift_examples": [
+        {
+          "addr": "0x4030644a",
+          "a": "0x45fc5f,[d2],8",
+          "b": "0x45fedf,[d2],8",
+          "delta": 0
+        },
+        {
+          "addr": "0x403090f7",
+          "a": "0x45fc5f,[d2],8",
+          "b": "0x45fedf,[d2],8",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a1643",
+          "a": "0x26d834,[],4",
+          "b": "0x26dae0,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a187c",
+          "a": "0x26b8e1,[],4",
+          "b": "0x26bb8d,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a191e",
+          "a": "0x2db840,[],4",
+          "b": "0x2dbaec,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a1a6f",
+          "a": "0x2db8cb,[],4",
+          "b": "0x2dbb77,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a203a",
+          "a": "0x2db840,[],4",
+          "b": "0x2dbaec,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2048",
+          "a": "0x2db840,[],4",
+          "b": "0x2dbaec,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a27bf",
+          "a": "0x2dbd06,[],4",
+          "b": "0x2dbfb2,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a27d3",
+          "a": "0x25e556,[],4",
+          "b": "0x25e802,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a27e1",
+          "a": "0x2db9c5,[],4",
+          "b": "0x2dbc71,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a27ec",
+          "a": "0x2db9a6,[d2,d3],16",
+          "b": "0x2dbc52,[d2,d3],16",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a27f7",
+          "a": "0x25e5b6,[d2,d3],12",
+          "b": "0x25e862,[d2,d3],12",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2802",
+          "a": "0x25e9ac,[],4",
+          "b": "0x25ec58,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2810",
+          "a": "0x2dba71,[d2,d3],16",
+          "b": "0x2dbd1d,[d2,d3],16",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2819",
+          "a": "0x26696a,[d2],8",
+          "b": "0x266c16,[d2],8",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2822",
+          "a": "0x2672d4,[],4",
+          "b": "0x267580,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2830",
+          "a": "0x2db9ea,[],4",
+          "b": "0x2dbc96,[],4",
+          "delta": 0
+        },
+        {
+          "addr": "0x403a2ccd",
+          "a": "d0,(0x605de93b)",
+          "b": "d0,(0x605de94b)",
+          "delta": 16
+        },
+        {
+          "addr": "0x403a2d17",
+          "a": "(0x605de93b),d0",
+          "b": "(0x605de94b),d0",
+          "delta": 16
+        }
+      ]
+    },
+    "E-M5_v2.2_to_v2.3": {
+      "range": [
+        "0x90460000",
+        "0x904e8000"
+      ],
+      "instr_a": null,
+      "instr_b": null,
+      "operand_diffs": 6016,
+      "only_a": 0,
+      "only_b": 0,
+      "delta_histogram": {
+        "0x2c0": 4543,
+        "0x0": 1469,
+        "0x10": 3,
+        "0xc": 1
+      },
+      "rom_layout_shift": "0x2c0",
+      "non_rom_shift_diffs": 1473,
+      "non_rom_shift_examples": [
+        {
+          "addr": "0x90460012",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x9046001f",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460073",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x9046007e",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460088",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x904600dd",
+          "a": "0x4009ea,[],0",
+          "b": "0x400caa,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x904600e8",
+          "a": "0x4009ea,[],0",
+          "b": "0x400caa,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x904600f3",
+          "a": "0x4009ea,[],0",
+          "b": "0x400caa,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x904601ee",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460222",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460230",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460240",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x9046024f",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x9046026a",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460277",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460280",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x9046028d",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460297",
+          "a": "0x400b04,[],0",
+          "b": "0x400dc4,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x904602a4",
+          "a": "0x4009f1,[],0",
+          "b": "0x400cb1,[],0",
+          "delta": 0
+        },
+        {
+          "addr": "0x90460371",
+          "a": "0x4009f8,[],0",
+          "b": "0x400cb8,[],0",
+          "delta": 0
+        }
+      ]
+    }
+  },
+  "patched_instruction": {
+    "mnemonic": "mov <mask_rom_addr>,a0",
+    "encoding": "fc dc <imm32 LE>",
+    "E-PM2_v1.5.0.1": {
+      "addr": "0x403D3DD4",
+      "bytes": "fc dc fc 1b 74 7e",
+      "value": "0x7E741BFC"
+    },
+    "E-PM2_v1.6.0.0": {
+      "addr": "0x403D3DD4",
+      "bytes": "fc dc a8 1e 74 7e",
+      "value": "0x7E741EA8"
+    },
+    "E-M5_v2.2": {
+      "addr": "0x904B2584",
+      "bytes": "fc dc a6 66 87 7e",
+      "value": "0x7E8766A6"
+    },
+    "E-M5_v2.3": {
+      "addr": "0x904B2784",
+      "bytes": "fc dc 68 69 87 7e",
+      "value": "0x7E876968"
+    },
+    "E-P5_1.8": {
+      "addr": "0x403B7A0B",
+      "bytes": "fc dc 8c 01 43 7e",
+      "value": "0x7E43018C"
+    }
+  },
+  "mask_rom_image_growth": {
+    "E-PM2": [
+      "0x2ac",
+      "0x288"
+    ],
+    "E-M5": [
+      "0x2c0",
+      "0x298"
+    ]
+  },
+  "block_hash_identity": {
+    "E-PM2_v1.4.0.0/v1.5.0.1/v1.6.0.0": {
+      "block1": "97a3e75d2e25fe44",
+      "block2": "972d0cfea93a231b",
+      "block3": "02980862f7c5057c",
+      "block4": "6826d380b798d86b"
+    },
+    "E-M5_v2.2/v2.3": {
+      "block1": "78e78ac0a67e1939",
+      "block2": "1e52bbc63e3a26ab",
+      "block3": "34b391d432e6e99f",
+      "block4": "7359b907bc4dc152"
+    }
+  },
+  "raw_block0_same_bytes_ratio": {
+    "E-PM2_v1.5.0.1_to_v1.6.0.0": 0.7902,
+    "E-M5_v2.2_to_v2.3": 0.7655,
+    "E-PM2_v1.4.0.0_to_v1.5.0.1": 0.5094
+  },
+  "conclusion": "Lens/AF code region is instruction-identical between pre-fix and post-fix builds; the only change is a uniform mask-ROM address shift, i.e. the camera's mask ROM image was extended in the fix release. The fix payload is therefore NOT inside the .BIN code block.",
+  "coverage_limit": "Instruction-level alignment holds only inside the aligned windows listed here. Over the full 14,155,712 B block 0 the linear-disassembly boundaries drift (790,644 / 790,904 one-sided entries), so no global claim is made."
+}
