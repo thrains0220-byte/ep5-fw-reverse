@@ -104,10 +104,18 @@
 
 | # | 事项 | 说明 |
 |---|---|---|
-| **1** | **E-P5 里「镜头 ID 白名单校验」的对应函数** | E-P5 无字节同构上下文（结构偏移不同）。定位线索：在 E-P5 里找「镜头信息数组取用器」（E-M1 III 的 `FUN_409f7005`）与「24 bit 镜头 ID 拼装」模式（`ASL 0x8 / OR / ASL 0x18 / OR / ASL 0x10 / OR`），再找它的表尾哨兵（`0xFFFFFFFF`）比较点 |
-| **2** | **E-P5 的「真上限」是量程公式** | `steps2 = (0x800000 − thr)/(cnt + base)`。要把上限彻底放开，需一并改 `0x4058A256` / `0x4058A28C`（文件偏移 `0x2CA256` / `0x2CA28C`，`fc cc 00 00 08 00`），但 `steps × 0x1e` 存 u32 ⇒ 溢出风险，**必须实机验证** |
+| ~~**1**~~ | ~~E-P5 里「镜头 ID 白名单校验」的对应函数~~ | ✅ **第二十二轮结案：E-P5 没有这道校验。** 8 条路径全部落空（方法学在 E-M1 III 上自检通过）；白名单表在 mask ROM，不在 `.BIN` 内 ⇒ **社区补丁的「改动 2」在 E-P5 上无对应物**。见 `evidence/unlock/round22_maskrom_requirements_and_lensid.md` §1 |
+| **2** | **E-P5 的「真上限」是量程公式** | `steps2 = (0x800000 − thr)/(cnt + base)`。要把上限彻底放开，需一并改 `0x4058A256` / `0x4058A28C`（文件偏移 `0x2CA256` / `0x2CA28C`，`fc cc 00 00 08 00`），但 `0x800000` 的出厂含义未知 ⇒ **必须实机验证**。效果表已写成可复现脚本 `tools/af_cap_effect.py` |
 
-> **建议顺序**：先做 1（纯静态、无风险、可复现），再做 2（需要实机）。
+### 2b.3 ★ 第二十二轮新增：mask ROM 依赖清单（拿到 ROM dump 后的验收清单）
+
+`evidence/unlock/round22_maskrom_requirements_and_lensid.md` §3 列了 **12 组**（R1–R12）
+E-P5 从块 0 引用的 mask ROM 数据，每条都注明「块 0 侧怎么用 / 改了会怎样 / 读了能定论什么」。
+最关键仍是 **R1 `0x7E452BDC`** 与 **R2 `0x7E452BE4`** 这 8 个字节。
+
+> **建议顺序**：先做 §2b-2（需实机），再攻 §1.2 的 mask ROM 通道；
+> 一旦拿到 ROM dump，**先按 R1–R12 清单读一遍**，能一次性解掉
+> 「录像 4 项 vs 10 项」「新增滤镜变体」「AF 标定」三件事的判据问题。
 
 ---
 
@@ -232,3 +240,6 @@ mask ROM 菜单描述符（`0x7E452BE4`），其余 8 个都落到 `0x7E452BDC`�
 | `tools/find_lens_dumb_refs.py` | 找 `fcs_lens_mfts_*` 的哑引用（第二十轮） |
 | `tools/find_af_fix_signature.py` | 跨版本比对函数目录，定位被 AF 修复改名的函数（第二十轮） |
 | `tools/omsrv_multifile.py` | MSRV/OMSRV 接口全量重查（第二十轮） |
+| `tools/find_rom_copy_loop.py` | 按「拷 N 字节」模板搜块 0 并报告 ROM 源地址（第二十二轮） |
+| `tools/find_lensid_table.py` | 按「连续小 u32 + 0xFFFFFFFF 哨兵」的数据形状搜表（第二十二轮） |
+| `tools/af_cap_effect.py` | 计算 E-P5 各分支 AF 步数上限（原始 vs 抬 cap 后）+ 溢出参考（第二十二轮） |
