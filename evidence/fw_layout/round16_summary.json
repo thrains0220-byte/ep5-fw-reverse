@@ -196,5 +196,106 @@
     "内层运行映像为何无校验和",
     "块头 [18:20]、[22:24] 的含义",
     "E-P5 v1.8 的 kind 0x106 为何只有 blob"
-  ]
+  ],
+  "build_timeline": [
+    {
+      "utc": "2018-04-11T00:49:04Z",
+      "model": "E-M10 II (1200)",
+      "version": "1.3",
+      "inner_blocks": 7
+    },
+    {
+      "utc": "2018-04-11T00:57:23Z",
+      "model": "E-P7 family (1150)",
+      "version": "1.4",
+      "inner_blocks": 7
+    },
+    {
+      "utc": "2018-12-13T02:59:41Z",
+      "model": "E-M10 II (1200)",
+      "version": "1.4",
+      "inner_blocks": 7,
+      "note": "距 2018-12-18 松下镜头 AF 修复发布 5 天"
+    },
+    {
+      "utc": "2018-12-13T09:16:39Z",
+      "model": "E-P7 (1300)",
+      "version": "1.2",
+      "inner_blocks": 10,
+      "note": "同日批次"
+    },
+    {
+      "utc": "2019-04-17T04:57:18Z",
+      "model": "E-M1 II (1250)",
+      "version": "3.1",
+      "inner_blocks": 12
+    },
+    {
+      "utc": "2020-11-13T00:17:15Z",
+      "model": "E-M1 II (1250)",
+      "version": "3.4",
+      "inner_blocks": 12
+    },
+    {
+      "utc": "2020-11-24T05:01:26Z",
+      "model": "E-M1 III (1390)",
+      "version": "1.2",
+      "inner_blocks": 10
+    },
+    {
+      "utc": "2021-02-26T00:32:10Z",
+      "model": "E-M1 III (1390)",
+      "version": "1.3",
+      "inner_blocks": 10
+    },
+    {
+      "utc": "2021-02-26T01:02:05Z",
+      "model": "E-M1 II (1250)",
+      "version": "3.5",
+      "inner_blocks": 12
+    },
+    {
+      "utc": "2022-02-14T05:49:01Z",
+      "model": "E-M1 II (1250)",
+      "version": "3.6",
+      "inner_blocks": 12
+    },
+    {
+      "utc": "2022-12-12T00:18:37Z",
+      "model": "E-M1 II (1250)",
+      "version": "3.7",
+      "inner_blocks": 12
+    }
+  ],
+  "sample_inventory": {
+    "decoded_local": 31,
+    "stock_firmware_complete": 20,
+    "stock_total": 33,
+    "multi_version_families_now_available": {
+      "E-M1 II (1250)": [
+        "3.1",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7"
+      ],
+      "E-M1 III (1390)": [
+        "1.2",
+        "1.3"
+      ],
+      "E-M10 II (1200)": [
+        "1.3",
+        "1.4"
+      ],
+      "E-M10 III (1010)": [
+        "1.4",
+        "1.5",
+        "1.6"
+      ],
+      "E-M5 (0970)": [
+        "2.2",
+        "2.3"
+      ]
+    }
+  }
 }
