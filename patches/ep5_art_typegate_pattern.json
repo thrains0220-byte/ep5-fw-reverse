@@ -1,0 +1,19 @@
+{
+  "name": "E-P5 艺术滤镜：解除「类型支持掩码」闸门（0x602AEB94）",
+  "note": "把两处 'MOVHU (0x602AEB94),D1'（读 ROM 下发的 16 位类型支持掩码）改写成 'MOV #0xFFFF,D1' + 3 个 NOP。随后的 'AND D0,D1' 变为 D0&0xFFFF=D0，BEQ 只在请求类型为 0 时触发，等于取消 ROM 对可用滤镜类型的限制。",
+  "evidence": "evidence/art_filter/round28_art_subsystem.md §4",
+  "blocks": [
+    {
+      "block_index": 0,
+      "patches": [
+        {
+          "name": "art-typegate",
+          "find": "fcad94eb2a60",
+          "replace": "2dffffcbcbcb",
+          "expect_hits": 2,
+          "note": "fc ad 94 eb 2a 60 = MOVHU (0x602AEB94),D1  ->  2d ff ff = MOV #0xFFFF,D1 ; cb cb cb = NOP×3。命中点 0x40788616(FUN_40788616) 与 0x4078866a(FUN_4078866a)。"
+        }
+      ]
+    }
+  ]
+}

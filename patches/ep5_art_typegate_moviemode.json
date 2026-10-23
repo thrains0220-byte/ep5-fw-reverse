@@ -1,0 +1,33 @@
+{
+  "name": "E-P5 艺术滤镜：解除类型闸门 + 电影艺术模式改用照片 ART 描述符（组合）",
+  "note": "= ep5_art_typegate_pattern.json + ep5_art_moviemode_pattern.json。目的是一次性把「ROM 类型限制」和「模式描述符」两处块 0 闸门同时打开。",
+  "evidence": "evidence/art_filter/round28_art_subsystem.md §4 §5",
+  "blocks": [
+    {
+      "block_index": 0,
+      "patches": [
+        {
+          "name": "art-typegate",
+          "find": "fcad94eb2a60",
+          "replace": "2dffffcbcbcb",
+          "expect_hits": 2,
+          "note": "MOVHU (0x602AEB94),D1 -> MOV #0xFFFF,D1 + NOP×3（0x40788616 / 0x4078866a）"
+        },
+        {
+          "name": "selB-mode2-to-mode6",
+          "find": "fcdc442b457e",
+          "replace": "fcdc5c2b457e",
+          "expect_hits": 1,
+          "note": "0x403e7ba8 MOV 0x7E452B44,A0 -> MOV 0x7E452B5C,A0"
+        },
+        {
+          "name": "selC-mode2-to-mode6",
+          "find": "fcdc682b457e",
+          "replace": "fcdc742b457e",
+          "expect_hits": 1,
+          "note": "0x403e7c75 MOV 0x7E452B68,A0 -> MOV 0x7E452B74,A0"
+        }
+      ]
+    }
+  ]
+}

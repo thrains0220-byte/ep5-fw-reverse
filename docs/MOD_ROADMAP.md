@@ -190,3 +190,41 @@ R-5 (限制常量) 独立，纯固件层，可与上面并行
 2. 反馈 AF 灯表现与版本字符串
 3. 反馈相机插 USB 到 PC 的设备模式（MTP / PTP / 串口）
 4. （若愿意）试 `memload` 往一个无害 ROM 地址写 + 回读 —— 一次实验决定 R-4 是否成立
+
+---
+
+## 7. 第二十八轮更新：艺术滤镜路线的现状（详见 `evidence/art_filter/round28_art_subsystem.md`）
+
+### 7.1 路线状态改写
+
+| 路线 | 旧结论 | 新结论 |
+|---|---|---|
+| **R-1** 隐藏滤镜解锁 | 需要 ROM 可写或 dump | **闸门在块 0**：类型支持掩码 `0x602AEB94` 由 ROM 下发，但两处判定闸门（`0x40788616` / `0x4078866A`）在块 0 ⇒ 可绕过。菜单清单本身仍在 ROM |
+| **R-2** 录像形态 | 需改录像侧参数源 | 已定位「模式 → ROM 描述符」选择器 `0x403E7B1B/79/C3F`，可把电影艺术模式(mode 2)的描述符改指到照片 ART(mode 6) |
+| **R-4** LUT 直出 | 需 ROM 可写 | 现实形态变为「**改写块 0 里已有滤镜的实现/参数**」；各滤镜增益/色调曲线表的位置**待查**（块 0 还是 ROM 决定可行性） |
+
+### 7.2 ★ 更正两处旧结论
+
+1. **「艺术滤镜算法在 mask ROM」是错的**。滤镜实现与 22 套 `MODE_EXPOSE_*` 曝光预设
+   （cross_process / crystal / daydream / drawing / fish_eye / ligne_clair / miniature /
+   mirror / pastel / popart / rock / tender_light / toy_photo / watercolor …）
+   **就在块 0 里**（`art_effect_20_pinhole`、`art_filter_06_rough_monochrome` 等）。
+   错的是「菜单清单/注册表在 ROM」。
+2. **第 27 轮 C2/C3 前提被证伪**：被当作「20 槽滤镜参数块表」的 `0x40A56338`
+   实际位于 XMP/EXIF 描述符区（旁边就是 `x-bt/img-capabilities`、`BIPIND_IMAGE` 等），
+   更像写图片元数据用的表，**不是 ART 菜单数据**。建议不要刷 C2/C3。
+
+### 7.3 本轮新增可刷补丁（等长 / 命中数已验证）
+
+| 配方 | 作用 | SD 卡目录 |
+|---|---|---|
+| `patches/ep5_art_typegate_pattern.json` | 解除类型支持掩码闸门（2 处 × 6 B） | `D1_解除类型闸门` |
+| `patches/ep5_art_moviemode_pattern.json` | 电影 ART 描述符 → 照片 ART 描述符（2 处 × 6 B） | `D2_电影改用照片ART表` |
+| `patches/ep5_art_typegate_moviemode.json` | 上面两条同时 | `D3_类型闸门+电影改指` |
+
+### 7.4 下一步优先级（按「能否真的多出滤镜」排序）
+
+1. 实机刷 D1/D2/D3，看 **ART 菜单项数**（照片 10 项 / 录像 4 项）是否变化 ⇒ 判定闸门补丁是否奏效
+2. 定位各滤镜的增益/色调曲线表（块 0 还是 ROM）⇒ 决定「LUT 直出」是否只能改写已有滤镜
+3. R-5 计算摄影限制常量收敛
+4. 备选：拆机读 ROM 芯片（拿到 `0x7E` 区本体与滤镜清单）
