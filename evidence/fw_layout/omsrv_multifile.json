@@ -1,0 +1,1205 @@
+{
+ "results": [
+  {
+   "model": "E-P5",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-P5",
+     "model_id": "1080",
+     "version": "1800",
+     "file_name": "OLY_E_108_1800_0000_0000.BIN",
+     "file_size": "44826624",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1080/index08a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1080/OLY_E_108_1800_0000_0000.BIN?Expires=1792746409&Signature=fnQNlz858RsWIGI8YWjFnxZEK2ZD86s05UkbvMkpkEVB3-9EoKbAPOb7Sk4tPZK5-spylJ2imm1~Tokk",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-P5",
+     "model_id": "1080",
+     "version": "1800",
+     "file_name": "OLY_E_108_1800_0000_0000.BIN",
+     "file_size": "44826624",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1080/index08a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1080/OLY_E_108_1800_0000_0000.BIN?Expires=1792746409&Signature=fnQNlz858RsWIGI8YWjFnxZEK2ZD86s05UkbvMkpkEVB3-9EoKbAPOb7Sk4tPZK5-spylJ2imm1~Tokk",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-P5",
+     "model_id": "1080",
+     "version": "1800",
+     "file_name": "OLY_E_108_1800_0000_0000.BIN",
+     "file_size": "44826624",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1080/index08a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1080/OLY_E_108_1800_0000_0000.BIN?Expires=1792746409&Signature=fnQNlz858RsWIGI8YWjFnxZEK2ZD86s05UkbvMkpkEVB3-9EoKbAPOb7Sk4tPZK5-spylJ2imm1~Tokk",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-P5",
+     "model_id": "1080",
+     "version": "1800",
+     "file_name": "OLY_E_108_1800_0000_0000.BIN",
+     "file_size": "44826624",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1080/index08a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1080/OLY_E_108_1800_0000_0000.BIN?Expires=1792746410&Signature=KV5-nFNmTiIZ7AFK6BYmjuXSMxZqWP1nMM2osGQjytoRb-hJfHvDI9rt~0GqYRl728xfxs5S~pmrexYE",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-P5",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5",
+     "model_id": "0970",
+     "version": "2300",
+     "file_name": "OLY_E_097_2300_0000_0000.BIN",
+     "file_size": "46596096",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN?Expires=1792746411&Signature=oe~fSWaVLYT-Gsfc84NbE64rAGAN-BNwXSxBULsxI38iXcp2qTMl8aFadAZBunTQc4BJT2e6B1g~Op6R",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5",
+     "model_id": "0970",
+     "version": "2300",
+     "file_name": "OLY_E_097_2300_0000_0000.BIN",
+     "file_size": "46596096",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN?Expires=1792746412&Signature=HqXRd~iiwdWVNa7upkzreDAID95UvveiGiZPy7imbkQRRzKcdZ8YudFS6Cw-jF6~HwKoeAJ0T2y7SetD",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5",
+     "model_id": "0970",
+     "version": "2300",
+     "file_name": "OLY_E_097_2300_0000_0000.BIN",
+     "file_size": "46596096",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN?Expires=1792746412&Signature=HqXRd~iiwdWVNa7upkzreDAID95UvveiGiZPy7imbkQRRzKcdZ8YudFS6Cw-jF6~HwKoeAJ0T2y7SetD",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5",
+     "model_id": "0970",
+     "version": "2300",
+     "file_name": "OLY_E_097_2300_0000_0000.BIN",
+     "file_size": "46596096",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/0970/index23a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/0970/OLY_E_097_2300_0000_0000.BIN?Expires=1792746412&Signature=HqXRd~iiwdWVNa7upkzreDAID95UvveiGiZPy7imbkQRRzKcdZ8YudFS6Cw-jF6~HwKoeAJ0T2y7SetD",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10",
+     "model_id": "1130",
+     "version": "1400",
+     "file_name": "OLY_E_113_1400_0000_0000.BIN",
+     "file_size": "70254592",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1130/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1130/OLY_E_113_1400_0000_0000.BIN?Expires=1792746414&Signature=d8O5scHzvZzljQUo7QzAOWhAE3-SaV7byGTXUlZY0g5leCTgFJNFzeUk1L2q4~aMGh1ipZ3VDo5jjRg4",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10",
+     "model_id": "1130",
+     "version": "1400",
+     "file_name": "OLY_E_113_1400_0000_0000.BIN",
+     "file_size": "70254592",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1130/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1130/OLY_E_113_1400_0000_0000.BIN?Expires=1792746414&Signature=d8O5scHzvZzljQUo7QzAOWhAE3-SaV7byGTXUlZY0g5leCTgFJNFzeUk1L2q4~aMGh1ipZ3VDo5jjRg4",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10",
+     "model_id": "1130",
+     "version": "1400",
+     "file_name": "OLY_E_113_1400_0000_0000.BIN",
+     "file_size": "70254592",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1130/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1130/OLY_E_113_1400_0000_0000.BIN?Expires=1792746414&Signature=d8O5scHzvZzljQUo7QzAOWhAE3-SaV7byGTXUlZY0g5leCTgFJNFzeUk1L2q4~aMGh1ipZ3VDo5jjRg4",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10",
+     "model_id": "1130",
+     "version": "1400",
+     "file_name": "OLY_E_113_1400_0000_0000.BIN",
+     "file_size": "70254592",
+     "up_date": "2018/12/18",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1130/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1130/OLY_E_113_1400_0000_0000.BIN?Expires=1792746415&Signature=caomSv6QvAq0obZJvmoJ1RQK8ZmicCksRg0Qbs0zUQxs656cqkEshOLUsV5CIs5uFEhJHYBpnNCcsJU6",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1",
+     "model_id": "1090",
+     "version": "4600",
+     "file_name": "OLY_E_109_4600_0000_0000.BIN",
+     "file_size": "69206016",
+     "up_date": "2019/2/14",
+     "detail_url": "",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1090/OLY_E_109_4600_0000_0000.BIN?Expires=1792746416&Signature=fuibe-f3yRG0g6AqPkY5kmyNDrEcyXmLd25ERWEHCm1Gq24RR9NuadFTgH7FenZLg5HMzSvKT3EiC5Fi",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1",
+     "model_id": "1090",
+     "version": "4600",
+     "file_name": "OLY_E_109_4600_0000_0000.BIN",
+     "file_size": "69206016",
+     "up_date": "2019/2/14",
+     "detail_url": "",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1090/OLY_E_109_4600_0000_0000.BIN?Expires=1792746417&Signature=HUCdYfy-sjk3idStt4Usx~viTJ-A3yv-z~dxfdEVHtw0RFIS2aJzeBwuXBoqoUAboZT-iEEjLIhT9-8L",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1",
+     "model_id": "1090",
+     "version": "4600",
+     "file_name": "OLY_E_109_4600_0000_0000.BIN",
+     "file_size": "69206016",
+     "up_date": "2019/2/14",
+     "detail_url": "",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1090/OLY_E_109_4600_0000_0000.BIN?Expires=1792746417&Signature=HUCdYfy-sjk3idStt4Usx~viTJ-A3yv-z~dxfdEVHtw0RFIS2aJzeBwuXBoqoUAboZT-iEEjLIhT9-8L",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1",
+     "model_id": "1090",
+     "version": "4600",
+     "file_name": "OLY_E_109_4600_0000_0000.BIN",
+     "file_size": "69206016",
+     "up_date": "2019/2/14",
+     "detail_url": "",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1090/OLY_E_109_4600_0000_0000.BIN?Expires=1792746418&Signature=eTYc0jj9pCkY9b9JahwWLFUl1IDCaRBluUA4f00Uv3-FN4i0UzG34RzopPGIviHen7Rq1RC-mOvY8i06",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10 Mark II",
+     "model_id": "1200",
+     "version": "1400",
+     "file_name": "OLY_E_120_1400_0000_0000.BIN",
+     "file_size": "69599232",
+     "up_date": "2019/3/7",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1200/OLY_E_120_1400_0000_0000.BIN?Expires=1792746419&Signature=QOkpELYaxsPPT1JE4uF6JgUHNMrKQlFryGcT1oggAray7DJlAWrTh8Y4pIKJ98yzJWyD9QtJOBAwcT1j",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10 Mark II",
+     "model_id": "1200",
+     "version": "1400",
+     "file_name": "OLY_E_120_1400_0000_0000.BIN",
+     "file_size": "69599232",
+     "up_date": "2019/3/7",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1200/OLY_E_120_1400_0000_0000.BIN?Expires=1792746420&Signature=G9O0s5UhutXsfY0-v2rMKGXhqv8GWc-DKJgJBju5HapynitC2YzOJCNup~Y9Knd-duAJMV3oil6Flb0B",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10 Mark II",
+     "model_id": "1200",
+     "version": "1400",
+     "file_name": "OLY_E_120_1400_0000_0000.BIN",
+     "file_size": "69599232",
+     "up_date": "2019/3/7",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1200/OLY_E_120_1400_0000_0000.BIN?Expires=1792746420&Signature=G9O0s5UhutXsfY0-v2rMKGXhqv8GWc-DKJgJBju5HapynitC2YzOJCNup~Y9Knd-duAJMV3oil6Flb0B",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M10 Mark II",
+     "model_id": "1200",
+     "version": "1400",
+     "file_name": "OLY_E_120_1400_0000_0000.BIN",
+     "file_size": "69599232",
+     "up_date": "2019/3/7",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1200/index04a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1200/OLY_E_120_1400_0000_0000.BIN?Expires=1792746420&Signature=G9O0s5UhutXsfY0-v2rMKGXhqv8GWc-DKJgJBju5HapynitC2YzOJCNup~Y9Knd-duAJMV3oil6Flb0B",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M10II",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "PEN-F",
+     "model_id": "1220",
+     "version": "3101",
+     "file_name": "OLY_E_122_3101_0000_0000.BIN",
+     "file_size": "87031808",
+     "up_date": "2020/1/28",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1220/index31a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1220/OLY_E_122_3101_0000_0000.BIN?Expires=1792746422&Signature=M9xq8ksAEmXo6~k1TnVasOEX1vglasXNOiPrxnPBHJPaT9E3AStsfa1EEw5szT0oWuwr7kke24apdQtd",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "PEN-F",
+     "model_id": "1220",
+     "version": "3101",
+     "file_name": "OLY_E_122_3101_0000_0000.BIN",
+     "file_size": "87031808",
+     "up_date": "2020/1/28",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1220/index31a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1220/OLY_E_122_3101_0000_0000.BIN?Expires=1792746423&Signature=JQVRxzsCu-Shkl0StgSz5l4xntTzyqvaPLfdlP-rlSRGI5~OtnKmaAobBXu-NZu8pPf8XAZ7aB2Z3YSQ",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "PEN-F",
+     "model_id": "1220",
+     "version": "3101",
+     "file_name": "OLY_E_122_3101_0000_0000.BIN",
+     "file_size": "87031808",
+     "up_date": "2020/1/28",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1220/index31a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1220/OLY_E_122_3101_0000_0000.BIN?Expires=1792746423&Signature=JQVRxzsCu-Shkl0StgSz5l4xntTzyqvaPLfdlP-rlSRGI5~OtnKmaAobBXu-NZu8pPf8XAZ7aB2Z3YSQ",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "PEN-F",
+     "model_id": "1220",
+     "version": "3101",
+     "file_name": "OLY_E_122_3101_0000_0000.BIN",
+     "file_size": "87031808",
+     "up_date": "2020/1/28",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1220/index31a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1220/OLY_E_122_3101_0000_0000.BIN?Expires=1792746423&Signature=JQVRxzsCu-Shkl0StgSz5l4xntTzyqvaPLfdlP-rlSRGI5~OtnKmaAobBXu-NZu8pPf8XAZ7aB2Z3YSQ",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "PEN-F",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1 Mark III",
+     "model_id": "1390",
+     "version": "1600",
+     "file_name": "OLY_E_139_1600_0000_0000.BIN",
+     "file_size": "109838336",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1390/OLY_E_139_1600_0000_0000.BIN?Expires=1792746425&Signature=ingo~da1ME6~7HoYiBh7DKME1~hwwSN77a0Aa08RcxhXaZj-H6ofh6YuJGWloVQYNzKHfAlvnRubv4T1",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1 Mark III",
+     "model_id": "1390",
+     "version": "1600",
+     "file_name": "OLY_E_139_1600_0000_0000.BIN",
+     "file_size": "109838336",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1390/OLY_E_139_1600_0000_0000.BIN?Expires=1792746425&Signature=ingo~da1ME6~7HoYiBh7DKME1~hwwSN77a0Aa08RcxhXaZj-H6ofh6YuJGWloVQYNzKHfAlvnRubv4T1",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1 Mark III",
+     "model_id": "1390",
+     "version": "1600",
+     "file_name": "OLY_E_139_1600_0000_0000.BIN",
+     "file_size": "109838336",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1390/OLY_E_139_1600_0000_0000.BIN?Expires=1792746426&Signature=Pm~s2A~IHZubJriP7BP-~134waySUcLTECmiB0Deoq4otkYkUs8i~zkx3twjtAXN3tsXIU6n1vF-rYcb",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M1 Mark III",
+     "model_id": "1390",
+     "version": "1600",
+     "file_name": "OLY_E_139_1600_0000_0000.BIN",
+     "file_size": "109838336",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1390/index06a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1390/OLY_E_139_1600_0000_0000.BIN?Expires=1792746426&Signature=Pm~s2A~IHZubJriP7BP-~134waySUcLTECmiB0Deoq4otkYkUs8i~zkx3twjtAXN3tsXIU6n1vF-rYcb",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M1III",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark II",
+     "model_id": "1180",
+     "version": "4100",
+     "file_name": "OLY_E_118_4100_0000_0000.BIN",
+     "file_size": "89522176",
+     "up_date": "2019/1/24",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1180/index41a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1180/OLY_E_118_4100_0000_0000.BIN?Expires=1792746428&Signature=VN6HmPiF~Ao4bwtzFZZ9AjXzayUpwf3StZ5rsH0w5CvEgQRpJ3BN9c-3czv0iIspzbbdsN2VE-pTzqtR",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark II",
+     "model_id": "1180",
+     "version": "4100",
+     "file_name": "OLY_E_118_4100_0000_0000.BIN",
+     "file_size": "89522176",
+     "up_date": "2019/1/24",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1180/index41a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1180/OLY_E_118_4100_0000_0000.BIN?Expires=1792746428&Signature=VN6HmPiF~Ao4bwtzFZZ9AjXzayUpwf3StZ5rsH0w5CvEgQRpJ3BN9c-3czv0iIspzbbdsN2VE-pTzqtR",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark II",
+     "model_id": "1180",
+     "version": "4100",
+     "file_name": "OLY_E_118_4100_0000_0000.BIN",
+     "file_size": "89522176",
+     "up_date": "2019/1/24",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1180/index41a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1180/OLY_E_118_4100_0000_0000.BIN?Expires=1792746429&Signature=PfeaRChSBHCoVB44LYA3bVDyhx9ZFA5t2ohX3VahdHv6VG7AaeRlAM~R4O1xDJ4Ucvda-3k9q~uJ-H21",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark II",
+     "model_id": "1180",
+     "version": "4100",
+     "file_name": "OLY_E_118_4100_0000_0000.BIN",
+     "file_size": "89522176",
+     "up_date": "2019/1/24",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1180/index41a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1180/OLY_E_118_4100_0000_0000.BIN?Expires=1792746429&Signature=PfeaRChSBHCoVB44LYA3bVDyhx9ZFA5t2ohX3VahdHv6VG7AaeRlAM~R4O1xDJ4Ucvda-3k9q~uJ-H21",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5II",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark III",
+     "model_id": "1370",
+     "version": "1700",
+     "file_name": "OLY_E_137_1700_0000_0000.BIN",
+     "file_size": "118620160",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1370/OLY_E_137_1700_0000_0000.BIN?Expires=1792746431&Signature=eoBsWmcVzWDVbfcJcqLQfVX5cP1y0FPmJOyjE3hGxyddCGQALTBJ81zVmSKgWG1zJWS0z~yTN-RM87dO",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark III",
+     "model_id": "1370",
+     "version": "1700",
+     "file_name": "OLY_E_137_1700_0000_0000.BIN",
+     "file_size": "118620160",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1370/OLY_E_137_1700_0000_0000.BIN?Expires=1792746431&Signature=eoBsWmcVzWDVbfcJcqLQfVX5cP1y0FPmJOyjE3hGxyddCGQALTBJ81zVmSKgWG1zJWS0z~yTN-RM87dO",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark III",
+     "model_id": "1370",
+     "version": "1700",
+     "file_name": "OLY_E_137_1700_0000_0000.BIN",
+     "file_size": "118620160",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1370/OLY_E_137_1700_0000_0000.BIN?Expires=1792746432&Signature=SKyUHIKsghO1egLIJIgpxQ7u~Coje095Gs6aeWJvlYDFUmDaMYHaqd-A3QcPpTlCbUZ6cvfSezSmyxYi",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-M5 Mark III",
+     "model_id": "1370",
+     "version": "1700",
+     "file_name": "OLY_E_137_1700_0000_0000.BIN",
+     "file_size": "118620160",
+     "up_date": "2023/1/19",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1370/index07a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1370/OLY_E_137_1700_0000_0000.BIN?Expires=1792746432&Signature=SKyUHIKsghO1egLIJIgpxQ7u~Coje095Gs6aeWJvlYDFUmDaMYHaqd-A3QcPpTlCbUZ6cvfSezSmyxYi",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-M5III",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "fcache.do",
+   "mode": "0",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-PL9",
+     "model_id": "1330",
+     "version": "1101",
+     "file_name": "OLY_E_133_1101_0000_0000.BIN",
+     "file_size": "104552480",
+     "up_date": "2018/4/26",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1330/index01a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1330/OLY_E_133_1101_0000_0000.BIN?Expires=1792746434&Signature=Yp9rY0bBjZHNYEhOTll2pM4jt1QVESpcF~Z3CUpL6T72jTGsxyOyK6Z96DE3KLPQ32YYmPMpaJ-C6DlX",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "fcache.do",
+   "mode": "1",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-PL9",
+     "model_id": "1330",
+     "version": "1101",
+     "file_name": "OLY_E_133_1101_0000_0000.BIN",
+     "file_size": "104552480",
+     "up_date": "2018/4/26",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1330/index01a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1330/OLY_E_133_1101_0000_0000.BIN?Expires=1792746434&Signature=Yp9rY0bBjZHNYEhOTll2pM4jt1QVESpcF~Z3CUpL6T72jTGsxyOyK6Z96DE3KLPQ32YYmPMpaJ-C6DlX",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "fcache.do",
+   "mode": "2",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-PL9",
+     "model_id": "1330",
+     "version": "1101",
+     "file_name": "OLY_E_133_1101_0000_0000.BIN",
+     "file_size": "104552480",
+     "up_date": "2018/4/26",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1330/index01a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1330/OLY_E_133_1101_0000_0000.BIN?Expires=1792746435&Signature=kHHd-3OTsUmuFhoqC9zZUJxpNcinDKjfFj71ONqTwUlz3APoKrBQHp6HPKgRRnOVtt6QNCfHj-5NAGIg",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "fcache.do",
+   "mode": "3",
+   "http": "200",
+   "n": 1,
+   "files": [
+    {
+     "maker_code": "OLY",
+     "model_name": "E-PL9",
+     "model_id": "1330",
+     "version": "1101",
+     "file_name": "OLY_E_133_1101_0000_0000.BIN",
+     "file_size": "104552480",
+     "up_date": "2018/4/26",
+     "detail_url": "https://dl01.om-digitalsolutions.net/ww/ud2/ENU/0001/1330/index01a.html",
+     "url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1330/OLY_E_133_1101_0000_0000.BIN?Expires=1792746435&Signature=kHHd-3OTsUmuFhoqC9zZUJxpNcinDKjfFj71ONqTwUlz3APoKrBQHp6HPKgRRnOVtt6QNCfHj-5NAGIg",
+     "extension_comment": "",
+     "comment": "For more information about the improved features on this camera, click the &quot;Details&quot; button."
+    }
+   ]
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "firmware2.do",
+   "mode": "0",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "firmware2.do",
+   "mode": "1",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "firmware2.do",
+   "mode": "2",
+   "http": "404",
+   "n": 0,
+   "files": []
+  },
+  {
+   "model": "E-PL9",
+   "endpoint": "firmware2.do",
+   "mode": "3",
+   "http": "404",
+   "n": 0,
+   "files": []
+  }
+ ],
+ "multi_file": []
+}

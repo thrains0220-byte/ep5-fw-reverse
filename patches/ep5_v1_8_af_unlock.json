@@ -1,0 +1,30 @@
+{
+  "name": "E-P5 v1.8 AF 驱动步数上限解除（社区补丁模式 A 改动 1 的等价物）",
+  "target": "E-P5 v1.8 块 0（decoded/00_0100_402c0020.decoded.bin）",
+  "block_base": "0x402C0000",
+  "evidence": "evidence/unlock/community_patch_A_semantics.md",
+  "status": "candidate — 静态推导，未实机验证",
+  "notes": [
+    "两处都是 `MOV #imm16, A3`（编码 0x27 + 小端 imm16），把 AF 驱动步数上限从 0x6CC/0x1C20 抬到 0xFFFF。",
+    "E-P5 的真正瓶颈另有 `0x800000` 量程公式（见 community_patch_A_semantics.md §6.4），",
+    "因此本配方只对 step==3 分支有实际增益（1740 → 2363 / 2977），其余分支被量程公式卡住。",
+    "要完全复刻社区补丁的『无上限』效果，需另加 0x800000 的改动，但会引入 u32 溢出风险。",
+    "本配方**不包含**『镜头 ID 白名单校验』那处改动 —— E-P5 对应函数尚未定位。"
+  ],
+  "patches": [
+    {
+      "name": "cap-0x6cc",
+      "offset": "0x2CA31F",
+      "expect": "27cc06",
+      "replace": "27ffff",
+      "note": "MOV 0x6cc,A3  ->  MOV 0xffff,A3   (step 6/3/5 的 AF 步数上限)"
+    },
+    {
+      "name": "cap-0x1c20",
+      "offset": "0x2CA2DF",
+      "expect": "27201c",
+      "replace": "27ffff",
+      "note": "MOV 0x1c20,A3 ->  MOV 0xffff,A3  (step 4 的 AF 步数上限)"
+    }
+  ]
+}

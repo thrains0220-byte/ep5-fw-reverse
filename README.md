@@ -64,6 +64,10 @@ evidence/  REA 6.4.0 原始 Evidence JSON（Binwalk 扫描 / Unblob 提取 / PE 
            + patched_community/：社区改机归档的字节级补丁表（解锁功能模板）
                ├ community_patch_table.md          —— ★ 12/12 归档全量补丁表
                └ unlock_semantics.md               —— ★ 社区解锁补丁的语义解码
+           + unlock/：社区补丁完整语义 + E-P5 等价落点（第二十一轮）
+               ├ community_patch_A_semantics.md    —— ★ 两处改动逐指令解码 + MN10300 编码表
+               └ ep5_v1_8_patch_recipe.md          —— ★ E-P5 可执行补丁配方（含效果边界）
+patches/    E-P5 v1.8 定点补丁配方（机器可读 JSON + 带校验的施加工具）
 scripts/   可复现分析脚本 + Olympus 官方 oly_fw_tools 源码（格式权威定义）
 tools/     第三方参考实现（fishcu/oly_fw_analysis 的容器解析器）+ 工具链构建脚本
            + ep5_lens.py / lens_compare.py / fw_diff.py（镜头结构提取与跨版本差分）
@@ -280,6 +284,16 @@ Wayback 重新取回后，用 `tools/decode_any.py` 解混淆即可复现上表�
 | `lens_prefix_chain.py` | 提取「镜头 ID 两字节前缀比较链」的常量集合（跨机型比对用） |
 | `maker_code_table.py` | 提取「镜头厂商码比较表」的常量集合 |
 | `build_mn103_objdump.sh` | 自建 GNU objdump 2.45（`--target=mn10300-elf`） |
+| `patch_diff.py` | 任意两个块 0 的逐字节差异，连续段分组（第二十一轮） |
+| `opcode_map.py` | Ghidra 反汇编 + 原始字节对齐，反推 opcode↔助记符表（第二十一轮） |
+| `find_movl_imm.py` | 块 0 内精确扫描 `MOV #imm` 立即数（第二十一轮） |
+| `find_whitelist_pattern.py` | 跨机型找「镜头 ID 白名单校验」函数的字节模式（第二十一轮） |
+| `find_dispatch_by_fingerprint.py` | 按比较链指纹跨机型定位分派函数（第二十一轮） |
+| `apply_block_patch.py` | 带原字节校验与前后 SHA-256 的定点补丁工具（第二十一轮） |
+| `parse_symbol_dir.py` | 解析块 0 内的「函数目录」（`sx<编号>/` + `**函数名()*`）（第二十轮） |
+| `find_lens_dumb_refs.py` | 找 `fcs_lens_mfts_*` 的「哑引用」（无指针引用的字符串）（第二十轮） |
+| `find_af_fix_signature.py` | 跨版本比对 AF 函数目录，定位被改名的函数（第二十轮） |
+| `omsrv_multifile.py` | MSRV/OMSRV 接口全量重查（10 机型 × 4 模式 × 2 端点）（第二十轮） |
 
 ---
 
@@ -524,6 +538,77 @@ E-PM2 v1.5→v1.6 块 0 差异按指令字段分类：2 字节指令字段 48%�
 
 ---
 
+## 2026-10-24 新增（第二十一轮）：社区补丁两处改动的**完整语义解码** + E-P5 等价落点
+
+> 这是「**解锁被锁住的功能**」这个目标第一次拿到**确切、可执行**的答案。
+> 完整文档：[`evidence/unlock/community_patch_A_semantics.md`](evidence/unlock/community_patch_A_semantics.md)、
+> [`evidence/unlock/ep5_v1_8_patch_recipe.md`](evidence/unlock/ep5_v1_8_patch_recipe.md)
+
+### A. ★ 社区「模式 A」补丁 = **两处**改动，作用已逐指令确认
+
+| 改动 | 位置 | 原语义 | 作用 |
+|---|---|---|---|
+| **① 12 B** | E-M1 III `0x40B232ED` | `FUN_40b232ec(uint *out, short step)`：`step ∈ {6,3,8,9}` → `*out = 0x6CC`(1740)；`step == 4` → `*out = 0x1C20`(7200) | **解除 AF 镜头驱动步数上限**（补丁写死 `0x70000010`） |
+| **② 2 B** | E-M1 III `0x40E77430` | `FUN_40e773c9`：镜头 24 bit ID 与白名单表比对，**表尾哨兵 `0xFFFFFFFF` ⇒ 判「未识别」** | **解除镜头 ID 白名单校验**（`c8 07` = `BEQ` → `cb cb` = **2×NOP**） |
+
+- 【观察】`0xCB` = `NOP`，在 E-P5 工程 97 132 条指令上统计确认。
+- 【观察】补丁归档的块 0 与原版**只差这 2 处**，已在 E-M1 III v1.2 / E-M1 II v3.4 / v3.6 / E-M1 v4.6 上逐字节核验。
+- 【推断】改动 ① 让 `min(cap, 计数)` 的钳位恒取计数 ⇒ **AF 行程不再被 1740/7200 步卡住**。
+
+### B. ★ E-P5 v1.8 的等价实现已定位（`FUN_4058A207`）
+
+24 字节比较链指纹在 6 个社区机型里各唯一命中，**在 E-P5 命中 0 处**（E-P5 把这段逻辑内联进了更大的函数）。
+改用**标量常量 + 调用图**定位（新脚本 `tools/ghidra/Mn103FindScalarConst.java`，
+在 E-M1 III 上唯一命中 `FUN_40b232ec` 作为方法学自检），在 E-P5 上唯一命中：
+
+**`FUN_4058A207`** @ `0x4058A207`（块内文件偏移 `0x2CA207`）
+
+| 证据 | 内容 |
+|---|---|
+| 同一 step 编号 | `{6, 3, 4}`（社区机型为 `{6,3,8,9}` / `{4}`） |
+| 同一上限常量 | `0x6CC`(1740) / `0x1C20`(7200) |
+| 同一钳位结构 | `cap = min(cap, (0x800000 − thr)/(cnt+base))`；`out = min(cap, (param2 − thr)/(cnt+base))` |
+| 唯一调用者 | `FUN_40589970`（CALL @ `0x4058998B`，上下文同样有 `CMP 0x3,D0`） |
+| 额外信息 | 引用 mask ROM `0x7E503C78 / 87 / A5 / C6 / E3 / F2` |
+
+### C. ★ E-P5 补丁配方（已校验，待实机验证）
+
+| 名称 | 运行地址 | 块内文件偏移 | 原字节 | 改为 |
+|---|---|---|---|---|
+| `cap-0x6cc` | `0x4058A31F` | `0x2CA31F` | `27 cc 06` | `27 ff ff` |
+| `cap-0x1c20` | `0x4058A2DF` | `0x2CA2DF` | `27 20 1c` | `27 ff ff` |
+
+机器可读配方 `patches/ep5_v1_8_af_unlock.json`，
+工具 `tools/apply_block_patch.py`（逐处校验原字节、不符即拒、输出前后 SHA-256）：
+
+```sh
+python tools/apply_block_patch.py --blk0 decoded/00_0100_402c0020.decoded.bin \
+    --recipe patches/ep5_v1_8_af_unlock.json
+```
+
+- before SHA-256 `dfe255e4d5a4332…` → after `1d6719bc93b8d6cb…`
+- 【推断】**诚实边界**：E-P5 另有量程公式 `(0x800000 − thr)/(cnt+base)` 在多数分支上才是真瓶颈，
+  这 6 字节**只对 `step == 3` 分支有实际增益**（1740 → 2363 / 2977）；
+  要彻底复刻社区补丁的「无上限」还需改 `0x800000`，但 `steps × 0x1e` 存 u32 ⇒ 溢出风险，必须实机验证。
+- 【未知】E-P5 里「镜头 ID 白名单校验」的对应函数**尚未定位**（结构与社区机型不同）。
+
+### D. 附带产出：MN10300 编码速查表（可复用）
+
+| 编码 | 助记符 |
+|---|---|
+| `2c XX XX` | `MOV #imm16, D0` |
+| `27 XX XX` | `MOV #imm16, A3` |
+| `fc cc/cc/ce/dc …` | `MOV #imm32, D0/D1/D2/A0` |
+| `a0 XX` / `a1` | `CMP #XX, D0` / `CMP D0, D1` |
+| `c8 XX` / `c9 XX` / `ca XX` | `BEQ` / `BNE` / `BRA`（位移相对本指令地址） |
+| **`cb`** | **`NOP`** |
+| `71` / `80 01` / `f8 92 04` | `MOV (A1),D0` / `MOV 0x1,D0` / `MOVBU D0,(0x4,SP)` |
+
+> **坐标约定更正**：Ghidra / 运行地址 = 块内文件偏移 + **块基址**（E-P5 = `0x402C0000`），
+> 比容器规范地址低 `0x20`；各机型块基址表见 `evidence/unlock/community_patch_A_semantics.md` §1。
+
+---
+
 ## 复现
 
 一键复现（校验源文件 → 解混淆 → 往返与校验和验证 → 反汇编）：
@@ -590,7 +675,12 @@ toolchain/binutils/objdump -b binary -m mn10300 -D -z --insn-width=16 \
 ### 本项目原创部分（代码 / 文档 / 证据）
 
 适用 [`LICENSE`](LICENSE)（MIT）。包括：`tools/`、`scripts/`、`docs/`、`evidence/`、
-`report/`、`decoded/`、`disasm/`、`reproduce.sh` 及全部中文文档。
+`report/`、`decoded/`、`disasm/`、`patches/`、`reproduce.sh` 及全部中文文档。
+
+> `patches/` 下的配方是**离线静态分析结论的机器可读描述**（字节偏移 + 原字节 + 替换字节），
+> 属于本项目原创研究产出；它**不含**刷机教程，也**不构成**可直接分发的改机固件。
+> 固件本体的著作权归 Olympus/Taiyo Yuden，`.BIN` 与任何由其派生的可分发改机映像
+> **不在 MIT 授权范围内**（见 `PROVENANCE.md` 与 `LICENSE` 例外条款）。
 
 ### 第三方组件
 

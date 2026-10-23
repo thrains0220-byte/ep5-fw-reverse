@@ -1,9 +1,11 @@
 # 后续逆向方向路线图（第十八轮起）
 
-> 日期：2026-10-23
+> 日期：2026-10-24（第二十一轮更新：新增 §2b「社区补丁等价物在 E-P5 的落点」）
 > 依据：[`evidence/art_filter/art_filter_data_whereabouts.md`](../evidence/art_filter/art_filter_data_whereabouts.md)
 > （艺术滤镜数据的归属判定）、第十七轮的「mask ROM 映像不在 `.BIN` 里」结论、
 > 以及本轮的跨机型 / 块 1 / 0x106 普查。
+> 第二十一轮新增依据：[`evidence/unlock/community_patch_A_semantics.md`](../evidence/unlock/community_patch_A_semantics.md)、
+> [`evidence/unlock/ep5_v1_8_patch_recipe.md`](../evidence/unlock/ep5_v1_8_patch_recipe.md)。
 
 ---
 
@@ -80,6 +82,32 @@
 > **注意**：即便定位成功，若修复实体在 mask ROM（第十七轮结论），
 > 那么 `.BIN` 侧只会有「重新链接的引用偏移」，**拿不到真正的补丁字节**。
 > ⇒ 本方向的价值取决于 §1 是否先有突破。
+
+---
+
+## 2b. P0 —— 社区补丁「模式 A」在 E-P5 的等价落点（第二十一轮新增）
+
+> 这一节是**唯一一条不依赖 mask ROM 就能拿到可交付结果**的路线。
+> 详见 [`evidence/unlock/community_patch_A_semantics.md`](../evidence/unlock/community_patch_A_semantics.md)。
+
+### 2b.1 已完成的部分
+
+| 项 | 状态 |
+|---|---|
+| 社区补丁模式 A 的**全部差异面**（2 处：12 B + 2 B） | ✅ 已逐字节核验（E-M1 III v1.2 / E-M1 II v3.4 / v3.6 / E-M1 v4.6） |
+| 改动 1 的语义 | ✅ `FUN_40b232ec` 全反汇编：**AF 驱动步数上限**（`0x6CC`=1740 / `0x1C20`=7200 → 补丁写 `0x70000010`） |
+| 改动 2 的语义 | ✅ `FUN_40e773c9` 全反汇编：**镜头 ID 白名单校验**（`BEQ` → `2×NOP`） |
+| E-P5 v1.8 的等价实现 | ✅ `FUN_4058A207` @ `0x4058A207`（**内联版**，同一 step 编号、同一上限常量、同一钳位结构） |
+| E-P5 补丁配方 | ✅ `patches/ep5_v1_8_af_unlock.json` + `tools/apply_block_patch.py`（已通过原字节校验） |
+
+### 2b.2 还欠的两件事
+
+| # | 事项 | 说明 |
+|---|---|---|
+| **1** | **E-P5 里「镜头 ID 白名单校验」的对应函数** | E-P5 无字节同构上下文（结构偏移不同）。定位线索：在 E-P5 里找「镜头信息数组取用器」（E-M1 III 的 `FUN_409f7005`）与「24 bit 镜头 ID 拼装」模式（`ASL 0x8 / OR / ASL 0x18 / OR / ASL 0x10 / OR`），再找它的表尾哨兵（`0xFFFFFFFF`）比较点 |
+| **2** | **E-P5 的「真上限」是量程公式** | `steps2 = (0x800000 − thr)/(cnt + base)`。要把上限彻底放开，需一并改 `0x4058A256` / `0x4058A28C`（文件偏移 `0x2CA256` / `0x2CA28C`，`fc cc 00 00 08 00`），但 `steps × 0x1e` 存 u32 ⇒ 溢出风险，**必须实机验证** |
+
+> **建议顺序**：先做 1（纯静态、无风险、可复现），再做 2（需要实机）。
 
 ---
 
@@ -167,16 +195,19 @@ mask ROM 菜单描述符（`0x7E452BE4`），其余 8 个都落到 `0x7E452BDC`�
 
 ```
 立即（不需任何外部条件）
-  ① §1.2-A 全量普查 66 个固件的块头，找 0x7Exxxxxx 块
-  ② §3 跨机型块 1 资源 ID 段统计（照片/录像艺术菜单项数）
-  ③ §4 13 个模块的块 0 可见初始化清单
+  ① §2b-1 在 E-P5 里定位「镜头 ID 白名单校验」函数（纯静态、可复现）
+  ② §1.2-C/D 官方 FwUpTool.msi / Camera Updater 其它 RCD
+  ③ §5 新块 kind 0x10E/0x10F/0x111 的语义
 
 需要 mask ROM 才有意义
-  ④ §1.2-B/C/D/E 找官方下发通道
+  ④ §1.2-B/E 找官方其它下发通道（MSRV 已全量重查排除）
   ⑤ §1.2-F 实机 dump
 
 若 ④ 或 ⑤ 成功
   ⑥ 立即重做：AF 修复字节定位、录像菜单解锁、新增滤镜
+
+已经有交付物（第二十一轮）
+  ⑦ §2b E-P5 AF 步数上限解除配方（待实机验证）
 ```
 
 ---
@@ -190,3 +221,14 @@ mask ROM 菜单描述符（`0x7E452BE4`），其余 8 个都落到 `0x7E452BDC`�
 | `tools/blk106_resdir.py` | `kind 0x106` 资源容器里的 40 条资源目录定位、分类、**代码引用反查** |
 | `tools/find_tone_curves.py` | 用参考机型的曲线特征字节去别的固件块里搜 + 通用曲线表扫描 |
 | `tools/find_id_group.py` / `find_ptr_ranges.py` / `find_fn_ptr_refs.py` | ID 组 / 指针表 / 函数指针表的定位工具 |
+| `tools/patch_diff.py` | 任意两个块 0 的逐字节差异，连续段分组（第二十一轮） |
+| `tools/opcode_map.py` | Ghidra 反汇编 + 原始字节对齐，反推 opcode↔助记符表（第二十一轮） |
+| `tools/find_movl_imm.py` | 块 0 内精确扫描 `MOV #imm` 立即数（第二十一轮） |
+| `tools/find_whitelist_pattern.py` | 跨机型找白名单校验函数的字节模式（第二十一轮） |
+| `tools/find_dispatch_by_fingerprint.py` | 按比较链指纹跨机型定位分派函数（第二十一轮） |
+| `tools/apply_block_patch.py` | 带原字节校验与前后 SHA-256 的定点补丁工具（第二十一轮） |
+| `tools/ghidra/Mn103FindScalarConst.java` | 在 Ghidra program 里按标量常量 / 比较链定位函数（第二十一轮） |
+| `tools/parse_symbol_dir.py` | 解析块 0 内「函数目录」（`sx<编号>/` + `**函数名()*`）——「哑引用」机制的入口（第二十轮） |
+| `tools/find_lens_dumb_refs.py` | 找 `fcs_lens_mfts_*` 的哑引用（第二十轮） |
+| `tools/find_af_fix_signature.py` | 跨版本比对函数目录，定位被 AF 修复改名的函数（第二十轮） |
+| `tools/omsrv_multifile.py` | MSRV/OMSRV 接口全量重查（第二十轮） |
