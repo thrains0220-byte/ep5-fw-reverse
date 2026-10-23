@@ -655,6 +655,45 @@ mask ROM `0x7E429774` 的 6 项表里查，命中则把该项的参数数组拷�
 
 ---
 
+## 2026-10-24 新增（第二十三轮）：**官方通道穷尽关闭** + **mask ROM dump 流水线**
+
+> 完整文档：[`evidence/unlock/round23_official_channels_closed_and_rom_pipeline.md`](evidence/unlock/round23_official_channels_closed_and_rom_pipeline.md)
+
+### A. 通道 B（OMSRV）**穷尽关闭**
+
+2025-12 起 OM 改了下载方式：直链 `.BIN` 须先向 `fw01.om-digitalsolutions.net/ww_inform/fcache.do`
+提交 XML 换签名 URL ⇒ **所有官方固件分发都走这一个接口**。
+新工具 `tools/omsrv_toolprobe.py` 系统性变化 **8 个非机型字段、41 组**：
+
+【观察】**40 组返回且仅返回 1 个文件** `OLY_E_108_1800_0000_0000.BIN`（44,826,624 B）；
+`application=` 为空 → 服务端报 `error_code=20`（字段**确实被校验**，但**不因此多返回文件**）；
+`firmware_version=00001800/00002000` → `file_name` 为空（只发最新版）。
+附带发现：`language=CHS` 时签名 URL 主机变成 `cameras.om-digitalsolutions.cn`（中国镜像）。
+
+### B. 通道 D（官方更新器资源）**关闭**
+
+【观察】更新器直链与 7 组候选路径**全部 404**；Wayback CDX 全量 21,038 条 URL 中无 E-P5 更新器。
+即使拿到（第十七轮拿到过）：`.rsrc` 唯一巨型资源 15,996,237 B MSCF → 2016 年通用安装包，**无 ROM**。
+
+### C. ★ 一个决定性推论
+
+> **若机身 mask ROM 可升级，它必然出现在 `.BIN` 里。**
+> 官方唯一交付物是 `.BIN`（A/B 已穷尽）；50 映像 / 245 块 / 59 装载地址 **0 个落在 `0x7Exxxxxx`**；
+> 块 0 内最长有意义匹配段 255,778 B ≪ ROM 密集区 ≈ 13.4 MB。
+> ⇒ **ROM 是出厂烧录的，任何软件渠道都拿不到** ⇒ 只剩实机 dump。
+
+### D. ★ 把卡点变成一条命令
+
+`tools/rom_fill_report.py`：读入 mask ROM dump（默认基址 `0x7E000000`、16 MB），
+按 R1–R12 清单**逐条读出并解释**（含 R11/R12 跟随指针读参数数组），输出 SHA-256 与覆盖范围。
+已用 **16 MB 合成 ROM 自测通过**。附带发现：**R1 / R2 就是 52 项描述符族的第 43 / 45 项**。
+
+```sh
+python tools/rom_fill_report.py --rom maskrom.bin --rom-base 0x7E000000
+```
+
+---
+
 ## 复现
 
 一键复现（校验源文件 → 解混淆 → 往返与校验和验证 → 反汇编）：

@@ -39,12 +39,21 @@
 | # | 候选 | 做法 | 成本 |
 |---|---|---|---|
 | **A** | ~~全量普查所有固件的所有块头，看有没有任何块的运行地址落在 `0x7Exxxxxx`~~ | ✅ **已做（第十八轮）**：50 个映像 / 245 块 / 59 个不同装载地址 ⇒ **0 个落在 `0x7Exxxxxx`** ⇒ 该通道**不存在** | 已完成 |
-| **B** | xdel.ru `omsrv/` 目录里**其它型号**的 `rep_*.xml` / `req_*.xml` | 第十五轮只查了 `rep_E108.xml`；挨个型号看是否有多文件响应 | 低 |
-| **C** | 官方 `FwUpTool.msi` / `setup_FWT.exe` 内部是否带第二份 payload（ROM 映像） | 用 7-Zip 展开 msi/exe 找非通用文件 | 低 |
-| **D** | 官方 Camera Updater 的 `.rsrc` 其它资源（不只那个 MSCF） | 枚举所有 RCD | 低 |
-| **E** | Wayback 上的 Olympus 固件分发页 / `fw_sheet_page.html` / `mu43_fwlist.html` | 找是否有非 `.BIN` 的下载项 | 中 |
-| **F** | **实机 mask ROM dump** | 需硬件 | 高，但最直接 |
+| **B** | ~~xdel.ru `omsrv/` 目录里其它型号的 `rep_*.xml` / `req_*.xml`~~ | ⛔ **已穷尽关闭（第二十 + 二十三轮）**：官方唯一接口 `fw01.om-digitalsolutions.net/ww_inform/fcache.do` 在 **41 组请求字段变体**下**只返回 1 个 `.BIN`**（10 机型 × 4 `firmup_mode` × 2 端点 × 8 字段变体，见 `evidence/unlock/round23_official_channels_closed_and_rom_pipeline.md`） | 已完成 |
+| **C** | 官方 `FwUpTool.msi` / `setup_FWT.exe` 内部是否带第二份 payload | ⛔ **第十七轮已排除**：解出的是 2016 年通用安装包（setup_FWT.exe / FwUpTool.msi / dll / 驱动 / vcredist），**无 ROM** | 已完成 |
+| **D** | 官方 Camera Updater 的 `.rsrc` 其它资源 | ⛔ **第二十三轮关闭**：更新器本体直链与 7 组候选路径**全部 404**；`CameraUpdate.exe` 22 个 PE 资源全是图标/对话框；Wayback 21,038 条存档 URL 中无 E-P5 更新器 | 已完成 |
+| **E** | Wayback 上的 Olympus 固件分发页 / `fw_sheet_page.html` / `mu43_fwlist.html` | ⛔ **已排除**：只有 `.BIN`，无 `.rom`；CDX 全量已扫 | 已完成 |
+| **F** | **实机 mask ROM dump** | 需硬件。**唯一剩余入口**；范围 `0x7E000000–0x7EFFFFFF`（16 MB）。dump 到位后跑 `tools/rom_fill_report.py` 一条命令读出 R1–R12 全部判据 | 高，但最直接 |
 | **G** | 机身服务工具（Service Tool）的专用下载 | 需机身 | 高 |
+
+> **建议顺序**：**F**（实机 dump）—— 因为 A–E 已在第二十/二十三轮**穷尽关闭**，
+> 而且推论已确立：**若 mask ROM 可升级，它必然在 `.BIN` 里；它不在 ⇒ 它是出厂烧录的**。
+>
+> **第二十三轮的收官结论**：固件（`.BIN`）这条线**已经走到尽头**。
+> 剩下的判据问题（照片 10 vs 录像 4 的内容、新增滤镜算法）
+> **只存在于机身 mask ROM**，软件渠道拿不到。
+> ⇒ 若无实机，项目可交付的上限就是现在这三件：
+> **① 容器与子系统结构全解；② 社区补丁语义全解 + E-P5 AF 步数上限配方；③ mask ROM 依赖清单 R1–R12（dump 到位即用）。**
 
 > **建议顺序**：B → C → D → E；F/G 作为终局手段。
 >
@@ -202,20 +211,19 @@ mask ROM 菜单描述符（`0x7E452BE4`），其余 8 个都落到 `0x7E452BDC`�
 ## 6. 交付优先级建议
 
 ```
-立即（不需任何外部条件）
-  ① §2b-1 在 E-P5 里定位「镜头 ID 白名单校验」函数（纯静态、可复现）
-  ② §1.2-C/D 官方 FwUpTool.msi / Camera Updater 其它 RCD
-  ③ §5 新块 kind 0x10E/0x10F/0x111 的语义
+立即（不需任何外部条件，且已有产出）
+  ① §2b-2 抬高 E-P5 量程公式 0x800000（需实机）
+  ② §5 新块 kind 0x10E/0x10F/0x111 的语义（纯静态）
+  ③ 识别 0x403A4xxx 子系统功能（纯静态）
+  ④ 录像侧 20 槽改指照片侧非默认块（块 0 内可做，无 ROM 内容无法验证）
 
-需要 mask ROM 才有意义
-  ④ §1.2-B/E 找官方其它下发通道（MSRV 已全量重查排除）
-  ⑤ §1.2-F 实机 dump
+已有交付物（第二十一–二十三轮）
+  ⑤ §2b E-P5 AF 步数上限解除配方（待实机验证）
+  ⑥ mask ROM 依赖清单 R1–R12 + dump 流水线 tools/rom_fill_report.py
 
-若 ④ 或 ⑤ 成功
-  ⑥ 立即重做：AF 修复字节定位、录像菜单解锁、新增滤镜
-
-已经有交付物（第二十一轮）
-  ⑦ §2b E-P5 AF 步数上限解除配方（待实机验证）
+需要实机
+  ⑦ §1.2-F 实机 mask ROM dump（0x7E000000–0x7EFFFFFF，16 MB）
+     → 拿到后跑 tools/rom_fill_report.py，一次读完全部判据
 ```
 
 ---
