@@ -1,0 +1,5280 @@
+{
+ "E-M10II v1.4": {
+  "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e_m10ii_v14_sdec\\01_0101_41760020.decoded.bin",
+  "clusters": [
+   {
+    "range": [
+     "0x0071C01E",
+     "0x0071C23E"
+    ],
+    "n": 4,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x007202B0",
+     "0x007202B0"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x007293E8",
+     "0x0072941C"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0073D70A",
+     "0x0073D882"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0073F400",
+     "0x0073F400"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00743672",
+     "0x007436A6"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0074EC94",
+     "0x0074EE0E"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x007508E8",
+     "0x007508E8"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00754BBE",
+     "0x00754BF2"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007637FA",
+     "0x007639FA"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x007676D4",
+     "0x007676D4"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x0076ADB4",
+     "0x0076ADB4"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x0076FD34",
+     "0x0076FD68"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007858BC",
+     "0x00785D28"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00789A9E",
+     "0x00789A9E"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x0078D0A4",
+     "0x0078D0A4"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x007920F4",
+     "0x00792128"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007A8624",
+     "0x007A87F4"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x007ACBA0",
+     "0x007ACBA0"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x007B05FC",
+     "0x007B05FC"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x007B5B10",
+     "0x007B5B44"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007CD688",
+     "0x007CDB24"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x007D58E8",
+     "0x007D58E8"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A043"
+    ]
+   },
+   {
+    "range": [
+     "0x007DB8A4",
+     "0x007DB8D8"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007F3376",
+     "0x007F3D86"
+    ],
+    "n": 15,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A033",
+      "Dramatic Tone"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A034",
+      "Soft Focus"
+     ],
+     [
+      "A035",
+      "Pale&Light Color"
+     ],
+     [
+      "A036",
+      "Light Tone"
+     ],
+     [
+      "A037",
+      "Grainy Film"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ],
+     [
+      "A03B",
+      "Gentle Sepia"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A03B"
+    ]
+   },
+   {
+    "range": [
+     "0x007F7646",
+     "0x007F7646"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x007F9ED6",
+     "0x007F9ED6"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A042",
+      "Grainy Film"
+     ]
+    ],
+    "id_span": [
+     "A042",
+     "A042"
+    ]
+   },
+   {
+    "range": [
+     "0x007FA956",
+     "0x007FACD8"
+    ],
+    "n": 2,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ],
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x007FB374",
+     "0x007FB374"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A045",
+      "Dramatic Tone"
+     ]
+    ],
+    "id_span": [
+     "A045",
+     "A045"
+    ]
+   },
+   {
+    "range": [
+     "0x007FFF80",
+     "0x007FFFB4"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00815CC6",
+     "0x008164AC"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ],
+     [
+      "A03B",
+      "Sepia"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A03B"
+    ]
+   },
+   {
+    "range": [
+     "0x00819E8C",
+     "0x00819E8C"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x0081D760",
+     "0x0081D760"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00822972",
+     "0x008229A6"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008391D2",
+     "0x008393BA"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0083CEF8",
+     "0x0083CEF8"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00845612",
+     "0x00845646"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0085B81A",
+     "0x0085BA4C"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x008685F6",
+     "0x0086862A"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0087F69C",
+     "0x0087F8D4"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A034",
+      "Soft Focus"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00883CF4",
+     "0x00883CF4"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00887834",
+     "0x00887834"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x0088CF5E",
+     "0x0088CF92"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008A4B92",
+     "0x008A5036"
+    ],
+    "n": 9,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x008A93F6",
+     "0x008A93F6"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x008ACBA8",
+     "0x008ACF64"
+    ],
+    "n": 2,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ],
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x008B26D6",
+     "0x008B270A"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008C96B8",
+     "0x008C98C2"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x008CDAD0",
+     "0x008CDAD0"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x008D11CC",
+     "0x008D11CC"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A043"
+    ]
+   },
+   {
+    "range": [
+     "0x008D6BFE",
+     "0x008D6C32"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008EDB9A",
+     "0x008EDDAC"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x008F1F46",
+     "0x008F1F46"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x008F57D6",
+     "0x008F57D6"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x008FAD3C",
+     "0x008FAD70"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00911D3E",
+     "0x009127B4"
+    ],
+    "n": 10,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A034",
+      "Soft Focus"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ],
+     [
+      "A03B",
+      "Gentle Sepia"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A03B"
+    ]
+   },
+   {
+    "range": [
+     "0x00916248",
+     "0x00916248"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00919ED2",
+     "0x00919ED2"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x0091F55E",
+     "0x0091F592"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00934832",
+     "0x0093497A"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A07A",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x0093D2B0",
+     "0x0093D2E4"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0094D1EE",
+     "0x0094D35C"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0094FA7A",
+     "0x0094FA7A"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x0095601A",
+     "0x0095604E"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00968922",
+     "0x00968B56"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0096CF78",
+     "0x0096CF78"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x0097097A",
+     "0x0097097A"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x009760DE",
+     "0x00976112"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0098DCF8",
+     "0x0098DF04"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A07A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0099227E",
+     "0x0099227E"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x0099591A",
+     "0x0099591A"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A043"
+    ]
+   },
+   {
+    "range": [
+     "0x0099B6F0",
+     "0x0099B724"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x009B23AC",
+     "0x009B2568"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x009B624A",
+     "0x009B624A"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x009B9628",
+     "0x009B99C8"
+    ],
+    "n": 2,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ],
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x009BECDA",
+     "0x009BED0E"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x009D5B7E",
+     "0x009D5D62"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x009D9F54",
+     "0x009D9F54"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x009DD99C",
+     "0x009DD99C"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x009E304E",
+     "0x009E3082"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x009F945E",
+     "0x009F9870"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x009FD3A8",
+     "0x009FD3A8"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00A0092A",
+     "0x00A0092A"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00A058A4",
+     "0x00A058D8"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A1B590",
+     "0x00A1BA48"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00A1FF82",
+     "0x00A1FF82"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00A23750",
+     "0x00A23750"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00A28F2C",
+     "0x00A28F60"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A3FDE8",
+     "0x00A3FFE8"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00A480B4",
+     "0x00A480B4"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00A4DA0E",
+     "0x00A4DA42"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A65418",
+     "0x00A65894"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x00A69CCA",
+     "0x00A69CCA"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00A6D3F4",
+     "0x00A6D752"
+    ],
+    "n": 2,
+    "seq": [
+     [
+      "A043",
+      "Pin Hole"
+     ],
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A043",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00A72E50",
+     "0x00A72E84"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A89064",
+     "0x00A89254"
+    ],
+    "n": 4,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x00A8CEC2",
+     "0x00A8CEC2"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00A95082",
+     "0x00A950B6"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00AAA4DC",
+     "0x00AAA70A"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00AAE4C6",
+     "0x00AAE4C6"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00AB1CAA",
+     "0x00AB1CAA"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00AB6E6A",
+     "0x00AB6E9E"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00ACD9BC",
+     "0x00ACDC02"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00AD5BAE",
+     "0x00AD5BAE"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00ADB71E",
+     "0x00ADB752"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00AF3084",
+     "0x00AF328E"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00AF74D0",
+     "0x00AF74D0"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00AFAFD6",
+     "0x00AFAFD6"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00B006C6",
+     "0x00B006FA"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B16A10",
+     "0x00B16E56"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B1AC0C",
+     "0x00B1AC0C"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00B1E29A",
+     "0x00B1E29A"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00B23560",
+     "0x00B23594"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B38530",
+     "0x00B38702"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B3BBC0",
+     "0x00B3BBC0"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00B4304E",
+     "0x00B43082"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B56EE4",
+     "0x00B57318"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B5B1FE",
+     "0x00B5B1FE"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00B5E912",
+     "0x00B5E912"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A044",
+      "Diorama"
+     ]
+    ],
+    "id_span": [
+     "A044",
+     "A044"
+    ]
+   },
+   {
+    "range": [
+     "0x00B63A6E",
+     "0x00B63AA2"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B7A190",
+     "0x00B7A3BA"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B7E488",
+     "0x00B7E488"
+    ],
+    "n": 1,
+    "seq": [
+     [
+      "A041",
+      "Monotone"
+     ]
+    ],
+    "id_span": [
+     "A041",
+     "A041"
+    ]
+   },
+   {
+    "range": [
+     "0x00B873E2",
+     "0x00B87416"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   }
+  ],
+  "menus": [
+   {
+    "range": [
+     "0x0071C01E",
+     "0x0071C23E"
+    ],
+    "n": 4,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x007293E8",
+     "0x0072941C"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0073D70A",
+     "0x0073D882"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00743672",
+     "0x007436A6"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0074EC94",
+     "0x0074EE0E"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00754BBE",
+     "0x00754BF2"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007637FA",
+     "0x007639FA"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x0076FD34",
+     "0x0076FD68"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007858BC",
+     "0x00785D28"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x007920F4",
+     "0x00792128"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007A8624",
+     "0x007A87F4"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x007B5B10",
+     "0x007B5B44"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007CD688",
+     "0x007CDB24"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x007DB8A4",
+     "0x007DB8D8"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x007F3376",
+     "0x007F3D86"
+    ],
+    "n": 15,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A033",
+      "Dramatic Tone"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A034",
+      "Soft Focus"
+     ],
+     [
+      "A035",
+      "Pale&Light Color"
+     ],
+     [
+      "A036",
+      "Light Tone"
+     ],
+     [
+      "A037",
+      "Grainy Film"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ],
+     [
+      "A03B",
+      "Gentle Sepia"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A03B"
+    ]
+   },
+   {
+    "range": [
+     "0x007FFF80",
+     "0x007FFFB4"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00815CC6",
+     "0x008164AC"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ],
+     [
+      "A03B",
+      "Sepia"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A03B"
+    ]
+   },
+   {
+    "range": [
+     "0x00822972",
+     "0x008229A6"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008391D2",
+     "0x008393BA"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00845612",
+     "0x00845646"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0085B81A",
+     "0x0085BA4C"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x008685F6",
+     "0x0086862A"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0087F69C",
+     "0x0087F8D4"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A034",
+      "Soft Focus"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0088CF5E",
+     "0x0088CF92"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008A4B92",
+     "0x008A5036"
+    ],
+    "n": 9,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x008B26D6",
+     "0x008B270A"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008C96B8",
+     "0x008C98C2"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x008D6BFE",
+     "0x008D6C32"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x008EDB9A",
+     "0x008EDDAC"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x008FAD3C",
+     "0x008FAD70"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00911D3E",
+     "0x009127B4"
+    ],
+    "n": 10,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A034",
+      "Soft Focus"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ],
+     [
+      "A03B",
+      "Gentle Sepia"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A03B"
+    ]
+   },
+   {
+    "range": [
+     "0x0091F55E",
+     "0x0091F592"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00934832",
+     "0x0093497A"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A07A",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x0093D2B0",
+     "0x0093D2E4"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0094D1EE",
+     "0x0094D35C"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0095601A",
+     "0x0095604E"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00968922",
+     "0x00968B56"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x009760DE",
+     "0x00976112"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x0098DCF8",
+     "0x0098DF04"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A07A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x0099B6F0",
+     "0x0099B724"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x009B23AC",
+     "0x009B2568"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x009BECDA",
+     "0x009BED0E"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x009D5B7E",
+     "0x009D5D62"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x009E304E",
+     "0x009E3082"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x009F945E",
+     "0x009F9870"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00A058A4",
+     "0x00A058D8"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A1B590",
+     "0x00A1BA48"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00A28F2C",
+     "0x00A28F60"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A3FDE8",
+     "0x00A3FFE8"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00A4DA0E",
+     "0x00A4DA42"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A65418",
+     "0x00A65894"
+    ],
+    "n": 8,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A032",
+      "Pop Art"
+     ],
+     [
+      "A038",
+      "Pin Hole"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x00A72E50",
+     "0x00A72E84"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00A89064",
+     "0x00A89254"
+    ],
+    "n": 4,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A07B"
+    ]
+   },
+   {
+    "range": [
+     "0x00A95082",
+     "0x00A950B6"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00AAA4DC",
+     "0x00AAA70A"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00AB6E6A",
+     "0x00AB6E9E"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00ACD9BC",
+     "0x00ACDC02"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00ADB71E",
+     "0x00ADB752"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00AF3084",
+     "0x00AF328E"
+    ],
+    "n": 6,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B006C6",
+     "0x00B006FA"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B16A10",
+     "0x00B16E56"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B23560",
+     "0x00B23594"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B38530",
+     "0x00B38702"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B4304E",
+     "0x00B43082"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B56EE4",
+     "0x00B57318"
+    ],
+    "n": 7,
+    "seq": [
+     [
+      "A03A",
+      "Cross Process"
+     ],
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A039",
+      "Diorama"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A03A",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B63A6E",
+     "0x00B63AA2"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   },
+   {
+    "range": [
+     "0x00B7A190",
+     "0x00B7A3BA"
+    ],
+    "n": 5,
+    "seq": [
+     [
+      "A019",
+      "i-Enhance"
+     ],
+     [
+      "A07A",
+      "Vivid"
+     ],
+     [
+      "A07C",
+      "Portrait"
+     ],
+     [
+      "A07B",
+      "Natural"
+     ],
+     [
+      "A024",
+      "Muted"
+     ]
+    ],
+    "id_span": [
+     "A019",
+     "A024"
+    ]
+   },
+   {
+    "range": [
+     "0x00B873E2",
+     "0x00B87416"
+    ],
+    "n": 3,
+    "seq": [
+     [
+      "A094",
+      "Vivid"
+     ],
+     [
+      "A095",
+      "Natural"
+     ],
+     [
+      "A096",
+      "Portrait"
+     ]
+    ],
+    "id_span": [
+     "A094",
+     "A096"
+    ]
+   }
+  ]
+ }
+}

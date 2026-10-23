@@ -350,6 +350,31 @@ Wayback 重新取回后，用 `tools/decode_any.py` 解混淆即可复现上表�
   按 `id & 0xF` 索引）⇒ 块 0 里只有实现，"还有哪些 ID 可用"要靠实机 dump 全知。
 
 完整分析：[`evidence/art_filter/art_filter_menu_and_ids.md`](evidence/art_filter/art_filter_menu_and_ids.md)
+### H. ★ 跨机型菜单图谱：「录像 10 项」原厂确实做过
+
+跨 11 份已解码块 1 统计艺术滤镜的**菜单资源 ID 段**：
+
+- **照片艺术菜单 = 固定 10 项**，所有机型名字与顺序完全一致
+  （Pop Art / Dramatic Tone / Soft Focus / Pale&Light Color / Light Tone /
+  Grainy Film / Pin Hole / Diorama / Cross Process / Gentle Sepia），
+  只是 ID 段随机型平移（多数机型 `A032`–`A03B`，**E-P5 是 `A03F`–`A048`**）。
+- **录像艺术菜单项数逐机型不同**：
+
+| 机型 | 录像段 | 项数 |
+|---|---|---|
+| E-M1 II v3.0 / E-M5 III v1.4 / E-M10 III v1.2 / E-M1 III v1.2 | `A073`/`A062`/`A05A`/`A073` 起 | **10** |
+| E-M5 II v4.1 / E-M10 II v1.4 | `A041`–`A045` | 5 |
+| **E-P5 v1.8** / E-M1 v4.6 | `A042`–`A045` | **4** |
+
+⇒ **「录像 10 项艺术滤镜」是原厂做得到的功能**；
+E-P5 的 4 项是**机型配置**，不是产品线上限。
+⇒ 而且 E-P5 块 1 里**那 10 个名字的字符串本来就全在**（照片段 `A03F`–`A048`），
+缺的只是录像菜单对它们的引用。
+⇒ 目标②的成败**收窄到两个 4 字节地址**：mask ROM 的
+`0x7E452BDC` / `0x7E452BE4` 两张描述符里，ID 列表是否独立。
+
+完整分析：[`evidence/art_filter/cross_model_art_menu_map.md`](evidence/art_filter/cross_model_art_menu_map.md)
+
 
 ### E. AF 修复（2018-12-18 松下镜头）的落点收窄
 
