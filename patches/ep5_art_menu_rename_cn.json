@@ -1,0 +1,26 @@
+{
+  "name": "E-P5 艺术滤镜：中文菜单改名（针孔 -> 森山大道风格）",
+  "note": "等长覆盖块 1（语言资源包）的 UTF-16LE 菜单名。先改 12 字节的「针孔相机效果」，再改剩余的 4 字节「针孔」（此时前者已被替换，不会重复命中）。用途：验证「.BIN -> 相机 UI 文本」链路贯通，并作为自定义滤镜命名的起点。",
+  "evidence": "evidence/art_filter/round30_art_menu_rename.md",
+  "blocks": [
+    {
+      "block_index": 1,
+      "patches": [
+        {
+          "name": "art-name-full-cn",
+          "find": "8894545bf8763a6748659c67",
+          "replace": "ee68715c27595390ce983c68",
+          "expect_hits": 3,
+          "note": "「针孔相机效果」→「森山大道风格」（6 汉字 = 12 B UTF-16LE）"
+        },
+        {
+          "name": "art-name-short-cn",
+          "find": "8894545b",
+          "replace": "ee68715c",
+          "expect_hits": 2,
+          "note": "独立出现的「针孔」→「森山」（2 汉字 = 4 B UTF-16LE）"
+        }
+      ]
+    }
+  ]
+}
