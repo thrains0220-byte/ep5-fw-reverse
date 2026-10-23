@@ -1,0 +1,2083 @@
+{
+ "models": [
+  {
+   "file": "D:\\0_Project\\01Test\\ep5-fw-reverse\\decoded\\00_0100_402c0020.decoded.bin",
+   "size": 15728576,
+   "namespace_A": {
+    "0x10": [
+     "star_light"
+    ],
+    "0x20": [
+     "pinhole"
+    ],
+    "0x30": [
+     "frame"
+    ],
+    "0x40": [
+     "soft_focus"
+    ],
+    "0x50": [
+     "white_edge"
+    ]
+   },
+   "namespace_B": {
+    "0x06": [
+     "rough_monochrome"
+    ],
+    "0x09": [
+     "diorama"
+    ],
+    "0x0E": [
+     "gentle_sepia"
+    ],
+    "0x14": [
+     "dramatic_tone"
+    ],
+    "0x19": [
+     "artclearline"
+    ],
+    "0x1C": [
+     "mirror"
+    ],
+    "0x1D": [
+     "composite"
+    ],
+    "0x21": [
+     "pastel_art",
+     "pastelart"
+    ]
+   },
+   "source_modules": [
+    "art_effect_10_star_light.c",
+    "art_effect_20_pinhole.c",
+    "art_effect_30_frame.c",
+    "art_effect_40_soft_focus.c",
+    "art_effect_50_white_edge.c",
+    "art_filter_06_rough_monochrome.c",
+    "art_filter_09_diorama.c",
+    "art_filter_0e_gentle_sepia.c",
+    "art_filter_14_dramatic_tone.c",
+    "art_filter_19_artclearline.c",
+    "art_filter_1d_composite.c",
+    "art_filter_21_pastelart.c",
+    "art_filter_com.c",
+    "art_nr.c",
+    "art_stl2ycc.c"
+   ],
+   "colortone": [
+    "ART_JUDGE_NG",
+    "BEAUTY_JUDGE_NG",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "3D_JUDGE_NG",
+    "BEAUTY",
+    "BEAUTY_JUDGE_NG",
+    "BULB",
+    "COMPOSITE",
+    "COMPOSITE_MOVIE",
+    "CROSS_PROCESS",
+    "CROSS_PROCESS_2",
+    "CROSS_PROCESS_2_MOVIE",
+    "CROSS_PROCESS_MOVIE",
+    "CRYSTAL",
+    "CRYSTAL_MOVIE",
+    "DAYDREAM",
+    "DAYDREAM_MOVIE",
+    "DRAMATIC_TONE",
+    "DRAMATIC_TONE_2",
+    "DRAMATIC_TONE_2_MOVIE",
+    "DRAMATIC_TONE_MOVIE",
+    "DRAWING",
+    "DRAWING_MOVIE",
+    "FANTASIC_FOCUS",
+    "FANTASIC_FOCUS_MOVIE",
+    "FISH_EYE",
+    "FISH_EYE_MOVIE",
+    "GENTLE_SEPIA",
+    "GENTLE_SEPIA_MOVIE",
+    "LIGHT_TONE",
+    "LIGHT_TONE_MOVIE",
+    "LIGNE_CLAIR",
+    "LIGNE_CLAIR_MOVIE",
+    "MINIATURE",
+    "MINIATURE_JUDGE_NG",
+    "MINIATURE_MOVIE",
+    "MIRROR",
+    "MIRROR_MOVIE",
+    "PANORAMA",
+    "PANORAMA_JUDGE_NG",
+    "PASTEL",
+    "PASTEL_MOVIE",
+    "POPART",
+    "POPART_MOVIE",
+    "PREVIEW",
+    "ROCK",
+    "ROCK_MOVIE",
+    "ROUGH_MONOCHROME",
+    "ROUGH_MONOCHROME_MOVIE",
+    "TENDER_LIGHT",
+    "TENDER_LIGHT_MOVIE",
+    "TOY_PHOTO",
+    "TOY_PHOTO_MOVIE",
+    "WATERCOLOR",
+    "WATERCOLOR_MOVIE"
+   ],
+   "label": "E-P5/E-PM2 (decoded)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\dec\\0970_2300\\00_0100_902c0020.decoded.bin",
+   "size": 14155712,
+   "namespace_A": {
+    "0x10": [
+     "star_light"
+    ],
+    "0x20": [
+     "pinhole"
+    ],
+    "0x30": [
+     "frame"
+    ],
+    "0x40": [
+     "soft_focus"
+    ],
+    "0x50": [
+     "white_edge"
+    ]
+   },
+   "namespace_B": {
+    "0x06": [
+     "rough_monochrome"
+    ],
+    "0x09": [
+     "diorama"
+    ],
+    "0x0E": [
+     "gentle_sepia"
+    ],
+    "0x14": [
+     "dramatic_tone"
+    ],
+    "0x19": [
+     "artclearline"
+    ],
+    "0x1C": [
+     "mirror"
+    ],
+    "0x1D": [
+     "composite"
+    ]
+   },
+   "source_modules": [
+    "art_effect.c",
+    "art_effect_10_star_light.c",
+    "art_effect_20_pinhole.c",
+    "art_effect_30_frame.c",
+    "art_effect_40_soft_focus.c",
+    "art_effect_50_white_edge.c",
+    "art_filter_06_rough_monochrome.c",
+    "art_filter_09_diorama.c",
+    "art_filter_0e_gentle_sepia.c",
+    "art_filter_14_dramatic_tone.c",
+    "art_filter_19_artclearline.c",
+    "art_filter_1c_mirror.c",
+    "art_filter_1d_composite.c",
+    "art_filter_com.c",
+    "art_stl2ycc.c"
+   ],
+   "colortone": [
+    "ART_JUDGE_NG",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "3D_JUDGE_NG",
+    "APERTURE_MOVIE_JUDGE_NG",
+    "ART_FILTER_MOVIE_JUDGE_NG",
+    "BEAUTY",
+    "BEAUTY_JUDGE_NG",
+    "BULB",
+    "COMPOSITE",
+    "COMPOSITE_MOVIE",
+    "CROSS_PROCESS",
+    "CROSS_PROCESS_2",
+    "CROSS_PROCESS_2_MOVIE",
+    "CROSS_PROCESS_MOVIE",
+    "CRYSTAL",
+    "CRYSTAL_MOVIE",
+    "DAYDREAM",
+    "DAYDREAM_MOVIE",
+    "DRAMATIC_TONE",
+    "DRAMATIC_TONE_2",
+    "DRAMATIC_TONE_2_MOVIE",
+    "DRAMATIC_TONE_MOVIE",
+    "DRAWING",
+    "DRAWING_MOVIE",
+    "FANTASIC_FOCUS",
+    "FANTASIC_FOCUS_MOVIE",
+    "FISH_EYE",
+    "FISH_EYE_MOVIE",
+    "GENTLE_SEPIA",
+    "GENTLE_SEPIA_MOVIE",
+    "LIGHT_TONE",
+    "LIGHT_TONE_MOVIE",
+    "LIGNE_CLAIR",
+    "LIGNE_CLAIR_MOVIE",
+    "MANUAL_JUDGE_NG",
+    "MINIATURE",
+    "MINIATURE_JUDGE_NG",
+    "MINIATURE_MOVIE",
+    "MINIATURE_MOVIE_JUDGE_NG",
+    "MIRROR",
+    "MIRROR_MOVIE",
+    "PANORAMA",
+    "PANORAMA_JUDGE_NG",
+    "PASM_MOVIE_JUDGE_NG",
+    "POPART",
+    "POPART_MOVIE",
+    "PREVIEW",
+    "PROGRAM_MOVIE_JUDGE_NG",
+    "ROCK",
+    "ROCK_MOVIE",
+    "ROUGH_MONOCHROME",
+    "ROUGH_MONOCHROME_MOVIE",
+    "SNOW_JUDGE_NG",
+    "TENDER_LIGHT",
+    "TENDER_LIGHT_MOVIE",
+    "TOY_PHOTO",
+    "TOY_PHOTO_MOVIE",
+    "WATERCOLOR",
+    "WATERCOLOR_MOVIE"
+   ],
+   "label": "902c0020 (0970_2300)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\dec\\em5_2202\\00_0100_902c0020.decoded.bin",
+   "size": 14155712,
+   "namespace_A": {
+    "0x10": [
+     "star_light"
+    ],
+    "0x20": [
+     "pinhole"
+    ],
+    "0x30": [
+     "frame"
+    ],
+    "0x40": [
+     "soft_focus"
+    ],
+    "0x50": [
+     "white_edge"
+    ]
+   },
+   "namespace_B": {
+    "0x06": [
+     "rough_monochrome"
+    ],
+    "0x09": [
+     "diorama"
+    ],
+    "0x0E": [
+     "gentle_sepia"
+    ],
+    "0x14": [
+     "dramatic_tone"
+    ],
+    "0x19": [
+     "artclearline"
+    ],
+    "0x1C": [
+     "mirror"
+    ],
+    "0x1D": [
+     "composite"
+    ]
+   },
+   "source_modules": [
+    "art_effect.c",
+    "art_effect_10_star_light.c",
+    "art_effect_20_pinhole.c",
+    "art_effect_30_frame.c",
+    "art_effect_40_soft_focus.c",
+    "art_effect_50_white_edge.c",
+    "art_filter_06_rough_monochrome.c",
+    "art_filter_09_diorama.c",
+    "art_filter_0e_gentle_sepia.c",
+    "art_filter_14_dramatic_tone.c",
+    "art_filter_19_artclearline.c",
+    "art_filter_1c_mirror.c",
+    "art_filter_1d_composite.c",
+    "art_filter_com.c",
+    "art_stl2ycc.c"
+   ],
+   "colortone": [
+    "ART_JUDGE_NG",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "3D_JUDGE_NG",
+    "APERTURE_MOVIE_JUDGE_NG",
+    "ART_FILTER_MOVIE_JUDGE_NG",
+    "BEAUTY",
+    "BEAUTY_JUDGE_NG",
+    "BULB",
+    "COMPOSITE",
+    "COMPOSITE_MOVIE",
+    "CROSS_PROCESS",
+    "CROSS_PROCESS_2",
+    "CROSS_PROCESS_2_MOVIE",
+    "CROSS_PROCESS_MOVIE",
+    "CRYSTAL",
+    "CRYSTAL_MOVIE",
+    "DAYDREAM",
+    "DAYDREAM_MOVIE",
+    "DRAMATIC_TONE",
+    "DRAMATIC_TONE_2",
+    "DRAMATIC_TONE_2_MOVIE",
+    "DRAMATIC_TONE_MOVIE",
+    "DRAWING",
+    "DRAWING_MOVIE",
+    "FANTASIC_FOCUS",
+    "FANTASIC_FOCUS_MOVIE",
+    "FISH_EYE",
+    "FISH_EYE_MOVIE",
+    "GENTLE_SEPIA",
+    "GENTLE_SEPIA_MOVIE",
+    "LIGHT_TONE",
+    "LIGHT_TONE_MOVIE",
+    "LIGNE_CLAIR",
+    "LIGNE_CLAIR_MOVIE",
+    "MANUAL_JUDGE_NG",
+    "MINIATURE",
+    "MINIATURE_JUDGE_NG",
+    "MINIATURE_MOVIE",
+    "MINIATURE_MOVIE_JUDGE_NG",
+    "MIRROR",
+    "MIRROR_MOVIE",
+    "PANORAMA",
+    "PANORAMA_JUDGE_NG",
+    "PASM_MOVIE_JUDGE_NG",
+    "POPART",
+    "POPART_MOVIE",
+    "PREVIEW",
+    "PROGRAM_MOVIE_JUDGE_NG",
+    "ROCK",
+    "ROCK_MOVIE",
+    "ROUGH_MONOCHROME",
+    "ROUGH_MONOCHROME_MOVIE",
+    "SNOW_JUDGE_NG",
+    "TENDER_LIGHT",
+    "TENDER_LIGHT_MOVIE",
+    "TOY_PHOTO",
+    "TOY_PHOTO_MOVIE",
+    "WATERCOLOR",
+    "WATERCOLOR_MOVIE"
+   ],
+   "label": "902c0020 (em5_2202)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\dec\\em5_2300\\00_0100_902c0020.decoded.bin",
+   "size": 14155712,
+   "namespace_A": {
+    "0x10": [
+     "star_light"
+    ],
+    "0x20": [
+     "pinhole"
+    ],
+    "0x30": [
+     "frame"
+    ],
+    "0x40": [
+     "soft_focus"
+    ],
+    "0x50": [
+     "white_edge"
+    ]
+   },
+   "namespace_B": {
+    "0x06": [
+     "rough_monochrome"
+    ],
+    "0x09": [
+     "diorama"
+    ],
+    "0x0E": [
+     "gentle_sepia"
+    ],
+    "0x14": [
+     "dramatic_tone"
+    ],
+    "0x19": [
+     "artclearline"
+    ],
+    "0x1C": [
+     "mirror"
+    ],
+    "0x1D": [
+     "composite"
+    ]
+   },
+   "source_modules": [
+    "art_effect.c",
+    "art_effect_10_star_light.c",
+    "art_effect_20_pinhole.c",
+    "art_effect_30_frame.c",
+    "art_effect_40_soft_focus.c",
+    "art_effect_50_white_edge.c",
+    "art_filter_06_rough_monochrome.c",
+    "art_filter_09_diorama.c",
+    "art_filter_0e_gentle_sepia.c",
+    "art_filter_14_dramatic_tone.c",
+    "art_filter_19_artclearline.c",
+    "art_filter_1c_mirror.c",
+    "art_filter_1d_composite.c",
+    "art_filter_com.c",
+    "art_stl2ycc.c"
+   ],
+   "colortone": [
+    "ART_JUDGE_NG",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "3D_JUDGE_NG",
+    "APERTURE_MOVIE_JUDGE_NG",
+    "ART_FILTER_MOVIE_JUDGE_NG",
+    "BEAUTY",
+    "BEAUTY_JUDGE_NG",
+    "BULB",
+    "COMPOSITE",
+    "COMPOSITE_MOVIE",
+    "CROSS_PROCESS",
+    "CROSS_PROCESS_2",
+    "CROSS_PROCESS_2_MOVIE",
+    "CROSS_PROCESS_MOVIE",
+    "CRYSTAL",
+    "CRYSTAL_MOVIE",
+    "DAYDREAM",
+    "DAYDREAM_MOVIE",
+    "DRAMATIC_TONE",
+    "DRAMATIC_TONE_2",
+    "DRAMATIC_TONE_2_MOVIE",
+    "DRAMATIC_TONE_MOVIE",
+    "DRAWING",
+    "DRAWING_MOVIE",
+    "FANTASIC_FOCUS",
+    "FANTASIC_FOCUS_MOVIE",
+    "FISH_EYE",
+    "FISH_EYE_MOVIE",
+    "GENTLE_SEPIA",
+    "GENTLE_SEPIA_MOVIE",
+    "LIGHT_TONE",
+    "LIGHT_TONE_MOVIE",
+    "LIGNE_CLAIR",
+    "LIGNE_CLAIR_MOVIE",
+    "MANUAL_JUDGE_NG",
+    "MINIATURE",
+    "MINIATURE_JUDGE_NG",
+    "MINIATURE_MOVIE",
+    "MINIATURE_MOVIE_JUDGE_NG",
+    "MIRROR",
+    "MIRROR_MOVIE",
+    "PANORAMA",
+    "PANORAMA_JUDGE_NG",
+    "PASM_MOVIE_JUDGE_NG",
+    "POPART",
+    "POPART_MOVIE",
+    "PREVIEW",
+    "PROGRAM_MOVIE_JUDGE_NG",
+    "ROCK",
+    "ROCK_MOVIE",
+    "ROUGH_MONOCHROME",
+    "ROUGH_MONOCHROME_MOVIE",
+    "SNOW_JUDGE_NG",
+    "TENDER_LIGHT",
+    "TENDER_LIGHT_MOVIE",
+    "TOY_PHOTO",
+    "TOY_PHOTO_MOVIE",
+    "WATERCOLOR",
+    "WATERCOLOR_MOVIE"
+   ],
+   "label": "902c0020 (em5_2300)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\dec\\em5mk2_4100\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (em5mk2_4100)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\dec\\epm2a\\00_0100_402c0020.decoded.bin",
+   "size": 14155712,
+   "namespace_A": {
+    "0x10": [
+     "star_light"
+    ],
+    "0x20": [
+     "pinhole"
+    ],
+    "0x30": [
+     "frame"
+    ],
+    "0x40": [
+     "soft_focus"
+    ],
+    "0x50": [
+     "white_edge"
+    ]
+   },
+   "namespace_B": {
+    "0x06": [
+     "rough_monochrome"
+    ],
+    "0x09": [
+     "diorama"
+    ],
+    "0x0E": [
+     "gentle_sepia"
+    ],
+    "0x14": [
+     "dramatic_tone"
+    ],
+    "0x19": [
+     "artclearline"
+    ],
+    "0x1C": [
+     "mirror"
+    ],
+    "0x1D": [
+     "composite"
+    ],
+    "0x21": [
+     "pastel_art",
+     "pastelart"
+    ]
+   },
+   "source_modules": [
+    "art_effect_10_star_light.c",
+    "art_effect_20_pinhole.c",
+    "art_effect_30_frame.c",
+    "art_effect_40_soft_focus.c",
+    "art_effect_50_white_edge.c",
+    "art_filter_06_rough_monochrome.c",
+    "art_filter_09_diorama.c",
+    "art_filter_0e_gentle_sepia.c",
+    "art_filter_14_dramatic_tone.c",
+    "art_filter_19_artclearline.c",
+    "art_filter_1d_composite.c",
+    "art_filter_21_pastelart.c",
+    "art_filter_com.c",
+    "art_nr.c",
+    "art_stl2ycc.c"
+   ],
+   "colortone": [
+    "ART_JUDGE_NG",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "3D_JUDGE_NG",
+    "BEAUTY",
+    "BEAUTY_JUDGE_NG",
+    "BULB",
+    "COMPOSITE",
+    "COMPOSITE_MOVIE",
+    "CROSS_PROCESS",
+    "CROSS_PROCESS_2",
+    "CROSS_PROCESS_2_MOVIE",
+    "CROSS_PROCESS_MOVIE",
+    "CRYSTAL",
+    "CRYSTAL_MOVIE",
+    "DAYDREAM",
+    "DAYDREAM_MOVIE",
+    "DRAMATIC_TONE",
+    "DRAMATIC_TONE_2",
+    "DRAMATIC_TONE_2_MOVIE",
+    "DRAMATIC_TONE_MOVIE",
+    "DRAWING",
+    "DRAWING_MOVIE",
+    "FANTASIC_FOCUS",
+    "FANTASIC_FOCUS_MOVIE",
+    "FISH_EYE",
+    "FISH_EYE_MOVIE",
+    "GENTLE_SEPIA",
+    "GENTLE_SEPIA_MOVIE",
+    "LIGHT_TONE",
+    "LIGHT_TONE_MOVIE",
+    "LIGNE_CLAIR",
+    "LIGNE_CLAIR_MOVIE",
+    "MINIATURE",
+    "MINIATURE_JUDGE_NG",
+    "MINIATURE_MOVIE",
+    "MIRROR",
+    "MIRROR_MOVIE",
+    "PANORAMA",
+    "PANORAMA_JUDGE_NG",
+    "PASTEL",
+    "PASTEL_MOVIE",
+    "POPART",
+    "POPART_MOVIE",
+    "PREVIEW",
+    "ROCK",
+    "ROCK_MOVIE",
+    "ROUGH_MONOCHROME",
+    "ROUGH_MONOCHROME_MOVIE",
+    "TENDER_LIGHT",
+    "TENDER_LIGHT_MOVIE",
+    "TOY_PHOTO",
+    "TOY_PHOTO_MOVIE",
+    "WATERCOLOR",
+    "WATERCOLOR_MOVIE"
+   ],
+   "label": "E-P5/E-PM2 (epm2a)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\dec\\epm2b\\00_0100_402c0020.decoded.bin",
+   "size": 14155712,
+   "namespace_A": {
+    "0x10": [
+     "star_light"
+    ],
+    "0x20": [
+     "pinhole"
+    ],
+    "0x30": [
+     "frame"
+    ],
+    "0x40": [
+     "soft_focus"
+    ],
+    "0x50": [
+     "white_edge"
+    ]
+   },
+   "namespace_B": {
+    "0x06": [
+     "rough_monochrome"
+    ],
+    "0x09": [
+     "diorama"
+    ],
+    "0x0E": [
+     "gentle_sepia"
+    ],
+    "0x14": [
+     "dramatic_tone"
+    ],
+    "0x19": [
+     "artclearline"
+    ],
+    "0x1C": [
+     "mirror"
+    ],
+    "0x1D": [
+     "composite"
+    ],
+    "0x21": [
+     "pastel_art",
+     "pastelart"
+    ]
+   },
+   "source_modules": [
+    "art_effect_10_star_light.c",
+    "art_effect_20_pinhole.c",
+    "art_effect_30_frame.c",
+    "art_effect_40_soft_focus.c",
+    "art_effect_50_white_edge.c",
+    "art_filter_06_rough_monochrome.c",
+    "art_filter_09_diorama.c",
+    "art_filter_0e_gentle_sepia.c",
+    "art_filter_14_dramatic_tone.c",
+    "art_filter_19_artclearline.c",
+    "art_filter_1d_composite.c",
+    "art_filter_21_pastelart.c",
+    "art_filter_com.c",
+    "art_nr.c",
+    "art_stl2ycc.c"
+   ],
+   "colortone": [
+    "ART_JUDGE_NG",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "3D_JUDGE_NG",
+    "BEAUTY",
+    "BEAUTY_JUDGE_NG",
+    "BULB",
+    "COMPOSITE",
+    "COMPOSITE_MOVIE",
+    "CROSS_PROCESS",
+    "CROSS_PROCESS_2",
+    "CROSS_PROCESS_2_MOVIE",
+    "CROSS_PROCESS_MOVIE",
+    "CRYSTAL",
+    "CRYSTAL_MOVIE",
+    "DAYDREAM",
+    "DAYDREAM_MOVIE",
+    "DRAMATIC_TONE",
+    "DRAMATIC_TONE_2",
+    "DRAMATIC_TONE_2_MOVIE",
+    "DRAMATIC_TONE_MOVIE",
+    "DRAWING",
+    "DRAWING_MOVIE",
+    "FANTASIC_FOCUS",
+    "FANTASIC_FOCUS_MOVIE",
+    "FISH_EYE",
+    "FISH_EYE_MOVIE",
+    "GENTLE_SEPIA",
+    "GENTLE_SEPIA_MOVIE",
+    "LIGHT_TONE",
+    "LIGHT_TONE_MOVIE",
+    "LIGNE_CLAIR",
+    "LIGNE_CLAIR_MOVIE",
+    "MINIATURE",
+    "MINIATURE_JUDGE_NG",
+    "MINIATURE_MOVIE",
+    "MIRROR",
+    "MIRROR_MOVIE",
+    "PANORAMA",
+    "PANORAMA_JUDGE_NG",
+    "PASTEL",
+    "PASTEL_MOVIE",
+    "POPART",
+    "POPART_MOVIE",
+    "PREVIEW",
+    "ROCK",
+    "ROCK_MOVIE",
+    "ROUGH_MONOCHROME",
+    "ROUGH_MONOCHROME_MOVIE",
+    "TENDER_LIGHT",
+    "TENDER_LIGHT_MOVIE",
+    "TOY_PHOTO",
+    "TOY_PHOTO_MOVIE",
+    "WATERCOLOR",
+    "WATERCOLOR_MOVIE"
+   ],
+   "label": "E-P5/E-PM2 (epm2b)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1-ii-v34_pdec\\00_0100_40560020.decoded.bin",
+   "size": 23068608,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40560020 (e-m1-ii-v34_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1-ii-v34_sdec\\00_0100_40560020.decoded.bin",
+   "size": 23068608,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40560020 (e-m1-ii-v34_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1-ii-v36_pdec\\00_0100_40560020.decoded.bin",
+   "size": 23068608,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40560020 (e-m1-ii-v36_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1-ii-v36_sdec\\00_0100_40560020.decoded.bin",
+   "size": 23068608,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40560020 (e-m1-ii-v36_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1-iii-v12_pdec\\00_0100_40800020.decoded.bin",
+   "size": 27262912,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [],
+   "mode_expose": [
+    "STEP"
+   ],
+   "label": "40800020 (e-m1-iii-v12_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1-iii-v12_sdec\\00_0100_40800020.decoded.bin",
+   "size": 27262912,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [],
+   "mode_expose": [
+    "STEP"
+   ],
+   "label": "40800020 (e-m1-iii-v12_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m10ii_v13_pdec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA"
+   ],
+   "label": "40300020 (e-m10ii_v13_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m10ii_v13_sdec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA"
+   ],
+   "label": "40300020 (e-m10ii_v13_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1_v46_pdec\\00_0100_40300020.decoded.bin",
+   "size": 17825728,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (e-m1_v46_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1_v46_sdec\\00_0100_40300020.decoded.bin",
+   "size": 17825728,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (e-m1_v46_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1ii_v30_pdec\\00_0100_40560020.decoded.bin",
+   "size": 23068608,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40560020 (e-m1ii_v30_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m1ii_v30_sdec\\00_0100_40560020.decoded.bin",
+   "size": 23068608,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40560020 (e-m1ii_v30_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m5-iii-v14_pdec\\00_0100_40780020.decoded.bin",
+   "size": 25034688,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "PLACAME",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40780020 (e-m5-iii-v14_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m5-iii-v14_sdec\\00_0100_40780020.decoded.bin",
+   "size": 25034688,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "PLACAME",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40780020 (e-m5-iii-v14_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m5ii_v41_pdec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (e-m5ii_v41_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e-m5ii_v41_sdec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (e-m5ii_v41_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e_m10ii_v14_pdec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA"
+   ],
+   "label": "40300020 (e_m10ii_v14_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e_m10ii_v14_sdec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA"
+   ],
+   "label": "40300020 (e_m10ii_v14_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e_m10iii_v12_pdec\\00_0100_406e0020.decoded.bin",
+   "size": 26214336,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c"
+   ],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "406e0020 (e_m10iii_v12_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\e_m10iii_v12_sdec\\00_0100_406e0020.decoded.bin",
+   "size": 26214336,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c"
+   ],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "406e0020 (e_m10iii_v12_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\em5ii41c_patched_dec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (em5ii41c_patched_dec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\em5ii41c_stock_dec\\00_0100_40300020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "BLEACH_BYPASS",
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "40300020 (em5ii41c_stock_dec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\pen-e-pl9_v11_pdec\\00_0100_406e0020.decoded.bin",
+   "size": 26214336,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PORTRAIT",
+    "STEP"
+   ],
+   "label": "406e0020 (pen-e-pl9_v11_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\pen-e-pl9_v11_sdec\\00_0100_406e0020.decoded.bin",
+   "size": 26214336,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [
+    "art_moviestream.c",
+    "art_moviestreamts.c"
+   ],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PORTRAIT",
+    "STEP"
+   ],
+   "label": "406e0020 (pen-e-pl9_v11_sdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\pen_f_v31_pdec\\00_0100_403a0020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "403a0020 (pen_f_v31_pdec)"
+  },
+  {
+   "file": "D:\\0_Project\\01Test\\fw-work\\patched\\pen_f_v31_sdec\\00_0100_403a0020.decoded.bin",
+   "size": 21364672,
+   "namespace_A": {},
+   "namespace_B": {},
+   "source_modules": [],
+   "colortone": [
+    "COLOR_CREATOR",
+    "CROSS_PROCESS",
+    "DAYDREAM",
+    "DIORAMA",
+    "DRAMATIC_TONE",
+    "E_PORTRAIT",
+    "FLAT",
+    "GENTLE_SEPIA",
+    "GRAINY_FILM",
+    "IFINISH",
+    "LIGHT_TONE",
+    "LIGNE_CLAIR",
+    "MONOTONE",
+    "NATURAL",
+    "NONE",
+    "PARTCOLOR",
+    "PASTEL",
+    "POPART",
+    "PORTRAIT",
+    "SOFT_FOCUS",
+    "TOY_PHOTO",
+    "VINTAGE",
+    "VIVID"
+   ],
+   "mode_expose": [
+    "3D",
+    "BEAUTY",
+    "BULB",
+    "PANORAMA",
+    "STEP"
+   ],
+   "label": "403a0020 (pen_f_v31_sdec)"
+  }
+ ],
+ "id_space": {
+  "A": {
+   "0x10": {
+    "names": "star_light",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x20": {
+    "names": "pinhole",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x30": {
+    "names": "frame",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x40": {
+    "names": "soft_focus",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x50": {
+    "names": "white_edge",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   }
+  },
+  "B": {
+   "0x06": {
+    "names": "rough_monochrome",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x09": {
+    "names": "diorama",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x0E": {
+    "names": "gentle_sepia",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x14": {
+    "names": "dramatic_tone",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x19": {
+    "names": "artclearline",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x1C": {
+    "names": "mirror",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x1D": {
+    "names": "composite",
+    "models": [
+     "902c0020 (0970_2300)",
+     "902c0020 (em5_2202)",
+     "902c0020 (em5_2300)",
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   },
+   "0x21": {
+    "names": "pastelart",
+    "models": [
+     "E-P5/E-PM2 (decoded)",
+     "E-P5/E-PM2 (epm2a)",
+     "E-P5/E-PM2 (epm2b)"
+    ]
+   }
+  }
+ }
+}
