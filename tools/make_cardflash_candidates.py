@@ -24,17 +24,14 @@ import shutil
 
 # (子目录, 文件名)
 ALL_CANDIDATES = [
-    ("DCOLYMP", "S1081800BIN"),
-    ("DCOLYMP", "S1089999BIN"),
-    ("DCOLYMP", "S108180.BIN"),
+    ("DCOLYMP", "E1089999.BIN"),      # ★ 实机确认可用（2026-10-24）
     ("DCOLYMP", "S1089999.BIN"),
+    ("DCOLYMP", "S1081800BIN"),
+    ("DCOLYMP", "S108180.BIN"),
     ("DCOLYMP", "S1080001BIN"),
     ("DCOLYMP", "S1081801BIN"),
     ("DCOLYMP", "E1081800BIN"),
     ("DCOLYMP", "E108180.BIN"),
-    ("DCOLYMP", "E1089999BIN"),
-    ("DCOLYMP", "E1089999.BIN"),
-    ("DCOLYMP", "S1081800.BIN"),
     ("", "WFDP0001.BIN"),
     ("", "WFCL0101.BIN"),
     ("", "WFCL0201.BIN"),
@@ -47,11 +44,19 @@ TEMPLATES = ["S108????BIN", "E108????BIN", "G108????BIN", "H108????BIN",
 
 
 def matches_template(name):
-    """按固件模板做字面通配匹配（'?' 匹配任意单字符）。"""
+    """按固件模板做**前后缀**匹配。
+
+    实测（第 26 轮，2026-10-24 用户实机确认）：
+        `DCOLYMP\\E1089999.BIN`（12 字符）能被 E-P5 v1.8 接受并刷入成功，
+        而模板 `E108????BIN` 只有 11 字符
+        ⇒ `?` **不是定长通配符**，而是「任意长度」的占位。
+    ⇒ 规则应理解为：文件名以 `<类型字母>108` 开头、以 `BIN` 结尾。
+    """
     for t in TEMPLATES:
-        if len(t) != len(name):
+        pre, _, suf = t.partition("????")
+        if not suf:
             continue
-        if all(tc == "?" or tc == nc for tc, nc in zip(t, name)):
+        if name.startswith(pre) and name.endswith(suf):
             return t
     return None
 
