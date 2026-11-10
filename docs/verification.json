@@ -1,0 +1,91 @@
+{
+  "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+  "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+  "scope": "Original E-P5 startup branch and CSV parse/overlay install/get/clear, including native call/return frames.",
+  "models": [
+    "5000-unit delay returns immediately",
+    "direct gate cases model F971; CSV cases execute the real getter",
+    "Wi-Fi initialization is counted, not executed",
+    "only bounded stack and parameter RAM are writable",
+    "CSV fixture has a synthetic zero-valued base parameter; file discovery is separate"
+  ],
+  "not_tested": [
+    "filesystem discovery/import scheduling",
+    "radio",
+    "sockets",
+    "concurrent boot",
+    "ISP",
+    "firmware recovery"
+  ],
+  "physical_camera_test": false,
+  "cases": [
+    {
+      "parameter_value": 0,
+      "parameter_id": 63857,
+      "delay_argument": 5000,
+      "wifi_requests": 0,
+      "reached_stop": true,
+      "instructions": 14
+    },
+    {
+      "parameter_value": 1,
+      "parameter_id": 63857,
+      "delay_argument": 5000,
+      "wifi_requests": 1,
+      "reached_stop": true,
+      "instructions": 16
+    }
+  ],
+  "csv_cases": [
+    {
+      "parameter_value": 0,
+      "parsed_value": 0,
+      "after_clear": 0,
+      "wifi_requests": 0,
+      "reached_stop": true,
+      "instructions": 37774
+    },
+    {
+      "parameter_value": 1,
+      "parsed_value": 1,
+      "after_clear": 0,
+      "wifi_requests": 1,
+      "reached_stop": true,
+      "instructions": 37773
+    }
+  ],
+  "dependencies_sha256": {
+    "tools/ep5_gate_probe.c": "32685fbce720fe12cd80e8bfbd531ef28ffc184abf12b03ef387317bae1be18b",
+    "tools/native_probe.py": "9c07c9cf0f9755d163294dba70904073e1f8f9d590c6a7b0a49f46b99d359de8",
+    "external/em10-fw/emu/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+    "external/em10-fw/emu/emu.h": "434e677a2e60d62dd63fcdefa3c624a9447eb1ef4e79110ccd43476e706f6ede",
+    "external/em10-fw/emu/gen.py": "b64dd23fcf101c1209b96672cc1d53126fcddec01c6c260e057acb8981a3e232",
+    "external/em10-fw/emu/isa/am33-2.igen": "f89a0cc59b381f218b0a2e48a09cd9941d07e291234501c1f1897ad206103829",
+    "external/em10-fw/emu/isa/am33.igen": "e10def0a98dab57f36d85cda7beeb79365bd0e14d4b76ebf4cf634b3fbe07438",
+    "external/em10-fw/emu/isa/em10.igen": "14eacf0d65289108d499260a4e552dc2e25fbd2df1537c15df700d05f21acc6d",
+    "external/em10-fw/emu/isa/mn10300.igen": "355754c61879dc24bf6128bbba5a7931355731000e8cb213082b9b9cd4df0129",
+    "build/native-probe/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+    "build/native-probe/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+    "build/native-probe/ep5-gate-probe": "47e7fc717dd07401a82db36f226f88558357ccde8d5581326e46a4c35fd984ea"
+  },
+  "full_resolution": {
+    "width": 4608,
+    "height": 3456,
+    "bytes": 47775744,
+    "lut_bytes": 29478,
+    "kernel_dynamic_allocations": 0,
+    "identity_sha256": "3efe6e500d0720292610a4e15253ee697d78b010cf068e3b7d078fb9d2b780d1",
+    "warm_negative_sha256": "877d0313db36d4bac5a43a87a7d331be94b30c4e0aa2415fb7a7f5fa7b9a6ddd",
+    "host_seconds": {
+      "identity": 0.43988373200045316,
+      "warm_negative": 0.5440927079998801
+    },
+    "camera_tested": false,
+    "input": "synthetic RGB8 pattern; no ORF or camera colour-space calibration"
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests -v",
+    "passed": 16,
+    "physical_camera_test": false
+  }
+}
