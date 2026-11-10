@@ -1,0 +1,21 @@
+{
+  "gcc_release": "14.3.0",
+  "source": "https://gcc.gnu.org/pub/gcc/releases/gcc-14.3.0/",
+  "archive_sha512": "cb4e3259640721bbd275c723fe4df53d12f9b1673afb3db274c22c6aa457865dccf2d6ea20b4fd4c591f6152e6d4b87516c402015900f06ce9d43af66d3b7a93",
+  "configure": "'--target=mn10300-elf' '--prefix=/home/sanyu/01-work/03-ep5/toolchains/mn103' '--with-as=/home/sanyu/01-work/03-ep5/toolchains/mn103/bin/mn10300-elf-as' '--with-ld=/home/sanyu/01-work/03-ep5/toolchains/mn103/bin/mn10300-elf-ld' '--without-headers' '--with-newlib' '--disable-bootstrap' '--disable-multilib' '--disable-nls' '--disable-shared' '--disable-threads' '--disable-lto' '--disable-libssp' '--disable-libquadmath' '--disable-libgomp' '--disable-libatomic' '--disable-libsanitizer' '--without-isl' '--with-gmp-include=/home/sanyu/01-work/03-ep5/toolchains/hostdeps/usr/include/x86_64-linux-gnu' '--with-gmp-lib=/home/sanyu/01-work/03-ep5/toolchains/hostdeps/usr/lib/x86_64-linux-gnu' '--with-mpfr-include=/home/sanyu/01-work/03-ep5/toolchains/hostdeps/usr/include' '--with-mpfr-lib=/home/sanyu/01-work/03-ep5/toolchains/hostdeps/usr/lib/x86_64-linux-gnu' '--with-mpc-include=/home/sanyu/01-work/03-ep5/toolchains/hostdeps/usr/include' '--with-mpc-lib=/home/sanyu/01-work/03-ep5/toolchains/hostdeps/usr/lib/x86_64-linux-gnu' 'target_alias=mn10300-elf' '--enable-languages=c'",
+  "build_command": "make -j4 all-gcc all-target-libgcc",
+  "local_only": true,
+  "dependencies_sha256": {
+    "libgmp-dev_2%3a6.2.1+dfsg-3ubuntu1_amd64.deb": "e4ce547c5c5e4efd98854d06559349b3a03272eb343f1bd8e4ccac7b783229a3",
+    "libmpc-dev_1.2.1-2build1_amd64.deb": "603db7218c8acb9717986e3f68562b982a4ecac4010bc7429e827aea14dc0349",
+    "libmpfr-dev_4.1.0-3build3_amd64.deb": "ee3fc55ad08686f89a1839b5673e38c2dd269b0335bc80f8e881e4b641259116"
+  },
+  "installed": {
+    "version": "mn10300-elf-gcc (GCC) 14.3.0",
+    "sha256": {
+      "toolchains/mn103/bin/mn10300-elf-gcc": "f37880c47e6cb3361814278905f3eb5b8d1a460ac5c759d9147a5a38eb80aec4",
+      "toolchains/mn103/libexec/gcc/mn10300-elf/14.3.0/cc1": "21cd88e8b340574874cc131530104da1a179b537e3710c37341d08132a13348d",
+      "toolchains/mn103/lib/gcc/mn10300-elf/14.3.0/libgcc.a": "52bfe382d2c05e81dbbbf3a932019a3b65d3318ff315b7f3a9ecfc17b759f7fe"
+    }
+  }
+}
