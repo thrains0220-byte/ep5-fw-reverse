@@ -1,0 +1,116 @@
+{
+  "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+  "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+  "cases": [
+    {
+      "name": "art-full",
+      "buffer_address": 301989888,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456
+      ],
+      "request_words": [
+        301989888,
+        226497024,
+        226497024,
+        0,
+        0,
+        0,
+        0,
+        536870912,
+        0,
+        0
+      ],
+      "codec_calls": 1,
+      "picture_mode": 0,
+      "native_result": 4660,
+      "instructions": 105,
+      "registers_and_stack_preserved": true
+    },
+    {
+      "name": "art-small",
+      "buffer_address": 301989888,
+      "geometry_u16": [
+        640,
+        480,
+        640,
+        480
+      ],
+      "request_words": [
+        301989888,
+        31457920,
+        31457920,
+        0,
+        0,
+        0,
+        0,
+        536870912,
+        0,
+        2
+      ],
+      "codec_calls": 1,
+      "picture_mode": 1,
+      "native_result": 4660,
+      "instructions": 112,
+      "registers_and_stack_preserved": true
+    }
+  ],
+  "entry": "0x7e3ed85c",
+  "frame": {
+    "register_mask": 176,
+    "bytes": 56
+  },
+  "codec": "0x7e3f4884",
+  "codec_call": "0x7e3ed8d1",
+  "codec_frame": {
+    "register_mask": 240,
+    "bytes": 16
+  },
+  "globals": {
+    "buffer": "0x605f455c",
+    "geometry": "0x605f4560"
+  },
+  "physical_camera_test": false,
+  "models": [
+    "REC log returns with [d2,a2],12",
+    "codec captures request and returns 0x1234 with [d2,d3,a2,a3],16",
+    "ART context and existing buffer globals are synthetic read-only inputs"
+  ],
+  "not_tested": [
+    "actual image production",
+    "buffer format/colour",
+    "normal-still routing",
+    "cache",
+    "code residency",
+    "JPEG encoding",
+    "camera installation/recovery"
+  ],
+  "dependencies_sha256": {
+    "tools/ep5_image_probe.c": "5d358add3486c7cc47f3a9cef668226fe7ea8442c2e3d631abbd1a75ec13eaf4",
+    "tools/image_probe.py": "a95a3843a6a4c8b9dfa5a10539c48743fa8f06cc83aa459ab789e0b58f5bbc72",
+    "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+    "build/art-handoff/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+    "build/art-handoff/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+    "build/art-handoff/ep5-image-probe": "b235b8eb790adb526cbab72840f3ec42e8211e6878a272c0fff988a2fd5722bb"
+  },
+  "tests": {
+    "passed": 40,
+    "skipped": 0,
+    "seconds": 29.295,
+    "command": "python3 -m unittest discover -s tests -v"
+  },
+  "original_windows": {
+    "0x7e3ed8d1": "cd b3 6f f0 10",
+    "0x7e3f4d78": "df f0 10",
+    "0x7e3ed8d7": "df b0 38"
+  },
+  "independent_review": {
+    "isolated_image_tests_passed": 2,
+    "actionable_findings": [],
+    "hardware_test": false
+  },
+  "flashable_output_created": false,
+  "test_source_sha256": "ee1a8b6945438cbf1c354ccb384e35a33b3969631fc73bd6f8b678db4f338a24"
+}
