@@ -2,8 +2,31 @@
 
 static uint16_t lerp(uint16_t a, uint16_t b, unsigned fraction)
 {
-    return (uint16_t)(((uint32_t)a * (255u - fraction) +
-                       (uint32_t)b * fraction + 127u) / 255u);
+    return (uint16_t)(((uint32_t)a * (65535u - fraction) +
+                       (uint32_t)b * fraction + 32767u) / 65535u);
+}
+
+void ep5_lut_sample16(const uint16_t *lut, const uint16_t rgb[3], uint16_t out[3])
+{
+    unsigned cell[3], fraction[3];
+    for (unsigned c = 0; c < 3; ++c) {
+        uint32_t position = (uint32_t)rgb[c] * 16u;
+        cell[c] = position / 65535u;
+        fraction[c] = position % 65535u;
+        if (cell[c] == 16u) {
+            cell[c] = 15u;
+            fraction[c] = 65535u;
+        }
+    }
+    size_t at = ((cell[2] * 17u + cell[1]) * 17u + cell[0]) * 3u;
+    for (unsigned c = 0; c < 3; ++c) {
+        const uint16_t *p = lut + at + c;
+        uint16_t low = lerp(lerp(p[0], p[3], fraction[0]),
+                            lerp(p[51], p[54], fraction[0]), fraction[1]);
+        uint16_t high = lerp(lerp(p[867], p[870], fraction[0]),
+                             lerp(p[918], p[921], fraction[0]), fraction[1]);
+        out[c] = lerp(low, high, fraction[2]);
+    }
 }
 
 int ep5_lut_rgb8(uint8_t *pixels, size_t capacity, uint32_t width,
@@ -25,25 +48,10 @@ int ep5_lut_rgb8(uint8_t *pixels, size_t capacity, uint32_t width,
     for (uint32_t y = 0; y < height; ++y) {
         uint8_t *pixel = pixels + (size_t)y * stride;
         for (uint32_t x = 0; x < width; ++x, pixel += 3) {
-            unsigned cell[3], fraction[3];
-            for (unsigned c = 0; c < 3; ++c) {
-                unsigned position = (unsigned)pixel[c] * 16u;
-                cell[c] = position / 255u;
-                fraction[c] = position % 255u;
-                if (cell[c] == 16u) {
-                    cell[c] = 15u;
-                    fraction[c] = 255u;
-                }
-            }
-            size_t at = ((cell[2] * 17u + cell[1]) * 17u + cell[0]) * 3u;
-            for (unsigned c = 0; c < 3; ++c) {
-                const uint16_t *p = lut + at + c;
-                uint16_t low = lerp(lerp(p[0], p[3], fraction[0]),
-                                    lerp(p[51], p[54], fraction[0]), fraction[1]);
-                uint16_t high = lerp(lerp(p[867], p[870], fraction[0]),
-                                     lerp(p[918], p[921], fraction[0]), fraction[1]);
-                pixel[c] = (uint8_t)((lerp(low, high, fraction[2]) + 128u) / 257u);
-            }
+            uint16_t rgb[3], out[3];
+            for (unsigned c = 0; c < 3; ++c) rgb[c] = (uint16_t)(pixel[c] * 257u);
+            ep5_lut_sample16(lut, rgb, out);
+            for (unsigned c = 0; c < 3; ++c) pixel[c] = (uint8_t)((out[c] + 128u) / 257u);
         }
     }
     return 0;

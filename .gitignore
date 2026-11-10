@@ -3,5 +3,6 @@
 /toolchains/
 /build/
 /generated/
+/sessions/
 __pycache__/
 .pytest_cache/

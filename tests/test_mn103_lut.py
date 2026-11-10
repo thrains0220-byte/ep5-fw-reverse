@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import unittest
 
-from tools.check_mn103_lut import validate_target
+from tools.check_mn103_lut import validate_target, validate_film_target
 from tools.native_probe import build_probe
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,6 +49,22 @@ class RunnerMemoryTests(unittest.TestCase):
 @unittest.skipUnless((ROOT / "toolchains/mn103/bin/mn10300-elf-gcc").exists(),
                      "requires locally built MN103 GCC")
 class TargetKernelTests(unittest.TestCase):
+    def test_film_engine_descriptor_and_cancellation_match_host(self):
+        report = validate_film_target()
+        self.assertFalse(report["physical_camera_test"])
+        self.assertTrue(report["plain_mn103_instruction_set"])
+        cases = {case["name"]: case for case in report["cases"]}
+        self.assertEqual(cases["identity"]["result"], 0)
+        self.assertEqual(cases["cancel_before"]["result"], -2)
+        self.assertEqual(cases["cancel_partial"]["result"], -3)
+        self.assertEqual(cases["descriptor_crop"]["result"], 0)
+        self.assertEqual(cases["bad_descriptor"]["result"], -1)
+        self.assertEqual(cases["extent_overflow"]["result"], -1)
+        self.assertGreaterEqual(len(cases), 12)
+        for case in cases.values():
+            self.assertTrue(case["matches_host"])
+            self.assertTrue(case["guard_bytes_preserved"])
+
     def test_target_matches_host_and_rejects_invalid_extents(self):
         report = validate_target()
         self.assertFalse(report["physical_camera_test"])

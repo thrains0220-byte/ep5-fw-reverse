@@ -1,0 +1,419 @@
+{
+  "native_descriptor": {
+    "fields": [
+      {
+        "label": "pAddress",
+        "value": 305419896,
+        "offset": 0
+      },
+      {
+        "label": "pAddressC",
+        "value": 2271560481,
+        "offset": 4
+      },
+      {
+        "label": "usDataFormat",
+        "value": 784,
+        "offset": 8
+      },
+      {
+        "label": "usMemHw",
+        "value": 785,
+        "offset": 10
+      },
+      {
+        "label": "usUseHw",
+        "value": 786,
+        "offset": 12
+      },
+      {
+        "label": "usUseVw",
+        "value": 787,
+        "offset": 14
+      },
+      {
+        "label": "usAreaHw",
+        "value": 788,
+        "offset": 16
+      },
+      {
+        "label": "usAreaVw",
+        "value": 789,
+        "offset": 18
+      },
+      {
+        "label": "usOffsetH",
+        "value": 790,
+        "offset": 20
+      },
+      {
+        "label": "usOffsetV",
+        "value": 791,
+        "offset": 22
+      },
+      {
+        "label": "usCenterH",
+        "value": 792,
+        "offset": 24
+      },
+      {
+        "label": "usCenterV",
+        "value": 793,
+        "offset": 26
+      },
+      {
+        "label": "dummy",
+        "value": 2882400001,
+        "offset": 28
+      }
+    ],
+    "instructions": 58,
+    "registers_and_stack_preserved": true,
+    "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+    "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+    "entry": "0x7e40fba4",
+    "frame": {
+      "register_mask": 32,
+      "bytes": 8
+    },
+    "physical_camera_test": false,
+    "models": [
+      "log header/value sinks return using native frame [a2],16",
+      "synthetic descriptor, read-only"
+    ],
+    "not_tested": [
+      "actual pixel buffer",
+      "0x302 byte order",
+      "YCbCr colour matrix/range",
+      "cache",
+      "residency"
+    ],
+    "dependencies_sha256": {
+      "tools/ep5_image_probe.c": "c20678de63f2909745887f7e7944ac4f532c8651652fa8d2ca299ece3752e164",
+      "tools/image_probe.py": "eed015be5d673770af7d29ff702c10b6abf74862a64b935ccdb270f4b14af5ad",
+      "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+      "build/image-probe/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+      "build/image-probe/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+      "build/image-probe/ep5-image-probe": "ee8a25fe1b743cffa7150b80d4d6ee52fc6d8f0db0925400b3c988deaf23ca85"
+    }
+  },
+  "rgb8": {
+    "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
+    "flags": [
+      "-std=c99",
+      "-O2",
+      "-mno-am33",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-tree-loop-distribute-patterns",
+      "-fno-pic",
+      "-fno-common",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-nostdlib",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-Wl,--gc-sections"
+    ],
+    "code_bytes": 853,
+    "lut_bytes": 29478,
+    "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+    "plain_mn103_instruction_set": true,
+    "physical_camera_test": false,
+    "cases": [
+      {
+        "name": "identity",
+        "result": 0,
+        "instructions": 174467,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "3ff433d3b16a880646265ff5a84b18b77ba47fe3922ed4e4b2f598112e3e0357"
+      },
+      {
+        "name": "warm_negative",
+        "result": 0,
+        "instructions": 174467,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "c518e5f8ec092bf5adcc6ad8104506649cf2755e4e3a138a9389ed5e348c9cc7"
+      },
+      {
+        "name": "capacity",
+        "result": -1,
+        "instructions": 74,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "3ff433d3b16a880646265ff5a84b18b77ba47fe3922ed4e4b2f598112e3e0357"
+      },
+      {
+        "name": "stride",
+        "result": -1,
+        "instructions": 58,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "3ff433d3b16a880646265ff5a84b18b77ba47fe3922ed4e4b2f598112e3e0357"
+      },
+      {
+        "name": "width_overflow",
+        "result": -1,
+        "instructions": 54,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "3ff433d3b16a880646265ff5a84b18b77ba47fe3922ed4e4b2f598112e3e0357"
+      },
+      {
+        "name": "extent_overflow",
+        "result": -1,
+        "instructions": 67,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "3ff433d3b16a880646265ff5a84b18b77ba47fe3922ed4e4b2f598112e3e0357"
+      },
+      {
+        "name": "lut_count",
+        "result": -1,
+        "instructions": 39,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "3ff433d3b16a880646265ff5a84b18b77ba47fe3922ed4e4b2f598112e3e0357"
+      }
+    ],
+    "scope": "GCC-generated colour instructions execute on synthetic RGB buffers; no host service computes pixels.",
+    "not_tested": [
+      "vendor compiler ABI",
+      "actual CPU/cache timing",
+      "ISP buffer access",
+      "colour calibration",
+      "camera safety"
+    ],
+    "dependencies_sha256": {
+      "firmware/lut.c": "371937f585ba4f1296e3ae569a8885ef705399acaac7428210cdfbeb764f5655",
+      "firmware/lut.h": "bc9f895babc41774937c03c42ee69c7763868d6bddefc88413a1a85479fe0a35",
+      "tests/fixtures/lut_target.c": "74e119a37ec3785d1e8f33396565b7d2fa932151ce5590f3c913de5d6951a6e2",
+      "tests/fixtures/lut_target.ld": "d00df6b95528fccda70e2afc335bafba953f9cf1e6e3027a82df89eb0f837289",
+      "tools/lut_mn103_probe.c": "a71ab4605cd0f24c462e8d3ab0e7a6cec62d3364dcc75bc7fc647c9637c5f69a",
+      "tools/check_mn103_lut.py": "c9406bb355927e2bc0ed4d51182bf58ed2be4fcbd396c27678df6c967e9b9087",
+      "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+      "build/mn103-lut/lut.elf": "5b25d929534b6452c124ae35764aaf0ed8001ffdc99cb2b59eedd05394bbaeef",
+      "build/mn103-lut/lut.bin": "820b25c71c9aa71434a789f6340be607e5f8fc89d87ba3f76d8145e6b7713d54",
+      "build/mn103-lut/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+      "build/mn103-lut/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+      "build/mn103-lut/lut-mn103-probe": "21501de76302cbde0dc92b0d3f887c93302f0b74c3424c23fa9e1910d1de5555"
+    }
+  },
+  "film": {
+    "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
+    "flags": [
+      "-std=c99",
+      "-O2",
+      "-mno-am33",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-tree-loop-distribute-patterns",
+      "-fno-pic",
+      "-fno-common",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-nostdlib",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-Wl,--gc-sections"
+    ],
+    "code_bytes": 2567,
+    "lut_bytes": 29478,
+    "cases": [
+      {
+        "name": "identity",
+        "result": 0,
+        "instructions": 69127,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "warm_negative",
+        "result": 0,
+        "instructions": 70572,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "30b027b09ce3156d6556c11e48267d8c0973d6757b958495b0b4f064bc85c109"
+      },
+      {
+        "name": "half",
+        "result": 0,
+        "instructions": 70572,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "0fe452cc5717b6766abe71f653dd29b723c3416bafe533ef957f71048267bce6"
+      },
+      {
+        "name": "off",
+        "result": 0,
+        "instructions": 120,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "21168f11461d8b842417ac1b6e9abdd8eb8111352736d1815fa5eb49bc3a31b1"
+      },
+      {
+        "name": "encoding",
+        "result": -1,
+        "instructions": 96,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "66006305c3e139bd3f0d00cbe470d23494ac45b1bb80b71e18a5c20d61fcc0e3"
+      },
+      {
+        "name": "amount",
+        "result": -1,
+        "instructions": 99,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "0c96a0132a38a12db16ff6e8862b6300e12999934494d1938699c9aa25ee42e9"
+      },
+      {
+        "name": "capacity",
+        "result": -1,
+        "instructions": 91,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "stride",
+        "result": -1,
+        "instructions": 70,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "odd_width",
+        "result": -1,
+        "instructions": 61,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "lut_count",
+        "result": -1,
+        "instructions": 94,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "width_overflow",
+        "result": -1,
+        "instructions": 65,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "extent_overflow",
+        "result": -1,
+        "instructions": 79,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "86bf55eb95972d5e30b55c40bcbaefb12a8ed4837f4ddf8bc3e682d229e8b267"
+      },
+      {
+        "name": "cancel_before",
+        "result": -2,
+        "instructions": 118,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "e66340ccf6ad8c452960189f9dcccecea199e82b7621c2b8782f6cbe633a0609"
+      },
+      {
+        "name": "cancel_partial",
+        "result": -3,
+        "instructions": 56505,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "9c51f95aa35f3120701b38bd42a8edfb7962ec30af1085305fc9cc75ddf600c3"
+      },
+      {
+        "name": "descriptor",
+        "result": 0,
+        "instructions": 70784,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "c053356491cb122b772ed1b418bf05602c8d7a2da44b4ce9ef1a1c8e005e8127"
+      },
+      {
+        "name": "descriptor_crop",
+        "result": 0,
+        "instructions": 70807,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "fdcdaa982af96fbdd876d4b7c902b5498ee88dd14fc0ebf7a9d9a02e5bc5152e"
+      },
+      {
+        "name": "bad_descriptor",
+        "result": -1,
+        "instructions": 118,
+        "matches_host": true,
+        "guard_bytes_preserved": true,
+        "output_sha256": "66e5a1cff66950d00690a18a872045126f29bfda885ce77e66a46f5aba8327b2"
+      }
+    ],
+    "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+    "plain_mn103_instruction_set": true,
+    "physical_camera_test": false,
+    "scope": "Production YUYV engine and descriptor normalizer, executed as MN103 instructions with a synthetic GCC caller.",
+    "not_tested": [
+      "camera YCC encoding",
+      "vendor hook",
+      "cache/ownership",
+      "watchdog timing",
+      "code residency",
+      "ORF/JPEG save"
+    ],
+    "dependencies_sha256": {
+      "firmware/lut.c": "371937f585ba4f1296e3ae569a8885ef705399acaac7428210cdfbeb764f5655",
+      "firmware/film.c": "31df5f7d78eed3cfdc66bde21a35a0ad45172392184d9f5d9e50bbfd361b1871",
+      "firmware/lut.h": "bc9f895babc41774937c03c42ee69c7763868d6bddefc88413a1a85479fe0a35",
+      "firmware/film.h": "7d3999b82c4bbe28cdcab2215ab3162f43453bfdc4714352a486a7fd325be99e",
+      "tests/fixtures/film_target.c": "f41960a9d780ff2737c68dbe59a5b6cd426c4c83426137913317152f9b36993d",
+      "tests/fixtures/lut_target.ld": "d00df6b95528fccda70e2afc335bafba953f9cf1e6e3027a82df89eb0f837289",
+      "tools/check_mn103_lut.py": "c9406bb355927e2bc0ed4d51182bf58ed2be4fcbd396c27678df6c967e9b9087",
+      "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+      "tools/lut_mn103_probe.c": "a71ab4605cd0f24c462e8d3ab0e7a6cec62d3364dcc75bc7fc647c9637c5f69a",
+      "build/mn103-film/lut.elf": "f22fbb17ed36ebcb8a39576e3a8fd31ae136981e25481cbde49668fe898404d1",
+      "build/mn103-film/lut.bin": "611ccf7fe9812090f727f49bbd0f34bd665f56b6da463229c8cbb08b31150de6",
+      "build/mn103-film/lut-mn103-probe": "838188561121e90a8b05840e0f0b01a77053309819ddba143e564e627948c717",
+      "build/mn103-film/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+      "build/mn103-film/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28"
+    }
+  },
+  "tests": {
+    "passed": 39,
+    "skipped": 0,
+    "seconds": 28.69,
+    "command": "python3 -m unittest discover -s tests -v"
+  },
+  "camera_connected": false,
+  "flashable_output_created": false,
+  "review": {
+    "outstanding_findings": [],
+    "fixed": [
+      "absolute HTTP deadline enforced per socket receive/send",
+      "XML UTF16/BOM-less entity bypass rejected with UTF8 and NUL checks"
+    ],
+    "hardware_qualification": false
+  },
+  "collector_source_sha256": "91222545f02fbef7605b7d72fd1e46a574d4710482f6e03afddfa56048136fbc",
+  "test_sources_sha256": {
+    "tests/test_camera_collect.py": "65a300057a9d203055aeb26da9e8b1f67c16146b153b1b19d11f720f823d33a4",
+    "tests/test_film.py": "ca81169355f170f670b37d7d227a3c491a881d827f69678dc64ee325ed2468e5",
+    "tests/test_image_probe.py": "c78d77e8a2cf24656b36e27a1138d4eef4b3e3bac4fb0dacdfa47798e01bc197",
+    "tests/test_inspect_ep5.py": "5932e1f6fba76f577fb237457eed9ddf2f007fb7cb7955b70065eacdcffba04b",
+    "tests/test_lut.py": "2365a3948c51b0a7a5d53d0166d320b168164e959144bba8e1c74384e978721d",
+    "tests/test_mn103_lut.py": "842d1a412992a988826ddab65ae43aeb8c49026e6ff1971dbdc166f3d1b1ed14",
+    "tests/test_native_probe.py": "3e28417c2b8b68c154167063692857b9de9c628c6c3d1eee2dc082e2391d2950"
+  }
+}
