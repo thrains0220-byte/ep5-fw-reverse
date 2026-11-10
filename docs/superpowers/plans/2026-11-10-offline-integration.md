@@ -46,7 +46,7 @@ Files: tools/camera_collect.py, tests/test_camera_collect.py, docs/WIFI_READONLY
 - [x] Implement bounded collection of caminfo/commands/connectmode/DCIM listing and optional explicitly named original ORF/JPEG files into a new private session directory.
 - [x] Document one invocation for later connection and the remaining native hook/cache/residency/recovery work, distinguishing tested software from unverified hardware.
 - [x] Full suite, independent review and meaningful fixes; evidence retained in docs/offline-integration-verification.json.
-- [ ] Commit and sync the already authorized GitHub feature branch.
+- [x] Commit and sync the already authorized GitHub feature branch (implementation commit 3fdf46a).
 
 ## Decisions and results
 
