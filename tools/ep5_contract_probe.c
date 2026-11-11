@@ -12,6 +12,11 @@
 #define MESSAGE (STACK + 0x200u)
 #define WRAPPER (STACK + 0x220u)
 #define BOOT_GLOBAL 0x605112d0u
+#define CHROMA_MODE 3
+#define CHROMA_FRAME (STACK + 0xf000u)
+#define CHROMA_WORDS (STACK + 0x3000u)
+#define CHROMA_FLAGS (STACK + 0x3400u)
+#define CHROMA_DEFAULT 0x602aad9cu
 
 static uint8_t *image, stack_ram[65536], ram[0x4000], boot_globals[16];
 static const struct service { uint32_t pc; uint8_t ret[8]; } services[] = {
@@ -37,6 +42,10 @@ static int within(uint32_t a, uint32_t n, uint32_t base, uint32_t bytes)
 
 uint8_t *mem_host(uint32_t a, uint32_t n)
 {
+    /* For the default branch's zero auxiliary inputs, model one RAM entry using
+     * an unmodified six-pointer ROM record. The hardware RAM table is unknown. */
+    if (mode == CHROMA_MODE && within(a, n, CHROMA_DEFAULT, 24))
+        return image + (0x7e478148u - BASE) + (a - CHROMA_DEFAULT);
     for (unsigned i = 0; i < sizeof services / sizeof *services; ++i)
         if (within(a, n, services[i].pc, 8))
             return (uint8_t *)services[i].ret + (a - services[i].pc);
@@ -58,6 +67,10 @@ uint32_t mem_rd(uint32_t a, int n)
 
 void mem_wr(uint32_t a, uint32_t v, int n)
 {
+    if (mode == CHROMA_MODE &&
+        !within(a, n, CHROMA_FRAME - 40, 40 + 132) &&
+        !within(a, n, CHROMA_WORDS, 34 * 4) && !within(a, n, CHROMA_FLAGS, 4))
+        emu_abort(PC, "write outside chroma call frame/output/flag %08x", a);
     if (!within(a, (uint32_t)n, STACK, sizeof stack_ram) &&
         !within(a, (uint32_t)n, PACKET, 396) &&
         !within(a, (uint32_t)n, TASK, 676) &&
@@ -74,6 +87,7 @@ void mem_misaligned(uint32_t a, int n, int write_access)
 
 int hle_is_hook(uint32_t a)
 {
+    if (mode == CHROMA_MODE) return a == 0x7e22df82;
     if (a == CALLER + 7 || (mode == 0 && a == 0x7e10187b)) return 1;
     for (unsigned i = 0; i < sizeof services / sizeof *services; ++i)
         if (a == services[i].pc) return 1;
@@ -83,6 +97,7 @@ int hle_is_hook(uint32_t a)
 int hle_check(cpu_t *cpu)
 {
     uint32_t pc = cpu->regs[REG_PC];
+    if (mode == CHROMA_MODE && pc == 0x7e22df82) { stopped = emu_stop = 1; return 1; }
     if (pc == CALLER + 7) { stopped = emu_stop = 1; return 1; }
     if (mode == 0 && pc == 0x7e10187b) {
         boot_source = cpu->regs[REG_A0];
@@ -115,11 +130,57 @@ uint64_t soc_next_event(void) { return emu_ns + 1; }
 
 static void put(uint32_t a, uint32_t v, int n) { mem_wr(a, v, n); }
 
+/* Enter the stock caller after its path decision. (sp+124,sp+128) hold the
+ * register block and flag addresses. Both native calls create their own frames. */
+static int probe_chroma(void)
+{
+    printf("[");
+    for (unsigned id = 0; id < 256; ++id) {
+        cpu_t *cpu = &cpus[0];
+        memset(cpu, 0, sizeof *cpu);
+        memset(stack_ram, 0xa5, sizeof stack_ram);
+        memset(stack_ram + (CHROMA_FRAME - STACK), 0, 132);
+        put(CHROMA_FRAME + 124, CHROMA_WORDS, 4);
+        put(CHROMA_FRAME + 128, CHROMA_FLAGS, 4);
+        put(CHROMA_FLAGS, 0xa5a5a5a7u, 4);
+        cpu->running = 1;
+        cpu->irq_level = 7;
+        cpu->regs[REG_PC] = 0x7e22df5b;
+        cpu->regs[REG_SP] = CHROMA_FRAME;
+        cpu->regs[REG_D0 + 2] = id;
+        stopped = emu_stop = 0;
+        cpu_run(20000, 0);
+        if (!stopped || cpu->regs[REG_SP] != CHROMA_FRAME ||
+            cpu->regs[REG_A0 + 2] != CHROMA_WORDS || cpu->regs[REG_A0 + 3] != CHROMA_FRAME + 56 ||
+            cpu->regs[REG_D0 + 2] != 0 || cpu->regs[REG_D0 + 3] != 0 ||
+            mem_rd(CHROMA_FLAGS, 4) != 0xa5a5a5a5u) {
+            fprintf(stderr, "incomplete chroma call frame or flag for mode %u at %08x\n", id, cpu->regs[REG_PC]);
+            return 1;
+        }
+        printf("%s{\"mode\":%u,\"flags\":%u,\"pointers\":[", id ? "," : "", id, mem_rd(CHROMA_FLAGS, 4));
+        for (unsigned i = 0; i < 6; ++i)
+            printf("%s%u", i ? "," : "", mem_rd(CHROMA_FRAME + 56 + 4 * i, 4));
+        printf("],\"words\":[");
+        for (unsigned i = 0; i < 34; ++i) {
+            uint32_t word = mem_rd(CHROMA_WORDS + 4 * i, 4);
+            if (word >> 24) {
+                fprintf(stderr, "unwritten or invalid chroma word %u in mode %u\n", i, id);
+                return 1;
+            }
+            printf("%s%u", i ? "," : "", word);
+        }
+        printf("]}");
+    }
+    puts("]");
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 3) return 2;
     const char *name = argv[2];
     if (!strcmp(name, "boot")) mode = 0;
+    else if (!strcmp(name, "chroma")) mode = CHROMA_MODE;
     else if (!strcmp(name, "neutral") || !strcmp(name, "pinhole")) mode = 2;
     else if (!strcmp(name, "allocate") || !strcmp(name, "existing") ||
              !strcmp(name, "failed") || !strcmp(name, "cropped")) mode = 1;
@@ -128,6 +189,11 @@ int main(int argc, char **argv)
     image = malloc(IMAGE_BYTES);
     if (!f || !image || fread(image, 1, IMAGE_BYTES, f) != IMAGE_BYTES || fgetc(f) != EOF) return 2;
     fclose(f);
+    if (mode == CHROMA_MODE) {
+        int result = probe_chroma();
+        free(image);
+        return result;
+    }
     uint32_t entry = mode == 0 ? 0x7e1011b0 : mode == 1 ? 0x7e40a20b : 0x7e40b368;
     uint32_t displacement = entry - CALLER;
     stack_ram[0x100] = 0xdd;
