@@ -2,6 +2,20 @@
 
 目标仍是 E-P5 机内保留 ORF、生成全尺寸胶片风格 JPEG。本轮交付可编译、可执行验证的处理引擎和连接后可直接运行的资料采集工具；尚未交付机身加载器或固件更新包。连接相机后是否只需小改，取决于下面尚未确认的硬件条件。
 
+## USB 数据线到手：只读导入原片
+
+[E-P5 官方说明书第 100 页](https://download.omsystem.com/pages/inst/ep5/manual_ep5_ENU.pdf)要求连接后在机身选择 **Storage**；它是文件传输模式，连接期间不能在机身拍摄。先在未连接时拍 4:3 最大尺寸 RAW+JPEG 的固定场景并保留原卡，再接线、选择 Storage，找出电脑挂载的含 `DCIM` 的目录。不要把 USB Storage 当成运行中固件调试接口。
+
+从卡上明确指定同次 ORF/JPEG 文件名，例如：
+
+```bash
+python3 tools/usb_collect.py --source /media/USER/CAMERA --out sessions/first-usb \
+  --file /DCIM/100OLYMP/P1010001.ORF \
+  --file /DCIM/100OLYMP/P1010001.JPG
+```
+
+把 `/media/USER/CAMERA` 和实际文件名换成电脑显示的路径。工具只读这些文件，拒绝软链接、越界路径、超 128 MiB 文件和输出目录落在相机挂载目录内；复制到新建的私有会话目录，记录 SHA-256/字节数、JPEG 头尺寸和完成状态。它检查文件头，**不等于**完整 ORF 解码或 JPEG 图像验证。若需比较同一 ORF 的机内 RAW 编辑输出，在断开 Storage 后操作相机，再重连并把生成的 JPEG 作为另一次 `--file` 加入新会话。断开连接前按系统流程卸载介质。
+
 ## 已实现的处理入口
 
 `firmware/film.h` 提供两个入口：
