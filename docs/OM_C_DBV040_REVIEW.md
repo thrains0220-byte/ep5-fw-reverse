@@ -11,6 +11,7 @@
 ## 来源及静态检查范围
 
 - 发布标签指向提交 `9165af1a2cab36f42054b0028ffda723190355bf`。[该提交树](https://github.com/azqeurio/om-c-firmware/tree/9165af1a2cab36f42054b0028ffda723190355bf)只有 15 字节的 README，未包含补丁源码或许可证。
+- 随后按发布页实际的 Source code (zip) 链接下载并解压确认：375 字节压缩包只含目录和同一个 15 字节 README，SHA-256 `05560fa39474d97dd7ca933485acf2f95d1fa4e4ada8abab1f7ae7065985b11d`；并非仅凭仓库首页判断。公开标签也已 clone 到 `external/om-c-firmware/`。
 - Windows 资产 `db.firmware.0.4.exe`，160,218,833 字节，SHA-256 `ae2852216eac829611f74232bf9b5f2bbe4e1af05c1214670a187eb45cec8eb2`，与 GitHub release 资产 digest 相符。
 - 静态读取其 PyInstaller 容器：Python 3.12，414 个目录项。提取数据文件和代码对象供检查，没有启动应用或调用它的修改逻辑。
 - 包内 `profiles.json` 给出具体机型、输入 SHA、补丁字节和预期输出 SHA；`assets/r24-manifest.json` 给出 E-P5 payload 长度和摘要。`engine` 字节码可见版本绑定、固件识别、校验、assemble/publish 等处理方法。
@@ -72,3 +73,5 @@
 4. **仍由本项目完成的部分。** 图像缓冲区生产/生命周期、色彩编码、完整图像处理接入、机内选择、代码/数据布局、实机画质及恢复仍未被此版本解决。
 
 当前使用者机身运行的是尚未识别的历史修改固件，不能直接把上述原版偏移应用到该运行镜像。后续可利用这里的可验证事实推进我们自己的实现，不能把光圈环候选固件当作胶片固件交付。
+
+后续已基于上述候选位置，独立编写并验证本项目的胶片代码跳板及单 LUT 布局，见 [代码空洞模块候选](CAVE_ENTRY.md)。它依然不是可刷升级包。

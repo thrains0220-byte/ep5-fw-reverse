@@ -1,0 +1,266 @@
+{
+  "module": {
+    "entry": "0x7e128010",
+    "end_exclusive": "0x7e12f9a6",
+    "payload_bytes": 31126,
+    "cave_bytes": 32752,
+    "spare_bytes": 1626,
+    "control_offset": 1616,
+    "lut_offset": 1640,
+    "lut_bytes": 29478,
+    "codec_call_offset": 55,
+    "lut_sha256": "e447c12fbc01a284e3933696b8a6eb2631968d32f0b6e97a27a5430becae9cf5",
+    "payload_sha256": "3b7da973f74970d4e3de8dd9f2a2bf03b9227543ba110905d5247005994363f8",
+    "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+    "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
+    "flags": [
+      "-std=c99",
+      "-Os",
+      "-mno-am33",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-tree-loop-distribute-patterns",
+      "-fno-pic",
+      "-fno-common",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-nostdlib",
+      "-Wl,--gc-sections"
+    ],
+    "installable": false,
+    "default_enabled": false,
+    "plain_mn103_instruction_set": true,
+    "patch": {
+      "cpu_address": "0x7e3ed8d1",
+      "image_offset": 3066033,
+      "old": "cd b3 6f f0 10",
+      "new": "dc 3f a7 d3 ff"
+    },
+    "scope": "Model-only cave layout and ABI candidate; no firmware container output.",
+    "source_sha256": {
+      "firmware/ep5_art_entry.S": "947fd8cac9aede151c07bd8cd6617a5f4a903718403cdbb6bcda6c6e99e2b11e",
+      "firmware/ep5_art_entry.c": "9a81e0ce733d06ac15dd6bca6010ce563eec2eaebbd3f61bf41c91b9d5614940",
+      "firmware/film.c": "31df5f7d78eed3cfdc66bde21a35a0ad45172392184d9f5d9e50bbfd361b1871",
+      "firmware/lut.c": "371937f585ba4f1296e3ae569a8885ef705399acaac7428210cdfbeb764f5655",
+      "firmware/ep5_art_entry.ld": "77c4d1e68f2c6838c757c19b55e1add3f9c4708215b1b3c84ae2a83ebd040111",
+      "firmware/film.h": "7d3999b82c4bbe28cdcab2215ab3162f43453bfdc4714352a486a7fd325be99e",
+      "firmware/lut.h": "bc9f895babc41774937c03c42ee69c7763868d6bddefc88413a1a85479fe0a35",
+      "tools/cave_entry.py": "03ed61cbb17fb23b3366921c8cd42fb0362de3de5043ca66018834ef0aeba118"
+    }
+  },
+  "cases": [
+    {
+      "name": "disabled",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 143,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "identity",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 68385,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "warm",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 69345,
+      "matches_host": true,
+      "pixels_changed": true,
+      "output_sha256": "8f0c9938f86f840198c34384cc4fe1bce80ddc2a0cf7b692d39bb5b2913f2854"
+    },
+    {
+      "name": "half",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 69345,
+      "matches_host": true,
+      "pixels_changed": true,
+      "output_sha256": "4d12c96e728f903277be05e4f048835da32d17a2b34dccd8c93f2658a77622dc"
+    },
+    {
+      "name": "capacity",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 302,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "encoding",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 308,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "amount",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 311,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "mapping",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 183,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "null_mapping",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 149,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "geometry",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 200,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "resize",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 229,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "tag",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 140,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "map_wrap",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 157,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "request_overlap",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 173,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    },
+    {
+      "name": "code_overlap",
+      "codec_calls": 1,
+      "native_result": 4660,
+      "native_arguments_preserved": true,
+      "registers_and_stack_preserved": true,
+      "instructions": 167,
+      "matches_host": true,
+      "pixels_changed": false,
+      "output_sha256": "826fb8ce6d2331d2a6348e5bc2d6509962a0b57483809cef78cf79eafa4a4913"
+    }
+  ],
+  "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+  "installable": false,
+  "physical_camera_test": false,
+  "scope": "Actual stock ART caller and cave-linked GCC colour engine; logger/codec only are modeled.",
+  "bypass_reference": "Invalid/disabled cases pin byte-exact bypass; positive cases call the host C engine.",
+  "not_tested": [
+    "real boot/cave residency",
+    "ART buffer production/format/ownership",
+    "cache",
+    "watchdog/scheduling",
+    "normal-still routing",
+    "duplicate processing",
+    "JPEG encoding",
+    "effect menu",
+    "installation/recovery"
+  ],
+  "dependencies_sha256": {
+    "tools/ep5_cave_probe.c": "d88c84c2d74b638e0192e871e021ec161778aa587cd1e31185505749012ac587",
+    "tools/cave_entry.py": "03ed61cbb17fb23b3366921c8cd42fb0362de3de5043ca66018834ef0aeba118",
+    "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+    "build/cave-entry-check/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+    "build/cave-entry-check/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+    "build/cave-entry-check/ep5-cave-probe": "4b31b8132741beffa77faa5d11807fa39eaed36dee8de5b60c8cb71ede7fa9d5"
+  },
+  "tests": {
+    "passed": 43,
+    "skipped": 0,
+    "seconds": 32.691,
+    "command": "python3 -m unittest discover -s tests -v"
+  },
+  "source_archive": {
+    "url": "https://github.com/azqeurio/om-c-firmware/archive/refs/tags/dbv0.4.0.zip",
+    "bytes": 375,
+    "files": [
+      "om-c-firmware-dbv0.4.0/README.md"
+    ],
+    "sha256": "05560fa39474d97dd7ca933485acf2f95d1fa4e4ada8abab1f7ae7065985b11d"
+  },
+  "independent_review": {
+    "new_tests_passed": 3,
+    "model_cases": 15,
+    "actionable_findings": [],
+    "physical_test": false
+  },
+  "test_source_sha256": "f989dbe0fba1d5c00b186bd1f73549f0e5e793bbd820fd275a327fd9c6220da6"
+}
