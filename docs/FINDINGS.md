@@ -176,3 +176,9 @@ CPU模型在内存中将原生 `0x7e3ed8d1` 的5字节调用换成跳入模块�
 八字节显式状态通过uncached别名保存上下文/地址；匹配JPEG先消费资格，释放入口先清理。29个目标案例覆盖重复JPEG、上下文/地址变化、接收失败/超时/短回复、释放后复用，以及cached/uncached模块和请求重叠。重现请求地址别名绕过导致调用栈破坏后，新增限定DRAM窗口的双视图重叠保护。删掉回复清理或地址匹配的两个变异版本分别被short_reply、wrong_buffer像素检查拒绝。
 
 当前完整模块31,578字节，剩1,174字节，仍默认关闭且不输出升级容器。三个原始片段分别由探针驱动，不是完整任务/ISP执行；固定token/packet尚无逐拍nonce，跨拍摄完整旧回复、并发、实际像素/缓存/调度、ORF与恢复仍未验证。源码及当前验证见 `CAVE_ENTRY.md` 和 `completion-gate-verification.json`。
+
+## 2026-11-11：T2 原厂模式参数与回放入口
+
+按[项目任务书](superpowers/specs/2026-11-11-ep5-film-project-plan.md)的 T2，补出[两条原厂入口调用表](T2_NATIVE_PATHS.md)。`rec_art_set_artmode` 把 Picture Mode/变体映射到 ART packet `+6`，之后通过预检查、参数构造、发送/等待进入外层拍摄任务的主 JPEG 分支和释放。静态路径也确认了普通非 ART 的分叉。每个关键调用列出地址与官方 1.8 原字节；既有模型执行与纯静态证据分开标注。
+
+`chContrast/chTone/chSaturation` 除原厂日志读取，还发现从拍摄上下文字段写入设置结构、再向 ART 工作记录复制；但没有定位到单一风格专用参数表和静态照片 ISP 消费者。共享构造器被多条 JPEG/REC/Beauty 路线调用，不能直接改其默认值充当隔离配方。回放 `play_rec_raw_edit` 发送 `0x1001` 等消息并等待回复，尚未连到快门侧 ART/JPEG；已把任务消费者与落盘写卡列为下一追踪断点。无新固件包。
