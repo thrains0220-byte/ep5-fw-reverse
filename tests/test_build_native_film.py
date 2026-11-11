@@ -18,6 +18,47 @@ BASE = 0x7e101020
 
 @unittest.skipUnless(STOCK.is_file(), "requires official E-P5 1.8 update")
 class FilmRecipeTests(unittest.TestCase):
+    def test_original_recipe_remains_reproducible(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "rc1"
+            run = subprocess.run([sys.executable, str(CLI), str(STOCK), "--revision", "1",
+                                  "--out", str(folder)], capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            image = (folder / "DCOLYMP/E1089999.BIN").read_bytes()
+            self.assertEqual(hashlib.sha256(image).hexdigest(),
+                             "2f3eb6cd7d9b0c4bdd29414174e02fe850e26ed9dae482ad55a076559075243f")
+
+    def test_rc2_changes_only_filter_list_text_in_chinese_language_packs(self):
+        from external.oly_fw_analysis.tools import oly_container
+        from tools.build_native_film import build_film
+
+        source = STOCK.read_bytes()
+        factory = oly_container.parse(source)
+        update = oly_container.parse(build_film(source))
+        self.assertEqual(hashlib.sha256(update[0].payload).hexdigest(),
+                         "10fac02b381f8253b039cc0fd297d2947544111cdd48deb67f67458b36f34b01")
+        self.assertEqual(update[2:], factory[2:])
+        original = factory[1].payload
+        language = bytearray(update[1].payload)
+        # Look up the strings through the factory language directory and pointer
+        # tables, independently of the recipe's fixed offsets.
+        for row, old, new in ((2, "针孔相机效果", "针孔/柔彩I"), (3, "針孔相機效果", "針孔/柔彩I")):
+            flash, size = struct.unpack_from("<II", original, row * 16)
+            start = flash - (factory[1].address + 32)
+            base = 0xbff2a200
+            table, end = struct.unpack_from("<II", original, start)
+            self.assertEqual((end - table) // 4, 2317)
+            self.assertLessEqual(end - base, size)
+            for entry, prefix in ((69, ""), (602, "@A045@")):
+                address, = struct.unpack_from("<I", language, start + table - base + 4 * entry)
+                offset = start + address - base
+                before = (prefix + old + "\0").encode("utf-16-le")
+                after = (prefix + new + "\0").encode("utf-16-le")
+                self.assertEqual(original[offset:offset + len(before)], before)
+                self.assertEqual(language[offset:offset + len(after)], after)
+                language[offset:offset + len(before)] = before
+        self.assertEqual(language, original)
+
     def test_failed_publication_allows_retry(self):
         from tools import build_native_film
 

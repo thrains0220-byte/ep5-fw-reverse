@@ -32,8 +32,21 @@
 在仓库根目录准备好 README 指定的 `external/oly_fw_analysis` 后运行。构建只需 Python 和固定版本容器工具。指定一个尚未存在的本地输出目录。
 
 ```bash
-python3 tools/build_native_film.py data/ep5-stock/OLY_E_108_1800_0000_0000.BIN --out build/soft-chrome-1
+python3 tools/build_native_film.py data/ep5-stock/OLY_E_108_1800_0000_0000.BIN --revision 1 --out build/soft-chrome-1
 (cd build/soft-chrome-1 && sha256sum -c SHA256SUMS)
 ```
 
 重建文件的哈希应与本页公布的候选哈希完全相同。只有在 E-P5 上验证安装、实际全尺寸风格 JPEG、同次 ORF、关闭效果和原厂恢复后，才有依据把此候选标为真机可用版。
+
+## ART 菜单候选 2
+
+按机主选择，保留原厂 ART 操作。候选 2 在简体和繁体的滤镜列表文字中标明「针孔/柔彩I」与「針孔/柔彩I」。在 ART 列表内按右方向键选 I，按 OK 或半按快门确认。拍摄中可按 OK 再次打开原厂 ART 菜单。II、III 沿用原厂效果。[原厂 E-P5 中文说明书，第 31 页](https://download.omsystem.com/pages/inst/ep5/manual_ep5_CHS.pdf)
+
+从官方 1.8 原版重新构建。当前默认版本为 2，生成的 BIN 为 44,826,624 字节，SHA-256 为 `90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229`。
+
+```bash
+python3 tools/build_native_film.py data/ep5-stock/OLY_E_108_1800_0000_0000.BIN --revision 2 --out build/soft-chrome-2
+(cd build/soft-chrome-2 && sha256sum -c SHA256SUMS)
+```
+
+离线回读确认两套语言表各有两条改名，条目 69 为纯文本，602 带原厂图标标记。整个语言块有效载荷与候选 1 有 30 字节差异，主程序和其余两块逐字节相同。下一次真机验证先拍下简体 ART 列表及右键子菜单，确认名称能完整显示，再按上面的步骤拍摄对照和回刷。机身加载的是哪一处文字以及屏幕实际显示仍待验证。

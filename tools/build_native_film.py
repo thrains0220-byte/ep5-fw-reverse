@@ -14,7 +14,9 @@ from tools.film_update import build_update
 from tools.inspect_ep5 import CPU_BASE
 
 
-def build_film(stock: bytes) -> bytes:
+def build_film(stock: bytes, *, revision: int = 2) -> bytes:
+    if revision not in (1, 2):
+        raise ValueError("unsupported Soft Chrome revision")
     # Two 49-byte native chroma tables. Slopes are Q7, with a leading slope
     # before the first knot and one after each knot, including padded knots.
     x = bytes([0] * 4 + [64, 128, 192] + [255] * 9)
@@ -33,12 +35,27 @@ def build_film(stock: bytes) -> bytes:
         (0x7e21d13f, 0x7e438c01, 0x7e438a79),
     ):
         edits.append((address - CPU_BASE, struct.pack("<I", old), struct.pack("<I", new)))
-    return build_update(stock, edits)
+    language_edits = []
+    if revision == 2:
+        # String entries 69 and 602 in the Chinese TFT language packs.
+        # Entry 1173 and the optional Pin Hole overlay describe other controls.
+        for offset, prefix, old, new in (
+            (0x2ce202, "", "针孔相机效果", "针孔/柔彩I"),
+            (0x2d08ae, "@A045@", "针孔相机效果", "针孔/柔彩I"),
+            (0x2db414, "", "針孔相機效果", "針孔/柔彩I"),
+            (0x2ddaf8, "@A045@", "針孔相機效果", "針孔/柔彩I"),
+        ):
+            before = (prefix + old + "\0").encode("utf-16-le")
+            after = (prefix + new + "\0").encode("utf-16-le")
+            language_edits.append((offset, before, after))
+    return build_update(stock, edits, language_edits=language_edits)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stock", type=Path, help="original OLY_E_108_1800_0000_0000.BIN")
+    parser.add_argument("--revision", type=int, choices=(1, 2), default=2,
+                        help="2: Chinese ART menu (default), 1: original camera labels")
     parser.add_argument("--out", required=True, type=Path, help="new local output directory")
     args = parser.parse_args()
     folder = args.out
@@ -46,7 +63,7 @@ def main():
         parser.exit(1, f"Output already exists: {folder}\n")
     try:
         with args.stock.open("rb") as source:
-            candidate = build_film(source.read(44826624 + 1))
+            candidate = build_film(source.read(44826624 + 1), revision=args.revision)
         digest = hashlib.sha256(candidate).hexdigest()
         dest = folder / "DCOLYMP" / "E1089999.BIN"
         folder.parent.mkdir(parents=True, exist_ok=True)
