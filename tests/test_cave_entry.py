@@ -25,6 +25,11 @@ class CaveEntryTests(unittest.TestCase):
             self.assertEqual(struct.unpack_from('<6I', binary, report['control_offset']),
                              (0x43355045, 0, 0, 0, 0, 0))
             self.assertEqual(report['lut_bytes'], 29478)
+            self.assertEqual(report['wait_patch']['cpu_address'], '0x7e3ed850')
+            self.assertEqual(report['wait_patch']['old'], 'dd 57 a7 00 00 00 14')
+            self.assertEqual(binary[report['state_offset']:report['state_offset'] + 8], bytes(8))
+            self.assertEqual(report['state_uncached_address'], hex(0x7e128010 + report['state_offset'] + 0x40000000))
+            self.assertEqual(report['release_patch']['old'], 'cd 4b b6 00 04')
             before = binary
             with self.assertRaises(FileExistsError):
                 build_payload(MAIN, out)
@@ -48,16 +53,26 @@ class CaveEntryTests(unittest.TestCase):
         cases = {x['name']: x for x in report['cases']}
         self.assertTrue({'disabled', 'identity', 'warm', 'half', 'capacity', 'encoding', 'amount',
                          'mapping', 'geometry', 'resize', 'map_wrap', 'request_overlap', 'code_overlap'}.issubset(cases))
+        self.assertTrue({'completion_missing', 'receive_failure', 'short_reply', 'completion_error',
+                         'wrong_token', 'wrong_packet', 'wrong_context', 'wrong_buffer', 'receive_timeout',
+                         'short_reply_11', 'request_alias_overlap', 'duplicate', 'released_reuse'}.issubset(cases))
         self.assertTrue(cases['warm']['pixels_changed'])
         self.assertFalse(cases['disabled']['pixels_changed'])
         for name, case in cases.items():
             self.assertTrue(case['matches_host'], name)
             self.assertTrue(case['native_arguments_preserved'], name)
             self.assertTrue(case['registers_and_stack_preserved'], name)
-            self.assertEqual(case['codec_calls'], 1, name)
+            self.assertEqual(case['codec_calls'], 2 if name == 'duplicate' else 1, name)
             self.assertEqual(case['native_result'], 0x1234, name)
-            if name not in ('warm', 'half'):
+            self.assertTrue(case['wait_return_preserved'], name)
+            self.assertTrue(case['released_and_cleared'], name)
+            self.assertEqual(case['release_calls'], 2 if name == 'released_reuse' else 1, name)
+            if name not in ('warm', 'half', 'duplicate'):
                 self.assertFalse(case['pixels_changed'], name)
+        self.assertTrue(cases['duplicate']['pixels_changed'])
+        self.assertTrue(cases['duplicate']['second_image_unchanged'])
+        self.assertEqual(cases['disabled']['state_writes'], 0)
+        self.assertIn('uncached_code_overlap', cases)
 
 
 if __name__ == '__main__':
