@@ -14,7 +14,7 @@ static uint32_t read32(const uint8_t *p)
     return (uint32_t)read16(p) | (uint32_t)read16(p + 2) << 16;
 }
 
-/* Experimental route A: one neutral contrast step in one full-size ART request. */
+/* Stock clears packet geometry before send; mode 3 resolves to full size later. */
 void ep5_param_before_send(uint8_t *packet, const uint8_t *context)
 {
     const uint8_t *settings;
@@ -23,9 +23,11 @@ void ep5_param_before_send(uint8_t *packet, const uint8_t *context)
         return;
     settings = (const uint8_t *)(uintptr_t)read32(context + 84);
     if (!settings || settings[17471] != 105 || settings[18147] != 1 ||
+        read16(packet) != 1 || read16(packet + 2) != 3 ||
         read16(packet + 6) != 73 || packet[96] != 1 ||
-        read16(packet + 80) != 4608 || read16(packet + 82) != 3456 ||
-        read16(packet + 84) != 4608 || read16(packet + 86) != 3456 ||
+        read16(packet + 80) != 0 || read16(packet + 82) != 0 ||
+        read16(packet + 84) != 0 || read16(packet + 86) != 0 ||
+        read16(packet + 88) != 0 || read16(packet + 90) != 0 ||
         read16(settings + 17442) != 0 || packet[157] != 0)
         return;
     packet[157] = 1;

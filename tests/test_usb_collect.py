@@ -3,8 +3,11 @@ import hashlib
 import json
 import os
 import stat
+import subprocess
+import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from tools.usb_collect import collect_storage
 
@@ -59,6 +62,7 @@ class USBCollectTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'ORF'):
             collect_storage(self.source, self.out, [self.paths[0]])
         self.assertFalse((self.out / self.paths[0].lstrip('/')).exists())
+        self.assertFalse((self.out / (self.paths[0].lstrip('/') + '.part')).exists())
         self.assertEqual(json.loads((self.out / 'manifest.json').read_text())['status'], 'incomplete')
         self.out = self.root / 'small'
         with self.assertRaisesRegex(ValueError, 'limit'):
@@ -74,6 +78,49 @@ class USBCollectTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'duplicate'):
             collect_storage(self.source, self.root / 'duplicates', [self.paths[1], self.paths[1]])
         self.assertFalse((self.root / 'duplicates').exists())
+
+    def test_fifo_is_rejected_without_waiting_for_a_writer(self):
+        self.orf.unlink()
+        os.mkfifo(self.orf)
+        command = [sys.executable, str(Path(__file__).resolve().parents[1] / 'tools/usb_collect.py'),
+                   '--source', str(self.source), '--out', str(self.out), '--file', self.paths[0]]
+        result = subprocess.run(command, capture_output=True, text=True, timeout=2)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('regular', result.stderr)
+
+    def test_parent_segments_cannot_create_intermediate_directory_on_camera(self):
+        requested = self.source / 'created-on-camera/../../session-outside'
+        report = collect_storage(self.source, requested, [self.paths[0]])
+        self.assertEqual(report['status'], 'complete')
+        self.assertFalse((self.source / 'created-on-camera').exists())
+        self.assertTrue((self.root / 'session-outside/manifest.json').exists())
+
+    def test_dangling_output_symlink_does_not_create_its_target(self):
+        target = self.root / 'hidden-target'
+        self.out.symlink_to(target, target_is_directory=True)
+        with self.assertRaisesRegex(ValueError, 'symlink'):
+            collect_storage(self.source, self.out, [self.paths[0]])
+        self.assertFalse(target.exists())
+
+    def test_swapped_camera_directory_cannot_redirect_source_read(self):
+        external = self.root / 'external'
+        external.mkdir()
+        (external / self.orf.name).write_bytes(b'IIRO' + b'outside source')
+        real_open = os.open
+        swapped = False
+
+        def swap_before_leaf(name, flags, *args, **kwargs):
+            nonlocal swapped
+            if name == self.orf.name and not swapped:
+                swapped = True
+                self.directory.rename(self.source / 'original-directory')
+                self.directory.symlink_to(external, target_is_directory=True)
+            return real_open(name, flags, *args, **kwargs)
+
+        with patch('tools.usb_collect.os.open', side_effect=swap_before_leaf):
+            collect_storage(self.source, self.out, [self.paths[0]])
+        self.assertTrue(swapped)
+        self.assertEqual((self.out / self.paths[0].lstrip('/')).read_bytes(), ORF)
 
 
 if __name__ == '__main__':

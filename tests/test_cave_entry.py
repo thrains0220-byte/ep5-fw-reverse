@@ -84,13 +84,20 @@ class CaveEntryTests(unittest.TestCase):
         cases = {case['name']: case for case in report['cases']}
         self.assertEqual(set(cases), {'enabled', 'disabled', 'lut_mode', 'wrong_tag', 'wrong_mode',
                                       'wrong_variant', 'wrong_filter', 'wrong_packet', 'wrong_settings',
-                                      'wrong_aspect', 'wrong_geometry', 'wrong_value'})
+                                      'wrong_aspect', 'wrong_size_code', 'wrong_geometry',
+                                      'wrong_source', 'wrong_value'})
         for name, case in cases.items():
             self.assertTrue(case['registers_and_stack_preserved'], name)
             self.assertTrue(case['original_send_called_once'], name)
             self.assertEqual(case['native_result'], 0x2345, name)
             self.assertEqual(case['mdr_at_continue'], 0x7e3ed83c, name)
+            self.assertEqual(case['packet_writes'], 1 if name == 'enabled' else 0, name)
             self.assertEqual(case['contrast_after'], 1 if name == 'enabled' else case['contrast_before'], name)
+            self.assertTrue(case['send_envelope_valid'], name)
+            self.assertEqual(case['contrast_at_send'], case['contrast_after'], name)
+            self.assertEqual(case['pre_send_geometry'], [3200, 0, 0, 0, 0, 0]
+                             if name == 'wrong_geometry' else [0] * 6, name)
+        self.assertEqual(report['stock_full_size_geometry_table'], [4608, 3456, 4608, 3456, 0, 0])
 
 
 if __name__ == '__main__':

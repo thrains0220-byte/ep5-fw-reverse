@@ -191,18 +191,23 @@ def validate_cave_entry(image):
 def validate_param_entry(image):
     build = ROOT / 'build/param-probe'
     runner = build_probe(ROOT / 'tools/ep5_param_probe.c', build)
+    table = struct.unpack_from('<6H', Path(image).read_bytes(), 0x7e559f8c - BASE)
+    if table != (4608, 3456, 4608, 3456, 0, 0):
+        raise ValueError('stock full-size geometry table differs')
     with tempfile.TemporaryDirectory(dir=build) as directory:
         payload = Path(directory) / 'payload'
         manifest = build_payload(image, payload)
         cases = []
         for name in ('enabled', 'disabled', 'lut_mode', 'wrong_tag', 'wrong_mode',
                      'wrong_variant', 'wrong_filter', 'wrong_packet', 'wrong_settings',
-                     'wrong_aspect', 'wrong_geometry', 'wrong_value'):
+                     'wrong_aspect', 'wrong_size_code', 'wrong_geometry',
+                     'wrong_source', 'wrong_value'):
             cases.append(json.loads(checked([runner, image, payload / 'film.bin',
                                              manifest['control_offset'], manifest['param_entry_offset'],
                                              manifest['param_call_offset'], name])))
     return dict(module=manifest, cases=cases, installable=False, physical_camera_test=False,
-                scope='One stock send call and cave veneer with synthetic mode/packet/geometry; queue send is modeled.',
+                stock_full_size_geometry_table=list(table),
+                scope='One stock send call and cave veneer with synthetic settings and stock pre-send packet geometry; queue send is modeled.',
                 not_tested=['menu selection on E-P5', 'shared packet ownership', 'ISP color effect',
                             'camera boot/cache/task scheduling', 'JPEG/ORF file output', 'installation/recovery'],
                 dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()

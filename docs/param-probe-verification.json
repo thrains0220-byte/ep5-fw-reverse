@@ -1,15 +1,15 @@
 {
   "module": {
     "entry": "0x7e128010",
-    "end_exclusive": "0x7e12fc7a",
-    "payload_bytes": 31850,
+    "end_exclusive": "0x7e12fc9e",
+    "payload_bytes": 31886,
     "cave_bytes": 32752,
-    "spare_bytes": 902,
-    "control_offset": 2332,
-    "lut_offset": 2364,
+    "spare_bytes": 866,
+    "control_offset": 2368,
+    "lut_offset": 2400,
     "lut_bytes": 29478,
-    "state_offset": 2356,
-    "state_uncached_address": "0xbe128944",
+    "state_offset": 2392,
+    "state_uncached_address": "0xbe128968",
     "wait_entry_offset": 69,
     "wait_call_offset": 91,
     "release_entry_offset": 167,
@@ -17,7 +17,7 @@
     "param_call_offset": 289,
     "codec_call_offset": 57,
     "lut_sha256": "e447c12fbc01a284e3933696b8a6eb2631968d32f0b6e97a27a5430becae9cf5",
-    "payload_sha256": "ed5de1ab126d13e41e5cfebbdbb0160856f73172747fbb16b603d7a64e49604c",
+    "payload_sha256": "9e8f5e0679d9a066ce30d0f768c1719857303e898f80aa71509f59c4071755fd",
     "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
     "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
     "flags": [
@@ -67,13 +67,13 @@
     "scope": "Model-only cave layout and ABI candidate; no firmware container output.",
     "source_sha256": {
       "firmware/ep5_art_entry.S": "aaa9209dcffece111dfb977a51acc94dcd39ddf4b89ca36f85b73a0bb8e84cb2",
-      "firmware/ep5_art_entry.c": "6ebc28107f869433e78aabe5e30eefd5ef8e17f93c502cc16b83f290a76088d4",
+      "firmware/ep5_art_entry.c": "486ff207923b417011085150ca9d0d7d9705515519c44d9269d0c251eb589daf",
       "firmware/film.c": "31df5f7d78eed3cfdc66bde21a35a0ad45172392184d9f5d9e50bbfd361b1871",
       "firmware/lut.c": "371937f585ba4f1296e3ae569a8885ef705399acaac7428210cdfbeb764f5655",
       "firmware/ep5_art_entry.ld": "131c87c3b0a05d3a4fd6a1ff1983cc1ee3081dfb2fc95672d8009d0a59a7665a",
       "firmware/film.h": "7d3999b82c4bbe28cdcab2215ab3162f43453bfdc4714352a486a7fd325be99e",
       "firmware/lut.h": "bc9f895babc41774937c03c42ee69c7763868d6bddefc88413a1a85479fe0a35",
-      "tools/cave_entry.py": "ffeec6478d6f2d32b4bd69c271dec81f80af40fc710c26a9b4b1b9b0eab9feb2"
+      "tools/cave_entry.py": "00de3fbc1066cc3e4c92e9ac51cdbcbf16ef31b764e777948370e2bab42921de"
     }
   },
   "cases": [
@@ -85,7 +85,18 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 103
+      "packet_writes": 1,
+      "send_envelope_valid": true,
+      "contrast_at_send": 1,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 114
     },
     {
       "name": "disabled",
@@ -95,6 +106,17 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "instructions": 48
     },
     {
@@ -105,6 +127,17 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "instructions": 48
     },
     {
@@ -115,6 +148,17 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "instructions": 45
     },
     {
@@ -125,7 +169,18 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 71
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 72
     },
     {
       "name": "wrong_variant",
@@ -135,7 +190,18 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 74
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 75
     },
     {
       "name": "wrong_filter",
@@ -145,7 +211,18 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 77
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 83
     },
     {
       "name": "wrong_packet",
@@ -155,6 +232,17 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "instructions": 50
     },
     {
@@ -165,7 +253,18 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 68
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 69
     },
     {
       "name": "wrong_aspect",
@@ -175,6 +274,38 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 87
+    },
+    {
+      "name": "wrong_size_code",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "instructions": 80
     },
     {
@@ -185,7 +316,39 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 83
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        3200,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 90
+    },
+    {
+      "name": "wrong_source",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 0,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 110
     },
     {
       "name": "wrong_value",
@@ -195,12 +358,31 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 101
+      "packet_writes": 0,
+      "send_envelope_valid": true,
+      "contrast_at_send": 2,
+      "pre_send_geometry": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "instructions": 113
     }
   ],
   "installable": false,
   "physical_camera_test": false,
-  "scope": "One stock send call and cave veneer with synthetic mode/packet/geometry; queue send is modeled.",
+  "stock_full_size_geometry_table": [
+    4608,
+    3456,
+    4608,
+    3456,
+    0,
+    0
+  ],
+  "scope": "One stock send call and cave veneer with synthetic settings and stock pre-send packet geometry; queue send is modeled.",
   "not_tested": [
     "menu selection on E-P5",
     "shared packet ownership",
@@ -210,9 +392,9 @@
     "installation/recovery"
   ],
   "dependencies_sha256": {
-    "tools/ep5_param_probe.c": "ccf03db596e00a5b0464d676b250ba0d10f3bf0b45feb6868f618b8e3ed6346d",
+    "tools/ep5_param_probe.c": "06fae87efca7263b494ee32bc5b7c8be77bedbb1ccf187238c3084aec2b4d7cc",
     "build/param-probe/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
     "build/param-probe/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
-    "build/param-probe/ep5-param-probe": "14d49e4ffb9c041c1dd5d2314adefbf86d55638d5eecdc4ab03ee1c10d96ca94"
+    "build/param-probe/ep5-param-probe": "308f511e0e2a090856e1862fbdb981c64989342d2233d2aadbab552da6e0df84"
   }
 }

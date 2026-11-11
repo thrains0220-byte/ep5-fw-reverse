@@ -17,7 +17,9 @@
 static uint8_t *image, packet[396], context[128], settings[18200], stack_ram[65536];
 static uint8_t send_return[8] = {0xdf, 0xa0, 20};
 static uint32_t initial[8], initial_sp, original_contrast, param_call;
-static int send_calls, reached_stop, preserved = 1;
+static int send_calls, reached_stop, preserved = 1, send_envelope_valid = 1;
+static unsigned packet_writes;
+static uint32_t contrast_at_send;
 uint64_t emu_ns;
 
 static int within(uint32_t address, uint32_t size, uint32_t base, uint32_t length)
@@ -50,6 +52,7 @@ void mem_wr(uint32_t address, uint32_t value, int size)
     if (!within(address, (uint32_t)size, STACK, sizeof stack_ram) &&
         !(address == PACKET + 157 && size == 1))
         emu_abort(PC, "write outside stack/contrast %08x", address);
+    if (address == PACKET + 157) ++packet_writes;
     uint8_t *p = mem_host(address, (uint32_t)size);
     if (!p) emu_abort(PC, "unmapped write %08x", address);
     for (int i = 0; i < size; ++i) p[i] = (uint8_t)(value >> (8 * i));
@@ -73,6 +76,12 @@ int hle_check(cpu_t *cpu)
         for (unsigned i = 0; i < 8; ++i) preserved &= cpu->regs[i] == initial[i];
         preserved &= cpu->regs[REG_SP] == initial_sp - 20 &&
                      cpu->regs[REG_MDR] == param_call + 7;
+        send_envelope_valid &= cpu->regs[REG_A0] == initial_sp + 4 &&
+            mem_rd(cpu->regs[REG_A0], 4) == 0x123u &&
+            mem_rd(cpu->regs[REG_A0] + 4, 4) == 1 &&
+            mem_rd(cpu->regs[REG_A0] + 8, 4) == 1 &&
+            mem_rd(cpu->regs[REG_A0] + 12, 4) == initial[REG_A0 + 2];
+        contrast_at_send = mem_rd(PACKET + 157, 1);
         if (cpu->regs[REG_A0 + 2] != initial[REG_A0 + 2] ||
             cpu->regs[REG_A0 + 3] != CONTEXT)
             emu_abort(pc, "original send arguments changed");
@@ -142,19 +151,23 @@ int main(int argc, char **argv)
              !strcmp(name, "wrong_mode") || !strcmp(name, "wrong_variant") ||
              !strcmp(name, "wrong_filter") || !strcmp(name, "wrong_packet") ||
              !strcmp(name, "wrong_settings") || !strcmp(name, "wrong_aspect") ||
-             !strcmp(name, "wrong_geometry") || !strcmp(name, "wrong_value"))
+             !strcmp(name, "wrong_size_code") || !strcmp(name, "wrong_geometry") ||
+             !strcmp(name, "wrong_source") || !strcmp(name, "wrong_value"))
         put32(image + CAVE - BASE + control + 4, 2);
     else return 2;
     if (!strcmp(name, "wrong_tag")) put32(image + CAVE - BASE + control, 0);
     put32(context + 84, !strcmp(name, "wrong_settings") ? 0 : SETTINGS);
     settings[17471] = !strcmp(name, "wrong_mode") ? 104 : 105;
     settings[18147] = !strcmp(name, "wrong_variant") ? 2 : 1;
+    put16(settings + 17442, !strcmp(name, "wrong_source") ? 1 : 0);
+    put16(packet, 1);
+    put16(packet + 2, !strcmp(name, "wrong_size_code") ? 2 : 3);
     put16(packet + 6, !strcmp(name, "wrong_filter") ? 74 : 73);
     packet[96] = !strcmp(name, "wrong_aspect") ? 2 : 1;
-    put16(packet + 80, !strcmp(name, "wrong_geometry") ? 3200 : 4608);
-    put16(packet + 82, 3456);
-    put16(packet + 84, 4608);
-    put16(packet + 86, 3456);
+    if (!strcmp(name, "wrong_geometry")) put16(packet + 80, 3200);
+    uint16_t pre_send_geometry[6];
+    for (unsigned i = 0; i < 6; ++i)
+        pre_send_geometry[i] = (uint16_t)packet[80 + i * 2] | (uint16_t)packet[81 + i * 2] << 8;
     packet[157] = !strcmp(name, "wrong_value") ? 2 : 0;
     original_contrast = packet[157];
     cpus[0].running = 1;
@@ -164,17 +177,29 @@ int main(int argc, char **argv)
     cpus[0].regs[REG_MDR] = 0x13579bdf;
     for (unsigned i = 0; i < 8; ++i) cpus[0].regs[i] = 0xabcd1000u + i;
     cpus[0].regs[REG_D0] = 1;
+    cpus[0].regs[REG_A0] = initial_sp + 4;
     cpus[0].regs[REG_A0 + 2] = !strcmp(name, "wrong_packet") ? PACKET + 4 : PACKET;
     cpus[0].regs[REG_A0 + 3] = CONTEXT;
+    put32(stack_ram + (initial_sp - STACK) + 4, 0x123);
+    put32(stack_ram + (initial_sp - STACK) + 8, 1);
+    put32(stack_ram + (initial_sp - STACK) + 12, 1);
+    put32(stack_ram + (initial_sp - STACK) + 16, cpus[0].regs[REG_A0 + 2]);
     memcpy(initial, cpus[0].regs, sizeof initial);
     cpu_run(20000, 0);
-    if (!reached_stop || !preserved || send_calls != 1 ||
+    if (!reached_stop || !preserved || !send_envelope_valid || send_calls != 1 ||
+        contrast_at_send != (!strcmp(name, "enabled") ? 1u : original_contrast) ||
         packet[157] != (!strcmp(name, "enabled") ? 1u : original_contrast)) return 1;
     printf("{\"name\":\"%s\",\"contrast_before\":%u,\"contrast_after\":%u,"
            "\"native_result\":%u,\"original_send_called_once\":true,"
-           "\"registers_and_stack_preserved\":true,\"mdr_at_continue\":%u,\"instructions\":%llu}\n",
+           "\"registers_and_stack_preserved\":true,\"mdr_at_continue\":%u,"
+           "\"packet_writes\":%u,\"send_envelope_valid\":true,"
+           "\"contrast_at_send\":%u,\"pre_send_geometry\":[%u,%u,%u,%u,%u,%u],"
+           "\"instructions\":%llu}\n",
            name, original_contrast, packet[157], cpus[0].regs[REG_D0],
-           cpus[0].regs[REG_MDR], (unsigned long long)cpus[0].icount);
+           cpus[0].regs[REG_MDR], packet_writes, contrast_at_send,
+           pre_send_geometry[0], pre_send_geometry[1], pre_send_geometry[2],
+           pre_send_geometry[3], pre_send_geometry[4], pre_send_geometry[5],
+           (unsigned long long)cpus[0].icount);
     free(image);
     return 0;
 }

@@ -16,7 +16,7 @@ python3 tools/usb_collect.py --source /media/USER/CAMERA --out sessions/first-us
   --file /DCIM/100OLYMP/P1010001.JPG
 ```
 
-把 `/media/USER/CAMERA` 和实际文件名换成电脑显示的路径。工具只读这些文件，拒绝软链接、越界路径、超 128 MiB 文件和输出目录落在相机挂载目录内；复制到新建的私有会话目录，记录 SHA-256/字节数、JPEG 头尺寸和完成状态。它检查文件头，**不等于**完整 ORF 解码或 JPEG 图像验证。若需比较同一 ORF 的机内 RAW 编辑输出，在断开 Storage 后操作相机，再重连并把生成的 JPEG 作为另一次 `--file` 加入新会话。断开连接前按系统流程卸载介质。
+把 `/media/USER/CAMERA` 和实际文件名换成电脑显示的路径。工具只读这些文件，拒绝软链接、越界路径、超 128 MiB 文件和输出目录落在相机挂载目录内；复制到新建的私有会话目录，记录 SHA-256/字节数、JPEG 头尺寸和完成状态。程序不向卡写入；若需介质严格零写入，须由系统只读挂载并核对 `findmnt -no OPTIONS --target /media/USER/CAMERA` 包含 `ro`，因为普通读写挂载可能更新访问时间。它检查文件头，**不等于**完整 ORF 解码或 JPEG 图像验证。按[接入清单](CONNECT_DAY.md)在断开 Storage 后从同一 ORF 分别重显影中性与原厂风格 JPEG，再重连复制这两张 JPEG 和同一 ORF，比较两次 ORF SHA-256。断开连接前按系统流程卸载介质。
 
 ## 已实现的处理入口
 
