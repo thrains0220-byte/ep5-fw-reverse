@@ -87,3 +87,5 @@ python3 tools/check_mn103_lut.py --film --out generated/ep5-film-mn103.json
 主机 RGB 核心不是机内移植的替代品。当前不会产出以 `E1089999.BIN` 命名的实验固件。
 
 详细证据见 [研究记录](docs/FINDINGS.md)，后续检查项见 [实施记录](docs/superpowers/plans/2026-11-10-ep5-film.md)。
+
+新增参考检查：[OM-C dbv0.4.0](docs/OM_C_DBV040_REVIEW.md)。其 E-P5 1.8 光圈环候选的字节约束和整包输出已独立复现；提供了 32,752 字节代码/数据布局候选，尚不是胶片功能或运行期空闲证明。

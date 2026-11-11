@@ -1,0 +1,169 @@
+{
+  "checked_date": "2026-11-11",
+  "release_url": "https://github.com/azqeurio/om-c-firmware/releases/tag/dbv0.4.0",
+  "release_tag_commit": "9165af1a2cab36f42054b0028ffda723190355bf",
+  "asset_name": "db.firmware.0.4.exe",
+  "asset_bytes": 160218833,
+  "asset_sha256": "ae2852216eac829611f74232bf9b5f2bbe4e1af05c1214670a187eb45cec8eb2",
+  "asset_matches_github_digest": true,
+  "app_executed": false,
+  "upstream_source_tree": [
+    "README.md"
+  ],
+  "upstream_license_file_found": false,
+  "ep5": {
+    "profile": "ep5-1.8",
+    "feature": "ring-native",
+    "source_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
+    "runtime_base": "0x7e101020",
+    "vendor_declares_test_candidate": true,
+    "vendor_declares_hardware_boot": false,
+    "patches": [
+      {
+        "label": "loader_patch",
+        "block": 0,
+        "offset": 400,
+        "cpu_address": "0x7e1011b0",
+        "old_bytes": 6,
+        "new_bytes": 6,
+        "old_matches_stock": true,
+        "old": "fc cc 00 18 1c 7e",
+        "new": "fc cc 00 18 1c 7e"
+      },
+      {
+        "label": "payload_cave",
+        "block": 0,
+        "offset": 159728,
+        "cpu_address": "0x7e128010",
+        "old_bytes": 2139,
+        "new_bytes": 2139,
+        "old_matches_stock": true
+      },
+      {
+        "label": "reset0_hook",
+        "block": 0,
+        "offset": 926858,
+        "cpu_address": "0x7e1e34aa",
+        "old_bytes": 5,
+        "new_bytes": 5,
+        "old_matches_stock": true,
+        "old": "0c 9a 00 1f 8c",
+        "new": "dc 0a 4e f4 ff"
+      },
+      {
+        "label": "reset1_hook",
+        "block": 0,
+        "offset": 928632,
+        "cpu_address": "0x7e1e3b98",
+        "old_bytes": 5,
+        "new_bytes": 5,
+        "old_matches_stock": true,
+        "old": "0c 9a 00 1f 8c",
+        "new": "dc 30 47 f4 ff"
+      },
+      {
+        "label": "parser_hook",
+        "block": 0,
+        "offset": 943743,
+        "cpu_address": "0x7e1e769f",
+        "old_bytes": 6,
+        "new_bytes": 6,
+        "old_matches_stock": true,
+        "old": "17 4e 10 f8 ef 02",
+        "new": "dc 71 0f f4 ff cb"
+      },
+      {
+        "label": "request_hook",
+        "block": 0,
+        "offset": 987425,
+        "cpu_address": "0x7e1f2141",
+        "old_bytes": 10,
+        "new_bytes": 10,
+        "old_matches_stock": true,
+        "old": "f8 c8 08 44 46 08 f1 e4 f0 50",
+        "new": "dc cf 61 f3 ff cb cb cb cb cb"
+      },
+      {
+        "label": "callback_hook",
+        "block": 0,
+        "offset": 988158,
+        "cpu_address": "0x7e1f241e",
+        "old_bytes": 5,
+        "new_bytes": 5,
+        "old_matches_stock": true,
+        "old": "43 04 82 89 1d",
+        "new": "dc aa 5c f3 ff"
+      },
+      {
+        "label": "guard_hook",
+        "block": 0,
+        "offset": 988789,
+        "cpu_address": "0x7e1f2695",
+        "old_bytes": 7,
+        "new_bytes": 7,
+        "old_matches_stock": true,
+        "old": "dd 74 4f ff ff f0 2c",
+        "new": "dc 7b 5d f3 ff cb cb"
+      },
+      {
+        "label": "input_hook",
+        "block": 0,
+        "offset": 1355970,
+        "cpu_address": "0x7e24c0e2",
+        "old_bytes": 7,
+        "new_bytes": 7,
+        "old_matches_stock": true,
+        "old": "dd 85 55 ef ff c0 0c",
+        "new": "dc 1e c1 ed ff cb cb"
+      }
+    ],
+    "cave_ff_run_start": "0x7e128010",
+    "cave_ff_run_end_exclusive": "0x7e130000",
+    "cave_ff_bytes": 32752,
+    "payload_bytes": 2139,
+    "payload_sha256": "302c76d4a8b654075121fa42f837f81b4ff959060b0bd774338c2de45a291ebb",
+    "in_memory_rebuild": {
+      "all_9_original_byte_guards_match": true,
+      "patched_decoded_sha256": "e8367ae1b5a296920dcd20305f64d32ce1ae89019f0b9bf425942ae87e00fa72",
+      "publisher_expected_sha256": "8b0694b337dfeb4d0654ff92f281db55bfd51d811efe7ce819f666fa275bd221",
+      "matches_publisher_expected": false,
+      "repacked_container_sha256": "8b0694b337dfeb4d0654ff92f281db55bfd51d811efe7ce819f666fa275bd221",
+      "repacked_matches_expected": true,
+      "container_bytes": 44826624,
+      "all_four_checksums_valid": true,
+      "other_decoded_blocks_unchanged": true,
+      "firmware_file_written": false,
+      "camera_accessed": false
+    }
+  },
+  "public_ep5_feedback": [
+    {
+      "profile": "ep5-1.8",
+      "feature": "ring-native__a",
+      "release": "db firmware 0.3.2",
+      "count": 1,
+      "average": 0,
+      "normal": 0,
+      "partial": 0,
+      "failed": 1
+    },
+    {
+      "profile": "ep5-1.8",
+      "feature": "ring-native__m",
+      "release": "db firmware 0.3.2",
+      "count": 1,
+      "average": 0,
+      "normal": 0,
+      "partial": 0,
+      "failed": 1
+    }
+  ],
+  "not_verified": [
+    "third-party E-P5 bounded CPU cases",
+    "physical boot",
+    "aperture ring function",
+    "runtime cave ownership/residency",
+    "film/LUT integration",
+    "camera recovery"
+  ]
+}
