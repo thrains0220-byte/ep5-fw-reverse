@@ -78,6 +78,8 @@ python3 tools/check_mn103_lut.py --film --out generated/ep5-film-mn103.json
 
 电脑已加入相机网络后，可直接运行 `python3 tools/camera_collect.py --out sessions/first-connection`；程序不自动连接无线网络，首次联网仍需用户手动完成。
 
+数据线到手后，在相机 USB 菜单选择 Storage，按[第一轮接入步骤](docs/CONNECT_DAY.md)拍样并用 `tools/usb_collect.py` 只读导入指定 ORF/JPEG。Storage 期间相机不能拍摄，USB 文件传输不能替代运行中固件调试。
+
 相机当前安装的是来源未完全确认的历史修改版；它与上述精确原版基线不等同。最终补丁必须针对确定的原始镜像构建，不能对未知修改版推测偏移。
 
 ## 还需完成

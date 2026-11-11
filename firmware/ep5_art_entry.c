@@ -21,7 +21,7 @@ void ep5_param_before_send(uint8_t *packet, const uint8_t *context)
     if (ep5_control[0] != 0x43355045u || ep5_control[1] != 2 ||
         packet != (uint8_t *)(uintptr_t)0x605f4510u || !context)
         return;
-    settings = *(const uint8_t *const *)(context + 84);
+    settings = (const uint8_t *)(uintptr_t)read32(context + 84);
     if (!settings || settings[17471] != 105 || settings[18147] != 1 ||
         read16(packet + 6) != 73 || packet[96] != 1 ||
         read16(packet + 80) != 4608 || read16(packet + 82) != 3456 ||

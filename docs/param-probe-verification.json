@@ -1,15 +1,15 @@
 {
   "module": {
     "entry": "0x7e128010",
-    "end_exclusive": "0x7e12fc6e",
-    "payload_bytes": 31838,
+    "end_exclusive": "0x7e12fc7a",
+    "payload_bytes": 31850,
     "cave_bytes": 32752,
-    "spare_bytes": 914,
-    "control_offset": 2320,
-    "lut_offset": 2352,
+    "spare_bytes": 902,
+    "control_offset": 2332,
+    "lut_offset": 2364,
     "lut_bytes": 29478,
-    "state_offset": 2344,
-    "state_uncached_address": "0xbe128938",
+    "state_offset": 2356,
+    "state_uncached_address": "0xbe128944",
     "wait_entry_offset": 69,
     "wait_call_offset": 91,
     "release_entry_offset": 167,
@@ -17,7 +17,7 @@
     "param_call_offset": 289,
     "codec_call_offset": 57,
     "lut_sha256": "e447c12fbc01a284e3933696b8a6eb2631968d32f0b6e97a27a5430becae9cf5",
-    "payload_sha256": "a862479741b1d4ac7548bed5696ab277b1bf789cc976fdd90ad911e110c7a531",
+    "payload_sha256": "ed5de1ab126d13e41e5cfebbdbb0160856f73172747fbb16b603d7a64e49604c",
     "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
     "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
     "flags": [
@@ -67,7 +67,7 @@
     "scope": "Model-only cave layout and ABI candidate; no firmware container output.",
     "source_sha256": {
       "firmware/ep5_art_entry.S": "aaa9209dcffece111dfb977a51acc94dcd39ddf4b89ca36f85b73a0bb8e84cb2",
-      "firmware/ep5_art_entry.c": "65d45ae5e8646a9f6ed9fc5e8eaa9674eae5310d1aa1a1fb160357418186a8f6",
+      "firmware/ep5_art_entry.c": "6ebc28107f869433e78aabe5e30eefd5ef8e17f93c502cc16b83f290a76088d4",
       "firmware/film.c": "31df5f7d78eed3cfdc66bde21a35a0ad45172392184d9f5d9e50bbfd361b1871",
       "firmware/lut.c": "371937f585ba4f1296e3ae569a8885ef705399acaac7428210cdfbeb764f5655",
       "firmware/ep5_art_entry.ld": "131c87c3b0a05d3a4fd6a1ff1983cc1ee3081dfb2fc95672d8009d0a59a7665a",
@@ -85,7 +85,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 88
+      "instructions": 103
     },
     {
       "name": "disabled",
@@ -95,7 +95,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 47
+      "instructions": 48
     },
     {
       "name": "lut_mode",
@@ -105,7 +105,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 47
+      "instructions": 48
     },
     {
       "name": "wrong_tag",
@@ -115,7 +115,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 44
+      "instructions": 45
     },
     {
       "name": "wrong_mode",
@@ -125,7 +125,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 56
+      "instructions": 71
     },
     {
       "name": "wrong_variant",
@@ -135,7 +135,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 59
+      "instructions": 74
     },
     {
       "name": "wrong_filter",
@@ -145,7 +145,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 62
+      "instructions": 77
     },
     {
       "name": "wrong_packet",
@@ -155,7 +155,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 49
+      "instructions": 50
     },
     {
       "name": "wrong_settings",
@@ -165,7 +165,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 53
+      "instructions": 68
     },
     {
       "name": "wrong_aspect",
@@ -175,7 +175,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 65
+      "instructions": 80
     },
     {
       "name": "wrong_geometry",
@@ -185,7 +185,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 68
+      "instructions": 83
     },
     {
       "name": "wrong_value",
@@ -195,7 +195,7 @@
       "original_send_called_once": true,
       "registers_and_stack_preserved": true,
       "mdr_at_continue": 2118047804,
-      "instructions": 86
+      "instructions": 101
     }
   ],
   "installable": false,

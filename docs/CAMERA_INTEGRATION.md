@@ -4,7 +4,9 @@
 
 ## USB 数据线到手：只读导入原片
 
-[E-P5 官方说明书第 100 页](https://download.omsystem.com/pages/inst/ep5/manual_ep5_ENU.pdf)要求连接后在机身选择 **Storage**；它是文件传输模式，连接期间不能在机身拍摄。先在未连接时拍 4:3 最大尺寸 RAW+JPEG 的固定场景并保留原卡，再接线、选择 Storage，找出电脑挂载的含 `DCIM` 的目录。不要把 USB Storage 当成运行中固件调试接口。
+第一轮拍样、接线、导入与后续刷写门槛的连续步骤见[接入清单](CONNECT_DAY.md)。
+
+[E-P5 官方说明书第 101–102 页](https://download.omsystem.com/pages/inst/ep5/manual_ep5_ENU.pdf)要求连接后在机身选择 **Storage**；它是文件传输模式，连接期间不能在机身拍摄。先在未连接时拍 4:3 最大尺寸 RAW+JPEG 的固定场景并保留原卡，再接线、选择 Storage，找出电脑挂载的含 `DCIM` 的目录。不要把 USB Storage 当成运行中固件调试接口。
 
 从卡上明确指定同次 ORF/JPEG 文件名，例如：
 
