@@ -23,12 +23,12 @@ static int within(uint32_t address, uint32_t length, uint32_t base, uint32_t siz
 
 uint8_t *mem_host(uint32_t address, uint32_t length)
 {
-    if (within(address, length, CODE, code_size)) return code + address - CODE;
-    if (within(address, length, STACK, sizeof stack_ram)) return stack_ram + address - STACK;
-    if (within(address, length, CONFIG, sizeof config)) return config + address - CONFIG;
-    if (within(address, length, PIXELS, pixel_size)) return pixels + address - PIXELS;
-    if (within(address, length, LUT, sizeof lut)) return lut + address - LUT;
-    if (within(address, length, DONE, sizeof stop_bytes)) return stop_bytes + address - DONE;
+    if (within(address, length, CODE, code_size)) return code + (address - CODE);
+    if (within(address, length, STACK, sizeof stack_ram)) return stack_ram + (address - STACK);
+    if (within(address, length, CONFIG, sizeof config)) return config + (address - CONFIG);
+    if (within(address, length, PIXELS, pixel_size)) return pixels + (address - PIXELS);
+    if (within(address, length, LUT, sizeof lut)) return lut + (address - LUT);
+    if (within(address, length, DONE, sizeof stop_bytes)) return stop_bytes + (address - DONE);
     return NULL;
 }
 

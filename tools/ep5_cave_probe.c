@@ -32,13 +32,13 @@ static int within(uint32_t address, uint32_t size, uint32_t base, uint32_t lengt
 
 uint8_t *mem_host(uint32_t address, uint32_t size)
 {
-    if (within(address, size, LOGGER, 8)) return rec_return + address - LOGGER;
-    if (within(address, size, CODEC, 8)) return codec_return + address - CODEC;
-    if (within(address, size, BASE, IMAGE_BYTES)) return image + address - BASE;
-    if (within(address, size, STACK, sizeof stack_ram)) return stack_ram + address - STACK;
-    if (within(address, size, CONTEXT, sizeof context)) return context + address - CONTEXT;
-    if (within(address, size, ART_GLOBAL, sizeof globals)) return globals + address - ART_GLOBAL;
-    if (within(address, size, PIXELS, pixel_bytes)) return pixels + address - PIXELS;
+    if (within(address, size, LOGGER, 8)) return rec_return + (address - LOGGER);
+    if (within(address, size, CODEC, 8)) return codec_return + (address - CODEC);
+    if (within(address, size, BASE, IMAGE_BYTES)) return image + (address - BASE);
+    if (within(address, size, STACK, sizeof stack_ram)) return stack_ram + (address - STACK);
+    if (within(address, size, CONTEXT, sizeof context)) return context + (address - CONTEXT);
+    if (within(address, size, ART_GLOBAL, sizeof globals)) return globals + (address - ART_GLOBAL);
+    if (within(address, size, PIXELS, pixel_bytes)) return pixels + (address - PIXELS);
     return NULL;
 }
 
@@ -144,12 +144,12 @@ int main(int argc, char **argv)
         payload[call_offset + 5] != 0xf0 || payload[call_offset + 6] != 16) return 2;
     bridge_call = CAVE + (uint32_t)call_offset;
     const uint8_t expected[] = {0xcd, 0xb3, 0x6f, 0xf0, 0x10};
-    if (memcmp(image + HOOK - BASE, expected, 5)) return 2;
+    if (memcmp(image + (HOOK - BASE), expected, 5)) return 2;
     for (unsigned i = 0; i < CAVE_BYTES; ++i) if (image[CAVE - BASE + i] != 255) return 2;
     memcpy(payload + control_offset, config, 24);
-    memcpy(image + CAVE - BASE, payload, payload_bytes);
+    memcpy(image + (CAVE - BASE), payload, payload_bytes);
     image[HOOK - BASE] = 0xdc;
-    put(image + HOOK - BASE + 1, CAVE - HOOK);
+    put(image + (HOOK - BASE) + 1, CAVE - HOOK);
     pixel_bytes = (uint32_t)load(argv[4], pixels, sizeof pixels);
     if (!pixel_bytes) return 2;
     put(context + 84, CONTEXT + 0x100);

@@ -32,15 +32,15 @@ static int within(uint32_t address, uint32_t length, uint32_t base, uint32_t siz
 
 uint8_t *mem_host(uint32_t address, uint32_t length)
 {
-    if (within(address, length, LOG_HEAD, 8)) return log_return + address - LOG_HEAD;
-    if (within(address, length, LOG_VALUE, 8)) return log_return + address - LOG_VALUE;
-    if (art_mode && within(address, length, LOG_REC, 8)) return rec_return + address - LOG_REC;
-    if (art_mode && within(address, length, CODEC, 8)) return codec_return + address - CODEC;
-    if (within(address, length, BASE, IMAGE_BYTES)) return image + address - BASE;
-    if (within(address, length, STACK, sizeof stack_ram)) return stack_ram + address - STACK;
-    if (art_mode && within(address, length, CONTEXT, sizeof context)) return context + address - CONTEXT;
-    if (art_mode && within(address, length, ART_GLOBAL, sizeof art_globals)) return art_globals + address - ART_GLOBAL;
-    if (!art_mode && within(address, length, DESC, sizeof descriptor)) return descriptor + address - DESC;
+    if (within(address, length, LOG_HEAD, 8)) return log_return + (address - LOG_HEAD);
+    if (within(address, length, LOG_VALUE, 8)) return log_return + (address - LOG_VALUE);
+    if (art_mode && within(address, length, LOG_REC, 8)) return rec_return + (address - LOG_REC);
+    if (art_mode && within(address, length, CODEC, 8)) return codec_return + (address - CODEC);
+    if (within(address, length, BASE, IMAGE_BYTES)) return image + (address - BASE);
+    if (within(address, length, STACK, sizeof stack_ram)) return stack_ram + (address - STACK);
+    if (art_mode && within(address, length, CONTEXT, sizeof context)) return context + (address - CONTEXT);
+    if (art_mode && within(address, length, ART_GLOBAL, sizeof art_globals)) return art_globals + (address - ART_GLOBAL);
+    if (!art_mode && within(address, length, DESC, sizeof descriptor)) return descriptor + (address - DESC);
     return NULL;
 }
 

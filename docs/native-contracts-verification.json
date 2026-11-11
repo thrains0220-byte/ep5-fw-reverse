@@ -1,0 +1,189 @@
+{
+  "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+  "cpu_source_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+  "boot": {
+    "source": 1076686848,
+    "destination": 3188785152,
+    "bytes": 727040,
+    "covers_module": true
+  },
+  "allocation": {
+    "allocate": {
+      "buffer": 301989888,
+      "allocation_calls": 1,
+      "allocation_bytes": 31850496,
+      "allocation_flags": 0,
+      "errors": 0,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456,
+        0,
+        0
+      ],
+      "result": 0,
+      "instructions": 469,
+      "registers_and_stack_preserved": true,
+      "codec_calls": 1,
+      "jpeg_buffer": 301989888,
+      "jpeg_geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456
+      ],
+      "jpeg_frame_preserved": true
+    },
+    "existing": {
+      "buffer": 301993984,
+      "allocation_calls": 0,
+      "allocation_bytes": 0,
+      "allocation_flags": 0,
+      "errors": 0,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456,
+        0,
+        0
+      ],
+      "result": 0,
+      "instructions": 292,
+      "registers_and_stack_preserved": true,
+      "codec_calls": 1,
+      "jpeg_buffer": 301993984,
+      "jpeg_geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456
+      ],
+      "jpeg_frame_preserved": true
+    },
+    "failed": {
+      "buffer": 0,
+      "allocation_calls": 1,
+      "allocation_bytes": 31850496,
+      "allocation_flags": 0,
+      "errors": 1,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456,
+        0,
+        0
+      ],
+      "result": 1,
+      "instructions": 493,
+      "registers_and_stack_preserved": true,
+      "codec_calls": 0,
+      "jpeg_buffer": 0,
+      "jpeg_geometry_u16": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "jpeg_frame_preserved": false
+    },
+    "cropped": {
+      "buffer": 301989888,
+      "allocation_calls": 1,
+      "allocation_bytes": 31850496,
+      "allocation_flags": 0,
+      "errors": 0,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3072,
+        0,
+        192
+      ],
+      "result": 0,
+      "instructions": 470,
+      "registers_and_stack_preserved": true,
+      "codec_calls": 1,
+      "jpeg_buffer": 301989888,
+      "jpeg_geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3072
+      ],
+      "jpeg_frame_preserved": true
+    }
+  },
+  "filters": {
+    "neutral": {
+      "initializer": 2118165003,
+      "functions": [
+        2118175665
+      ],
+      "result": 0,
+      "instructions": 449,
+      "registers_and_stack_preserved": true
+    },
+    "pinhole": {
+      "initializer": 2118165003,
+      "functions": [
+        2118175665,
+        2118127964
+      ],
+      "result": 0,
+      "instructions": 472,
+      "registers_and_stack_preserved": true
+    }
+  },
+  "physical_camera_test": false,
+  "models": [
+    "logging/trace/error sinks return with native frames",
+    "allocator returns a synthetic address or zero, never creates pixels",
+    "JPEG sink captures the original request and returns 0x1234 without encoding",
+    "boot stops at the flash reader entry; no flash read is modeled",
+    "packet/task/message fixtures are synthetic; original geometry and selection execute"
+  ],
+  "not_tested": [
+    "physical flash read/boot",
+    "later residency/overwrite",
+    "actual allocator/ISP execution",
+    "pixel format/range",
+    "cache/task timing",
+    "JPEG encoding",
+    "camera installation/recovery"
+  ],
+  "dependencies_sha256": {
+    "tools/ep5_contract_probe.c": "8bb00e771aecaf4ca86d79000e13a06f6a92407dc40a144796d4a660e5ae73c7",
+    "tools/native_contracts.py": "add6596f8ab04b49425f4e65bb296327d8cc0c0b597814073ed295d9c2864478",
+    "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+    "build/native-contracts/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+    "build/native-contracts/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+    "build/native-contracts/ep5-contract-probe": "f49ca8f33c4dfd936912e21e69d83466f339ea8a4d6fd966e926caa891b222b3",
+    "tools/ep5_gate_probe.c": "e2be9cb39809d7cf1423e56a0845bc8c77556f44a27ea6e5e7c94eda675403b8",
+    "tools/ep5_image_probe.c": "5528b0a36d4b564df47ad1f13916a8119a33c705473dcdb23fac6931ca2baf1f",
+    "tools/ep5_cave_probe.c": "26d2aea6a4ecf498bf6df6592fb6f16fe6d6c8a3c3c9e49d0037388155eb8b63",
+    "tools/lut_mn103_probe.c": "4bf92299be3997d713912a0c1f402df7606b5880cc283d82d3bf96c84dbf062b"
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests -v",
+    "passed": 48,
+    "skipped": 0,
+    "seconds": 34.841,
+    "full_log_sha256": "d176999c357136c7d1959375170c7a6d0e5c4eee821e0a8109e06985036626c7"
+  },
+  "test_source_sha256": "cc21ea4c5a589d43faa9687444176702f0d0b695856172a1e4617677f07fa6fe",
+  "independent_review": {
+    "focused_tests_passed_in_isolated_build": 4,
+    "findings_addressed": [
+      "Corrected +6=73 to pinhole; rough monochrome +6=74 also changes converter, so it is not the same comparison.",
+      "Checked integer offsets before adding to host pointers across all five related CPU probes.",
+      "Assert cropped allocation size/calls, allocation error sink and filter native results/initializer.",
+      "Reject CLI success when the modeled codec return contract is violated; fault injection RED to GREEN."
+    ],
+    "remaining_code_findings": [],
+    "physical_test": false
+  }
+}

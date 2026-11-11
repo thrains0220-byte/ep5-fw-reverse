@@ -39,14 +39,14 @@ uint8_t *mem_host(uint32_t address, uint32_t length)
     for (unsigned i = 0; i < 3; ++i)
         if (!(csv_mode && services[i] == GET_PARAM) && address >= services[i] &&
             (uint64_t)address + length <= (uint64_t)services[i] + 8)
-            return returns[i] + address - services[i];
+            return returns[i] + (address - services[i]);
     if (address >= BASE && (uint64_t)address + length <= (uint64_t)BASE + IMAGE_BYTES)
-        return image + address - BASE;
+        return image + (address - BASE);
     if (address >= STACK && (uint64_t)address + length <= (uint64_t)STACK + STACK_BYTES)
-        return stack_ram + address - STACK;
+        return stack_ram + (address - STACK);
     if (csv_mode && address >= PARAM_RAM &&
         (uint64_t)address + length <= (uint64_t)PARAM_RAM + PARAM_BYTES)
-        return parameter_ram + address - PARAM_RAM;
+        return parameter_ram + (address - PARAM_RAM);
     return NULL;
 }
 
@@ -63,9 +63,9 @@ void mem_wr(uint32_t address, uint32_t value, int size)
 {
     uint8_t *p = NULL;
     if (address >= STACK && (uint64_t)address + size <= (uint64_t)STACK + STACK_BYTES)
-        p = stack_ram + address - STACK;
+        p = stack_ram + (address - STACK);
     if (csv_mode && address >= PARAM_RAM && (uint64_t)address + size <= (uint64_t)PARAM_RAM + PARAM_BYTES)
-        p = parameter_ram + address - PARAM_RAM;
+        p = parameter_ram + (address - PARAM_RAM);
     if (!p) emu_abort(PC, "write outside modeled RAM %08x", address);
     for (int i = 0; i < size; ++i) p[i] = (uint8_t)(value >> (8 * i));
 }
