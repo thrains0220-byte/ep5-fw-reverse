@@ -2,8 +2,8 @@
   "stock_full_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
   "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
   "source_document": "docs/T2_NATIVE_PATHS.md",
-  "source_document_sha256": "baaa15964195073412ab47cf2c7990a4f2f9912707e3b7f7b975b417e8ba88ea",
-  "exact_byte_rows_verified": 59,
+  "source_document_sha256": "34896da70a4f6a22d9cc15c9badd85e23838bb04179ee81c29316786e86b2261",
+  "exact_byte_rows_verified": 62,
   "exact_bytes": {
     "0x7e3ed3b5": "dd 5b f7 00 00 c0 0c",
     "0x7e3ed3bc": "f8 72 06",
@@ -61,6 +61,9 @@
     "0x7e3f22df": "cc 1e 01",
     "0x7e3f27f7": "cd ef af b0 2c",
     "0x7e3f27fd": "cd bb b2 00 00",
+    "0x7e60f9cc": "2c 00 12",
+    "0x7e60f9d2": "2c 80 0d",
+    "0x7e60fa7d": "cd c3 42 b0 28",
     "0x7e6182a4": "2c 04 10",
     "0x7e6182ec": "cd 3b fa 00 14",
     "0x7e6182fe": "cd 17 fa 00 14"
