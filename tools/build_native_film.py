@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Build the Soft Chrome native chroma-curve candidate for the Olympus E-P5 1.8."""
+import argparse
+import hashlib
+from pathlib import Path
+import struct
+import sys
+import tempfile
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.film_update import build_update
+from tools.inspect_ep5 import CPU_BASE
+
+
+def build_film(stock: bytes) -> bytes:
+    # Two 49-byte native chroma tables. Slopes are Q7, with a leading slope
+    # before the first knot and one after each knot, including padded knots.
+    x = bytes([0] * 4 + [64, 128, 192] + [255] * 9)
+    identity = x + x + bytes([0] * 4 + [128] * 4 + [0] * 9)
+    y = bytes([40] * 4 + [74, 128, 182] + [215] * 9)
+    curve = x + y + bytes([0] * 4 + [68, 108, 108, 67] + [0] * 9)
+    edits = [(0x7e438bb0 - CPU_BASE, identity * 2, curve * 2)]
+    # Movie mode 82 originally shares still 73's table. Case 0x7e22a01f
+    # selects a second pair of byte-identical factory identity curves.
+    # The CMIO initializer also copies every preset, regardless of active mode.
+    for address, old, new in (
+        (0x7e478ec4, 0x7e22a12f, 0x7e22a01f),
+        (0x7e21d0e7, 0x7e438bc0, 0x7e438a38),
+        (0x7e21d0fd, 0x7e438bd0, 0x7e438a48),
+        (0x7e21d129, 0x7e438bf1, 0x7e438a69),
+        (0x7e21d13f, 0x7e438c01, 0x7e438a79),
+    ):
+        edits.append((address - CPU_BASE, struct.pack("<I", old), struct.pack("<I", new)))
+    return build_update(stock, edits)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("stock", type=Path, help="original OLY_E_108_1800_0000_0000.BIN")
+    parser.add_argument("--out", required=True, type=Path, help="new local output directory")
+    args = parser.parse_args()
+    folder = args.out
+    if folder.exists():
+        parser.exit(1, f"Output already exists: {folder}\n")
+    try:
+        with args.stock.open("rb") as source:
+            candidate = build_film(source.read(44826624 + 1))
+        digest = hashlib.sha256(candidate).hexdigest()
+        folder.mkdir(parents=True, exist_ok=False)
+        dest = folder / "DCOLYMP" / "E1089999.BIN"
+        dest.parent.mkdir()
+        # Publish the camera-recognized name last so an interrupted write
+        # cannot leave a partial update at that path.
+        with tempfile.TemporaryDirectory(dir=folder) as directory:
+            staged = Path(directory) / "candidate.part"
+            staged.write_bytes(candidate)
+            if hashlib.sha256(staged.read_bytes()).hexdigest() != digest:
+                raise OSError("firmware read-back SHA-256 mismatch")
+            (folder / "SHA256SUMS").write_text(f"{digest}  DCOLYMP/E1089999.BIN\n", encoding="ascii")
+            staged.replace(dest)
+    except (OSError, ValueError) as error:
+        parser.exit(1, f"{error}\n")
+    print(f"{digest}  {dest}")
+
+
+if __name__ == "__main__":
+    main()
