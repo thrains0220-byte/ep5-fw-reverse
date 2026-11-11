@@ -72,4 +72,4 @@ E-P5 原厂已有 ART 拍摄和从同一 ORF 反复生成 JPEG 副本的入口�
 
 ### 执行记录（2026-11-11）
 
-T2 已形成[原厂地址/原字节调用表](../../T2_NATIVE_PATHS.md)和[字节校验记录](../../t2-native-paths-verification.json)。快门 ART 路线追到静态 JPEG 请求和释放；回放路线追到队列发送/回复。`chContrast/chTone/chSaturation` 找到上下文生产与中间复制，却未找到独立风格参数表或静态照片 ISP 消费者；回放消息消费者及实际文件落盘仍是断点。按照第三节的结束条件，先推进路线 B 的所有权、格式与耗时验证，同时保留路线 A 的字段追踪。T1 的同源原文件仍需从机身取得，当前没有可刷入的效果固件。
+T2 已形成[原厂地址/原字节调用表](../../T2_NATIVE_PATHS.md)和[字节校验记录](../../t2-native-paths-verification.json)。快门 ART 路线追到静态 JPEG 请求、`REC THUM` 缩略图分支、ORF 条件分支、REC FILE 任务交接和释放。`chContrast/chTone/chSaturation` 找到上下文 → ART packet → 工作记录的生产/复制链，并找到受模式保护的单字段实验候选窗口；未找到最终静态照片 ISP 消费者，也未证明固定全局 packet 的串行所有权。回放 `play_edit_raw_edit` 的 `0x1003` 经 REC 队列链静态调用同一个 `rec_art_exec`；另几种回放消息有独立分支。是否产生同次配对的全尺寸 JPEG/ORF、文件号与实际写卡仍是断点。接下来继续按路线 A 追颜色消费和所有权，并追 `0x1003` 的保存下游，再决定是否需 B 的完整 LUT；T1 的同源原文件仍需从机身取得，当前没有可刷入的效果固件。

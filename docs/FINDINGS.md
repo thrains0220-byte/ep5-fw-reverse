@@ -181,4 +181,6 @@ CPU模型在内存中将原生 `0x7e3ed8d1` 的5字节调用换成跳入模块�
 
 按[项目任务书](superpowers/specs/2026-11-11-ep5-film-project-plan.md)的 T2，补出[两条原厂入口调用表](T2_NATIVE_PATHS.md)。`rec_art_set_artmode` 把 Picture Mode/变体映射到 ART packet `+6`，之后通过预检查、参数构造、发送/等待进入外层拍摄任务的主 JPEG 分支和释放。静态路径也确认了普通非 ART 的分叉。每个关键调用列出地址与官方 1.8 原字节；既有模型执行与纯静态证据分开标注。
 
-`chContrast/chTone/chSaturation` 除原厂日志读取，还发现从拍摄上下文字段写入设置结构、再向 ART 工作记录复制；但没有定位到单一风格专用参数表和静态照片 ISP 消费者。共享构造器被多条 JPEG/REC/Beauty 路线调用，不能直接改其默认值充当隔离配方。回放 `play_rec_raw_edit` 发送 `0x1001` 等消息并等待回复，尚未连到快门侧 ART/JPEG；已把任务消费者与落盘写卡列为下一追踪断点。无新固件包。
+`chContrast/chTone/chSaturation` 除原厂日志读取，还发现拍摄上下文 `+17442/+17444/+17468` 写入本次 ART packet `+157/+158/+160`，再复制到工作记录 `+0x55/+0x56/+0x58`。参数构造后、发送前可作为按模式保护的单字段实验候选，但 packet 固定于共享全局，串行所有权和最终静态照片 ISP 消费者未证实。共享设置构造器也被多条 JPEG/REC/Beauty 路线调用，不能直接改默认值。
+
+回放 `play_edit_raw_edit` 发送 `0x1003`，通过 REC 的 `0x58 → 0x5a → 0x57` 队列链进入图像任务，并静态调用**同一个** `rec_art_exec`；`play_multi_raw_save` 的 `0x1001`、独立 `play_rec_multi_raw` 的 `0x1004` 等不能合并为这条路线。拍摄任务还存在主 JPEG、`REC THUM`、ORF 条件分支，完成后可交 REC FILE 任务；尚未验证某次照片真正走过这些分支并生成对应的卡上文件。`rec_art_exec` 返回零也不保证 ART 已发送。无新固件包。
