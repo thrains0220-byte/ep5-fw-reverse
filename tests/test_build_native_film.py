@@ -27,6 +27,10 @@ class FilmRecipeTests(unittest.TestCase):
             image = (folder / "DCOLYMP/E1089999.BIN").read_bytes()
             self.assertEqual(hashlib.sha256(image).hexdigest(),
                              "2f3eb6cd7d9b0c4bdd29414174e02fe850e26ed9dae482ad55a076559075243f")
+            note = (folder / "READ-ME.txt").read_text(encoding="utf-8")
+            self.assertIn("Soft Chrome RC1", note)
+            self.assertIn("原厂名称", note)
+            self.assertIn(hashlib.sha256(image).hexdigest(), note)
 
     def test_rc2_changes_only_filter_list_text_in_chinese_language_packs(self):
         from external.oly_fw_analysis.tools import oly_container
@@ -59,23 +63,6 @@ class FilmRecipeTests(unittest.TestCase):
                 language[offset:offset + len(before)] = before
         self.assertEqual(language, original)
 
-    def test_failed_publication_allows_retry(self):
-        from tools import build_native_film
-
-        with tempfile.TemporaryDirectory() as tmp:
-            folder = Path(tmp) / "card"
-            argv = [str(CLI), str(STOCK), "--out", str(folder)]
-            error = StringIO()
-            with patch.object(sys, "argv", argv), patch.object(build_native_film, "build_film",
-                                                               return_value=b"candidate"):
-                with patch.object(Path, "replace", side_effect=OSError("publish failed")):
-                    with redirect_stderr(error), self.assertRaises(SystemExit):
-                        build_native_film.main()
-                self.assertIn("publish failed", error.getvalue())
-                self.assertFalse(folder.exists())
-                build_native_film.main()
-                self.assertEqual((folder / "DCOLYMP/E1089999.BIN").read_bytes(), b"candidate")
-
     def test_card_artifact_preserves_factory_record_and_movie_curve(self):
         from external.oly_fw_analysis.tools import oly_container
 
@@ -87,7 +74,13 @@ class FilmRecipeTests(unittest.TestCase):
             target = folder / "DCOLYMP/E1089999.BIN"
             image = target.read_bytes()
             digest = hashlib.sha256(image).hexdigest()
-            self.assertIn(digest + "  DCOLYMP/E1089999.BIN", (folder / "SHA256SUMS").read_text())
+            self.assertEqual(digest, "90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229")
+            self.assertEqual((folder / "SHA256SUMS").read_bytes(),
+                             (digest + "  DCOLYMP/E1089999.BIN\n").encode("ascii"))
+            note = (folder / "READ-ME.txt").read_text(encoding="utf-8")
+            self.assertIn("Soft Chrome RC2", note)
+            self.assertIn("针孔/柔彩I", note)
+            self.assertIn(digest, note)
             self.assertNotEqual(subprocess.run(cmd, capture_output=True).returncode, 0)
             self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), digest)
 
@@ -101,6 +94,33 @@ class FilmRecipeTests(unittest.TestCase):
         for data in (stock, film):
             self.assertEqual(struct.unpack_from("<I", data, 0x7e478ea0 - BASE)[0], 0x7e22a12f)
         self.assertEqual(struct.unpack_from("<I", film, 0x7e478ec4 - BASE)[0], 0x7e22a01f)
+
+class PublicationTests(unittest.TestCase):
+    def test_unreviewed_output_is_not_published_and_failure_allows_retry(self):
+        from tools import build_native_film
+
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "card"
+            stock = Path(tmp) / "source.bin"
+            stock.write_bytes(b"fixture")
+            argv = [str(CLI), str(stock), "--out", str(folder)]
+            error = StringIO()
+            candidate = b"candidate"
+            with patch.object(sys, "argv", argv), patch.object(build_native_film, "build_film",
+                                                               return_value=candidate):
+                with redirect_stderr(error), self.assertRaises(SystemExit):
+                    build_native_film.main()
+                self.assertIn("published SHA-256", error.getvalue())
+                self.assertFalse(folder.exists())
+
+                with patch.dict(build_native_film.CANDIDATE_SHA256, {2: hashlib.sha256(candidate).hexdigest()}):
+                    with patch.object(Path, "replace", side_effect=OSError("publish failed")):
+                        with redirect_stderr(error), self.assertRaises(SystemExit):
+                            build_native_film.main()
+                    self.assertIn("publish failed", error.getvalue())
+                    self.assertFalse(folder.exists())
+                    build_native_film.main()
+                    self.assertEqual((folder / "DCOLYMP/E1089999.BIN").read_bytes(), candidate)
 
     def test_bad_source_never_creates_a_card_folder(self):
         with tempfile.TemporaryDirectory() as tmp:

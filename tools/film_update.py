@@ -10,6 +10,14 @@ CONTAINER_TOOL = Path(__file__).resolve().parents[1] / "external/oly_fw_analysis
 CONTAINER_SHA256 = "27a6b3439b7c24eddb3b63bbbe0bd7dcd100fef131a63235e678158c224f9105"
 
 
+def _check_helper():
+    # Git for Windows may check the pinned Python blob out with CRLF;
+    # Python's tokenizer already treats that as LF. Preserve all other bytes.
+    blob = CONTAINER_TOOL.read_bytes().replace(b"\r\n", b"\n")
+    if hashlib.sha256(blob).hexdigest() != CONTAINER_SHA256:
+        raise ValueError("Olympus container helper SHA-256 mismatch")
+
+
 def _edited_payload(original, edits):
     payload = bytearray(original)
     previous_end = 0
@@ -33,8 +41,7 @@ def build_update(stock: bytes, edits: list[tuple[int, bytes, bytes]], *, languag
     check_stock(stock)
     if not edits:
         raise ValueError("at least one MAIN edit is required")
-    if hashlib.sha256(CONTAINER_TOOL.read_bytes()).hexdigest() != CONTAINER_SHA256:
-        raise ValueError("Olympus container helper SHA-256 mismatch")
+    _check_helper()
     from external.oly_fw_analysis.tools import oly_container
 
     blocks = oly_container.parse(stock)

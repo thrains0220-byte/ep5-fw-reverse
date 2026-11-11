@@ -31,28 +31,44 @@ class FilmRouteTests(unittest.TestCase):
                 if name == "stock":
                     self.assertEqual(hashlib.sha256(payload).hexdigest(), MAIN_SHA256)
                 main.write_bytes(payload)
-                for (variant, mode), (level, stage, submit) in itertools.product(
+                for (variant, mode), (level, stage, submit), movie_state in itertools.product(
                     enumerate((73, 106, 108, 65535), start=1),
                     ((200, 0, 0x7e40d54f), (3200, 2, 0x7e40d23a)),
+                    (7, 8, 9),
                 ):
-                    with self.subTest(image=name, variation=variant, level=level):
-                        run = subprocess.run([probe, main, str(variant), str(level)],
+                    with self.subTest(image=name, variation=variant, level=level, movie_state=movie_state):
+                        run = subprocess.run([probe, main, str(variant), str(level), str(movie_state)],
                                              capture_output=True, text=True, timeout=10)
                         self.assertEqual(run.returncode, 0, run.stderr)
                         case = json.loads(run.stdout)
                         self.assertEqual(case["movie_kind"], 2)
-                        self.assertEqual(case["movie_state"], 7)
+                        self.assertEqual(case["movie_state"], movie_state)
                         self.assertEqual(case["movie_mode"], mode)
                         self.assertEqual(case["movie_entry"], 0 if variant == 4 else 0x7e40115c)
                         self.assertEqual(case["movie_next"], 0)
                         self.assertEqual(case["packet_mode"], mode)
                         self.assertEqual(case["stage"], stage)
                         self.assertEqual(case["gate"], int(variant == 4))
+                        # Return PCs are produced by the actual ORF/JPEG CALLs in
+                        # rec_make_image, and distinguish ART from other codec callers.
+                        self.assertEqual(case["orf_dispatch_return"], 0x7e3f26e3)
+                        self.assertEqual(case["jpeg_dispatch_return"], 0x7e3f26db)
                         if variant == 4:
+                            self.assertEqual(case["jpeg_target"], 0x7e3f2a49)
+                            self.assertIsNone(case["codec"])
+                            self.assertEqual(case["allocation_calls"], 0)
                             self.assertEqual(case["submit"], 0)
                             self.assertEqual(case["driver_mode"], -1)
                             self.assertEqual(case["words_hex"], "")
                             continue
+                        self.assertEqual(case["jpeg_target"], 0x7e3f4884)
+                        self.assertEqual(case["allocation_calls"], 1)
+                        self.assertEqual(case["allocation_bytes"], 4608 * 3456 * 2)
+                        self.assertEqual(case["art_buffer"], 0x12000000)
+                        self.assertEqual(case["codec"], {
+                            "return": 0x7e3ed8d6, "buffer": case["art_buffer"],
+                            "kind": 0x20000000, "geometry": [4608, 3456, 4608, 3456],
+                        })
                         self.assertEqual(case["converter"], 0x7e40cbb1)
                         self.assertEqual(case["filter"], 0x7e40115c)
                         self.assertEqual(case["submit"], submit)

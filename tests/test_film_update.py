@@ -1,6 +1,8 @@
 import hashlib
 from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from tools.film_update import build_update
 
@@ -14,6 +16,23 @@ class FirmwareInputTests(unittest.TestCase):
     def test_rejects_unknown_stock(self):
         with self.assertRaisesRegex(ValueError, "SHA-256"):
             build_update(b"unknown firmware", [(0, b"a", b"b")])
+
+    def test_pinned_helper_accepts_git_newlines_but_not_changed_content(self):
+        from tools import film_update
+
+        source = b"print('verified source')\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            helper = Path(tmp) / "oly_container.py"
+            with patch.object(film_update, "CONTAINER_TOOL", helper), patch.object(
+                    film_update, "CONTAINER_SHA256", hashlib.sha256(source).hexdigest()):
+                for content in (source, source.replace(b"\n", b"\r\n")):
+                    helper.write_bytes(content)
+                    film_update._check_helper()
+                for content in (source + b" ", source.replace(b"verified", b"tampered"),
+                                source.replace(b"\n", b"\r")):
+                    helper.write_bytes(content)
+                    with self.assertRaisesRegex(ValueError, "helper SHA-256 mismatch"):
+                        film_update._check_helper()
 
 
 @unittest.skipUnless(STOCK.is_file(), "requires official E-P5 1.8 update")

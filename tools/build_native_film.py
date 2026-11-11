@@ -11,7 +11,29 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.film_update import build_update
-from tools.inspect_ep5 import CPU_BASE
+from tools.inspect_ep5 import CPU_BASE, STOCK_SHA256
+
+
+# Published full-container hashes of the reviewed recipes; never derive these
+# from the image being packaged. A deliberately new recipe needs a new RC.
+CANDIDATE_SHA256 = {
+    1: "2f3eb6cd7d9b0c4bdd29414174e02fe850e26ed9dae482ad55a076559075243f",
+    2: "90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229",
+}
+
+
+def package_note(revision, digest):
+    label = ("针孔相机效果（原厂名称）" if revision == 1 else
+             "针孔/柔彩I（繁体：針孔/柔彩I，其他语言沿用原厂名称）")
+    return (f"Olympus PEN E-P5 1.8 — 柔彩 Soft Chrome RC{revision}\n"
+            "仅供 E-P5 实机试验。此版本尚未完成机身安装、成片和恢复验收。\n"
+            "固件：DCOLYMP/E1089999.BIN（44,826,624 字节）\n"
+            f"本候选 SHA-256：{digest}\n"
+            f"官方 1.8 恢复原包 SHA-256：{STOCK_SHA256}（另行保存）\n"
+            f"拍照：ART → {label} → I；4:3、最大尺寸、RAW+JPEG。\n"
+            "关闭效果：切换回 P/A/S/M 的 Natural。此包内置一个风格，不导入 .cube。\n"
+            "安装前先保存原厂针孔 I 和 Natural 对照；备份卡上的照片。\n"
+            "试验前阅读仓库 docs/SOFT_CHROME.md 的 SD 更新、恢复及成片检查说明。\n")
 
 
 def build_film(stock: bytes, *, revision: int = 2) -> bytes:
@@ -65,6 +87,8 @@ def main():
         with args.stock.open("rb") as source:
             candidate = build_film(source.read(44826624 + 1), revision=args.revision)
         digest = hashlib.sha256(candidate).hexdigest()
+        if digest != CANDIDATE_SHA256[args.revision]:
+            raise ValueError(f"RC{args.revision} firmware differs from the published SHA-256")
         dest = folder / "DCOLYMP" / "E1089999.BIN"
         folder.parent.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=folder.parent) as directory:
@@ -72,16 +96,20 @@ def main():
             staged.write_bytes(candidate)
             if hashlib.sha256(staged.read_bytes()).hexdigest() != digest:
                 raise OSError("firmware read-back SHA-256 mismatch")
-            checksum = Path(directory) / "SHA256SUMS"
-            checksum.write_text(f"{digest}  DCOLYMP/E1089999.BIN\n", encoding="ascii")
             # Reserve a new card folder and publish the firmware name last.
             with ExitStack() as rollback:
                 folder.mkdir()
                 rollback.callback(folder.rmdir)
                 dest.parent.mkdir()
                 rollback.callback(dest.parent.rmdir)
-                checksum.rename(folder / checksum.name)
-                rollback.callback((folder / checksum.name).unlink)
+                for name, content in (
+                    ("SHA256SUMS", f"{digest}  DCOLYMP/E1089999.BIN\n".encode("ascii")),
+                    ("READ-ME.txt", package_note(args.revision, digest).encode("utf-8")),
+                ):
+                    note = Path(directory) / name
+                    note.write_bytes(content)
+                    note.rename(folder / name)
+                    rollback.callback((folder / name).unlink)
                 staged.replace(dest)
                 rollback.pop_all()
     except (OSError, ValueError) as error:

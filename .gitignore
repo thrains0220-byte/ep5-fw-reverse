@@ -6,3 +6,5 @@
 /sessions/
 __pycache__/
 .pytest_cache/
+/.graphflow-cache/
+/graphflow-out/

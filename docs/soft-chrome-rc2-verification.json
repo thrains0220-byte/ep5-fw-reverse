@@ -1,0 +1,49 @@
+{
+  "baseline": "OM E-P5 / model 1080 / build 1800",
+  "source_archive_matches_fresh_om_download": true,
+  "hardware_trial": "not performed",
+  "candidate": {
+    "bytes": 44826624,
+    "bin_sha256": "90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229",
+    "zip_sha256": "65d70cb5d56badebe5e23088589cdb6f18828bca562fdb521f3657f920e183cf"
+  },
+  "recovery": {
+    "bytes": 44826624,
+    "bin_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
+    "zip_sha256": "85b8d1b19b18bc22facedce49bdc02922a637e5b574710fe2f730b39ca397824"
+  },
+  "verified_blocks": [
+    {
+      "kind": "0x100",
+      "payload_changed_bytes": 48,
+      "decoded_candidate_sha256": "10fac02b381f8253b039cc0fd297d2947544111cdd48deb67f67458b36f34b01",
+      "headers_unchanged": true,
+      "trailer_changed_bytes": 4,
+      "checksums_valid": true
+    },
+    {
+      "kind": "0x101",
+      "payload_changed_bytes": 30,
+      "decoded_candidate_sha256": "0a672bba4286ee0427e80824cb6990cb34e6a41854b0454a959ba9700c0770e2",
+      "headers_unchanged": true,
+      "trailer_changed_bytes": 4,
+      "checksums_valid": true
+    },
+    {
+      "kind": "0x106",
+      "payload_changed_bytes": 0,
+      "decoded_candidate_sha256": "8c49dcf84310d6bd1e85196b2890d2235e588676d2ba737467e9a8a3cdc4e1c6",
+      "headers_unchanged": true,
+      "trailer_changed_bytes": 0,
+      "checksums_valid": true
+    },
+    {
+      "kind": "0x104",
+      "payload_changed_bytes": 0,
+      "decoded_candidate_sha256": "802c375541bdf00735449f5351ec333506c6fd1838d0aae5084fe77108f15433",
+      "headers_unchanged": true,
+      "trailer_changed_bytes": 0,
+      "checksums_valid": true
+    }
+  ]
+}
