@@ -1,10 +1,13 @@
 import hashlib
+from contextlib import redirect_stderr
+from io import StringIO
 from pathlib import Path
 import struct
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +18,23 @@ BASE = 0x7e101020
 
 @unittest.skipUnless(STOCK.is_file(), "requires official E-P5 1.8 update")
 class FilmRecipeTests(unittest.TestCase):
+    def test_failed_publication_allows_retry(self):
+        from tools import build_native_film
+
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "card"
+            argv = [str(CLI), str(STOCK), "--out", str(folder)]
+            error = StringIO()
+            with patch.object(sys, "argv", argv), patch.object(build_native_film, "build_film",
+                                                               return_value=b"candidate"):
+                with patch.object(Path, "replace", side_effect=OSError("publish failed")):
+                    with redirect_stderr(error), self.assertRaises(SystemExit):
+                        build_native_film.main()
+                self.assertIn("publish failed", error.getvalue())
+                self.assertFalse(folder.exists())
+                build_native_film.main()
+                self.assertEqual((folder / "DCOLYMP/E1089999.BIN").read_bytes(), b"candidate")
+
     def test_card_artifact_preserves_factory_record_and_movie_curve(self):
         from external.oly_fw_analysis.tools import oly_container
 

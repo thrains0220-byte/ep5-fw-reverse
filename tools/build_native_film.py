@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the Soft Chrome native chroma-curve candidate for the Olympus E-P5 1.8."""
 import argparse
+from contextlib import ExitStack
 import hashlib
 from pathlib import Path
 import struct
@@ -47,18 +48,25 @@ def main():
         with args.stock.open("rb") as source:
             candidate = build_film(source.read(44826624 + 1))
         digest = hashlib.sha256(candidate).hexdigest()
-        folder.mkdir(parents=True, exist_ok=False)
         dest = folder / "DCOLYMP" / "E1089999.BIN"
-        dest.parent.mkdir()
-        # Publish the camera-recognized name last so an interrupted write
-        # cannot leave a partial update at that path.
-        with tempfile.TemporaryDirectory(dir=folder) as directory:
+        folder.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=folder.parent) as directory:
             staged = Path(directory) / "candidate.part"
             staged.write_bytes(candidate)
             if hashlib.sha256(staged.read_bytes()).hexdigest() != digest:
                 raise OSError("firmware read-back SHA-256 mismatch")
-            (folder / "SHA256SUMS").write_text(f"{digest}  DCOLYMP/E1089999.BIN\n", encoding="ascii")
-            staged.replace(dest)
+            checksum = Path(directory) / "SHA256SUMS"
+            checksum.write_text(f"{digest}  DCOLYMP/E1089999.BIN\n", encoding="ascii")
+            # Reserve a new card folder and publish the firmware name last.
+            with ExitStack() as rollback:
+                folder.mkdir()
+                rollback.callback(folder.rmdir)
+                dest.parent.mkdir()
+                rollback.callback(dest.parent.rmdir)
+                checksum.rename(folder / checksum.name)
+                rollback.callback((folder / checksum.name).unlink)
+                staged.replace(dest)
+                rollback.pop_all()
     except (OSError, ValueError) as error:
         parser.exit(1, f"{error}\n")
     print(f"{digest}  {dest}")
