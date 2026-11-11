@@ -14,6 +14,23 @@ static uint32_t read32(const uint8_t *p)
     return (uint32_t)read16(p) | (uint32_t)read16(p + 2) << 16;
 }
 
+/* Experimental route A: one neutral contrast step in one full-size ART request. */
+void ep5_param_before_send(uint8_t *packet, const uint8_t *context)
+{
+    const uint8_t *settings;
+    if (ep5_control[0] != 0x43355045u || ep5_control[1] != 2 ||
+        packet != (uint8_t *)(uintptr_t)0x605f4510u || !context)
+        return;
+    settings = *(const uint8_t *const *)(context + 84);
+    if (!settings || settings[17471] != 105 || settings[18147] != 1 ||
+        read16(packet + 6) != 73 || packet[96] != 1 ||
+        read16(packet + 80) != 4608 || read16(packet + 82) != 3456 ||
+        read16(packet + 84) != 4608 || read16(packet + 86) != 3456 ||
+        read16(settings + 17442) != 0 || packet[157] != 0)
+        return;
+    packet[157] = 1;
+}
+
 void ep5_art_before_release(void)
 {
     if (ep5_control[0] == 0x43355045u && ep5_control[1] == 1)

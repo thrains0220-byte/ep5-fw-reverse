@@ -1,0 +1,218 @@
+{
+  "module": {
+    "entry": "0x7e128010",
+    "end_exclusive": "0x7e12fc6e",
+    "payload_bytes": 31838,
+    "cave_bytes": 32752,
+    "spare_bytes": 914,
+    "control_offset": 2320,
+    "lut_offset": 2352,
+    "lut_bytes": 29478,
+    "state_offset": 2344,
+    "state_uncached_address": "0xbe128938",
+    "wait_entry_offset": 69,
+    "wait_call_offset": 91,
+    "release_entry_offset": 167,
+    "param_entry_offset": 232,
+    "param_call_offset": 289,
+    "codec_call_offset": 57,
+    "lut_sha256": "e447c12fbc01a284e3933696b8a6eb2631968d32f0b6e97a27a5430becae9cf5",
+    "payload_sha256": "a862479741b1d4ac7548bed5696ab277b1bf789cc976fdd90ad911e110c7a531",
+    "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+    "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
+    "flags": [
+      "-std=c99",
+      "-Os",
+      "-mno-am33",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-tree-loop-distribute-patterns",
+      "-fno-pic",
+      "-fno-common",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-nostdlib",
+      "-Wl,--gc-sections"
+    ],
+    "installable": false,
+    "default_enabled": false,
+    "plain_mn103_instruction_set": true,
+    "patch": {
+      "cpu_address": "0x7e3ed8d1",
+      "image_offset": 3066033,
+      "old": "cd b3 6f f0 10",
+      "new": "dc 3f a7 d3 ff"
+    },
+    "wait_patch": {
+      "cpu_address": "0x7e3ed850",
+      "image_offset": 3065904,
+      "old": "dd 57 a7 00 00 00 14",
+      "new": "dc 05 a8 d3 ff cb cb"
+    },
+    "release_patch": {
+      "cpu_address": "0x7e3f2476",
+      "image_offset": 3085398,
+      "old": "cd 4b b6 00 04",
+      "new": "dc 41 5c d3 ff"
+    },
+    "param_patch": {
+      "cpu_address": "0x7e3ed835",
+      "image_offset": 3065877,
+      "old": "dd 62 f2 00 00 a0 14",
+      "new": "dc c3 a8 d3 ff cb cb"
+    },
+    "scope": "Model-only cave layout and ABI candidate; no firmware container output.",
+    "source_sha256": {
+      "firmware/ep5_art_entry.S": "aaa9209dcffece111dfb977a51acc94dcd39ddf4b89ca36f85b73a0bb8e84cb2",
+      "firmware/ep5_art_entry.c": "65d45ae5e8646a9f6ed9fc5e8eaa9674eae5310d1aa1a1fb160357418186a8f6",
+      "firmware/film.c": "31df5f7d78eed3cfdc66bde21a35a0ad45172392184d9f5d9e50bbfd361b1871",
+      "firmware/lut.c": "371937f585ba4f1296e3ae569a8885ef705399acaac7428210cdfbeb764f5655",
+      "firmware/ep5_art_entry.ld": "131c87c3b0a05d3a4fd6a1ff1983cc1ee3081dfb2fc95672d8009d0a59a7665a",
+      "firmware/film.h": "7d3999b82c4bbe28cdcab2215ab3162f43453bfdc4714352a486a7fd325be99e",
+      "firmware/lut.h": "bc9f895babc41774937c03c42ee69c7763868d6bddefc88413a1a85479fe0a35",
+      "tools/cave_entry.py": "ffeec6478d6f2d32b4bd69c271dec81f80af40fc710c26a9b4b1b9b0eab9feb2"
+    }
+  },
+  "cases": [
+    {
+      "name": "enabled",
+      "contrast_before": 0,
+      "contrast_after": 1,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 88
+    },
+    {
+      "name": "disabled",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 47
+    },
+    {
+      "name": "lut_mode",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 47
+    },
+    {
+      "name": "wrong_tag",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 44
+    },
+    {
+      "name": "wrong_mode",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 56
+    },
+    {
+      "name": "wrong_variant",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 59
+    },
+    {
+      "name": "wrong_filter",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 62
+    },
+    {
+      "name": "wrong_packet",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 49
+    },
+    {
+      "name": "wrong_settings",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 53
+    },
+    {
+      "name": "wrong_aspect",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 65
+    },
+    {
+      "name": "wrong_geometry",
+      "contrast_before": 0,
+      "contrast_after": 0,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 68
+    },
+    {
+      "name": "wrong_value",
+      "contrast_before": 2,
+      "contrast_after": 2,
+      "native_result": 9029,
+      "original_send_called_once": true,
+      "registers_and_stack_preserved": true,
+      "mdr_at_continue": 2118047804,
+      "instructions": 86
+    }
+  ],
+  "installable": false,
+  "physical_camera_test": false,
+  "scope": "One stock send call and cave veneer with synthetic mode/packet/geometry; queue send is modeled.",
+  "not_tested": [
+    "menu selection on E-P5",
+    "shared packet ownership",
+    "ISP color effect",
+    "camera boot/cache/task scheduling",
+    "JPEG/ORF file output",
+    "installation/recovery"
+  ],
+  "dependencies_sha256": {
+    "tools/ep5_param_probe.c": "ccf03db596e00a5b0464d676b250ba0d10f3bf0b45feb6868f618b8e3ed6346d",
+    "build/param-probe/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
+    "build/param-probe/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
+    "build/param-probe/ep5-param-probe": "14d49e4ffb9c041c1dd5d2314adefbf86d55638d5eecdc4ab03ee1c10d96ca94"
+  }
+}

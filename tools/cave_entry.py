@@ -18,6 +18,7 @@ from tools.native_probe import MAIN_SHA256, REVISION, build_probe
 BASE, CAVE, END, HOOK = 0x7e101020, 0x7e128010, 0x7e130000, 0x7e3ed8d1
 WAIT_HOOK = 0x7e3ed850
 RELEASE_HOOK = 0x7e3f2476
+PARAM_HOOK = 0x7e3ed835
 
 
 def build_payload(image, out, lut=None):
@@ -35,6 +36,9 @@ def build_payload(image, out, lut=None):
     release_old = bytes.fromhex('cd 4b b6 00 04')
     if data[RELEASE_HOOK - BASE:RELEASE_HOOK - BASE + 5] != release_old:
         raise ValueError('native ART release call bytes differ')
+    param_old = bytes.fromhex('dd 62 f2 00 00 a0 14')
+    if data[PARAM_HOOK - BASE:PARAM_HOOK - BASE + 7] != param_old:
+        raise ValueError('native ART send call bytes differ')
     lut = warm_negative() if lut is None else lut
     if len(lut) != 29478:
         raise ValueError('expected a 17-cubed RGB16 LUT')
@@ -81,6 +85,8 @@ def build_payload(image, out, lut=None):
                   wait_entry_offset=symbols['_ep5_wait_entry'] - CAVE,
                   wait_call_offset=symbols['_ep5_wait_call'] - CAVE,
                   release_entry_offset=symbols['_ep5_release_entry'] - CAVE,
+                  param_entry_offset=symbols['_ep5_param_entry'] - CAVE,
+                  param_call_offset=symbols['_ep5_param_call'] - CAVE,
                   codec_call_offset=symbols['_ep5_codec_call'] - CAVE,
                   lut_sha256=hashlib.sha256(lut).hexdigest(), payload_sha256=hashlib.sha256(payload).hexdigest(),
                   main_sha256=MAIN_SHA256, compiler=checked([X / 'mn10300-elf-gcc', '--version']).splitlines()[0],
@@ -90,6 +96,8 @@ def build_payload(image, out, lut=None):
                                   old=wait_old.hex(' '), new=(b'\xdc' + struct.pack('<I', (symbols['_ep5_wait_entry'] - WAIT_HOOK) & 0xffffffff) + b'\xcb\xcb').hex(' ')),
                   release_patch=dict(cpu_address=hex(RELEASE_HOOK), image_offset=RELEASE_HOOK - BASE,
                                      old=release_old.hex(' '), new=(b'\xdc' + struct.pack('<I', (symbols['_ep5_release_entry'] - RELEASE_HOOK) & 0xffffffff)).hex(' ')),
+                  param_patch=dict(cpu_address=hex(PARAM_HOOK), image_offset=PARAM_HOOK - BASE,
+                                   old=param_old.hex(' '), new=(b'\xdc' + struct.pack('<I', (symbols['_ep5_param_entry'] - PARAM_HOOK) & 0xffffffff) + b'\xcb\xcb').hex(' ')),
                   scope='Model-only cave layout and ABI candidate; no firmware container output.',
                   source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
     (out / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
@@ -178,6 +186,28 @@ def validate_cave_entry(image):
                             'watchdog/scheduling', 'normal-still routing', 'cross-job delayed-reply freshness/concurrency', 'JPEG encoding',
                             'effect menu', 'installation/recovery'],
                 dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
+
+
+def validate_param_entry(image):
+    build = ROOT / 'build/param-probe'
+    runner = build_probe(ROOT / 'tools/ep5_param_probe.c', build)
+    with tempfile.TemporaryDirectory(dir=build) as directory:
+        payload = Path(directory) / 'payload'
+        manifest = build_payload(image, payload)
+        cases = []
+        for name in ('enabled', 'disabled', 'lut_mode', 'wrong_tag', 'wrong_mode',
+                     'wrong_variant', 'wrong_filter', 'wrong_packet', 'wrong_settings',
+                     'wrong_aspect', 'wrong_geometry', 'wrong_value'):
+            cases.append(json.loads(checked([runner, image, payload / 'film.bin',
+                                             manifest['control_offset'], manifest['param_entry_offset'],
+                                             manifest['param_call_offset'], name])))
+    return dict(module=manifest, cases=cases, installable=False, physical_camera_test=False,
+                scope='One stock send call and cave veneer with synthetic mode/packet/geometry; queue send is modeled.',
+                not_tested=['menu selection on E-P5', 'shared packet ownership', 'ISP color effect',
+                            'camera boot/cache/task scheduling', 'JPEG/ORF file output', 'installation/recovery'],
+                dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                                     for p in (ROOT / 'tools/ep5_param_probe.c', build / 'cpu.c',
+                                               build / 'isa.inc', runner)})
 
 
 def main():

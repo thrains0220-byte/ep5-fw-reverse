@@ -30,6 +30,8 @@ class CaveEntryTests(unittest.TestCase):
             self.assertEqual(binary[report['state_offset']:report['state_offset'] + 8], bytes(8))
             self.assertEqual(report['state_uncached_address'], hex(0x7e128010 + report['state_offset'] + 0x40000000))
             self.assertEqual(report['release_patch']['old'], 'cd 4b b6 00 04')
+            self.assertEqual(report['param_patch']['cpu_address'], '0x7e3ed835')
+            self.assertEqual(report['param_patch']['old'], 'dd 62 f2 00 00 a0 14')
             before = binary
             with self.assertRaises(FileExistsError):
                 build_payload(MAIN, out)
@@ -73,6 +75,22 @@ class CaveEntryTests(unittest.TestCase):
         self.assertTrue(cases['duplicate']['second_image_unchanged'])
         self.assertEqual(cases['disabled']['state_writes'], 0)
         self.assertIn('uncached_code_overlap', cases)
+
+    def test_mode_guarded_contrast_probe_preserves_original_send(self):
+        from tools.cave_entry import validate_param_entry
+        report = validate_param_entry(MAIN)
+        self.assertFalse(report['installable'])
+        self.assertFalse(report['physical_camera_test'])
+        cases = {case['name']: case for case in report['cases']}
+        self.assertEqual(set(cases), {'enabled', 'disabled', 'lut_mode', 'wrong_tag', 'wrong_mode',
+                                      'wrong_variant', 'wrong_filter', 'wrong_packet', 'wrong_settings',
+                                      'wrong_aspect', 'wrong_geometry', 'wrong_value'})
+        for name, case in cases.items():
+            self.assertTrue(case['registers_and_stack_preserved'], name)
+            self.assertTrue(case['original_send_called_once'], name)
+            self.assertEqual(case['native_result'], 0x2345, name)
+            self.assertEqual(case['mdr_at_continue'], 0x7e3ed83c, name)
+            self.assertEqual(case['contrast_after'], 1 if name == 'enabled' else case['contrast_before'], name)
 
 
 if __name__ == '__main__':

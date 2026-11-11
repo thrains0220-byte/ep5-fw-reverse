@@ -5,6 +5,8 @@ _ep5_native_wait = 0x7e3f7fa7;
 _ep5_wait_continue = 0x7e3ed857;
 _ep5_native_release = 0x7e3edac1;
 _ep5_release_continue = 0x7e3f247b;
+_ep5_native_send = 0x7e3fca97;
+_ep5_param_continue = 0x7e3ed83c;
 SECTIONS
 {
     .text 0x7e128010 : { KEEP(*(.text.entry)) *(.text .text.*) }

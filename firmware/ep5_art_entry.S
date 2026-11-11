@@ -108,6 +108,44 @@ _ep5_release_entry:
     call _ep5_native_release,[],4
     jmp _ep5_release_continue
 
+    .global _ep5_param_entry
+_ep5_param_entry:
+    add -48,sp
+    mov d0,(12,sp)
+    mov d1,(16,sp)
+    mov a0,(20,sp)
+    mov a1,(24,sp)
+    mov d2,(28,sp)
+    mov d3,(32,sp)
+    mov a2,(36,sp)
+    mov a3,(40,sp)
+    mov mdr,d0
+    mov d0,(44,sp)
+    mov a2,d0
+    mov a3,d1
+    call _ep5_param_before_send,[],0
+    mov (44,sp),d0
+    mov d0,mdr
+    mov (12,sp),d0
+    mov (16,sp),d1
+    mov (20,sp),a0
+    mov (24,sp),a1
+    mov (28,sp),d2
+    mov (32,sp),d3
+    mov (36,sp),a2
+    mov (40,sp),a3
+    add 48,sp
+    .global _ep5_param_call
+_ep5_param_call:
+    call _ep5_native_send,[d2,a2],20
+    add -4,sp
+    mov d0,(0,sp)
+    mov 0x7e3ed83c,d0
+    mov d0,mdr
+    mov (0,sp),d0
+    add 4,sp
+    jmp _ep5_param_continue
+
     .section .ep5.control,"a"
     .balign 4
     .global _ep5_control
