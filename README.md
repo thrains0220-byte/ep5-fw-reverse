@@ -82,7 +82,7 @@ python3 tools/check_mn103_lut.py --film --out generated/ep5-film-mn103.json
 
 数据线到手后，在相机 USB 菜单选择 Storage，按[第一轮接入步骤](docs/CONNECT_DAY.md)拍样并用 `tools/usb_collect.py` 只读导入指定 ORF/JPEG。Storage 期间相机不能拍摄，USB 文件传输不能替代运行中固件调试。
 
-相机当前安装的是来源未完全确认的历史修改版；它与上述精确原版基线不等同。最终补丁必须针对确定的原始镜像构建，不能对未知修改版推测偏移。
+用户确认机身显示 1.8，现有镜像的具体来源尚未核实。本候选从已核对哈希的官方 1.8 完整包构建。如果机身装有旧改版，安装候选会替换原有改动。
 
 ## 软件 17³ LUT 路线还需完成
 
