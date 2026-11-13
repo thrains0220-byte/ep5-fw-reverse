@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-13",
+  "scope": "one E-P5 body, normal SD update recovery from RC2 to official 1.8",
+  "stock_update_file_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
+  "card_preparation": "sessions/stock-card-20261113-01/report.json",
+  "owner_confirmed_normal_reboot_and_original_menu": true,
+  "live_flash_dump_obtained": false,
+  "decoded_pairs": [
+    {
+      "jpeg": "PB130088.JPG",
+      "jpeg_sha256": "08cc3ff74af830b92234c5a56275d3020223ad93e189b7e53384aa9ff82ac97f",
+      "jpeg_dimensions": [
+        4608,
+        3456
+      ],
+      "art_filter": {
+        "raw": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "label": "Off"
+      },
+      "orf": "PB130088.ORF",
+      "orf_sha256": "486a4ed8b5b3181da3981f7e0343dc6b0cfcb1525c1bd50ced5cb046834cef50",
+      "raw_visible": [
+        4640,
+        3472
+      ]
+    },
+    {
+      "jpeg": "PB130089.JPG",
+      "jpeg_sha256": "b52d302df1e89671e5099e5a25d86097199ebe455f17d4a8fcdcce5eac592636",
+      "jpeg_dimensions": [
+        4608,
+        3456
+      ],
+      "art_filter": {
+        "raw": [
+          5,
+          2304,
+          0,
+          0
+        ],
+        "label": "Pin Hole I"
+      },
+      "orf": "PB130089.ORF",
+      "orf_sha256": "200fee243996b22ef4431907decd39f3da12cf8a31f02b829a9b0117ab3d5b93",
+      "raw_visible": [
+        4640,
+        3472
+      ]
+    }
+  ],
+  "same_raw_reference": {
+    "source_orf_sha256": "1492ee850f95ecf499b8304638d8b8b0efa3d318c9a019a49b0d4842f4e65068",
+    "source_orf_unchanged": true,
+    "original_jpeg": "PB130080.JPG",
+    "restored_developed_jpeg": "PB130090.JPG",
+    "original_jpeg_sha256": "9451927154fb4e0cd0662eef32175c751fffbc1e8e1cf9bfa7d83e498cefc159",
+    "restored_jpeg_sha256": "925ec4ed09fff54636e7f6f14d666efc9838d78a0bc2efae1f534461694264b8",
+    "whole_jpeg_files_equal": false,
+    "decoded_rgb_pixels_byte_identical": true,
+    "decoded_rgb_sha256": "5f95386ae3cca4d2a59fd157f0c0d8ce8bbc7c71356a80c6f07db2a87969e35c",
+    "rc2_developed_pixels_differ": true
+  },
+  "recovery_operationally_verified": true,
+  "limits": "A normal reachable SD recovery on one body; not recovery from power loss, a non-booting updater, or every failure mode."
+}

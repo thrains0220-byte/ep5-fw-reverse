@@ -25,7 +25,8 @@
 #define QUEUE_ERROR 0x7e132ed3u
 #define ERROR_LOG 0x7e106c9du
 
-static uint8_t *image, stack_ram[65536], context[0x4600], globals[16], pixels[65536];
+static uint8_t *image, stack_ram[65536], context[0x4600], globals[16], pixels[65536], lut_ram[29478];
+static uint32_t lut_address;
 static uint8_t rec_return[8] = {0xdf, 0xa0, 12}, codec_return[8] = {0xdf, 0xf0, 16};
 static uint8_t queue_return[8] = {0xdf, 0xf0, 32}, route_return[8] = {0xdf, 0xc0, 16};
 static uint8_t error_return[8] = {0xdf, 0xf0, 124}, error_log_return[8] = {0xdf, 0xa0, 40};
@@ -35,7 +36,7 @@ static unsigned hook_count, codec_calls;
 static uint32_t bridge_call;
 static unsigned bridge_count;
 static uint32_t state_offset, wait_call, wait_registers[8], wait_sp;
-static uint8_t config[68];
+static uint8_t config[72];
 static unsigned wait_calls;
 static int wait_preserved = 1;
 static int wait_return_preserved = 1;
@@ -65,6 +66,8 @@ uint8_t *mem_host(uint32_t address, uint32_t size)
     if (within(address, size, CONTEXT, sizeof context)) return context + (address - CONTEXT);
     if (within(address, size, ART_GLOBAL, sizeof globals)) return globals + (address - ART_GLOBAL);
     if (within(address, size, PIXELS, pixel_bytes)) return pixels + (address - PIXELS);
+    if (lut_address && within(address, size, lut_address, sizeof lut_ram))
+        return lut_ram + (address - lut_address);
     if (within(address, size, UNCAVE, CAVE_BYTES)) return image + (CAVE - BASE) + (address - UNCAVE);
     return NULL;
 }
@@ -84,7 +87,7 @@ void mem_wr(uint32_t address, uint32_t value, int size)
         !within(address, (uint32_t)size, STACK + 0x40000000u, sizeof stack_ram) &&
         !within(address, (uint32_t)size, PIXELS, pixel_bytes) &&
         !within(address, (uint32_t)size, ART_GLOBAL, 4) &&
-        !within(address, (uint32_t)size, UNCAVE + state_offset, 8))
+        !within(address, (uint32_t)size, UNCAVE + state_offset, 24))
         emu_abort(PC, "write outside stack/pixels/qualification %08x", address);
     uint8_t *p = mem_host(address, (uint32_t)size);
     if (within(address, (uint32_t)size, UNCAVE + state_offset, 8)) ++state_writes;
@@ -131,10 +134,10 @@ int hle_check(cpu_t *cpu)
         if (!within(p, 12, STACK, sizeof stack_ram) || cpu->regs[REG_D0] != 0x123 ||
             cpu->regs[REG_D0 + 1] != 0xffffffff)
             emu_abort(pc, "bad native kernel queue arguments");
-        int32_t received = (int32_t)word(config + 40);
+        int32_t received = (int32_t)word(config + 44);
         if (received >= 0) {
             unsigned n = received < 12 ? (unsigned)received : 12;
-            for (unsigned i = 0; i < n; ++i) mem_wr(p + i, config[44 + i], 1);
+            for (unsigned i = 0; i < n; ++i) mem_wr(p + i, config[48 + i], 1);
         }
         cpu->regs[REG_D0] = (uint32_t)received;
         cpu->regs[REG_D0 + 1] = 0xaced;
@@ -145,7 +148,7 @@ int hle_check(cpu_t *cpu)
     if (pc == wait_call + 7) {
         memcpy(returned_registers, cpu->regs, sizeof returned_registers);
         returned_mdr = cpu->regs[REG_MDR];
-        int32_t kernel_result = (int32_t)word(config + 40);
+        int32_t kernel_result = (int32_t)word(config + 44);
         uint32_t result = kernel_result == -50 ? 0xfffffffeu : kernel_result < 0 ? 0xffffffffu : 0;
         if (cpu->regs[REG_D0] != result)
             emu_abort(pc, "unexpected original queue wrapper result");
@@ -155,7 +158,7 @@ int hle_check(cpu_t *cpu)
         wait_return_preserved &= cpu->regs[REG_SP] == wait_sp && cpu->regs[REG_MDR] == returned_mdr;
     }
     if (pc == FREE_BUFFER) {
-        if (cpu->regs[REG_D0] != word(config + 36)) emu_abort(pc, "incorrect native free argument");
+        if (cpu->regs[REG_D0] != word(config + 40)) emu_abort(pc, "incorrect native free argument");
         if (word(config + 4) == 1 && word(config) == 0x43355045 &&
             (mem_rd(UNCAVE + state_offset, 4) || mem_rd(UNCAVE + state_offset + 4, 4)))
             emu_abort(pc, "qualification survived release");
@@ -233,14 +236,14 @@ static void release_buffer(void)
 
 int main(int argc, char **argv)
 {
-    if (argc != 12) return 2;
+    if (argc != 13) return 2;
     uint8_t payload[CAVE_BYTES];
     image = malloc(IMAGE_BYTES);
-    if (!image || load(argv[1], image, IMAGE_BYTES) != IMAGE_BYTES || load(argv[3], config, 68) != 68) return 2;
+    if (!image || load(argv[1], image, IMAGE_BYTES) != IMAGE_BYTES || load(argv[3], config, 72) != 72) return 2;
     size_t payload_bytes = load(argv[2], payload, CAVE_BYTES);
     char *tail;
     unsigned long control_offset = strtoul(argv[6], &tail, 10);
-    if (*tail || !payload_bytes || payload_bytes < 24 || control_offset > payload_bytes - 24 || (control_offset & 3)) return 2;
+    if (*tail || !payload_bytes || payload_bytes < 28 || control_offset > payload_bytes - 28 || (control_offset & 3)) return 2;
     unsigned long call_offset = strtoul(argv[7], &tail, 10);
     if (*tail || call_offset > payload_bytes - 7 || payload[call_offset] != 0xdd ||
         payload[call_offset + 5] != 0xf0 || payload[call_offset + 6] != 16) return 2;
@@ -256,6 +259,10 @@ int main(int argc, char **argv)
     wait_call = CAVE + (uint32_t)wait_offset;
     unsigned long release_entry = strtoul(argv[11], &tail, 10);
     if (*tail || release_entry >= payload_bytes) return 2;
+    if (load(argv[12], lut_ram, sizeof lut_ram) != sizeof lut_ram) return 2;
+    lut_address = word(config + 24);
+    if (lut_address && (lut_address < PIXELS + sizeof pixels || lut_address > PIXELS + sizeof pixels))
+        return 2;
     const uint8_t expected[] = {0xcd, 0xb3, 0x6f, 0xf0, 0x10};
     if (memcmp(image + (HOOK - BASE), expected, 5)) return 2;
     const uint8_t expected_wait[] = {0xdd, 0x57, 0xa7, 0, 0, 0, 20};
@@ -263,7 +270,7 @@ int main(int argc, char **argv)
     const uint8_t expected_release[] = {0xcd, 0x4b, 0xb6, 0, 4};
     if (memcmp(image + (RELEASE_HOOK - BASE), expected_release, 5)) return 2;
     for (unsigned i = 0; i < CAVE_BYTES; ++i) if (image[CAVE - BASE + i] != 255) return 2;
-    memcpy(payload + control_offset, config, 24);
+    memcpy(payload + control_offset, config, 28);
     memcpy(image + (CAVE - BASE), payload, payload_bytes);
     image[HOOK - BASE] = 0xdc;
     put(image + (HOOK - BASE) + 1, CAVE - HOOK);
@@ -275,9 +282,9 @@ int main(int argc, char **argv)
     pixel_bytes = (uint32_t)load(argv[4], pixels, sizeof pixels);
     if (!pixel_bytes) return 2;
     put(context + 84, CONTEXT + 0x100);
-    context[0x100 + 17454] = (uint8_t)word(config + 32);
-    put(globals, word(config + 36));
-    memcpy(globals + 4, config + 24, 8);
+    context[0x100 + 17454] = (uint8_t)word(config + 36);
+    put(globals, word(config + 40));
+    memcpy(globals + 4, config + 28, 8);
     uint8_t *caller = stack_ram + (CALLER - STACK);
     caller[0] = 0xdd;
     put(caller + 1, 0x7e3ed85cu - CALLER);
@@ -291,17 +298,17 @@ int main(int argc, char **argv)
     cpus[0].regs[REG_A0] = CONTEXT;
     const unsigned saved[] = {2, 3, REG_A0 + 2, REG_A0 + 3};
     unsigned art_result = 0;
-    if (word(config + 40) != 0x7fffffffu) {
-        put(globals, word(config + 64));
+    if (word(config + 44) != 0x7fffffffu) {
+        put(globals, word(config + 68));
         put(caller + 1, 0x7e3ed843u - CALLER);
         caller[6] = 44;
         put(stack_ram + 0xf000 - 44 + 4, 0x123);
         cpus[0].regs[REG_D0 + 2] = 0;
-        cpus[0].regs[REG_A0 + 3] = word(config + 56);
+        cpus[0].regs[REG_A0 + 3] = word(config + 60);
         cpu_run(50000, 0);
         art_result = cpus[0].regs[REG_D0];
         if (!reached_stop || !wait_preserved || !wait_return_preserved || cpus[0].regs[REG_SP] != STACK + 0xf000 || art_result != 0) return 1;
-        put(globals, word(config + 36));
+        put(globals, word(config + 40));
         put(caller + 1, 0x7e3ed85cu - CALLER);
         caller[6] = 56;
         reached_stop = emu_stop = 0;
@@ -309,12 +316,12 @@ int main(int argc, char **argv)
         cpus[0].regs[REG_A0] = CONTEXT;
         cpus[0].regs[REG_PC] = CALLER;
     }
-    unsigned repeats = word(config + 60);
+    unsigned repeats = word(config + 64);
     if (repeats < 1 || repeats > 3) return 2;
     if (repeats == 3) {
         release_buffer();
         /* Synthetic address reuse, with no second completion. */
-        put(globals, word(config + 36));
+        put(globals, word(config + 40));
         reached_stop = emu_stop = 0;
         for (unsigned i = 0; i < 8; ++i) cpus[0].regs[i] = 0xabcd1000u + i;
         cpus[0].regs[REG_A0] = CONTEXT;

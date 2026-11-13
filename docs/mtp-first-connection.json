@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-13",
+  "device": {
+    "wpd_firmware": "1.00",
+    "battery_percent": 100,
+    "protocol": "MTP: 1.00",
+    "manufacturer": "OLYMPUS",
+    "model": "E-P5"
+  },
+  "body_menu_version_reported_by_owner": "1.8",
+  "installed_firmware_dump_or_hash_obtained": false,
+  "mtp_version_note": "Official 1.8 GetDeviceInfo uses a ROM literal 1.00; WPD version is not the installed body build.",
+  "camera_file_setting_memory_or_firmware_writes": false,
+  "driver_or_firmware_installation": false,
+  "raw_ptp_or_vendor_operations_executed": false,
+  "driver_metadata_query": {
+    "supported_vendor_opcodes": "0x80070005 ACCESS_DENIED on GENERIC_READ",
+    "vendor_extension_description": "0x80070005 ACCESS_DENIED on GENERIC_READ",
+    "access_was_not_relaxed": true
+  },
+  "transfers": [
+    {
+      "kind": "ORF",
+      "bytes": 19812623,
+      "sha256": "920f3cc2eb24837b6b2d482b4bfd1d9475298506ac84e4c26695ce8c78232287",
+      "two_independent_downloads_equal": true
+    },
+    {
+      "kind": "JPG",
+      "bytes": 7063377,
+      "sha256": "2abb734c9629c116fe0be370b62cb2eb2200bed022b347bcbd00e6340d9c8795",
+      "two_independent_downloads_equal": true
+    }
+  ],
+  "jpeg": {
+    "dimensions": [
+      4608,
+      3456
+    ],
+    "strict_full_decode": true,
+    "exif_software": "Version 1.8"
+  },
+  "orf": {
+    "visible_mosaic": [
+      4640,
+      3472
+    ],
+    "sensor_unpack_completed": true,
+    "capture_time_matches_jpeg": true
+  },
+  "sample_scope": "Existing card photograph, not a controlled scene or candidate firmware capture.",
+  "film_effect_verified": false,
+  "candidate_boot_or_recovery_verified": false
+}

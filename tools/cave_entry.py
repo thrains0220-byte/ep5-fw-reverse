@@ -21,7 +21,7 @@ RELEASE_HOOK = 0x7e3f2476
 PARAM_HOOK = 0x7e3ed835
 
 
-def build_payload(image, out, lut=None):
+def build_payload(image, out):
     data = Path(image).read_bytes()
     if hashlib.sha256(data).hexdigest() != MAIN_SHA256:
         raise ValueError('decoded E-P5 main SHA-256 mismatch')
@@ -39,22 +39,16 @@ def build_payload(image, out, lut=None):
     param_old = bytes.fromhex('dd 62 f2 00 00 a0 14')
     if data[PARAM_HOOK - BASE:PARAM_HOOK - BASE + 7] != param_old:
         raise ValueError('native ART send call bytes differ')
-    lut = warm_negative() if lut is None else lut
-    if len(lut) != 29478:
-        raise ValueError('expected a 17-cubed RGB16 LUT')
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
-    table = out / 'table.c'
-    words = struct.unpack('<14739H', lut)
-    table.write_text('#include "lut.h"\nconst uint16_t ep5_embedded_lut[EP5_LUT_VALUES] '
-                     '__attribute__((section(".ep5.lut"),used)) = {' + ','.join(map(str, words)) + '};\n')
     elf, binary = out / 'film.elf', out / 'film.bin'
     flags = ['-std=c99', '-Os', '-mno-am33', '-ffreestanding', '-fno-builtin',
              '-fno-tree-loop-distribute-patterns', '-fno-pic', '-fno-common',
              '-ffunction-sections', '-fdata-sections', '-Wall', '-Wextra', '-Werror',
              '-nostdlib', '-Wl,--gc-sections']
-    sources = [ROOT / 'firmware' / n for n in ('ep5_art_entry.S', 'ep5_art_entry.c', 'film.c', 'lut.c')]
-    checked([X / 'mn10300-elf-gcc', *flags, '-I', ROOT / 'firmware', *sources, table,
+    sources = [ROOT / 'firmware' / n for n in
+               ('ep5_art_entry.S', 'ep5_art_entry.c', 'film.c', 'lut.c', 'look_store.c')]
+    checked([X / 'mn10300-elf-gcc', *flags, '-I', ROOT / 'firmware', *sources,
              '-T', ROOT / 'firmware/ep5_art_entry.ld', '-lgcc', '-o', elf])
     symbols = {line.split()[-1]: int(line.split()[0], 16) for line in
                checked([X / 'mn10300-elf-nm', '-n', elf]).splitlines() if len(line.split()) == 3}
@@ -68,27 +62,36 @@ def build_payload(image, out, lut=None):
     checked([X / 'mn10300-elf-objcopy', '-O', 'binary', elf, binary])
     payload = binary.read_bytes()
     control = symbols['_ep5_control'] - CAVE
-    lut_offset = symbols['_ep5_embedded_lut'] - CAVE
     state_offset = symbols['_ep5_ready_storage'] - CAVE
-    if len(payload) > END - CAVE or payload[lut_offset:lut_offset + 29478] != lut or \
-            struct.unpack_from('<6I', payload, control) != (0x43355045, 0, 0, 0, 0, 0):
+    look_state_offset = symbols['_ep5_look_state_storage'] - CAVE
+    if len(payload) > END - CAVE or \
+            struct.unpack_from('<7I', payload, control) != (0x43355045, 0, 0, 0, 0, 0, 0):
         raise ValueError('unexpected payload layout/defaults')
-    if payload[state_offset:state_offset + 8] != bytes(8) or symbols['_ep5_ready'] != CAVE + state_offset + 0x40000000:
+    if payload[state_offset:state_offset + 24] != bytes(24) or \
+            symbols['_ep5_ready'] != CAVE + state_offset + 0x40000000 or \
+            symbols['_ep5_look_state'] != CAVE + look_state_offset + 0x40000000:
         raise ValueError('unexpected qualification state/alias')
     patch = b'\xdc' + struct.pack('<I', (CAVE - HOOK) & 0xffffffff)
     paths = [*sources, ROOT / 'firmware/ep5_art_entry.ld', ROOT / 'firmware/film.h',
              ROOT / 'firmware/lut.h', ROOT / 'tools/cave_entry.py']
     report = dict(entry=hex(CAVE), end_exclusive=hex(CAVE + len(payload)),
                   payload_bytes=len(payload), cave_bytes=END - CAVE, spare_bytes=END - CAVE - len(payload),
-                  control_offset=control, lut_offset=lut_offset, lut_bytes=len(lut),
+                  control_offset=control, control_words=7,
                   state_offset=state_offset, state_uncached_address=hex(symbols['_ep5_ready']),
+                  look_state_offset=look_state_offset,
+                  look_state_uncached_address=hex(symbols['_ep5_look_state']),
                   wait_entry_offset=symbols['_ep5_wait_entry'] - CAVE,
                   wait_call_offset=symbols['_ep5_wait_call'] - CAVE,
                   release_entry_offset=symbols['_ep5_release_entry'] - CAVE,
                   param_entry_offset=symbols['_ep5_param_entry'] - CAVE,
                   param_call_offset=symbols['_ep5_param_call'] - CAVE,
                   codec_call_offset=symbols['_ep5_codec_call'] - CAVE,
-                  lut_sha256=hashlib.sha256(lut).hexdigest(), payload_sha256=hashlib.sha256(payload).hexdigest(),
+                  file_open_offset=symbols['_ep5_file_open'] - CAVE,
+                  file_read_offset=symbols['_ep5_file_read'] - CAVE,
+                  file_close_offset=symbols['_ep5_file_close'] - CAVE,
+                  pool_alloc_offset=symbols['_ep5_pool_alloc'] - CAVE,
+                  pool_free_offset=symbols['_ep5_pool_free'] - CAVE,
+                  payload_sha256=hashlib.sha256(payload).hexdigest(),
                   main_sha256=MAIN_SHA256, compiler=checked([X / 'mn10300-elf-gcc', '--version']).splitlines()[0],
                   flags=flags, installable=False, default_enabled=False, plain_mn103_instruction_set=True,
                   patch=dict(cpu_address=hex(HOOK), image_offset=HOOK - BASE, old=old.hex(' '), new=patch.hex(' ')),
@@ -138,7 +141,6 @@ def validate_cave_entry(image):
     with tempfile.TemporaryDirectory(dir=build) as directory:
         directory = Path(directory)
         warm = build_payload(image, directory / 'warm')
-        neutral = build_payload(image, directory / 'identity', identity)
         for name, overrides in specs:
             s = dict(tag=0x43355045, enabled=1, start=0x12000010, size=160,
                      encoding=1, amount=256, width=4, height=20, area_w=4, area_h=20, mode=0, address=0x12000010,
@@ -146,27 +148,31 @@ def validate_cave_entry(image):
                      completion_ctx=0x11000000, repeats=1)
             s.update(overrides)
             s.setdefault('completion_address', s['address'])
-            manifest, module = (neutral, directory / 'identity') if name == 'identity' else (warm, directory / 'warm')
+            manifest, module = warm, directory / 'warm'
+            lut = identity if name == 'identity' else warm_negative()
             original = bytearray([0xa5] * 16 + [100, 128, 160, 128] * 40 + [0xa5] * 16)
             expected = bytearray(original)
             if name in ('identity', 'warm', 'half', 'duplicate'):
                 array = (ctypes.c_uint8 * len(expected)).from_buffer(expected)
                 pointer = ctypes.cast(ctypes.byref(array, 16), bytep)
                 view = Image(pointer, 160, 4, 20, 8)
-                lut = identity if name == 'identity' else warm_negative()
                 table = (ctypes.c_uint16 * 14739).from_buffer_copy(lut)
                 if host(ctypes.byref(view), table, 14739, 1, s['amount'], None, None):
                     raise AssertionError('host reference failed')
-            record = struct.pack('<6I4H9I', s['tag'], s['enabled'], s['start'], s['size'],
-                                 s['encoding'], s['amount'], s['width'], s['height'],
+            # control[6] points at the synthetic LUT region mapped by the probe.
+            lut_address = 0x12000000 + 65536
+            record = struct.pack('<7I4H9I', s['tag'], s['enabled'], s['start'], s['size'],
+                                 s['encoding'], s['amount'], lut_address, s['width'], s['height'],
                                  s['area_w'], s['area_h'], s['mode'], s['address'], s['received'],
                                  s['reply_error'], s['reply_token'], s['reply_packet'], s['completion_ctx'], s['repeats'], s['completion_address'])
             (directory / 'config').write_bytes(record)
             (directory / 'pixels').write_bytes(original)
+            (directory / 'lut').write_bytes(lut)
             native = json.loads(checked([runner, image, module / 'film.bin', directory / 'config',
                                          directory / 'pixels', directory / 'output', manifest['control_offset'],
                                          manifest['codec_call_offset'], manifest['state_offset'],
-                                         manifest['wait_entry_offset'], manifest['wait_call_offset'], manifest['release_entry_offset']]))
+                                         manifest['wait_entry_offset'], manifest['wait_call_offset'], manifest['release_entry_offset'],
+                                         directory / 'lut']))
             output = (directory / 'output').read_bytes()
             if output != expected or output[:16] != original[:16] or output[-16:] != original[-16:]:
                 raise AssertionError(f'cave/native pixel or guard mismatch: {name}')
@@ -213,6 +219,124 @@ def validate_param_entry(image):
                 dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                                      for p in (ROOT / 'tools/ep5_param_probe.c', build / 'cpu.c',
                                                build / 'isa.inc', runner)})
+
+
+def validate_look_runtime(image):
+    """Mode 3 full chain: stock send/receive/JPEG/release execute the cave
+    veneers and SD look loader against a synthetic card and ART pool backend."""
+    import zlib
+    from ep5studio.wire import pack_index, pack_lut
+    from ep5studio.project import Binding, Project
+    build = ROOT / 'build/look-runtime'
+    runner = build_probe(ROOT / 'tools/ep5_look_runtime_probe.c', build)
+    shared = build / 'host-film.so'
+    checked(['cc', '-std=c99', '-O2', '-shared', '-fPIC', ROOT / 'firmware/film.c',
+             ROOT / 'firmware/lut.c', '-o', shared])
+    host = ctypes.CDLL(str(shared)).ep5_film_apply
+    bytep, wordp = ctypes.POINTER(ctypes.c_uint8), ctypes.POINTER(ctypes.c_uint16)
+    host.argtypes = [ctypes.POINTER(Image), wordp, ctypes.c_size_t, ctypes.c_uint,
+                     ctypes.c_uint, ctypes.c_void_p, ctypes.c_void_p]
+    table = warm_negative()
+    look_id = 'a' * 64
+    crc = zlib.crc32(table)
+    lut_file = pack_lut(1, table)
+
+    def card(amount=256, slot='pin-hole-i', lut_bytes=None, index_bytes=None):
+        project = Project('runtime', (Binding(slot, look_id, '试验', amount),))
+        index = pack_index(project, {look_id: 1}, {look_id: crc})
+        return index_bytes if index_bytes is not None else index, \
+            lut_bytes if lut_bytes is not None else lut_file
+
+    def corrupt_crc(data):
+        b = bytearray(data)
+        b[-1] ^= 0xff
+        return bytes(b)
+
+    specs = [
+        ('apply', dict(amount=256), True, True, 1),
+        ('half', dict(amount=128), True, True, 1),
+        ('missing_card', dict(amount=256), False, False, 1),
+        ('missing_lut', dict(amount=256), True, False, 1),
+        ('bad_index_crc', dict(amount=256, index_bytes=corrupt_crc(card()[0])), True, True, 1),
+        ('bad_lut_crc', dict(amount=256, lut_bytes=corrupt_crc(lut_file)), True, True, 1),
+        ('zero_amount', dict(amount=0), True, True, 1),
+        ('pool_fail', dict(amount=256), True, True, 1),
+        ('wrong_slot', dict(amount=256, slot='pin-hole-ii'), True, True, 1),
+    ]
+    cases = []
+    with tempfile.TemporaryDirectory(dir=build) as directory:
+        directory = Path(directory)
+        manifest = build_payload(image, directory / 'module')
+        module = directory / 'module'
+        for name, kw, has_index, has_lut, direct in specs:
+            amount = kw.get('amount', 256)
+            index_bytes, lut_bytes = card(**kw)
+            cdir = directory / name
+            cdir.mkdir()
+            if has_index:
+                (cdir / 'INDEX.EP5').write_bytes(index_bytes)
+            if has_lut:
+                (cdir / 'L0000001.LUT').write_bytes(lut_bytes)
+            s = dict(tag=0x43355045, enabled=3, start=0x12000010, size=160,
+                     encoding=1, amount=256, width=4, height=20, area_w=4, area_h=20,
+                     mode=0, address=0x12000010, received=12, reply_error=0, reply_token=1,
+                     reply_packet=0x605f4510, completion_ctx=0x11000000, repeats=1,
+                     picture_mode=105, variant=1, completion_address=0x12000010)
+            record = struct.pack('<7I4H9I', s['tag'], s['enabled'], s['start'], s['size'],
+                                 s['encoding'], s['amount'], 0, s['width'], s['height'],
+                                 s['area_w'], s['area_h'], s['mode'], s['address'], s['received'],
+                                 s['reply_error'], s['reply_token'], s['reply_packet'],
+                                 s['completion_ctx'], s['repeats'], s['completion_address'])
+            # config+28/+32 carry PictureMode/variant for the synthetic settings.
+            record = record[:28] + struct.pack('<II', s['picture_mode'], s['variant']) + record[36:]
+            (directory / 'config').write_bytes(record)
+            original = bytearray([0xa5] * 16 + [100, 128, 160, 128] * 40 + [0xa5] * 16)
+            (directory / 'pixels').write_bytes(original)
+            expect_apply = name in ('apply', 'half')
+            expected = bytearray(original)
+            if expect_apply:
+                array = (ctypes.c_uint8 * len(expected)).from_buffer(expected)
+                pointer = ctypes.cast(ctypes.byref(array, 16), bytep)
+                view = Image(pointer, 160, 4, 20, 8)
+                tbl = (ctypes.c_uint16 * 14739).from_buffer_copy(table)
+                if host(ctypes.byref(view), tbl, 14739, 1, amount, None, None):
+                    raise AssertionError('host reference failed')
+            native = json.loads(checked([runner, image, module / 'film.bin', directory / 'config',
+                                         directory / 'pixels', directory / 'output',
+                                         manifest['control_offset'], manifest['codec_call_offset'],
+                                         manifest['state_offset'], manifest['wait_entry_offset'],
+                                         manifest['wait_call_offset'], manifest['release_entry_offset'],
+                                         manifest['param_entry_offset'], manifest['param_call_offset'],
+                                         manifest['look_state_offset'], name, direct, cdir]))
+            output = (directory / 'output').read_bytes()
+            if output != expected or output[:16] != original[:16] or output[-16:] != original[-16:]:
+                raise AssertionError(f'look runtime pixel/guard mismatch: {name}')
+            # A failed allocation never frees, so strict alloc/free counting is
+            # only meaningful when the block was actually taken. The invariant
+            # that matters for every case is that no pool block is left live.
+            if native.get('pool_leaked', not native['pool_balanced']):
+                raise AssertionError(f'pool block leaked: {name}')
+            if name != 'pool_fail' and not native['pool_balanced']:
+                raise AssertionError(f'pool not balanced: {name}')
+            if native['neutralized'] != (1 if expect_apply else 0):
+                raise AssertionError(f'packet neutralization mismatch: {name}')
+            cases.append(dict(**native, matches_host=True,
+                              pixels_changed=output != original,
+                              output_sha256=hashlib.sha256(output).hexdigest()))
+    paths = [ROOT / 'tools/ep5_look_runtime_probe.c', ROOT / 'tools/cave_entry.py',
+             ROOT / 'firmware/look_store.c', build / 'cpu.c', build / 'isa.inc', runner]
+    return dict(module=manifest, cases=cases, cpu_source_revision=REVISION,
+                installable=False, physical_camera_test=False,
+                scope='Stock ART send/receive/JPEG/release fragments execute four cave veneers and the SD look loader; file service and ART pool are modeled backends fed with real desktop pack bytes.',
+                models=['file selector picks direct or message backend',
+                        'direct open/read/close and service 0x22 messages serve a synthetic two-file card',
+                        'ART pool alloc/free backends hand out one contiguous 117912-byte block',
+                        'stock send internals are modeled sinks returning the success path',
+                        'JPEG sink records arguments and returns 0x1234; no ISP or encoder'],
+                not_tested=['real SD mount/FAT', 'real boot/cave residency', 'cache/DMA visibility',
+                            'watchdog/scheduling', 'full-size 15.9MP timing', 'JPEG/ORF file output',
+                            'menu renaming', 'installation/recovery'],
+                dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
 
 
 def main():

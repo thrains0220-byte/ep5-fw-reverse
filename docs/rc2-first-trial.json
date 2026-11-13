@@ -1,0 +1,176 @@
+{
+  "date": "2026-11-13",
+  "scope": "single owner-operated E-P5 body; native Soft Chrome RC2",
+  "installed_candidate_file_sha256": "90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229",
+  "live_flash_dump_obtained": false,
+  "owner_observations": {
+    "update_lamp": "steady then uniform blinking, described as about twice per second; waits for power action",
+    "normal_power_off_then_on_completed": true,
+    "chinese_art_label": "针孔/柔彩I"
+  },
+  "instruction_correction": "Previous requirement to wait for natural lamp-off was withdrawn after tracing the E-P5 success wait path; see UPDATE_LED.md",
+  "shutter_pin_hole_I": {
+    "jpeg": "PB130084.JPG",
+    "jpeg_sha256": "a9d11fa9fd0d4627a99ee6d0528c4b87b4f243fb2698729feaf5b48c8472e43e",
+    "jpeg_dimensions": [
+      4608,
+      3456
+    ],
+    "camera_settings": {
+      "status": "parsed",
+      "picture_mode": {
+        "raw": [
+          2,
+          2
+        ],
+        "label": "Natural"
+      },
+      "art_filter": {
+        "raw": [
+          5,
+          2304,
+          0,
+          0
+        ],
+        "label": "Pin Hole I"
+      }
+    },
+    "orf": "PB130084.ORF",
+    "orf_sha256": "d7e06f47cdb33bc970ef9042abc3dbb247b9d64498efeb24b0aaa6081de604c2",
+    "raw_visible": [
+      4640,
+      3472
+    ],
+    "strict_decode_completed": true
+  },
+  "shutter_natural": {
+    "jpeg": "PB130085.JPG",
+    "jpeg_sha256": "29773a78985c04eb902c9929a23fb6422697b885d8cc487b5669779d32e5c254",
+    "jpeg_dimensions": [
+      4608,
+      3456
+    ],
+    "camera_settings": {
+      "status": "parsed",
+      "picture_mode": {
+        "raw": [
+          2,
+          2
+        ],
+        "label": "Natural"
+      },
+      "art_filter": {
+        "raw": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "label": "Off"
+      }
+    },
+    "orf": "PB130085.ORF",
+    "orf_sha256": "48e045adce7d2c614b1815a19638f1c472075665b4f235e72471b393f4ad77b1",
+    "raw_visible": [
+      4640,
+      3472
+    ],
+    "strict_decode_completed": true
+  },
+  "same_raw_check": {
+    "source_original_orf_sha256": "1492ee850f95ecf499b8304638d8b8b0efa3d318c9a019a49b0d4842f4e65068",
+    "orf_unchanged_after_camera_raw_edit": true,
+    "redeveloped_jpegs": [
+      {
+        "file": "PB130086.JPG",
+        "sha256": "c696c8b7c32d58d006b3b5b29727e3f28ec84f67d988829803d5960ce9d4918b",
+        "decoded_rgb_sha256": "8ae34381d7020773f6679e4b6c9b8290d07d4439f1c93c35bf28577d0067a850",
+        "dimensions": [
+          4608,
+          3456
+        ],
+        "original_time": "2026:11:13 13:10:27",
+        "camera_settings": {
+          "status": "parsed",
+          "picture_mode": {
+            "raw": [
+              2,
+              2
+            ],
+            "label": "Natural"
+          },
+          "art_filter": {
+            "raw": [
+              5,
+              2304,
+              0,
+              0
+            ],
+            "label": "Pin Hole I"
+          }
+        }
+      },
+      {
+        "file": "PB130087.JPG",
+        "sha256": "c696c8b7c32d58d006b3b5b29727e3f28ec84f67d988829803d5960ce9d4918b",
+        "decoded_rgb_sha256": "8ae34381d7020773f6679e4b6c9b8290d07d4439f1c93c35bf28577d0067a850",
+        "dimensions": [
+          4608,
+          3456
+        ],
+        "original_time": "2026:11:13 13:10:27",
+        "camera_settings": {
+          "status": "parsed",
+          "picture_mode": {
+            "raw": [
+              2,
+              2
+            ],
+            "label": "Natural"
+          },
+          "art_filter": {
+            "raw": [
+              5,
+              2304,
+              0,
+              0
+            ],
+            "label": "Pin Hole I"
+          }
+        }
+      }
+    ],
+    "duplicate_developments_count_as_one": true,
+    "statistics": {
+      "decoded_pixels_equal": false,
+      "mean_absolute_rgb_difference": 3.8694708553361306,
+      "mean_absolute_bt601_rgb_luma_proxy_difference": 0.4009712040424347,
+      "rgb_spread_before_after": [
+        54.43813929930636,
+        44.496515595863876
+      ],
+      "high_colour_rgb_spread_before_after": [
+        160.89070946947314,
+        129.75970726651406
+      ],
+      "neutral_mean_absolute_rgb_difference": 0.07468511369278312,
+      "metric_scope": "RGB-derived descriptive statistics, not native ISP YCbCr measurements or a calibrated LUT fit"
+    },
+    "limits": "Owner-reported RAW selection, matching scene geometry and Exif support association; capture and RAW editing are different entry paths, and these are not calibrated native ISP measurements."
+  },
+  "verified": {
+    "boot_and_chinese_menu": true,
+    "full_size_shutter_jpeg_and_raw": true,
+    "return_to_natural_can_capture_and_decode": true,
+    "in_camera_colour_response_changes_toward_lower_chroma": true,
+    "normal_stock_recovery_and_reference_pixels": true
+  },
+  "not_yet_verified": [
+    "final return to RC2 after the completed stock recovery",
+    "all modes, lenses and video",
+    "long-term stability",
+    "exact film-stock colour matching",
+    "external arbitrary 3D LUT import"
+  ],
+  "recovery_evidence": "rc2-recovery-verification.json"
+}

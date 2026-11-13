@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-13",
+  "owner_accepted_first_trial_risk": true,
+  "status_at_preparation_completion": "verified_card",
+  "card_identification": "Windows removable E:; baseline JPEG bytes and SHA-256 match prior MTP download",
+  "candidate": {
+    "path_on_card": "DCOLYMP/E1089999.BIN",
+    "bytes": 44826624,
+    "sha256": "90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229",
+    "readback_before_and_after_publication": true,
+    "independent_final_readback": true
+  },
+  "previous_card_update": {
+    "description": "Historical AF patch update file; this is a backup of the SD file, not a live flash dump",
+    "backup_session": "sessions/rc2-card-20261113-01/DCOLYMP/E1089999.BIN",
+    "bytes": 44826624,
+    "sha256": "209379198f02539abe820a6ab9e9254f5ac70e972f291fc7e3b6e938e03daf2f",
+    "backup_readback_verified": true
+  },
+  "camera_update_triggered_by_tool": false,
+  "candidate_boot_observed": false,
+  "candidate_photographs_observed": false,
+  "recovery_trial_observed": false
+}

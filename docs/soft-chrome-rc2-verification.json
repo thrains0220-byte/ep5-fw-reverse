@@ -5,12 +5,14 @@
   "candidate": {
     "bytes": 44826624,
     "bin_sha256": "90a63cd0b191f0d0cfdf344b2129723af07f6969d1d6368b8e2216a2019c1229",
-    "zip_sha256": "65d70cb5d56badebe5e23088589cdb6f18828bca562fdb521f3657f920e183cf"
+    "zip_sha256": "889049e995f0b90509912917e0f78b72d864564422ea5d2486bc4ac666611b0f",
+    "previous_zip_sha256_before_led_instruction_correction": "65d70cb5d56badebe5e23088589cdb6f18828bca562fdb521f3657f920e183cf"
   },
   "recovery": {
     "bytes": 44826624,
     "bin_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
-    "zip_sha256": "85b8d1b19b18bc22facedce49bdc02922a637e5b574710fe2f730b39ca397824"
+    "zip_sha256": "9a7ebb68c6f3e0436b1248b35e779a45759a3aeb3805f32feab739442bd3d8ee",
+    "previous_zip_sha256_before_led_instruction_correction": "85b8d1b19b18bc22facedce49bdc02922a637e5b574710fe2f730b39ca397824"
   },
   "verified_blocks": [
     {
@@ -45,5 +47,6 @@
       "trailer_changed_bytes": 0,
       "checksums_valid": true
     }
-  ]
+  ],
+  "package_documentation_update": "2026-11-13: corrected completion LED instructions; all firmware BIN bytes unchanged"
 }

@@ -6,6 +6,11 @@ import json
 from pathlib import Path
 import sys
 
+if __package__:
+    from .olympus_tags import parse_camera_settings
+else:
+    from olympus_tags import parse_camera_settings
+
 
 FRAME = (4608, 3456)
 SETTINGS = {33434: "exposure_seconds", 33437: "f_number", 34855: "iso",
@@ -72,6 +77,7 @@ def read_jpeg(path, regions):
         tags = im.getexif()
         exif = tags.get_ifd(34665)
         rec = camera_tags(tags, exif)
+        rec["camera_settings"] = parse_camera_settings(exif.get(37500))
         rec["settings"] = {label: str(exif[tag]) if tag in exif else None
                            for tag, label in SETTINGS.items()}
         # Ordinary tolerant JPEG decoders can fill missing scanlines with

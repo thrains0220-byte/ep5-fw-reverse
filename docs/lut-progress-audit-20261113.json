@@ -1,0 +1,490 @@
+{
+  "date": "2026-11-13",
+  "purpose": "progress audit, no implementation or device operations",
+  "started_at": "2026-11-13T08:06:28.799047+00:00",
+  "completed_at": "2026-11-13T08:07:58.766764+00:00",
+  "branch": "work/ep5-film",
+  "head": "09ec3e6d78aae727ced636340f5e3ac00caafa0c",
+  "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+  "exe_sha256": "9e8ff83a78c376efe901a1bd701ce5b410c8e084bf4c93802e20928e191cf8e0",
+  "source_sha256": {
+    "ep5studio/__init__.py": "03e5384c43cfc42d38bb581886d482a570c6b5d1c2980b2e54054723e09165d1",
+    "ep5studio/app.py": "d8d76a0de5c86160e2edd71b71caf38fe36232093792d4174ab45dd7e9b635ae",
+    "ep5studio/builtins.py": "848176b4cda69271f13f79745d37b02fb350a7e7e3dec87435cd3af91755537c",
+    "ep5studio/cube.py": "5837c54aed75b45fe2b40023349909179d4e1a443e923fb6672584fbec582e32",
+    "ep5studio/export.py": "1095289ed126f19ca8868320009ab37a0ced66dbe13a1fbbf3c027729769ad93",
+    "ep5studio/library.py": "003e759dc1a0aaecaa56c69bee2a1c3993055c34928abb4bfb0f5a0ee50cc883",
+    "ep5studio/preview.py": "6270a506e5cf2b40c83ebc8f367feaddfc5b5f036cc31518feb7113cbfe3bc70",
+    "ep5studio/project.py": "7960179277924a2b91ead005dc50e4bccd2498d47b4e6d282e0c169355056c55",
+    "ep5studio/wire.py": "9c7c6e0aaf7b5f702fbc25c5a6bc2a28f0ce3db8e5a0d87accc6a7be3867c18f",
+    "firmware/ep5_art_entry.c": "9520c6404f9fceed0c5c907496bd7edb4d6678a8c164da0ef73e2e97f90d8816",
+    "firmware/ep5_art_entry.S": "35e4d5095d2ff7673c6a76531472a76f73f5c135090277e130f7e97438e36851",
+    "firmware/ep5_art_entry.ld": "bdf8f2cd9591b3e490311dc9fd023edf952b85bd292dde05d9bbdc1b4a47f3b4",
+    "firmware/look_store.c": "dbf47aa378893b8ddc14c5af9eb8d7b0f48788746862394d1bbb6f2028ca5722",
+    "firmware/look_store.h": "7cf9a1fb9e708a07716ccb851b53bf3c57c96b4dd559b148f8f2cb804a0fc622",
+    "firmware/film.c": "fc77b27a5b3dd4a816cff3954fa2966dc64bfefe7d6d295f84c87f9e7326e741",
+    "firmware/lut.c": "bc527e2d42320891c0df7a331317e5b83dbd5bdba7e4e981c9c0f9182774151c",
+    "tools/cave_entry.py": "17dd5f43c0e291ff785b4f53165afc40139de1d73dba336fd5c84c46a88779c0",
+    "tools/ep5_cave_probe.c": "415432fb59d3aa1066b8d6b9afa10c5a84300d79d4aaf738776212b8158c0492",
+    "tools/ep5_look_runtime_probe.c": "ff0d9f856f160ad328817110805f002e9c845bb1002afdfe0110263cbcb4f7a6",
+    "tools/ep5_lut_pixel_probe.c": "fb16d425f3558aa5d4c0d6e85906edeec6a03f86cb6955e3b5c3a26f1bf5fbce",
+    "tools/ep5_lut_file_probe.c": "3e4513909f22b1d765e3b47ef41aa6cd77d5001dd0bab2a15c0beb7c6a889cf1",
+    "tools/native_probe.py": "1f12dea07b2f6b4a9666b4b6cd94729d5e903522892dd96a96f7aa8d7c5519d1",
+    "tools/callconv_probe.c": "84520839782c6c12d8195d64f222b773b5f40081fb43b31c785a14bfcbcd06fb",
+    "tests/fixtures/callconv.S": "e8cfd17211ea977fb7092a47b5681eaf0640265be6d7aef5c3308a73a39bf8c1",
+    "tests/fixtures/callconv.ld": "aee8ab890d7c808085359ce1c7dbdd101793464bc2594388948669f88e1dde06",
+    "tests/test_cave_entry.py": "fd63f5f43b864708d6bee9d4c21385f6f5fab9588a825497e3aebfcb2f7039f4"
+  },
+  "source_unchanged": true,
+  "device_operations_performed": false,
+  "firmware_implementation_changed_in_this_audit": false,
+  "repository_uncommitted_snapshot": true,
+  "remote_head_verified": false,
+  "remote_check_result": "git ls-remote origin work/ep5-film failed: Recv failure: Connection was reset",
+  "historical_device_evidence": [
+    "docs/rc2-first-trial.json",
+    "docs/rc2-recovery-verification.json"
+  ],
+  "current_release_status": "desktop-only; SD runtime mode 3 first integration case failed",
+  "module": {
+    "payload_bytes": 4444,
+    "cave_bytes": 32752,
+    "spare_bytes": 28308,
+    "payload_sha256": "4d3f1763112074d161d5e6caf5ac41b0a0d437823a9496eff0609f9e4e518c72",
+    "control_words": 7,
+    "control_offset": 4392,
+    "state_offset": 4420,
+    "look_state_offset": 4428,
+    "compiler": "mn10300-elf-gcc (GCC) 14.3.0",
+    "installable": false,
+    "default_enabled": false,
+    "manifest_local": "build/progress-audit-20261113-review/module/manifest.json",
+    "full_default_lut_bytes": 29478,
+    "code_plus_full_default_lut_excess_bytes": 1170
+  },
+  "results": [
+    {
+      "name": "windows_studio",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 6.234,
+      "stdout_log": "build/progress-audit-20261113-review/windows_studio.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/windows_studio.stderr.log",
+      "tests_run": 24,
+      "argv": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_studio_*.py",
+        "-v"
+      ]
+    },
+    {
+      "name": "windows_exe_smoke",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 1.203,
+      "stdout_log": "build/progress-audit-20261113-review/windows_exe_smoke.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/windows_exe_smoke.stderr.log",
+      "argv": [
+        "build/lut-studio-dist/EP5LUTStudio/EP5LUTStudio.exe",
+        "--smoke-test"
+      ]
+    },
+    {
+      "name": "host_look_store",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 3.172,
+      "stdout_log": "build/progress-audit-20261113-review/host_look_store.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/host_look_store.stderr.log",
+      "tests_run": 7,
+      "argv": [
+        "wsl",
+        "--cd",
+        "/mnt/d/0_Project/01Test/ep5-fw-reverse",
+        "-e",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_look_store.py",
+        "-v"
+      ]
+    },
+    {
+      "name": "cave_entry",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 30.188,
+      "stdout_log": "build/progress-audit-20261113-review/cave_entry.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/cave_entry.stderr.log",
+      "tests_run": 4,
+      "argv": [
+        "wsl",
+        "--cd",
+        "/mnt/d/0_Project/01Test/ep5-fw-reverse",
+        "-e",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_cave_entry.py",
+        "-v"
+      ]
+    },
+    {
+      "name": "mn103_kernels",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 20.515,
+      "stdout_log": "build/progress-audit-20261113-review/mn103_kernels.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/mn103_kernels.stderr.log",
+      "tests_run": 3,
+      "argv": [
+        "wsl",
+        "--cd",
+        "/mnt/d/0_Project/01Test/ep5-fw-reverse",
+        "-e",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_mn103_lut.py",
+        "-v"
+      ]
+    },
+    {
+      "name": "stock_file_and_slots",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 7.954,
+      "stdout_log": "build/progress-audit-20261113-review/stock_file_and_slots.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/stock_file_and_slots.stderr.log",
+      "json_result": {
+        "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+        "csv": {
+          "directory": "PARAMDT    ",
+          "pattern": "CP??????CSV",
+          "record_store": "0x603c9f28",
+          "available_bytes_including_headers": 8188
+        },
+        "rgb16_17_lut_bytes": 29478,
+        "raw_lut_fit_in_param_store": false,
+        "file_operations": {
+          "open": "0x7e291515",
+          "read": "0x7e2915ea",
+          "close": "0x7e291557"
+        },
+        "message_ids": {
+          "open": "0x10001",
+          "read": "0x10005",
+          "close": "0x10002"
+        },
+        "native_examples": [
+          {
+            "caller": "face_dbg_load",
+            "mode": "r",
+            "requested_bytes": 307200,
+            "open_site": "0x7e3d2fa8",
+            "read_site": "0x7e3d2fc7",
+            "close_site": "0x7e3d2fd4",
+            "path": "C:\\TEST0000.RAW"
+          },
+          {
+            "caller": "olis_ctrl_read_reserve_data",
+            "mode": "rb",
+            "requested_bytes": 8192,
+            "open_site": "0x7e41ad1b",
+            "read_site": "0x7e41ad42",
+            "close_site": "0x7e41ad4e"
+          }
+        ],
+        "cpu_file_cases": [
+          {
+            "direct": 0,
+            "case": 0,
+            "open": 1,
+            "read": 1,
+            "close": 1,
+            "requested_bytes": 307200,
+            "caller_result": 0,
+            "instructions": 94,
+            "scenario": "full_read"
+          },
+          {
+            "direct": 0,
+            "case": 1,
+            "open": 1,
+            "read": 0,
+            "close": 0,
+            "requested_bytes": 0,
+            "caller_result": -1,
+            "instructions": 36,
+            "scenario": "open_failed"
+          },
+          {
+            "direct": 0,
+            "case": 2,
+            "open": 1,
+            "read": 1,
+            "close": 1,
+            "requested_bytes": 307200,
+            "caller_result": 0,
+            "instructions": 94,
+            "scenario": "short_read_7"
+          },
+          {
+            "direct": 1,
+            "case": 0,
+            "open": 1,
+            "read": 1,
+            "close": 1,
+            "requested_bytes": 307200,
+            "caller_result": 0,
+            "instructions": 66,
+            "scenario": "full_read"
+          },
+          {
+            "direct": 1,
+            "case": 1,
+            "open": 1,
+            "read": 0,
+            "close": 0,
+            "requested_bytes": 0,
+            "caller_result": -1,
+            "instructions": 26,
+            "scenario": "open_failed"
+          },
+          {
+            "direct": 1,
+            "case": 2,
+            "open": 1,
+            "read": 1,
+            "close": 1,
+            "requested_bytes": 307200,
+            "caller_result": 0,
+            "instructions": 66,
+            "scenario": "short_read_7"
+          }
+        ],
+        "stock_art_filter_codes_for_variant_1_2_3": {
+          "1": [
+            65535,
+            65535,
+            65535
+          ],
+          "100": [
+            70,
+            102,
+            65535
+          ],
+          "101": [
+            69,
+            69,
+            69
+          ],
+          "102": [
+            71,
+            145,
+            65535
+          ],
+          "103": [
+            72,
+            72,
+            72
+          ],
+          "104": [
+            74,
+            104,
+            65535
+          ],
+          "105": [
+            73,
+            106,
+            108
+          ],
+          "106": [
+            86,
+            86,
+            86
+          ],
+          "107": [
+            85,
+            167,
+            65535
+          ],
+          "108": [
+            91,
+            91,
+            91
+          ],
+          "109": [
+            96,
+            165,
+            65535
+          ],
+          "110": [
+            145,
+            145,
+            145
+          ],
+          "111": [
+            75,
+            75,
+            75
+          ]
+        },
+        "modeled": "Backend task selection, direct backend or message responses, logs. No file I/O by emulated E-P5."
+      },
+      "argv": [
+        "wsl",
+        "--cd",
+        "/mnt/d/0_Project/01Test/ep5-fw-reverse",
+        "-e",
+        "python3",
+        "tools/audit_lut_runtime.py",
+        "--execute"
+      ]
+    },
+    {
+      "name": "stock_pixels_and_pool",
+      "exit_code": 0,
+      "status": "passed",
+      "duration_seconds": 5.718,
+      "stdout_log": "build/progress-audit-20261113-review/stock_pixels_and_pool.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/stock_pixels_and_pool.stderr.log",
+      "json_result": {
+        "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+        "cpu_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+        "native_color_pairs": [
+          {
+            "rgb": [
+              0,
+              0,
+              0
+            ],
+            "two_pixel_bytes": "00 80 00 80"
+          },
+          {
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "two_pixel_bytes": "ff 80 ff 80"
+          },
+          {
+            "rgb": [
+              128,
+              128,
+              128
+            ],
+            "two_pixel_bytes": "80 80 80 80"
+          },
+          {
+            "rgb": [
+              255,
+              0,
+              0
+            ],
+            "two_pixel_bytes": "4c 54 4c ff"
+          },
+          {
+            "rgb": [
+              0,
+              255,
+              0
+            ],
+            "two_pixel_bytes": "95 2b 95 15"
+          },
+          {
+            "rgb": [
+              0,
+              0,
+              255
+            ],
+            "two_pixel_bytes": "1d ff 1d 6b"
+          },
+          {
+            "rgb": [
+              254,
+              7,
+              113
+            ],
+            "two_pixel_bytes": "5c 8b 5c f2"
+          },
+          {
+            "rgb": [
+              17,
+              222,
+              61
+            ],
+            "two_pixel_bytes": "8e 52 8e 26"
+          },
+          {
+            "rgb": [
+              53,
+              9,
+              210
+            ],
+            "two_pixel_bytes": "2d dd 2d 85"
+          }
+        ],
+        "native_pinhole": "packet+76 forwarded, 4608x3456; request+194 = 21. ISP not executed.",
+        "native_art_pool": "mode 3; 29478-byte requests, 2 successes / second failure, matching releases. Backend modeled.",
+        "still_pixel_encoding_proven": false,
+        "available_heap_bytes_proven": false
+      },
+      "argv": [
+        "wsl",
+        "--cd",
+        "/mnt/d/0_Project/01Test/ep5-fw-reverse",
+        "-e",
+        "python3",
+        "tools/audit_lut_pixels.py"
+      ]
+    },
+    {
+      "name": "sd_runtime_mode3",
+      "exit_code": 1,
+      "status": "failed",
+      "duration_seconds": 14.703,
+      "stdout_log": "build/progress-audit-20261113-review/sd_runtime_mode3.stdout.log",
+      "stderr_log": "build/progress-audit-20261113-review/sd_runtime_mode3.stderr.log",
+      "argv": [
+        "wsl",
+        "--cd",
+        "/mnt/d/0_Project/01Test/ep5-fw-reverse",
+        "-e",
+        "python3",
+        "-c",
+        "import json; from tools.cave_entry import validate_look_runtime; print(json.dumps(validate_look_runtime(\"data/ep5-decoded/00_0100_402c0020.decoded.bin\")))"
+      ],
+      "failure_tail": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/mnt/d/0_Project/01Test/ep5-fw-reverse/tools/cave_entry.py\", line 304, in validate_look_runtime\n    native = json.loads(checked([runner, image, module / 'film.bin', directory / 'config',\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/d/0_Project/01Test/ep5-fw-reverse/tools/check_mn103_lut.py\", line 24, in checked\n    raise RuntimeError(f\"Command failed: {command}\\n{result.stdout[-2000:]}\\n{result.stderr[-6000:]}\")\nRuntimeError: Command failed: [PosixPath('/mnt/d/0_Project/01Test/ep5-fw-reverse/build/look-runtime/ep5-look-runtime-probe'), 'data/ep5-decoded/00_0100_402c0020.decoded.bin', PosixPath('/mnt/d/0_Project/01Test/ep5-fw-reverse/build/look-runtime/tmpxgy26sr3/module/film.bin'), PosixPath('/mnt/d/0_Project/01Test/ep5-fw-reverse/build/look-runtime/tmpxgy26sr3/config'), PosixPath('/mnt/d/0_Project/01Test/ep5-fw-reverse/build/look-runtime/tmpxgy26sr3/pixels'), PosixPath('/mnt/d/0_Project/01Test/ep5-fw-reverse/build/look-runtime/tmpxgy26sr3/output'), 4392, 57, 4420, 69, 91, 167, 232, 289, 4428, 'apply', 1, PosixPath('/mnt/d/0_Project/01Test/ep5-fw-reverse/build/look-runtime/tmpxgy26sr3/apply')]\n\nparam phase failed stop=1 preserved=0 envelope=0 sends=1 sp=6000efd8\n\n"
+    }
+  ],
+  "unittest_total_run": 38,
+  "unittest_total_skipped": 0,
+  "mode3_passed_cases": 0,
+  "scope_limits": [
+    "Selected current desktop, loader, cave and kernel tests only; not the full repository test suite.",
+    "CPU probes execute bounded stock fragments with modeled backends, not the ISP, scheduler, real SD filesystem or JPEG encoder.",
+    "Existing EXE smoke is tested; bitwise provenance from current source is not established by smoke alone.",
+    "Fixed native RC2 hardware evidence is historical and does not establish an installable SD LUT runtime.",
+    "Local full logs in ignored build/ must be archived separately if another machine needs them."
+  ]
+}

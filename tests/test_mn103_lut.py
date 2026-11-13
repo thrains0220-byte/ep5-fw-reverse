@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import unittest
 
-from tools.check_mn103_lut import validate_target, validate_film_target
+from tools.check_mn103_lut import validate_target, validate_film_target, validate_callconv
 from tools.native_probe import build_probe
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,6 +49,16 @@ class RunnerMemoryTests(unittest.TestCase):
 @unittest.skipUnless((ROOT / "toolchains/mn103/bin/mn10300-elf-gcc").exists(),
                      "requires locally built MN103 GCC")
 class TargetKernelTests(unittest.TestCase):
+    def test_callconv_fixture_returns_through_full_chain(self):
+        report = validate_callconv()
+        self.assertFalse(report["physical_camera_test"])
+        self.assertEqual(report["end"], 1)
+        self.assertEqual(report["target_entries"], 1)
+        self.assertEqual(report["inner_entries"], 1)
+        self.assertEqual(report["sp"], "0x2000e000")
+        self.assertEqual(report["d2"], "0x55555555")
+        self.assertEqual(report["d3"], "0x66666666")
+
     def test_film_engine_descriptor_and_cancellation_match_host(self):
         report = validate_film_target()
         self.assertFalse(report["physical_camera_test"])

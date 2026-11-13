@@ -22,13 +22,16 @@ class CaveEntryTests(unittest.TestCase):
             self.assertEqual(report['entry'], '0x7e128010')
             self.assertTrue(report['plain_mn103_instruction_set'])
             self.assertEqual(report['patch']['old'], 'cd b3 6f f0 10')
-            self.assertEqual(struct.unpack_from('<6I', binary, report['control_offset']),
-                             (0x43355045, 0, 0, 0, 0, 0))
-            self.assertEqual(report['lut_bytes'], 29478)
+            self.assertEqual(struct.unpack_from('<7I', binary, report['control_offset']),
+                             (0x43355045, 0, 0, 0, 0, 0, 0))
+            self.assertEqual(report['control_words'], 7)
+            self.assertNotIn('lut_bytes', report)
             self.assertEqual(report['wait_patch']['cpu_address'], '0x7e3ed850')
             self.assertEqual(report['wait_patch']['old'], 'dd 57 a7 00 00 00 14')
-            self.assertEqual(binary[report['state_offset']:report['state_offset'] + 8], bytes(8))
+            self.assertEqual(binary[report['state_offset']:report['state_offset'] + 24], bytes(24))
             self.assertEqual(report['state_uncached_address'], hex(0x7e128010 + report['state_offset'] + 0x40000000))
+            self.assertEqual(report['look_state_uncached_address'],
+                             hex(0x7e128010 + report['look_state_offset'] + 0x40000000))
             self.assertEqual(report['release_patch']['old'], 'cd 4b b6 00 04')
             self.assertEqual(report['param_patch']['cpu_address'], '0x7e3ed835')
             self.assertEqual(report['param_patch']['old'], 'dd 62 f2 00 00 a0 14')

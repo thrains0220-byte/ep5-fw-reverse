@@ -2,6 +2,8 @@
 
 目标是先取得可复核的机身原图和当前版本，再决定能否开始固件实验。USB Storage 只提供文件访问；[E-P5 官方说明书第 101–102 页](https://download.omsystem.com/pages/inst/ep5/manual_ep5_ENU.pdf)要求选择 **Storage**，连接时不能继续在机身拍摄。它不是运行中固件控制台。
 
+2026-11-13 已在 Windows 上实测 **MTP** 读取原始 JPG／ORF，两次下载一致且完整解码通过。Windows 用户优先按[MTP 取样说明](MTP_READONLY.md)使用 `tools/mtp_collect.py`；无需为了采集照片改用下面的 POSIX Storage 工具。机身菜单为 1.8，MTP 的 1.00 是已核对的原厂固定字段。[本轮记录](mtp-first-connection.json)和[原厂 USB 静态证据](USB_STATIC.md)均未宣告固件效果或运行时内存调试已完成。
+
 ## 1. 未连接时留样
 
 在机身记录版本页面与此前改版的已知情况。设 4:3、最大尺寸、RAW+JPEG、固定白平衡与曝光，拍一张同时有灰、红、绿、蓝、亮部和暗部的静物，再拍肤色、日光和室内场景。保留各张 ORF 和原生 JPEG 的文件号；先导入这组基线文件，再断开 USB。在回放 RAW 编辑中对**同一 ORF**分别生成一张中性和一张原厂风格 JPEG，记下两个新文件号。若菜单无法产生中性重显影，请记录限制，不能用原拍 JPEG 冒充同源重显影对照。原卡不要格式化。

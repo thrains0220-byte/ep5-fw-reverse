@@ -25,8 +25,11 @@ CANDIDATE_SHA256 = {
 def package_note(revision, digest):
     label = ("针孔相机效果（原厂名称）" if revision == 1 else
              "针孔/柔彩I（繁体：針孔/柔彩I，其他语言沿用原厂名称）")
+    status = ("历史候选 RC1，仅供 E-P5 试验。" if revision == 1 else
+              "2026-11-13，RC2 已在一台 E-P5 上正常重启，简体 ART 菜单显示“针孔/柔彩I”；"
+              "已验证同次全尺寸 JPEG 和 ORF 可以完整解码。")
     return (f"Olympus PEN E-P5 1.8 — 柔彩 Soft Chrome RC{revision}\n"
-            "仅供 E-P5 实机试验。此版本尚未完成机身安装、成片和恢复验收。\n"
+            f"{status}仍需严格色彩对照、关闭效果和原厂恢复验收。\n"
             "固件：DCOLYMP/E1089999.BIN（44,826,624 字节）\n"
             f"本候选 SHA-256：{digest}\n"
             f"官方 1.8 恢复原包 SHA-256：{STOCK_SHA256}（另行保存）\n"

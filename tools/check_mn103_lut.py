@@ -50,6 +50,44 @@ def compile_target(build, fixture, sources):
     return compiler, flags, elf, binary
 
 
+def validate_callconv():
+    """Assemble the call/ret fixture and require a full closed-loop return."""
+    build = ROOT / "build/callconv-check"
+    build.mkdir(parents=True, exist_ok=True)
+    source = ROOT / "tests/fixtures/callconv.S"
+    # Keep LF assembly byte-exact regardless of Windows checkout conversion.
+    local = build / "callconv.S"
+    local.write_bytes(source.read_bytes().replace(b"\r\n", b"\n"))
+    elf, binary = build / "callconv.elf", build / "callconv.bin"
+    checked([X / "mn10300-elf-gcc", "-mno-am33", "-nostdlib", "-c", local, "-o", build / "callconv.o"])
+    checked([X / "mn10300-elf-ld", "-T", ROOT / "tests/fixtures/callconv.ld",
+             build / "callconv.o", "-o", elf])
+    symbols = {line.split()[-1]: int(line.split()[0], 16)
+               for line in checked([X / "mn10300-elf-nm", elf]).splitlines() if len(line.split()) == 3}
+    disassembly = checked([X / "mn10300-elf-objdump", "-d", "-m", "mn10300", elf])
+    (build / "callconv.s").write_text(disassembly)
+    checked([X / "mn10300-elf-objcopy", "-O", "binary", "-j", ".text", elf, binary])
+    runner = build_probe(ROOT / "tools/callconv_probe.c", build)
+    # The return address is the instruction after the 5-byte near call.
+    resume = None
+    for line in disassembly.splitlines():
+        if "call" in line and "_target" in line:
+            address = int(line.split(":")[0].strip(), 16)
+            resume = address + 5
+    if resume is None:
+        raise ValueError("call to _target not found in fixture disassembly")
+    result = subprocess.run([str(runner), str(binary), hex(symbols["_target"] - 0x20000000),
+                             hex(symbols["_inner"] - 0x20000000), hex(resume - 0x20000000),
+                             hex(symbols["_probe_end"] - 0x20000000)],
+                            capture_output=True, text=True, timeout=30)
+    if result.returncode:
+        raise RuntimeError(f"callconv closed loop failed: {result.stdout}\n{result.stderr}")
+    report = json.loads(result.stdout)
+    report.update(physical_camera_test=False, resume_address=hex(resume),
+                  symbols={k: hex(v) for k, v in symbols.items()})
+    return report
+
+
 def validate_target():
     build = ROOT / "build/mn103-lut"
     compiler, flags, elf, binary = compile_target(build, ROOT / "tests/fixtures/lut_target.c",
