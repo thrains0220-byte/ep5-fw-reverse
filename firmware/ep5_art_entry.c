@@ -12,7 +12,7 @@ extern volatile struct ep5_lut_menu ep5_lut_menu_storage;
 
 extern void *ep5_file_open(const char *path, const char *mode);
 extern int32_t ep5_file_read(void *buffer, uint32_t size, uint32_t count, void *file);
-extern void ep5_file_close(void *file);
+extern int32_t ep5_file_close(void *file);
 extern int ep5_pool_alloc(uint32_t bytes, void **out);
 extern void ep5_pool_free(void *pointer);
 
@@ -44,8 +44,7 @@ static int32_t look_read(void *context, void *file, uint8_t *destination, uint32
 static int look_close(void *context, void *file)
 {
     (void)context;
-    ep5_file_close(file);
-    return 0;
+    return ep5_file_close(file);
 }
 #endif
 
@@ -60,8 +59,10 @@ static void look_release(void)
     ep5_look_state[2] = 0;
 }
 
-/* Mode 3: load the selected SD look before the stock send. Any failure keeps
- * the original packet and renders stock; the module never blocks a shot. */
+/* Experimental mode 3 loads a look synchronously before the stock send.
+ * Load failure leaves this packet unchanged, but file I/O has no established
+ * deadline and later failures after packet neutralization cannot be called a
+ * stock fallback. This path is not approved for camera deployment. */
 static void look_prepare(uint8_t *packet, const uint8_t *context)
 {
 #ifdef EP5_DIAG

@@ -15,11 +15,11 @@ class CaveEntryTests(unittest.TestCase):
     def test_menu_selection_and_stale_lut_in_full_modeled_chain(self):
         report = validate_look_runtime(MAIN)
         cases = {case['name']: case for case in report['cases']}
-        self.assertEqual(len(cases), 14)
+        self.assertEqual(len(cases), 16)
         for name in ('menu_half', 'menu_closed'):
             self.assertTrue(cases[name]['matches_host'])
             self.assertEqual(cases[name]['neutralized'], 1)
-        for name in ('menu_zero', 'menu_stale', 'menu_crc_stale'):
+        for name in ('menu_zero', 'menu_stale', 'menu_crc_stale', 'index_close_fail', 'lut_close_fail'):
             self.assertTrue(cases[name]['matches_host'])
             self.assertEqual(cases[name]['neutralized'], 0)
         self.assertFalse(report['installable'])

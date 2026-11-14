@@ -72,14 +72,14 @@ static uint8_t changed(uint8_t original, int32_t delta)
     return (uint8_t)(v < 0 ? 0 : v > 255 ? 255 : v);
 }
 
-static void colour_delta(uint8_t y, int32_t cb, int32_t cr, const uint16_t *lut,
+static void colour_delta(uint8_t y, const int32_t chroma[3], const uint16_t *lut,
                          unsigned amount, int32_t delta[3])
 {
     int32_t luma = (int32_t)y * 257;
     uint16_t rgb[3], out[3];
-    rgb[0] = clip16(luma + rounded(22970 * cr, 16384));
-    rgb[1] = clip16(luma - rounded(5638 * cb + 11700 * cr, 16384));
-    rgb[2] = clip16(luma + rounded(29032 * cb, 16384));
+    rgb[0] = clip16(luma + chroma[0]);
+    rgb[1] = clip16(luma + chroma[1]);
+    rgb[2] = clip16(luma + chroma[2]);
     ep5_lut_sample16(lut, rgb, out);
     for (unsigned c = 0; c < 3; ++c)
         delta[c] = rounded(((int32_t)out[c] - rgb[c]) * (int32_t)amount, 256);
@@ -99,9 +99,14 @@ int ep5_film_apply(const struct ep5_image *image, const uint16_t *lut, size_t va
         for (uint32_t x = 0; x < image->width; x += 2, p += 4) {
             int32_t cb = ((int32_t)p[1] - 128) * 257;
             int32_t cr = ((int32_t)p[3] - 128) * 257;
-            int32_t a[3], b[3], mean[3];
-            colour_delta(p[0], cb, cr, lut, amount, a);
-            colour_delta(p[2], cb, cr, lut, amount, b);
+            int32_t a[3], b[3], mean[3], chroma[3];
+            /* Both Y samples share one Cb/Cr pair. Compute its RGB
+             * contributions once, with the same rounding as the old path. */
+            chroma[0] = rounded(22970 * cr, 16384);
+            chroma[1] = -rounded(5638 * cb + 11700 * cr, 16384);
+            chroma[2] = rounded(29032 * cb, 16384);
+            colour_delta(p[0], chroma, lut, amount, a);
+            colour_delta(p[2], chroma, lut, amount, b);
             for (unsigned c = 0; c < 3; ++c) mean[c] = rounded(a[c] + b[c], 2);
             p[0] = changed(p[0], rounded(4899 * a[0] + 9617 * a[1] + 1868 * a[2], 16384));
             p[2] = changed(p[2], rounded(4899 * b[0] + 9617 * b[1] + 1868 * b[2], 16384));

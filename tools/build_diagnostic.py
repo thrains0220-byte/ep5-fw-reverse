@@ -1,15 +1,10 @@
-"""Build a D-branch diagnostic firmware: cave hooks installed but ALL disabled.
+"""Build an experimental enabled observe-only diagnostic package.
 
-The module is present in the code cave and hooks are patched, but ep5_control
-is all zeros (tag=0, enabled=0). Every hook entry checks the tag first and
-returns immediately. No pixel writes, no ART neutralization, no SD loading.
-The camera boots and shoots exactly as stock.
-
-Purpose: verify that the cave region is loaded at boot, hooks don't crash,
-and the camera remains fully functional. After confirming boot+shoot, the
-next step enables mode 3 with a real SD card to test the full LUT chain.
-
-SAFETY: hardware-diagnostic. No functional pixel modification is possible.
+This script installs hooks and enables mode 4, which records request fields
+and attempts SD writes from an unverified camera task context. The build omits
+functional pixel modification, but is NOT verified safe or ready to flash.
+It does not establish a safe route to enable mode 3. Offline model results
+cannot prove camera boot, shooting, shutdown, storage, or recovery behavior.
 """
 from __future__ import annotations
 import argparse, hashlib, json, struct, sys
@@ -46,7 +41,7 @@ def build_diagnostic(stock_path: Path, out: Path):
     # Install module into cave region (single edit, no overlap)
     edits = [(CAVE - BASE, bytes([0xFF]) * len(payload), payload)]
     
-    # Patch hooks (same as functional, but control=0 means they all return immediately)
+    # Patch hooks; mode 4 executes diagnostic observation and may write a log.
     for patch_key in ("patch", "wait_patch", "release_patch", "param_patch"):
         p = manifest[patch_key]
         off = p["image_offset"]
@@ -65,6 +60,9 @@ def build_diagnostic(stock_path: Path, out: Path):
     (out / "SHA256SUMS").write_text(f"{digest}  {CARD_FILE}\n", encoding="ascii")
     report = {
         "type": "hardware-diagnostic",
+        "ready_to_flash": False,
+        "physical_camera_test": False,
+        "risk": "Enabled hooks and SD log writes in an unverified camera task context; no claim of safe boot or recovery.",
         "firmware_sha256": digest,
         "module_bytes": len(payload),
         "control": "tag=EP5, enabled=4 (observe-only)",

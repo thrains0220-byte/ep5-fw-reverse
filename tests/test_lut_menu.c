@@ -17,6 +17,7 @@ int main(void)
 {
     struct ep5_lut_menu menu;
     struct ep5_lut_menu_slot slots[EP5_LUT_MENU_SLOTS];
+    memset(slots, 0, sizeof slots);
     ep5_lut_menu_init(&menu);
     assert(menu.state == EP5_LUT_MENU_HIDDEN && menu.applied == 0);
     assert(ep5_lut_menu_begin_load(&menu, 1) == 1);
@@ -64,6 +65,25 @@ int main(void)
         struct ep5_lut_menu_capture capture;
         assert(ep5_lut_menu_capture(&menu, &capture));
         assert(capture.number == 2 && capture.amount_q8 == 192 && capture.look_crc == 0x12340002u);
+    }
+    /* Reopening and re-reading an unchanged card retains the confirmed look
+     * and user-adjusted amount, but cannot capture while loading. */
+    assert(ep5_lut_menu_begin_load(&menu, 10));
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(!ep5_lut_menu_capture(&menu, &capture));
+        slots[1].amount_q8 = 64;
+        assert(ep5_lut_menu_publish(&menu, 10, slots));
+        assert(ep5_lut_menu_capture(&menu, &capture));
+        assert(capture.number == 2 && capture.amount_q8 == 192);
+    }
+    /* A replaced card or modified LUT must be confirmed again. */
+    assert(ep5_lut_menu_begin_load(&menu, 11));
+    slots[1].look_crc ^= 1;
+    assert(ep5_lut_menu_publish(&menu, 11, slots));
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(!ep5_lut_menu_capture(&menu, &capture));
     }
     slot(&slots[0], 1, 128);
     assert(ep5_lut_menu_begin_load(&menu, menu.generation - 1u) == 1);

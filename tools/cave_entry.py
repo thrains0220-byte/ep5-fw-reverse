@@ -116,9 +116,9 @@ def build_diag_payload(image, out):
     """D diagnostic branch: observe-only module, compile-time pixel exclusion.
 
     Same cave/hooks as build_payload, but sources add diag.c with -DEP5_DIAG
-    and the ep5_diag.ld script (bounded .bss for observation records). The
-    control default is enabled=4 (diagnostic). This is a hardware-diagnostic
-    candidate; it must never be labelled a functional LUT candidate.
+    and the ep5_diag.ld script (bounded .bss for observation records).
+    The payload defaults to disabled; a separate experimental packager can
+    enable mode 4. Neither the payload nor that package is approved to flash.
     """
     data = Path(image).read_bytes()
     if hashlib.sha256(data).hexdigest() != MAIN_SHA256:
@@ -375,6 +375,8 @@ def validate_look_runtime(image):
         ('bad_lut_crc', dict(amount=256, lut_bytes=corrupt_crc(lut_file)), True, True, 1),
         ('zero_amount', dict(amount=0), True, True, 1),
         ('pool_fail', dict(amount=256), True, True, 1),
+        ('index_close_fail', dict(amount=256), True, True, 1),
+        ('lut_close_fail', dict(amount=256), True, True, 1),
         ('wrong_slot', dict(amount=256, slot='pin-hole-ii'), True, True, 1),
         ('menu_half', dict(amount=256), True, True, 1),
         ('menu_zero', dict(amount=256), True, True, 1),

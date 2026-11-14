@@ -5,7 +5,7 @@
  * proven read veneer ABI: 4 args, ret [d2,d3,a2,a3],40. */
 extern void *ep5_file_open(const char *path, const char *mode);
 extern int32_t ep5_file_write(const void *buffer, uint32_t size, uint32_t count, void *file);
-extern void ep5_file_close(void *file);
+extern int32_t ep5_file_close(void *file);
 
 extern volatile uint32_t ep5_look_state[4];
 
@@ -113,7 +113,8 @@ int32_t ep5_diag_flush(void)
         }
         total += n;
     }
-    ep5_file_close(f);
+    if (ep5_file_close(f) != 0)
+        return -3;
     /* Retain the bounded boot-session snapshot. Each "wb" flush rewrites all
      * records so a later shot does not discard earlier observations. A failed
      * write leaves the RAM snapshot available for a later retry. */

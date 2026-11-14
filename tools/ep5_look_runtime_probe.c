@@ -80,7 +80,7 @@ static int param_preserved = 1, send_envelope_valid = 1;
 /* Synthetic filesystem: two named files, one live handle, sequential reads. */
 static uint8_t index_data[2048], lut_data[40000];
 static unsigned index_len, lut_len;
-static int have_index, have_lut, direct_backend = 1, pool_fail;
+static int have_index, have_lut, direct_backend = 1, pool_fail, close_fail_at;
 static int opened, read_calls, closed, live; /* live: 0 none, 1 index, 2 lut */
 static unsigned live_pos;
 static unsigned pool_allocs, pool_frees;
@@ -200,7 +200,7 @@ static uint32_t file_read(uint32_t dst, uint32_t size, uint32_t count, uint32_t 
 static uint32_t file_close(uint32_t handle)
 {
     if (!live || handle != HANDLE) emu_abort(PC, "bad close state");
-    ++closed; live = 0; return 0;
+    ++closed; live = 0; return closed == (unsigned)close_fail_at ? (uint32_t)-1 : 0;
 }
 
 int hle_is_hook(uint32_t a)
@@ -558,6 +558,8 @@ int main(int argc, char **argv)
     f = fopen(path, "rb");
     if (f) { lut_len = (unsigned)fread(lut_data, 1, sizeof lut_data, f); have_lut = 1; fclose(f); }
     pool_fail = !strcmp(scenario, "pool_fail");
+    close_fail_at = !strcmp(scenario, "index_close_fail") ? 1 :
+                    (!strcmp(scenario, "lut_close_fail") ? 2 : 0);
 
     const uint8_t expected[] = {0xcd, 0xb3, 0x6f, 0xf0, 0x10};
     if (memcmp(image + (HOOK - BASE), expected, 5)) return 2;

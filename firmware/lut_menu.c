@@ -33,18 +33,35 @@ int ep5_lut_menu_begin_load(struct ep5_lut_menu *menu, uint16_t generation)
         return 0;
     menu->state = EP5_LUT_MENU_LOADING;
     menu->generation = generation;
-    menu->applied = 0;
+    /* Capture is disabled while loading. Keep the old identity only long
+     * enough for publish to check it against the newly read card index. */
     return 1;
 }
 
 int ep5_lut_menu_publish(struct ep5_lut_menu *menu, uint16_t generation,
                          const struct ep5_lut_menu_slot *slots)
 {
+    uint8_t retain = 0;
+    uint16_t retained_amount = 0;
     if (!menu || !slots || !generation || menu->state != EP5_LUT_MENU_LOADING ||
         menu->generation != generation)
         return 0;
+    if (menu->applied >= 1 && menu->applied <= EP5_LUT_MENU_SLOTS) {
+        unsigned index = menu->applied - 1u;
+        const struct ep5_lut_menu_slot *old = &menu->slots[index];
+        const struct ep5_lut_menu_slot *next = &slots[index];
+        if (old->configured && next->configured && old->picture_mode == next->picture_mode &&
+            old->variant == next->variant && old->number == next->number &&
+            old->look_crc == next->look_crc && old->amount_q8 <= 256) {
+            retain = menu->applied;
+            retained_amount = old->amount_q8;
+        }
+    }
     for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index)
         menu->slots[index] = slots[index];
+    menu->applied = retain;
+    if (retain)
+        menu->slots[retain - 1u].amount_q8 = retained_amount;
     menu->state = EP5_LUT_MENU_READY;
     if (menu->cursor >= EP5_LUT_MENU_SLOTS)
         menu->cursor = 0;

@@ -8,7 +8,7 @@ volatile uint32_t ep5_look_state[4];
 uint8_t ep5_diag_bss_start[1], ep5_diag_bss_end[1];
 static uint8_t file_bytes[EP5_DIAG_RECORD_BYTES * EP5_DIAG_MAX_RECORDS];
 static unsigned file_size;
-static int fail_write;
+static int fail_write, fail_close;
 
 void *ep5_file_open(const char *path, const char *mode)
 {
@@ -25,7 +25,7 @@ int32_t ep5_file_write(const void *buffer, uint32_t size, uint32_t count, void *
     file_size += count;
     return (int32_t)count;
 }
-void ep5_file_close(void *file) { assert(file == file_bytes); }
+int32_t ep5_file_close(void *file) { assert(file == file_bytes); return fail_close ? -1 : 0; }
 
 static uint32_t get32(const uint8_t *p)
 { return (uint32_t)p[0] | (uint32_t)p[1] << 8 | (uint32_t)p[2] << 16 | (uint32_t)p[3] << 24; }
@@ -44,6 +44,9 @@ int main(void)
     fail_write = 1;
     assert(ep5_diag_flush() < 0);
     fail_write = 0;
+    fail_close = 1;
+    assert(ep5_diag_flush() == -3);
+    fail_close = 0;
     assert(ep5_diag_flush() == 256 && file_size == 256);
     assert(get32(file_bytes + 4) == 0 && get32(file_bytes + 128 + 4) == 1);
     assert(get32(file_bytes + 128 + 12) == 0xffffffffu);

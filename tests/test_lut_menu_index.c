@@ -74,6 +74,25 @@ int main(void)
         assert(ep5_lut_menu_capture(&menu, &capture));
         assert(capture.picture_mode == 100 && capture.variant == 1);
     }
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_RIGHT) == 1);
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_OK) == 2);
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);
+    assert(ep5_lut_menu_load_index(&io, &menu, 20) == 1);
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(ep5_lut_menu_capture(&menu, &capture));
+        assert(capture.picture_mode == 100 && capture.number == 1 && capture.amount_q8 == 80);
+    }
+    /* A valid replacement index with different content invalidates the
+     * confirmed selection even though its carrier and number match. */
+    put32(20 + 8, 0x12345678);
+    put32(16, crc32(index_bytes + 20, 14 * 28));
+    assert(ep5_lut_menu_load_index(&io, &menu, 21) == 1);
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(!ep5_lut_menu_capture(&menu, &capture));
+    }
+    make_index();
     assert(menu.slots[5].label[0] == 'F' && menu.slots[11].label[0] == 'L');
     put16(20, 999);
     put32(16, crc32(index_bytes + 20, 14 * 28));
