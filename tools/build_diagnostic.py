@@ -16,7 +16,7 @@ import argparse, hashlib, json, struct, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from tools.cave_entry import build_payload, MAIN_SHA256, CAVE, BASE, HOOK, WAIT_HOOK, RELEASE_HOOK, PARAM_HOOK
+from tools.cave_entry import build_diag_payload, MAIN_SHA256, CAVE, BASE, HOOK, WAIT_HOOK, RELEASE_HOOK, PARAM_HOOK
 from tools.film_update import build_update
 from tools.inspect_ep5 import CPU_BASE, check_stock
 
@@ -29,17 +29,18 @@ def build_diagnostic(stock_path: Path, out: Path):
     from external.oly_fw_analysis.tools import oly_container
     main_payload = oly_container.parse(stock)[0].payload
     
-    # Build the cave module (same code, but control will be zeroed)
+    # Build the compile-time observe-only diagnostic module. Pixel/LUT code is
+    # absent from this ELF; control=4 enables only request observation/logging.
     import tempfile
     with tempfile.TemporaryDirectory(dir=ROOT / "build") as tmp:
         module_dir = Path(tmp) / "module"
-        manifest = build_payload(ROOT / "data/ep5-decoded/00_0100_402c0020.decoded.bin", module_dir)
-        payload = (module_dir / "film.bin").read_bytes()
+        manifest = build_diag_payload(ROOT / "data/ep5-decoded/00_0100_402c0020.decoded.bin", module_dir)
+        payload = (module_dir / "diag.bin").read_bytes()
     
-    # Zero the control block inside the payload before installing
+    # Set enabled=4 inside the control block (tag + diagnostic mode).
     ctrl_off = manifest["control_offset"]
     payload_mut = bytearray(payload)
-    payload_mut[ctrl_off:ctrl_off+28] = bytes(28)
+    struct.pack_into("<7I", payload_mut, ctrl_off, 0x43355045, 4, 0, 0, 0, 0, 0)
     payload = bytes(payload_mut)
     
     # Install module into cave region (single edit, no overlap)
@@ -66,17 +67,18 @@ def build_diagnostic(stock_path: Path, out: Path):
         "type": "hardware-diagnostic",
         "firmware_sha256": digest,
         "module_bytes": len(payload),
-        "control": "all-zero (disabled)",
+        "control": "tag=EP5, enabled=4 (observe-only)",
         "pixel_writes": False,
         "art_neutralization": False,
         "sd_loading": False,
-        "purpose": "Verify cave boot residency and hook safety; camera shoots stock.",
+        "diagnostic_log": "EP5LUT/DIAG.LOG (128-byte records)",
+        "purpose": "Capture real JPEG request/buffer contract while stock imaging runs.",
         "manifest": manifest,
     }
     (out / "diagnostic-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"built diagnostic: {digest}")
-    print(f"  module: {len(payload)} bytes, control: ALL ZERO (disabled)")
-    print(f"  no pixel writes, no neutralization, no SD loading")
+    print(f"  module: {len(payload)} bytes, control: tag=EP5 enabled=4")
+    print(f"  no pixel writes, no neutralization, no LUT loading; logs EP5LUT/DIAG.LOG")
     return report
 
 def main():

@@ -10,6 +10,7 @@ _ep5_param_continue = 0x7e3ed83c;
 _ep5_native_file_open = 0x7e291515;
 _ep5_native_file_read = 0x7e2915ea;
 _ep5_native_file_close = 0x7e291557;
+_ep5_native_file_write = 0x7e29159b;
 _ep5_native_pool_alloc = 0x7e40a3fc;
 _ep5_native_pool_free = 0x7e40a4f0;
 SECTIONS

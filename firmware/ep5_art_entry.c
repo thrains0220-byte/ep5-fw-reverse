@@ -1,5 +1,8 @@
 #include "film.h"
 #include "look_store.h"
+#ifdef EP5_DIAG
+#include "diag.h"
+#endif
 
 extern const volatile uint32_t ep5_control[7];
 extern volatile uint32_t ep5_ready[2];
@@ -21,6 +24,7 @@ static uint32_t read32(const uint8_t *p)
     return (uint32_t)read16(p) | (uint32_t)read16(p + 2) << 16;
 }
 
+#ifndef EP5_DIAG
 static const char ep5_mode_rb[] = "rb";
 
 static void *look_open(void *context, const char *path)
@@ -41,6 +45,7 @@ static int look_close(void *context, void *file)
     ep5_file_close(file);
     return 0;
 }
+#endif
 
 static void look_release(void)
 {
@@ -57,6 +62,12 @@ static void look_release(void)
  * the original packet and renders stock; the module never blocks a shot. */
 static void look_prepare(uint8_t *packet, const uint8_t *context)
 {
+#ifdef EP5_DIAG
+    /* Diagnostic build: never load a look, never neutralize the packet.
+     * Excluded at compile time, not merely unreachable at run time. */
+    (void)packet; (void)context;
+    return;
+#else
     const uint8_t *settings;
     const struct ep5_look_io io = {NULL, look_open, look_read, look_close};
     struct ep5_look_cache cache;
@@ -89,6 +100,7 @@ static void look_prepare(uint8_t *packet, const uint8_t *context)
     ep5_look_state[0] = (uintptr_t)cache.active;
     ep5_look_state[1] = (uintptr_t)cache.staging;
     ep5_look_state[2] = selection.amount_q8;
+#endif
 }
 
 /* Stock clears packet geometry before send; mode 3 resolves to full size later. */
@@ -98,6 +110,12 @@ void ep5_param_before_send(uint8_t *packet, const uint8_t *context)
     if (ep5_control[0] != 0x43355045u ||
         packet != (uint8_t *)(uintptr_t)0x605f4510u || !context)
         return;
+#ifdef EP5_DIAG
+    if (ep5_control[1] == 4) {
+        ep5_diag_init();
+        return;
+    }
+#endif
     if (ep5_control[1] == 3) {
         look_prepare(packet, context);
         return;
@@ -122,13 +140,19 @@ void ep5_art_before_release(void)
         ep5_ready[0] = ep5_ready[1] = 0;
     if (ep5_control[0] == 0x43355045u && ep5_control[1] == 3)
         look_release();
+#ifdef EP5_DIAG
+    /* Diagnostic mode: flush observations to SD at the release safe point.
+     * No pixel was written; stock imaging already completed. */
+    if (ep5_control[0] == 0x43355045u && ep5_control[1] == 4)
+        (void)ep5_diag_flush();
+#endif
 }
 
 void ep5_art_after_wait(const void *context, int32_t status, const uint8_t *reply)
 {
     uint32_t buffer;
     if (ep5_control[0] != 0x43355045u ||
-        (ep5_control[1] != 1 && ep5_control[1] != 3))
+        (ep5_control[1] != 1 && ep5_control[1] != 3 && ep5_control[1] != 4))
         return;
     ep5_ready[0] = ep5_ready[1] = 0;
     if (!context || status != 0 || !reply || read16(reply) != 0 ||
@@ -147,6 +171,7 @@ void ep5_art_after_wait(const void *context, int32_t status, const uint8_t *repl
     }
 }
 
+#ifndef EP5_DIAG
 static int range_ok(uint32_t start, uint32_t size, uintptr_t request)
 {
     uint32_t last;
@@ -167,24 +192,43 @@ static int range_ok(uint32_t start, uint32_t size, uintptr_t request)
         return 0;
     return 1;
 }
+#endif
 
 /* Candidate ABI adapter. Control stays disabled until the actual producer,
  * encoding, mapping ownership, cache and scheduling contracts are established. */
 void ep5_art_before_jpeg(const uint8_t *request, const void *context)
 {
+#ifndef EP5_DIAG
     struct ep5_image image;
     uint32_t start, size, address;
     const uint16_t *table;
     unsigned amount;
+#else
+    uint32_t address;
+#endif
     uintptr_t req = (uintptr_t)request;
     if (ep5_control[0] != 0x43355045u || !request || req > UINT32_MAX - 39u ||
-        (ep5_control[1] != 1 && ep5_control[1] != 3))
+        (ep5_control[1] != 1 && ep5_control[1] != 3 && ep5_control[1] != 4))
         return;
     address = read32(request);
+#ifdef EP5_DIAG
+    /* Diagnostic mode: observe the real buffer contract, write nothing.
+     * Qualification still binds to this shot's completion so a stale or
+     * repeated JPEG request cannot log a foreign buffer. */
+    if (ep5_control[1] == 4) {
+        if (ep5_ready[0] == (uintptr_t)context && ep5_ready[1] == address &&
+            context && address) {
+            ep5_ready[0] = ep5_ready[1] = 0;
+            (void)ep5_diag_observe(request, context, address);
+        }
+        return;
+    }
+#endif
     if (ep5_ready[0] != (uintptr_t)context || ep5_ready[1] != address || !context || !address)
         return;
     /* Consume before any pixel write: repeated JPEG requests cannot reapply it. */
     ep5_ready[0] = ep5_ready[1] = 0;
+#ifndef EP5_DIAG
     if (ep5_control[1] == 3) {
         if (!ep5_look_state[2] || !ep5_look_state[0])
             return;
@@ -213,4 +257,7 @@ void ep5_art_before_jpeg(const uint8_t *request, const void *context)
      * cannot leave a partially changed buffer on this synchronous test path. */
     (void)ep5_film_apply(&image, table, EP5_LUT_VALUES,
                          ep5_control[4], amount, NULL, NULL);
+#else
+    (void)req;
+#endif /* !EP5_DIAG */
 }

@@ -107,6 +107,115 @@ def build_payload(image, out):
     return report
 
 
+def build_diag_payload(image, out):
+    """D diagnostic branch: observe-only module, compile-time pixel exclusion.
+
+    Same cave/hooks as build_payload, but sources add diag.c with -DEP5_DIAG
+    and the ep5_diag.ld script (bounded .bss for observation records). The
+    control default is enabled=4 (diagnostic). This is a hardware-diagnostic
+    candidate; it must never be labelled a functional LUT candidate.
+    """
+    data = Path(image).read_bytes()
+    if hashlib.sha256(data).hexdigest() != MAIN_SHA256:
+        raise ValueError('decoded E-P5 main SHA-256 mismatch')
+    if data[CAVE - BASE:END - BASE] != bytes([255]) * (END - CAVE):
+        raise ValueError('code-space candidate is occupied')
+    for addr, old in ((HOOK, bytes.fromhex('cd b3 6f f0 10')),
+                      (WAIT_HOOK, bytes.fromhex('dd 57 a7 00 00 00 14')),
+                      (RELEASE_HOOK, bytes.fromhex('cd 4b b6 00 04')),
+                      (PARAM_HOOK, bytes.fromhex('dd 62 f2 00 00 a0 14'))):
+        if data[addr - BASE:addr - BASE + len(old)] != old:
+            raise ValueError(f'native hook bytes differ at {addr:#x}')
+    out = Path(out)
+    out.mkdir(parents=True, exist_ok=False)
+    elf, binary = out / 'diag.elf', out / 'diag.bin'
+    flags = ['-std=c99', '-Os', '-mno-am33', '-ffreestanding', '-fno-builtin',
+             '-fno-tree-loop-distribute-patterns', '-fno-pic', '-fno-common',
+             '-ffunction-sections', '-fdata-sections', '-Wall', '-Wextra', '-Werror',
+             '-nostdlib', '-Wl,--gc-sections', '-DEP5_DIAG']
+    sources = [ROOT / 'firmware' / n for n in
+               ('ep5_art_entry.S', 'ep5_art_entry.c', 'diag.c')]
+    checked([X / 'mn10300-elf-gcc', *flags, '-I', ROOT / 'firmware', *sources,
+             '-T', ROOT / 'firmware/ep5_diag.ld', '-lgcc', '-o', elf])
+    symbols = {line.split()[-1]: int(line.split()[0], 16) for line in
+               checked([X / 'mn10300-elf-nm', '-n', elf]).splitlines() if len(line.split()) == 3}
+    if symbols.get('_ep5_art_entry') != CAVE:
+        raise ValueError('unexpected module entry')
+    plain = checked([X / 'mn10300-elf-objdump', '-d', '-m', 'mn10300', elf]).splitlines()[3:]
+    extended = checked([X / 'mn10300-elf-objdump', '-d', '-m', 'am33-2', elf]).splitlines()[3:]
+    if plain != extended:
+        raise ValueError('AM33-dependent instructions in module')
+    (out / 'diag.s').write_text('\n'.join(plain) + '\n')
+    # Compile-time exclusion proof: the pixel engine and look loader must be
+    # absent from the diagnostic ELF, not merely unreachable.
+    for banned in ('_ep5_film_apply', '_ep5_look_load', '_ep5_lut_sample16'):
+        if banned in symbols:
+            raise ValueError(f'diagnostic module must not contain {banned}')
+    checked([X / 'mn10300-elf-objcopy', '-O', 'binary', elf, binary])
+    payload = binary.read_bytes()
+    control = symbols['_ep5_control'] - CAVE
+    state_offset = symbols['_ep5_ready_storage'] - CAVE
+    look_state_offset = symbols['_ep5_look_state_storage'] - CAVE
+    if len(payload) > END - CAVE or \
+            struct.unpack_from('<7I', payload, control) != (0x43355045, 0, 0, 0, 0, 0, 0):
+        raise ValueError('unexpected payload layout/defaults')
+    if payload[state_offset:state_offset + 24] != bytes(24):
+        raise ValueError('unexpected qualification state')
+    bss_start = symbols['_ep5_diag_bss_start'] - CAVE
+    bss_end = symbols['_ep5_diag_bss_end'] - CAVE
+    if not (0 < bss_end - bss_start <= 2048):
+        raise ValueError('diagnostic bss out of bounds')
+    # objcopy drops NOBITS .bss; append the 0xFF erase-pattern filler so the
+    # flat boot image covers the record area. ep5_diag_init clears it on the
+    # first param send (magic check), so the filler content is never trusted.
+    if bss_start < len(payload):
+        raise ValueError('bss overlaps loaded payload')
+    payload += b'\xff' * (bss_end - len(payload))
+    binary.write_bytes(payload)
+    patch = b'\xdc' + struct.pack('<I', (CAVE - HOOK) & 0xffffffff)
+    paths = [*sources, ROOT / 'firmware/ep5_diag.ld', ROOT / 'firmware/diag.h',
+             ROOT / 'tools/cave_entry.py']
+    report = dict(entry=hex(CAVE), end_exclusive=hex(CAVE + len(payload)),
+                  payload_bytes=len(payload), cave_bytes=END - CAVE,
+                  spare_bytes=END - CAVE - len(payload),
+                  control_offset=control, control_words=7,
+                  state_offset=state_offset,
+                  look_state_offset=look_state_offset,
+                  bss_offset=bss_start, bss_bytes=bss_end - bss_start,
+                  wait_entry_offset=symbols['_ep5_wait_entry'] - CAVE,
+                  wait_call_offset=symbols['_ep5_wait_call'] - CAVE,
+                  release_entry_offset=symbols['_ep5_release_entry'] - CAVE,
+                  param_entry_offset=symbols['_ep5_param_entry'] - CAVE,
+                  param_call_offset=symbols['_ep5_param_call'] - CAVE,
+                  codec_call_offset=symbols['_ep5_codec_call'] - CAVE,
+                  file_write_offset=symbols['_ep5_file_write'] - CAVE,
+                  diag_observe_offset=symbols['_ep5_diag_observe'] - CAVE,
+                  diag_flush_offset=symbols['_ep5_diag_flush'] - CAVE,
+                  payload_sha256=hashlib.sha256(payload).hexdigest(),
+                  main_sha256=MAIN_SHA256,
+                  compiler=checked([X / 'mn10300-elf-gcc', '--version']).splitlines()[0],
+                  flags=flags, installable=False, default_enabled=False,
+                  diagnostic=True, pixel_write_compiled_out=True,
+                  plain_mn103_instruction_set=True,
+                  patch=dict(cpu_address=hex(HOOK), image_offset=HOOK - BASE,
+                             old='cd b3 6f f0 10', new=patch.hex(' ')),
+                  wait_patch=dict(cpu_address=hex(WAIT_HOOK), image_offset=WAIT_HOOK - BASE,
+                                  old='dd 57 a7 00 00 00 14',
+                                  new=(b'\xdc' + struct.pack('<I', (symbols['_ep5_wait_entry'] - WAIT_HOOK) & 0xffffffff) + b'\xcb\xcb').hex(' ')),
+                  release_patch=dict(cpu_address=hex(RELEASE_HOOK), image_offset=RELEASE_HOOK - BASE,
+                                     old='cd 4b b6 00 04',
+                                     new=(b'\xdc' + struct.pack('<I', (symbols['_ep5_release_entry'] - RELEASE_HOOK) & 0xffffffff)).hex(' ')),
+                  param_patch=dict(cpu_address=hex(PARAM_HOOK), image_offset=PARAM_HOOK - BASE,
+                                   old='dd 62 f2 00 00 a0 14',
+                                   new=(b'\xdc' + struct.pack('<I', (symbols['_ep5_param_entry'] - PARAM_HOOK) & 0xffffffff) + b'\xcb\xcb').hex(' ')),
+                  scope='D diagnostic branch: observe-only JPEG contract logging; '
+                        'no pixel writes, no packet neutralization, stock imaging untouched.',
+                  source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                                 for p in paths})
+    (out / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
+    return report
+
+
 def validate_cave_entry(image):
     image = Path(image).resolve()
     build = ROOT / 'build/cave-entry-check'
@@ -344,6 +453,7 @@ def main():
     parser.add_argument('image', type=Path)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--check', action='store_true', help='write a CPU-model execution report instead of module files')
+    parser.add_argument('--diag', action='store_true', help='build the D diagnostic (observe-only) module')
     args = parser.parse_args()
     if args.check:
         report = validate_cave_entry(args.image)
@@ -351,6 +461,8 @@ def main():
         with args.out.open('x') as f:
             json.dump(report, f, indent=2)
             f.write('\n')
+    elif args.diag:
+        report = build_diag_payload(args.image, args.out)
     else:
         report = build_payload(args.image, args.out)
     print(json.dumps(report, indent=2))

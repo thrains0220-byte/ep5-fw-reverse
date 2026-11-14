@@ -234,6 +234,29 @@ _ep5_file_close:
     mov (28,sp),a3
     add 32,sp
     ret [],0
+    .global _ep5_file_write
+_ep5_file_write:
+    /* Mirrors _ep5_file_read (proven ABI). GCC args: D0=buf, D1=size;
+     * arg3=count at SP+12, arg4=file at SP+16. Stock wants A0=buf, D0=size,
+     * D1=count, A1=file; frame ret [d2,d3,a2,a3],40. */
+    mov (12,sp),a0
+    mov (16,sp),a1
+    add -60,sp
+    mov d2,(40,sp)
+    mov d3,(44,sp)
+    mov a2,(48,sp)
+    mov a3,(52,sp)
+    mov d0,(56,sp)
+    mov d1,d0
+    mov a0,d1
+    mov (56,sp),a0
+    call _ep5_native_file_write,[d2,d3,a2,a3],40
+    mov (40,sp),d2
+    mov (44,sp),d3
+    mov (48,sp),a2
+    mov (52,sp),a3
+    add 60,sp
+    ret [],0
     .global _ep5_pool_alloc
 _ep5_pool_alloc:
     add -52,sp
