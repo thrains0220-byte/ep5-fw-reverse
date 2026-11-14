@@ -27,9 +27,12 @@ class ArtCallbackInventoryTest(unittest.TestCase):
         for name in ("art_enter_state_5", "art_enter_state_6"):
             kinds = {edge["kind"] for edge in callbacks[name]["indirect_calls"]}
             self.assertEqual(kinds, {"object_vtable_slot_0", "object_vtable_slot_8"})
+        self.assertNotIn("0x7eaf1a73", {edge["site"] for edge in callbacks["art_enter_state_6"]["direct_calls"]})
+        self.assertEqual(callbacks["art_enter_state_6"]["indirect_calls"][0]["site"], "0x7eaf1a73")
 
     def test_scope_is_static_and_hash_guarded(self):
         result = inventory(self.image)
+        self.assertEqual(result["temporary_object"]["slot_0"], "0x7eb1e11d")
         self.assertFalse(result["camera_accessed"])
         self.assertFalse(result["firmware_created"])
         changed = bytearray(self.image)

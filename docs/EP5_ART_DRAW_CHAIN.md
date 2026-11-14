@@ -48,6 +48,16 @@ python tools/inspect_art_draw_chain.py --out build/art-draw-chain.json
 进一步恢复。工具输出明确保持 `camera_accessed=false`、
 `firmware_created=false`。
 
+校正：第 6 列 `0x7eaf1a73` 是间接 `calls (a1)`，不是直接调用
+`0x7eb1e5b5`；两个间接调用的 site 应记在 `calls` 指令而不是此前的指针装载指令。
+工具现逐条核对原始指令和 PC 相对目标，不再仅凭整包哈希检查手工清单。
+
+进一步从正确偏移读原始表：两个进入回调先分配 4 字节临时对象并将其首字设为
+`0x7edbfa8c`；该表首个指针为 `0x7eb1e11d`，所以临时对象槽 0 的间接调用可连接
+到此分派器，并分别传入 `0x91/0x9d`。分派器随后创建或选择对象并写入
+`0x602c0d1c`。这只建立了进入链中的一条静态边；尚未证明生成对象的类型、绘制
+函数、线程上下文及真实 UI 行为，不能直接把它用作修改固件的入口。
+
 `tools/inspect_art_state_machine.py` 读取以下静态结构：
 
 - descriptor：`0x7edc0284`，11 个状态列、64 个事件行、183 个回调、64 个事件。

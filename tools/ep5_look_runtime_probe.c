@@ -530,7 +530,7 @@ int main(int argc, char **argv)
     direct_backend = atoi(argv[16]);
     const char *card_dir = argv[17];
     unsigned long menu_offset = strtoul(argv[18], &tail, 10);
-    if (*tail || menu_offset + 568u > payload_bytes) return 2;
+    if (*tail || menu_offset + 624u > payload_bytes) return 2;
     /* Optional symbol-driven debug PCs: EP5_DBG="exact,lookread,load,loadret"
      * as hex cave offsets, resolved by the caller from the module symbols. */
     if (getenv("EP5_DBG")) {
@@ -573,12 +573,13 @@ int main(int argc, char **argv)
      * slot points to mode 105/1 and look 1; test the handoff separately. */
     if (!strncmp(scenario, "menu_", 5)) {
         uint8_t *menu = payload + menu_offset;
-        memset(menu, 0, 568);
-        menu[0] = 2; menu[2] = 1;
+        memset(menu, 0, 624);
+        menu[0] = !strcmp(scenario, "menu_closed") ? 0 : 2; menu[2] = 1;
         put16(menu + 6, 1);
         put16(menu + 8, 105); menu[10] = 1; menu[11] = 1;
         put16(menu + 12, !strcmp(scenario, "menu_zero") ? 0 : 128);
         put16(menu + 14, !strcmp(scenario, "menu_stale") ? 2 : 1);
+        put(menu + 16, word(index_data + 28) ^ (!strcmp(scenario, "menu_crc_stale") ? 1u : 0u));
     }
     memcpy(image + (CAVE - BASE), payload, payload_bytes);
     image[HOOK - BASE] = 0xdc; put(image + (HOOK - BASE) + 1, CAVE - HOOK);

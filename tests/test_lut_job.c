@@ -62,6 +62,7 @@ int main(void)
     assert(ep5_look_cache_init(&cache,a,sizeof a,b,sizeof b)==0); have_table=1; max_read=0;
     ep5_lut_job_init(&job); assert(ep5_lut_job_request(&job,&io,&cache,105,2,7)); run(&job,7);
     assert(ep5_lut_job_result(&job,7,&out)==EP5_LUT_JOB_APPLY); assert(out.amount_q8==200 && out.number==2 && out.table==cache.active);
+    assert(out.look_crc == crc32(table_data + 24, TABLE_BYTES));
     assert(max_read<=EP5_LUT_JOB_CHUNK); assert(out.table[0]==0 && out.table[1]==13);
     ep5_lut_job_init(&job); assert(ep5_lut_job_request(&job,&io,&cache,105,2,8));
     assert(ep5_lut_job_step(&job,8)==EP5_LUT_JOB_BUSY); assert(ep5_lut_job_step(&job,9)==EP5_LUT_JOB_BUSY);

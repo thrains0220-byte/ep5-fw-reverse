@@ -6,7 +6,7 @@
 #define EP5_LUT_MENU_SLOTS 14u
 #define EP5_LUT_MENU_LABEL_UNITS 16u
 #define EP5_LUT_MENU_LINE_COUNT (1u + EP5_LUT_MENU_SLOTS + 1u)
-#define EP5_LUT_MENU_STORAGE_BYTES 568u
+#define EP5_LUT_MENU_STORAGE_BYTES 624u
 
 enum ep5_lut_menu_state {
     EP5_LUT_MENU_HIDDEN = 0,
@@ -30,6 +30,7 @@ struct ep5_lut_menu_slot {
     uint8_t configured;
     uint16_t amount_q8;
     uint16_t number;
+    uint32_t look_crc;
     uint16_t label[EP5_LUT_MENU_LABEL_UNITS];
 };
 
@@ -48,6 +49,7 @@ struct ep5_lut_menu_capture {
     uint8_t variant;
     uint16_t amount_q8;
     uint16_t number;
+    uint32_t look_crc;
 };
 
 enum ep5_lut_menu_line_kind {
@@ -82,7 +84,8 @@ int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
 /* Bind a loaded look to the captured menu choice. Zero strength bypasses the
  * effect; a different look number means the card/index changed or is stale. */
 int ep5_lut_menu_amount(const struct ep5_lut_menu_capture *capture,
-                        uint16_t loaded_number, uint16_t *amount_q8);
+                        uint16_t loaded_number, uint32_t loaded_crc,
+                        uint16_t *amount_q8);
 unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
                             struct ep5_lut_menu_line *lines, unsigned capacity);
 

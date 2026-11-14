@@ -3,7 +3,7 @@ import struct
 import tempfile
 import unittest
 
-from tools.cave_entry import build_payload, validate_cave_entry
+from tools.cave_entry import build_payload, validate_cave_entry, validate_look_runtime
 
 ROOT = Path(__file__).resolve().parents[1]
 MAIN = ROOT / 'data/ep5-decoded/00_0100_402c0020.decoded.bin'
@@ -12,6 +12,19 @@ MAIN = ROOT / 'data/ep5-decoded/00_0100_402c0020.decoded.bin'
 @unittest.skipUnless(MAIN.exists() and (ROOT / 'toolchains/mn103/bin/mn10300-elf-gcc').exists(),
                      'requires exact local E-P5 baseline and MN103 compiler')
 class CaveEntryTests(unittest.TestCase):
+    def test_menu_selection_and_stale_lut_in_full_modeled_chain(self):
+        report = validate_look_runtime(MAIN)
+        cases = {case['name']: case for case in report['cases']}
+        self.assertEqual(len(cases), 14)
+        for name in ('menu_half', 'menu_closed'):
+            self.assertTrue(cases[name]['matches_host'])
+            self.assertEqual(cases[name]['neutralized'], 1)
+        for name in ('menu_zero', 'menu_stale', 'menu_crc_stale'):
+            self.assertTrue(cases[name]['matches_host'])
+            self.assertEqual(cases[name]['neutralized'], 0)
+        self.assertFalse(report['installable'])
+        self.assertFalse(report['physical_camera_test'])
+
     def test_linked_cave_module_is_disabled_bounded_and_preserves_outputs(self):
         with tempfile.TemporaryDirectory() as directory:
             out = Path(directory) / 'payload'

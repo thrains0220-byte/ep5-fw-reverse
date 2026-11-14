@@ -379,6 +379,8 @@ def validate_look_runtime(image):
         ('menu_half', dict(amount=256), True, True, 1),
         ('menu_zero', dict(amount=256), True, True, 1),
         ('menu_stale', dict(amount=256), True, True, 1),
+        ('menu_crc_stale', dict(amount=256), True, True, 1),
+        ('menu_closed', dict(amount=256), True, True, 1),
     ]
     cases = []
     with tempfile.TemporaryDirectory(dir=build) as directory:
@@ -409,8 +411,8 @@ def validate_look_runtime(image):
             (directory / 'config').write_bytes(record)
             original = bytearray([0xa5] * 16 + [100, 128, 160, 128] * 40 + [0xa5] * 16)
             (directory / 'pixels').write_bytes(original)
-            expect_apply = name in ('apply', 'half', 'menu_half')
-            if name == 'menu_half':
+            expect_apply = name in ('apply', 'half', 'menu_half', 'menu_closed')
+            if name in ('menu_half', 'menu_closed'):
                 amount = 128
             expected = bytearray(original)
             if expect_apply:

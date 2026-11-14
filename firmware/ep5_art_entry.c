@@ -106,7 +106,7 @@ static void look_prepare(uint8_t *packet, const uint8_t *context)
     }
     if (ep5_look_load(&io, &cache, picture_mode, variant, &selection) != EP5_LOOK_APPLY)
         return;
-    if (menu_selected && !ep5_lut_menu_amount(&capture, selection.number,
+    if (menu_selected && !ep5_lut_menu_amount(&capture, selection.number, selection.look_crc,
                                                &selection.amount_q8))
         return;
     /* Neutral ART list: keep RAW->YC, drop the extra filter and its colours. */

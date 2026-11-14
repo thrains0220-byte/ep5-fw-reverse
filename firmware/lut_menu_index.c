@@ -81,6 +81,7 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
         next[index].configured = 0;
         next[index].amount_q8 = 0;
         next[index].number = 0;
+        next[index].look_crc = 0;
         for (unsigned unit = 0; unit < EP5_LUT_MENU_LABEL_UNITS; ++unit)
             next[index].label[unit] = 0;
     }
@@ -126,6 +127,7 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
             next[target].variant = row[2];
             next[target].amount_q8 = u16(row + 4);
             next[target].number = u16(row + 6);
+            next[target].look_crc = u32(row + 8);
             for (unsigned unit = 0; unit < 8; ++unit)
                 next[target].label[unit] = u16(row + 12 + 2 * unit);
         }

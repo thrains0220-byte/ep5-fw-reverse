@@ -31,7 +31,7 @@ class Cache(c.Structure):
 
 
 class Selection(c.Structure):
-    _fields_ = [("table", c.c_void_p), ("amount", c.c_uint16), ("number", c.c_uint16)]
+    _fields_ = [("table", c.c_void_p), ("amount", c.c_uint16), ("number", c.c_uint16), ("look_crc", c.c_uint32)]
 
 
 def files(slots=(("pin-hole-ii", 171),), table=TABLE):
@@ -121,6 +121,7 @@ class StoreTests(unittest.TestCase):
                 self.assertEqual(self.load(card, s["picture_mode"], s["variant"]), (1,[INDEX, LOOK]))
                 self.assertNotEqual(prev,self.cache.active)
                 self.assertEqual((self.selection.amount,self.selection.number), ((i+1)*13,16))
+                self.assertEqual(self.selection.look_crc, zlib.crc32(TABLE))
                 words = c.cast(self.selection.table, c.POINTER(c.c_uint16))
                 self.assertEqual(words[:N], list(struct.unpack("<"+"H"*N, TABLE)))
 

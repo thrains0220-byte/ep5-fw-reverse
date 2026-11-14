@@ -8,6 +8,7 @@ static void slot(struct ep5_lut_menu_slot *value, unsigned number, unsigned amou
     memset(value, 0, sizeof *value);
     value->configured = 1;
     value->number = (uint16_t)number;
+    value->look_crc = 0x12340000u + number;
     value->amount_q8 = (uint16_t)amount;
     value->label[0] = (uint16_t)('A' + number);
 }
@@ -26,6 +27,13 @@ int main(void)
     assert(menu.state == EP5_LUT_MENU_READY && menu.amount_q8 == 128);
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_DOWN) == 1);
     assert(menu.cursor == 1 && menu.amount_q8 == 192);
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_RIGHT) == 1);
+    {
+        struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
+        assert(ep5_lut_menu_lines(&menu, lines, EP5_LUT_MENU_LINE_COUNT) == EP5_LUT_MENU_LINE_COUNT);
+        assert(lines[2].selected && lines[2].amount_q8 == 208);
+    }
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_LEFT) == 1);
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_OK) == 2);
     assert(menu.applied == 2 && menu.previous == 0);
     {
@@ -34,12 +42,13 @@ int main(void)
         assert(capture.picture_mode == 0 && capture.variant == 0 && capture.amount_q8 == 192);
         {
             uint16_t amount = 999;
-            assert(ep5_lut_menu_amount(&capture, 2, &amount) && amount == 192);
-            assert(!ep5_lut_menu_amount(&capture, 1, &amount));
+            assert(ep5_lut_menu_amount(&capture, 2, 0x12340002u, &amount) && amount == 192);
+            assert(!ep5_lut_menu_amount(&capture, 1, 0x12340002u, &amount));
+            assert(!ep5_lut_menu_amount(&capture, 2, 0x12340003u, &amount));
             capture.amount_q8 = 0;
-            assert(!ep5_lut_menu_amount(&capture, 2, &amount));
+            assert(!ep5_lut_menu_amount(&capture, 2, 0x12340002u, &amount));
             capture.amount_q8 = 257;
-            assert(!ep5_lut_menu_amount(&capture, 2, &amount));
+            assert(!ep5_lut_menu_amount(&capture, 2, 0x12340002u, &amount));
         }
     {
         struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
@@ -50,7 +59,12 @@ int main(void)
     }
     }
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);
-    assert(menu.state == EP5_LUT_MENU_HIDDEN && menu.applied == 0);
+    assert(menu.state == EP5_LUT_MENU_HIDDEN && menu.applied == 2);
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(ep5_lut_menu_capture(&menu, &capture));
+        assert(capture.number == 2 && capture.amount_q8 == 192 && capture.look_crc == 0x12340002u);
+    }
     slot(&slots[0], 1, 128);
     assert(ep5_lut_menu_begin_load(&menu, menu.generation - 1u) == 1);
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);

@@ -22,6 +22,7 @@ void ep5_lut_menu_init(struct ep5_lut_menu *menu)
         menu->slots[index].configured = 0;
         menu->slots[index].amount_q8 = 0;
         menu->slots[index].number = 0;
+        menu->slots[index].look_crc = 0;
         clear_label(menu->slots[index].label);
     }
 }
@@ -95,8 +96,11 @@ int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event)
         return 0;
     if (event == EP5_LUT_MENU_BACK) {
         invalidate_generation(menu);
+        /* Closing a ready menu keeps the confirmed choice for capture.
+         * An incomplete or failed index has no usable selection. */
+        if (menu->state != EP5_LUT_MENU_READY)
+            menu->applied = 0;
         menu->state = EP5_LUT_MENU_HIDDEN;
-        menu->applied = 0;
         return 3;
     }
     if (menu->state == EP5_LUT_MENU_LOADING)
@@ -142,7 +146,7 @@ int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
     if (!menu || !capture)
         return 0;
     before = menu->generation;
-    if (menu->state != EP5_LUT_MENU_READY ||
+    if ((menu->state != EP5_LUT_MENU_READY && menu->state != EP5_LUT_MENU_HIDDEN) ||
         (applied = menu->applied) < 1 || applied > EP5_LUT_MENU_SLOTS)
         return 0;
     slot = &menu->slots[applied - 1];
@@ -152,15 +156,20 @@ int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
     capture->variant = slot->variant;
     capture->amount_q8 = slot->amount_q8;
     capture->number = slot->number;
+    capture->look_crc = slot->look_crc;
     after = menu->generation;
-    return before == after && menu->state == EP5_LUT_MENU_READY && menu->applied == applied;
+    return before == after &&
+        (menu->state == EP5_LUT_MENU_READY || menu->state == EP5_LUT_MENU_HIDDEN) &&
+        menu->applied == applied;
 }
 
 int ep5_lut_menu_amount(const struct ep5_lut_menu_capture *capture,
-                        uint16_t loaded_number, uint16_t *amount_q8)
+                        uint16_t loaded_number, uint32_t loaded_crc,
+                        uint16_t *amount_q8)
 {
     if (!capture || !amount_q8 || !loaded_number || loaded_number > 16 ||
-        capture->number != loaded_number || !capture->amount_q8 ||
+        capture->number != loaded_number || capture->look_crc != loaded_crc ||
+        !capture->amount_q8 ||
         capture->amount_q8 > 256)
         return 0;
     *amount_q8 = capture->amount_q8;
@@ -200,7 +209,7 @@ unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
         struct ep5_lut_menu_line *line = &lines[index + 1];
         line->selected = menu->state == EP5_LUT_MENU_READY && menu->cursor == index;
         line->configured = slot->configured;
-        line->amount_q8 = slot->amount_q8;
+        line->amount_q8 = line->selected ? menu->amount_q8 : slot->amount_q8;
         line->number = slot->number;
         copy_label(line->text, slot->label);
     }

@@ -28,7 +28,7 @@ SECTIONS
     ASSERT(. <= 0x7e130000, "module exceeds the E-P5 cave candidate")
     ASSERT(SIZEOF(.control) == 28, "unexpected control layout")
     ASSERT(SIZEOF(.state) == 24, "unexpected qualification state layout")
-    ASSERT(SIZEOF(.menu) == 568, "unexpected LUT menu layout")
+    ASSERT(SIZEOF(.menu) == 624, "unexpected LUT menu layout")
     ASSERT(SIZEOF(.data) == 0 && SIZEOF(.bss) == 0, "module needs unqualified writable state")
     /DISCARD/ : { *(.comment) *(.note*) *(.eh_frame*) }
 }

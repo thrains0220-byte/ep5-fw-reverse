@@ -22,6 +22,7 @@ struct ep5_look_cache {
 struct ep5_look_selection {
     const uint16_t *table;
     uint16_t amount_q8, number;
+    uint32_t look_crc;
 };
 enum ep5_look_result { EP5_LOOK_BAD=-1, EP5_LOOK_STOCK=0, EP5_LOOK_APPLY=1 };
 

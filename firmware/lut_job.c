@@ -56,7 +56,7 @@ static int label_ok(const uint8_t *p)
 }
 static void finish(struct ep5_lut_job *j, int status)
 {
-    j->result.table = 0; j->result.amount_q8 = j->result.number = 0;
+    j->result.table = 0; j->result.amount_q8 = j->result.number = 0; j->result.look_crc = 0;
     j->status = (uint8_t)status;
     j->state = j->file ? CLEANUP : TERMINAL;
 }
@@ -204,7 +204,8 @@ int ep5_lut_job_step(struct ep5_lut_job *j, uint16_t current_generation)
         uint16_t *old = j->cache->active;
         j->cache->active = j->cache->staging; j->cache->staging = old;
         j->result.table = j->cache->active; j->result.amount_q8 = j->amount;
-        j->result.number = j->number; j->status = EP5_LUT_JOB_APPLY; j->state = TERMINAL;
+        j->result.number = j->number; j->result.look_crc = j->expected_crc;
+        j->status = EP5_LUT_JOB_APPLY; j->state = TERMINAL;
         break;
     }
     default: finish(j, EP5_LUT_JOB_ERROR); break;
@@ -216,7 +217,7 @@ int ep5_lut_job_result(const struct ep5_lut_job *j, uint16_t generation,
                        struct ep5_look_selection *out)
 {
     if (!out) return EP5_LUT_JOB_ERROR;
-    out->table = 0; out->amount_q8 = out->number = 0;
+    out->table = 0; out->amount_q8 = out->number = 0; out->look_crc = 0;
     if (!j) return EP5_LUT_JOB_ERROR;
     if (j->state == CLEANUP || j->status == EP5_LUT_JOB_BUSY) return EP5_LUT_JOB_BUSY;
     if (generation != j->generation) return EP5_LUT_JOB_CANCELLED;

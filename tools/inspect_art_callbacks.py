@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import struct
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 from tools.native_probe import MAIN_SHA256
 
 CPU_BASE = 0x7E101020
+OBJECT_VTABLE = 0x7EDBFA8C
 
 # The source addresses and targets are taken from the bundled MN103 objdump
 # output in build/art-enter-full.txt.  Indirect calls are represented explicitly
@@ -39,8 +41,8 @@ CALLBACKS = {
             {"site": 0x7EAF1A3C, "target": 0x7EB2C69F},
         ],
         "indirect_calls": [
-            {"site": 0x7EAF19EF, "kind": "object_vtable_slot_0"},
-            {"site": 0x7EAF1A10, "kind": "object_vtable_slot_8"},
+            {"site": 0x7EAF19F1, "kind": "object_vtable_slot_0"},
+            {"site": 0x7EAF1A15, "kind": "object_vtable_slot_8"},
         ],
     },
     "art_enter_state_6": {
@@ -51,15 +53,14 @@ CALLBACKS = {
         "direct_calls": [
             {"site": 0x7EAF1A4E, "target": 0x7EB1B07D},
             {"site": 0x7EAF1A57, "target": 0x7E8901F3},
-            {"site": 0x7EAF1A73, "target": 0x7EB1E5B5},
             {"site": 0x7EAF1A79, "target": 0x7EB1EF19},
             {"site": 0x7EAF1A84, "target": 0x7EB1F0D0},
             {"site": 0x7EAF1AB5, "target": 0x7EB2C694},
             {"site": 0x7EAF1ABE, "target": 0x7EB2C69F},
         ],
         "indirect_calls": [
-            {"site": 0x7EAF1A6F, "kind": "object_vtable_slot_0"},
-            {"site": 0x7EAF1A91, "kind": "object_vtable_slot_8"},
+            {"site": 0x7EAF1A73, "kind": "object_vtable_slot_0"},
+            {"site": 0x7EAF1A97, "kind": "object_vtable_slot_8"},
         ],
     },
 }
@@ -74,6 +75,10 @@ def inventory(data: bytes) -> dict:
     if digest != MAIN_SHA256:
         raise ValueError("requires exact decoded E-P5 1.8 MAIN")
 
+    dispatch = struct.unpack_from("<I", data, OBJECT_VTABLE - CPU_BASE)[0]
+    if dispatch != 0x7EB1E11D:
+        raise ValueError("unexpected ART enter helper dispatch target")
+
     callbacks = {}
     for name, spec in CALLBACKS.items():
         if not (_within(spec["start"], data) and _within(spec["end"] - 1, data)):
@@ -81,9 +86,21 @@ def inventory(data: bytes) -> dict:
         for edge in spec["direct_calls"]:
             if not _within(edge["site"], data) or not _within(edge["target"], data):
                 raise ValueError(f"callback edge outside image: {name}")
+            # MN103 direct CALL here is dd + signed little-endian PC-relative
+            # displacement, register mask and frame byte. Validate each edge,
+            # not merely the identity of the entire input image.
+            offset = edge["site"] - CPU_BASE
+            insn = data[offset:offset + 7]
+            if len(insn) != 7 or insn[0] != 0xdd:
+                raise ValueError(f"not a direct call at {edge['site']:#x}")
+            delta = int.from_bytes(insn[1:5], "little", signed=True)
+            if (edge["site"] + delta) & 0xffffffff != edge["target"]:
+                raise ValueError(f"wrong direct target at {edge['site']:#x}")
         for edge in spec["indirect_calls"]:
             if not _within(edge["site"], data):
                 raise ValueError(f"indirect edge outside image: {name}")
+            if data[edge["site"] - CPU_BASE:edge["site"] - CPU_BASE + 2] != b"\xf0\xf1":
+                raise ValueError(f"not an indirect calls at {edge['site']:#x}")
         callbacks[name] = {
             "range": [f"0x{spec['start']:08x}", f"0x{spec['end']:08x}"],
             "event_id": f"0x{spec['event_id']:02x}",
@@ -103,6 +120,12 @@ def inventory(data: bytes) -> dict:
         "camera_accessed": False,
         "firmware_created": False,
         "callbacks": callbacks,
+        "temporary_object": {
+            "allocation_bytes": 4,
+            "vtable": f"0x{OBJECT_VTABLE:08x}",
+            "slot_0": f"0x{dispatch:08x}",
+            "scope": "constructor writes this vtable; slot 0 dispatches the supplied 0x91/0x9d identifier",
+        },
         "open_questions": [
             "object global type and vtable layout",
             "meaning of event IDs 0x91 and 0x9d",

@@ -112,7 +112,7 @@ int ep5_look_load(const struct ep5_look_io *io, struct ep5_look_cache *cache, ui
                   uint8_t v, struct ep5_look_selection *selection)
 {
     if (!selection) return EP5_LOOK_BAD;
-    selection->table=NULL; selection->amount_q8=selection->number=0;
+    selection->table=NULL; selection->amount_q8=selection->number=0; selection->look_crc=0;
     int target=slot(m,v);
     if (target<0) return EP5_LOOK_STOCK;
     if (!io || !io->open || !io->read || !io->close || !cache || !cache->active || !cache->staging)
@@ -132,5 +132,6 @@ int ep5_look_load(const struct ep5_look_io *io, struct ep5_look_cache *cache, ui
     uint16_t *old=cache->active;
     cache->active=cache->staging; cache->staging=old;
     selection->table=cache->active; selection->number=w.number; selection->amount_q8=w.amount;
+    selection->look_crc=w.crc;
     return EP5_LOOK_APPLY;
 }
