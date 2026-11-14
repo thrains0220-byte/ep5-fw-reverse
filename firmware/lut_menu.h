@@ -75,8 +75,14 @@ int ep5_lut_menu_begin_load(struct ep5_lut_menu *menu, uint16_t generation);
 int ep5_lut_menu_publish(struct ep5_lut_menu *menu, uint16_t generation,
                          const struct ep5_lut_menu_slot *slots);
 int ep5_lut_menu_fail(struct ep5_lut_menu *menu, uint16_t generation);
+/* Caller must serialize all readers and writers; volatile and generation
+ * checks do not provide atomicity, memory barriers or cross-task ownership. */
 int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
                          struct ep5_lut_menu_capture *capture);
+/* Bind a loaded look to the captured menu choice. Zero strength bypasses the
+ * effect; a different look number means the card/index changed or is stale. */
+int ep5_lut_menu_amount(const struct ep5_lut_menu_capture *capture,
+                        uint16_t loaded_number, uint16_t *amount_q8);
 unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
                             struct ep5_lut_menu_line *lines, unsigned capacity);
 

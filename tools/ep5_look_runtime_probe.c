@@ -493,7 +493,7 @@ static void reset_regs(void)
 
 int main(int argc, char **argv)
 {
-    if (argc != 18) return 2;
+    if (argc != 19) return 2;
     uint8_t payload[CAVE_BYTES];
     image = malloc(IMAGE_BYTES);
     if (!image || load(argv[1], image, IMAGE_BYTES) != IMAGE_BYTES || load(argv[3], config, 72) != 72) return 2;
@@ -529,6 +529,8 @@ int main(int argc, char **argv)
     const char *scenario = argv[15];
     direct_backend = atoi(argv[16]);
     const char *card_dir = argv[17];
+    unsigned long menu_offset = strtoul(argv[18], &tail, 10);
+    if (*tail || menu_offset + 568u > payload_bytes) return 2;
     /* Optional symbol-driven debug PCs: EP5_DBG="exact,lookread,load,loadret"
      * as hex cave offsets, resolved by the caller from the module symbols. */
     if (getenv("EP5_DBG")) {
@@ -567,6 +569,17 @@ int main(int argc, char **argv)
     if (memcmp(image + (PARAM_HOOK - BASE), expected_param, 7)) return 2;
     for (unsigned i = 0; i < CAVE_BYTES; ++i) if (image[CAVE - BASE + i] != 255) return 2;
     memcpy(payload + control_offset, config, 28);
+    /* Model a completed menu snapshot, not real GUI input. The selected first
+     * slot points to mode 105/1 and look 1; test the handoff separately. */
+    if (!strncmp(scenario, "menu_", 5)) {
+        uint8_t *menu = payload + menu_offset;
+        memset(menu, 0, 568);
+        menu[0] = 2; menu[2] = 1;
+        put16(menu + 6, 1);
+        put16(menu + 8, 105); menu[10] = 1; menu[11] = 1;
+        put16(menu + 12, !strcmp(scenario, "menu_zero") ? 0 : 128);
+        put16(menu + 14, !strcmp(scenario, "menu_stale") ? 2 : 1);
+    }
     memcpy(image + (CAVE - BASE), payload, payload_bytes);
     image[HOOK - BASE] = 0xdc; put(image + (HOOK - BASE) + 1, CAVE - HOOK);
     image[WAIT_HOOK - BASE] = 0xdc; put(image + (WAIT_HOOK - BASE) + 1, CAVE + (uint32_t)wait_entry - WAIT_HOOK);

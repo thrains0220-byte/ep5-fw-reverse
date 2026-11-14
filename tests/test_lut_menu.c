@@ -32,6 +32,15 @@ int main(void)
         struct ep5_lut_menu_capture capture;
         assert(ep5_lut_menu_capture(&menu, &capture) == 1);
         assert(capture.picture_mode == 0 && capture.variant == 0 && capture.amount_q8 == 192);
+        {
+            uint16_t amount = 999;
+            assert(ep5_lut_menu_amount(&capture, 2, &amount) && amount == 192);
+            assert(!ep5_lut_menu_amount(&capture, 1, &amount));
+            capture.amount_q8 = 0;
+            assert(!ep5_lut_menu_amount(&capture, 2, &amount));
+            capture.amount_q8 = 257;
+            assert(!ep5_lut_menu_amount(&capture, 2, &amount));
+        }
     {
         struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
         assert(ep5_lut_menu_lines(&menu, lines, EP5_LUT_MENU_LINE_COUNT) == EP5_LUT_MENU_LINE_COUNT);

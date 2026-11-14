@@ -183,6 +183,12 @@ class StoreTests(unittest.TestCase):
         self.assertEqual(self.load(files(), 1, 1), (0,[]))
         self.assertEqual(self.cache.active,old)
 
+    def test_invalid_pinhole_variants_do_not_alias_adjacent_slots(self):
+        card = files([("grainy-film-i", 256), ("diorama-i", 256)])
+        for variant in (0, 4, 255):
+            with self.subTest(variant=variant):
+                self.assertEqual(self.load(card, 105, variant), (0, []))
+
     def test_cache_requires_two_disjoint_aligned_tables(self):
         a,b=c.addressof(self.a)+2,c.addressof(self.b)+2
         for args in [(a,2*N-2,b,2*N),(a,2*N,b,2*N-2),(a,2*N,a+2,2*N),

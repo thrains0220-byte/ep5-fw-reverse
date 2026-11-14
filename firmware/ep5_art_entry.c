@@ -96,11 +96,18 @@ static void look_prepare(uint8_t *packet, const uint8_t *context)
     uint16_t picture_mode = settings[17471];
     uint8_t variant = settings[18147];
     struct ep5_lut_menu_capture capture;
-    if (ep5_lut_menu_capture(&ep5_lut_menu_storage, &capture)) {
+    int menu_selected = ep5_lut_menu_capture(&ep5_lut_menu_storage, &capture);
+    if (menu_selected) {
+        /* Bypass before packet modification if the user selected zero. */
+        if (!capture.amount_q8)
+            return;
         picture_mode = capture.picture_mode;
         variant = capture.variant;
     }
     if (ep5_look_load(&io, &cache, picture_mode, variant, &selection) != EP5_LOOK_APPLY)
+        return;
+    if (menu_selected && !ep5_lut_menu_amount(&capture, selection.number,
+                                               &selection.amount_q8))
         return;
     /* Neutral ART list: keep RAW->YC, drop the extra filter and its colours. */
     packet[6] = packet[7] = 0;

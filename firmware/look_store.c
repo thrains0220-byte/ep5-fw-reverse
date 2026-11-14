@@ -20,7 +20,9 @@ __attribute__((noinline)) static uint32_t crc_step(uint32_t c, const uint8_t *p,
 }
 static int slot(uint16_t m, uint8_t v)
 {
-    if (v != 1 && m != 105) return -1;
+    if (m == 105) {
+        if (v < 1 || v > 3) return -1;
+    } else if (v != 1) return -1;
     switch (m) {
     case 100: return 0;  /* Pop Art I */
     case 101: return 1;  /* Soft Focus I */

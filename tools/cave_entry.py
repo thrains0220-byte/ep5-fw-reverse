@@ -376,6 +376,9 @@ def validate_look_runtime(image):
         ('zero_amount', dict(amount=0), True, True, 1),
         ('pool_fail', dict(amount=256), True, True, 1),
         ('wrong_slot', dict(amount=256, slot='pin-hole-ii'), True, True, 1),
+        ('menu_half', dict(amount=256), True, True, 1),
+        ('menu_zero', dict(amount=256), True, True, 1),
+        ('menu_stale', dict(amount=256), True, True, 1),
     ]
     cases = []
     with tempfile.TemporaryDirectory(dir=build) as directory:
@@ -406,7 +409,9 @@ def validate_look_runtime(image):
             (directory / 'config').write_bytes(record)
             original = bytearray([0xa5] * 16 + [100, 128, 160, 128] * 40 + [0xa5] * 16)
             (directory / 'pixels').write_bytes(original)
-            expect_apply = name in ('apply', 'half')
+            expect_apply = name in ('apply', 'half', 'menu_half')
+            if name == 'menu_half':
+                amount = 128
             expected = bytearray(original)
             if expect_apply:
                 array = (ctypes.c_uint8 * len(expected)).from_buffer(expected)
@@ -421,7 +426,8 @@ def validate_look_runtime(image):
                                          manifest['state_offset'], manifest['wait_entry_offset'],
                                          manifest['wait_call_offset'], manifest['release_entry_offset'],
                                          manifest['param_entry_offset'], manifest['param_call_offset'],
-                                         manifest['look_state_offset'], name, direct, cdir]))
+                                         manifest['look_state_offset'], name, direct, cdir,
+                                         manifest['lut_menu_offset']]))
             output = (directory / 'output').read_bytes()
             if output != expected or output[:16] != original[:16] or output[-16:] != original[-16:]:
                 raise AssertionError(f'look runtime pixel/guard mismatch: {name}')

@@ -156,6 +156,17 @@ int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
     return before == after && menu->state == EP5_LUT_MENU_READY && menu->applied == applied;
 }
 
+int ep5_lut_menu_amount(const struct ep5_lut_menu_capture *capture,
+                        uint16_t loaded_number, uint16_t *amount_q8)
+{
+    if (!capture || !amount_q8 || !loaded_number || loaded_number > 16 ||
+        capture->number != loaded_number || !capture->amount_q8 ||
+        capture->amount_q8 > 256)
+        return 0;
+    *amount_q8 = capture->amount_q8;
+    return 1;
+}
+
 static void copy_label(uint16_t *destination, const volatile uint16_t *source)
 {
     for (unsigned index = 0; index < EP5_LUT_MENU_LABEL_UNITS; ++index)

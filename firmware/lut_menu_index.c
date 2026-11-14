@@ -69,7 +69,7 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
 {
     struct ep5_lut_menu_slot next[EP5_LUT_MENU_SLOTS];
     uint8_t header[INDEX_HEADER], row[INDEX_ROW];
-    uint32_t crc = 0xffffffffu;
+    uint32_t crc = 0xffffffffu, number_seen = 0, look_crc[16];
     uint32_t expected_crc;
     void *file;
     unsigned count;
@@ -108,11 +108,22 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
             u16(row + 6) > 16 || !label_ok(row + 12)) {
             (void)io->close(io->ctx, file); (void)ep5_lut_menu_fail(menu, generation); return 0;
         }
+        {
+            unsigned number = u16(row + 6) - 1u;
+            uint32_t bit = 1u << number, expected = u32(row + 8);
+            if ((number_seen & bit) && look_crc[number] != expected) {
+                (void)io->close(io->ctx, file); (void)ep5_lut_menu_fail(menu, generation); return 0;
+            }
+            number_seen |= bit;
+            look_crc[number] = expected;
+        }
         if (target >= 0) {
             if (next[target].configured) {
                 (void)io->close(io->ctx, file); (void)ep5_lut_menu_fail(menu, generation); return 0;
             }
             next[target].configured = 1;
+            next[target].picture_mode = u16(row);
+            next[target].variant = row[2];
             next[target].amount_q8 = u16(row + 4);
             next[target].number = u16(row + 6);
             for (unsigned unit = 0; unit < 8; ++unit)
@@ -120,7 +131,10 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
         }
     }
     expected_crc = u32(header + 16);
-    if ((crc ^ 0xffffffffu) != expected_crc || !eof(io, file) || io->close(io->ctx, file) != 0) {
+    /* Always close the handle, even if CRC or EOF validation failed. */
+    int valid = (crc ^ 0xffffffffu) == expected_crc && eof(io, file);
+    int closed = io->close(io->ctx, file);
+    if (!valid || closed != 0) {
         (void)ep5_lut_menu_fail(menu, generation); return 0;
     }
     return ep5_lut_menu_publish(menu, generation, next);

@@ -65,10 +65,31 @@ int main(void)
     for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
         assert(menu.slots[index].configured && menu.slots[index].amount_q8 == 64 + index);
     }
+    assert(menu.slots[5].picture_mode == 105 && menu.slots[5].variant == 1);
+    assert(menu.slots[6].picture_mode == 105 && menu.slots[6].variant == 2);
+    assert(menu.slots[13].picture_mode == 120 && menu.slots[13].variant == 1);
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_OK) == 2);
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(ep5_lut_menu_capture(&menu, &capture));
+        assert(capture.picture_mode == 100 && capture.variant == 1);
+    }
     assert(menu.slots[5].label[0] == 'F' && menu.slots[11].label[0] == 'L');
     put16(20, 999);
     put32(16, crc32(index_bytes + 20, 14 * 28));
     assert(ep5_lut_menu_load_index(&io, &menu, 8) == 0 && menu.state == EP5_LUT_MENU_ERROR);
+    make_index();
+    index_bytes[16] ^= 1;
+    {
+        int before = close_count;
+        assert(ep5_lut_menu_load_index(&io, &menu, 9) == 0);
+        assert(close_count == before + 1);
+    }
+    make_index();
+    put16(20 + 28 + 6, 1); /* same look number as first row, conflicting CRC */
+    put32(20 + 28 + 8, 123);
+    put32(16, crc32(index_bytes + 20, 14 * 28));
+    assert(ep5_lut_menu_load_index(&io, &menu, 10) == 0 && menu.state == EP5_LUT_MENU_ERROR);
     make_index();
     index_bytes[20 + 2] = 4;
     put32(16, crc32(index_bytes + 20, 14 * 28));
