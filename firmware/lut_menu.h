@@ -49,6 +49,22 @@ struct ep5_lut_menu_capture {
     uint16_t number;
 };
 
+enum ep5_lut_menu_line_kind {
+    EP5_LUT_MENU_LINE_TITLE = 0,
+    EP5_LUT_MENU_LINE_SLOT = 1,
+    EP5_LUT_MENU_LINE_STATUS = 2,
+};
+
+struct ep5_lut_menu_line {
+    uint8_t kind;
+    uint8_t selected;
+    uint8_t configured;
+    uint8_t reserved;
+    uint16_t amount_q8;
+    uint16_t number;
+    uint16_t text[EP5_LUT_MENU_LABEL_UNITS];
+};
+
 typedef char ep5_lut_menu_storage_size_check[
     (sizeof(struct ep5_lut_menu) == EP5_LUT_MENU_STORAGE_BYTES) ? 1 : -1];
 
@@ -60,5 +76,7 @@ int ep5_lut_menu_publish(struct ep5_lut_menu *menu, uint16_t generation,
 int ep5_lut_menu_fail(struct ep5_lut_menu *menu, uint16_t generation);
 int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
                          struct ep5_lut_menu_capture *capture);
+unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
+                            struct ep5_lut_menu_line *lines, unsigned capacity);
 
 #endif

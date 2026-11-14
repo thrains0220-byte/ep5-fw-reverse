@@ -94,3 +94,5 @@ wsl --cd /mnt/d/0_Project/01Test/ep5-fw-reverse -e python3 tools/validate_ui_eve
 该核心通过 `tests/test_lut_menu.c`、`tests/test_lut_menu_index.c` 的固定 C 测试。它尚未与 `0x7eab775c` 的真实状态对象、显示绘制、文件前台任务唤醒或 JPEG 钩子连接；因此它是可审阅的机内 UI 逻辑基础，不是刷入即可显示的页面。
 
 当前又把共享状态接入 `ep5_art_entry.S/.c` 的 cave 构建：链接器为菜单结构保留 128 字节并做尺寸断言；拍摄前先读取一个带 generation 前后校验的 `ep5_lut_menu_capture`，只有用户确认的就绪槽位才改变 LUT 的 picture mode/variant，读取不一致时退回相机原厂设置。MN103 cave 构建通过，仍未接入真实 E-P5 绘制或文件任务唤醒，不能据此生成刷机包。
+
+`lut_menu_adapter` 将原厂常见事件值 `0x9004/06/08/0a/0c/0e/12/14/16` 转换到状态核心，并返回原厂控制器约定的“重绘/提交/返回/未处理”结果；显示端只拿复制后的五行数据，不持有共享字符串指针。适配层和 cave 构建已通过，真实状态对象、字体/OSD 绘制仍待定位。

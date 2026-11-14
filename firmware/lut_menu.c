@@ -132,3 +132,51 @@ int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
     after = menu->generation;
     return before == after && menu->state == EP5_LUT_MENU_READY && menu->applied == applied;
 }
+
+static void copy_label(uint16_t *destination, const volatile uint16_t *source)
+{
+    for (unsigned index = 0; index < EP5_LUT_MENU_LABEL_UNITS; ++index)
+        destination[index] = source[index];
+}
+
+unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
+                            struct ep5_lut_menu_line *lines, unsigned capacity)
+{
+    unsigned required = 1u + EP5_LUT_MENU_SLOTS + 1u;
+    if (!menu)
+        return 0;
+    if (!lines || capacity < required)
+        return required;
+    for (unsigned index = 0; index < required; ++index) {
+        lines[index].kind = index == 0 ? EP5_LUT_MENU_LINE_TITLE :
+            (index <= EP5_LUT_MENU_SLOTS ? EP5_LUT_MENU_LINE_SLOT : EP5_LUT_MENU_LINE_STATUS);
+        lines[index].selected = 0;
+        lines[index].configured = 0;
+        lines[index].reserved = 0;
+        lines[index].amount_q8 = 0;
+        lines[index].number = 0;
+        for (unsigned unit = 0; unit < EP5_LUT_MENU_LABEL_UNITS; ++unit)
+            lines[index].text[unit] = 0;
+    }
+    lines[0].text[0] = 'L'; lines[0].text[1] = 'U'; lines[0].text[2] = 'T';
+    lines[0].text[3] = ' '; lines[0].text[4] = 'L'; lines[0].text[5] = 'O';
+    lines[0].text[6] = 'O'; lines[0].text[7] = 'K';
+    for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
+        const volatile struct ep5_lut_menu_slot *slot = &menu->slots[index];
+        struct ep5_lut_menu_line *line = &lines[index + 1];
+        line->selected = menu->state == EP5_LUT_MENU_READY && menu->cursor == index;
+        line->configured = slot->configured;
+        line->amount_q8 = slot->amount_q8;
+        line->number = slot->number;
+        copy_label(line->text, slot->label);
+    }
+    lines[required - 1].text[0] = menu->state == EP5_LUT_MENU_LOADING ? 'L' :
+        (menu->state == EP5_LUT_MENU_ERROR ? 'E' : 'O');
+    lines[required - 1].text[1] = menu->state == EP5_LUT_MENU_LOADING ? 'O' :
+        (menu->state == EP5_LUT_MENU_ERROR ? 'R' : 'K');
+    lines[required - 1].text[2] = menu->state == EP5_LUT_MENU_LOADING ? 'A' :
+        (menu->state == EP5_LUT_MENU_ERROR ? 'R' : ' ');
+    lines[required - 1].text[3] = menu->state == EP5_LUT_MENU_LOADING ? 'D' :
+        (menu->state == EP5_LUT_MENU_ERROR ? '!' : ' ');
+    return required;
+}
