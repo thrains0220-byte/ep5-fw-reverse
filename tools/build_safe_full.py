@@ -37,7 +37,7 @@ def look_by_key(key):
     raise ValueError(f"unknown look {key}")
 
 
-def build_safe(stock):
+def build_safe(stock, looks_override=None):
     check_stock(stock)
     from external.oly_fw_analysis.tools import oly_container
     main_payload = oly_container.parse(stock)[0].payload
@@ -45,9 +45,15 @@ def build_safe(stock):
     # NO effect pointer zeroing. Factory effects preserved (RC2-verified).
     # Per-slot chroma curves + shared mode reroute + CMIO isolation.
     for s in SLOTS:
-        look = look_by_key(s["look"])
-        cb = build_hq_table(look.cb_points)
-        cr = build_hq_table(look.cr_points)
+        if looks_override is not None and s["look"] in looks_override:
+            entry = looks_override[s["look"]]
+            cb = bytes.fromhex(entry["cb_table_hex"])
+            cr = bytes.fromhex(entry["cr_table_hex"])
+            assert len(cb) == 49 and len(cr) == 49, "pair table must be 49 bytes"
+        else:
+            look = look_by_key(s["look"])
+            cb = build_hq_table(look.cb_points)
+            cr = build_hq_table(look.cr_points)
         edits.append((s["pair"] - CPU_BASE, _IDENTITY * 2, cb + cr))
         jt_off = s["jt"] - CPU_BASE
         jt_old = struct.unpack_from("<I", main_payload, jt_off)[0]
@@ -97,11 +103,18 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("stock", type=Path)
     p.add_argument("--out", required=True, type=Path)
+    p.add_argument("--looks", type=Path, default=None,
+                   help="caduceus_looks.json from tools/caduceus_to_ep5.py; "
+                        "overrides per-slot chroma pairs (same safe mechanism)")
     args = p.parse_args()
     if args.out.exists():
         p.exit(1, f"Output already exists: {args.out}\n")
     stock = args.stock.read_bytes()
-    fw = build_safe(stock)
+    looks_override = None
+    if args.looks:
+        entries = json.loads(args.looks.read_text(encoding="utf-8"))
+        looks_override = {e["key"]: e for e in entries}
+    fw = build_safe(stock, looks_override)
     assert len(fw) == SIZE
     digest = hashlib.sha256(fw).hexdigest()
     args.out.mkdir(parents=True)
@@ -109,7 +122,10 @@ def main():
     card.parent.mkdir(parents=True, exist_ok=True)
     card.write_bytes(fw)
     (args.out / "SHA256SUMS").write_text(f"{digest}  {CARD_FILE}\n", encoding="ascii")
-    report = {"slots": [{"look": s["look"], "label": s.get("label_zh")} for s in SLOTS],
+    report = {"slots": [{"look": s["look"], "label": s.get("label_zh"),
+                         "curve_source": ("caduceus:" + (looks_override[s["look"]].get("recipe") or "bw"))
+                         if looks_override and s["look"] in looks_override else "hq-builtin"}
+                        for s in SLOTS],
               "firmware_sha256": digest, "total_slots": 7,
               "effects": "factory-preserved",
               "status": "hardware-functional-candidate"}
