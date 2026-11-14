@@ -20,10 +20,22 @@ __attribute__((noinline)) static uint32_t crc_step(uint32_t c, const uint8_t *p,
 }
 static int slot(uint16_t m, uint8_t v)
 {
-    if (v==1 && m>=100 && m<=109) return (int)m-100;
-    if (m==105 && (v==2 || v==3)) return 8+v;
-    if (v==1 && (m==119 || m==120)) return (int)m-107;
-    return -1;
+    if (v != 1 && m != 105) return -1;
+    switch (m) {
+    case 100: return 0;  /* Pop Art I */
+    case 101: return 1;  /* Soft Focus I */
+    case 102: return 2;  /* Pale & Light I */
+    case 103: return 3;  /* Light Tone I */
+    case 104: return 4;  /* Grainy Film I */
+    case 105: return 5 + (int)v - 1; /* Pin Hole I/II/III */
+    case 106: return 8;  /* Diorama I */
+    case 107: return 9;  /* Cross Process I */
+    case 108: return 10; /* Gentle Sepia I */
+    case 109: return 11; /* Dramatic Tone I */
+    case 119: return 12; /* Key Line I */
+    case 120: return 13; /* Watercolor I */
+    default: return -1;
+    }
 }
 /* Short name is metadata and is never forwarded as an address, format string,
  * path or menu string. Enforce wire structure; desktop owns text normalization. */
