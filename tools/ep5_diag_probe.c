@@ -70,6 +70,7 @@ static uint8_t fwrite_return[8] = {0xdf, 0xf0, 20};
 static uint8_t fclose_return[8] = {0xdf, 0xb0, 16}, fmsg_return[8] = {0xdf, 0xc0, 12};
 
 static uint32_t bridge_call, wait_call, param_call, state_offset, look_state_offset;
+static uint32_t bss_offset, bss_bytes;
 static uint32_t control_offset_global;
 static uint32_t registers_at_hook[8], mdr_at_hook, sp_at_hook, request[10];
 static unsigned hook_count, codec_calls, bridge_count;
@@ -129,7 +130,6 @@ uint8_t *mem_host(uint32_t a, uint32_t n)
     if (within(a, n, POOL, sizeof pool_ram)) return pool_ram + (a - POOL);
     if (within(a, n, POOL_STATUS, sizeof pool_status)) return pool_status + (a - POOL_STATUS);
     if (within(a, n, UNCAVE, CAVE_BYTES)) return image + (CAVE - BASE) + (a - UNCAVE);
-    if (within(a, n, CAVE + 0x800u, 2048u)) return image + (CAVE - BASE) + (a - CAVE);
     return NULL;
 }
 
@@ -151,10 +151,9 @@ void mem_wr(uint32_t a, uint32_t v, int n)
         !within(a, (uint32_t)n, PACKET, sizeof packet) &&
         !within(a, (uint32_t)n, ART_GLOBAL, 4) &&
         !within(a, (uint32_t)n, UNCAVE + state_offset, 24) &&
-        /* Diagnostic observation .bss lives immediately after the payload;
-         * the model maps it as uncached cave RAM. */
-        !within(a, (uint32_t)n, UNCAVE + 0x800u, 2048u) &&
-        !within(a, (uint32_t)n, CAVE + 0x800u, 2048u))
+        /* Bound writable diagnostic state to this build's linker symbols. */
+        !within(a, (uint32_t)n, UNCAVE + bss_offset, bss_bytes) &&
+        !within(a, (uint32_t)n, CAVE + bss_offset, bss_bytes))
         emu_abort(PC, "write outside model %08x", a);
     uint8_t *p = mem_host(a, (uint32_t)n);
     if (within(a, (uint32_t)n, UNCAVE + state_offset, 8)) ++state_writes;
@@ -532,7 +531,7 @@ static void reset_regs(void)
 
 int main(int argc, char **argv)
 {
-    if (argc != 18) return 2;
+    if (argc != 20) return 2;
     uint8_t payload[CAVE_BYTES];
     image = malloc(IMAGE_BYTES);
     if (!image || load(argv[1], image, IMAGE_BYTES) != IMAGE_BYTES || load(argv[3], config, 72) != 72) return 2;
@@ -568,6 +567,12 @@ int main(int argc, char **argv)
     const char *scenario = argv[15];
     direct_backend = atoi(argv[16]);
     const char *card_dir = argv[17];
+    unsigned long bss_start = strtoul(argv[18], &tail, 10);
+    if (*tail || bss_start >= payload_bytes) return 2;
+    unsigned long bss_size = strtoul(argv[19], &tail, 10);
+    if (*tail || !bss_size || bss_size > payload_bytes - bss_start) return 2;
+    bss_offset = (uint32_t)bss_start;
+    bss_bytes = (uint32_t)bss_size;
     /* Scenario switches for the diagnostic matrix. */
     int expect_observe = !strcmp(scenario, "observe") || !strcmp(scenario, "observe_msg") ||
                          !strcmp(scenario, "write_fail");

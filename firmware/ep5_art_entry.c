@@ -141,8 +141,8 @@ void ep5_art_before_release(void)
     if (ep5_control[0] == 0x43355045u && ep5_control[1] == 3)
         look_release();
 #ifdef EP5_DIAG
-    /* Diagnostic mode: flush observations to SD at the release safe point.
-     * No pixel was written; stock imaging already completed. */
+    /* Diagnostic mode: the release hook attempts to flush observations.
+     * Its file-service task context and timing are not hardware verified. */
     if (ep5_control[0] == 0x43355045u && ep5_control[1] == 4)
         (void)ep5_diag_flush();
 #endif

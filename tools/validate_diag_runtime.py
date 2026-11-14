@@ -6,14 +6,15 @@ diagnostic probe with enabled=4 and a minimal synthetic config. Assertions:
   - YUYV pixels and guard bytes remain identical (no LUT write compiled in)
   - ART LUT pool alloc/free stay at zero
   - one 128-byte DIAG record is written through the stock write veneer
-  - record contains the synthetic JPEG request geometry/address/sample
+  - record contains the synthetic JPEG request geometry/address, without
+    dereferencing the buffer or claiming its readability
   - write failure still leaves stock pixels and no leaked state
 
 This proves the diagnostic branch model, not a camera. The resulting module is
 hardware-diagnostic only until a real E-P5 writes DIAG.LOG to its SD card.
 """
 from __future__ import annotations
-import hashlib, json, struct, subprocess, tempfile
+import argparse, hashlib, json, struct, subprocess, tempfile
 from pathlib import Path
 import sys
 
@@ -22,13 +23,13 @@ sys.path.insert(0, str(ROOT))
 BASE = 0x7e101020
 IMAGE = ROOT / "data/ep5-decoded/00_0100_402c0020.decoded.bin"
 
-def run():
+def run(module=None):
     from tools.check_mn103_lut import checked
     from tools.native_probe import build_probe
     build = ROOT / "build/diag-runtime"
     build.mkdir(parents=True, exist_ok=True)
     runner = build_probe(ROOT / "tools/ep5_diag_probe.c", build)
-    module = ROOT / "build/diag-module-01"
+    module = Path(module) if module is not None else ROOT / "build/diag-module-01"
     manifest = json.loads((module / "manifest.json").read_text(encoding="utf-8"))
     # Build a fresh binary to ensure probe and module inputs are current.
     if not (module / "diag.bin").exists():
@@ -62,7 +63,7 @@ def run():
                     str(manifest["wait_call_offset"] if "wait_call_offset" in manifest else 0),
                     str(manifest["release_entry_offset"]), str(manifest["param_entry_offset"]),
                     str(manifest.get("param_call_offset", 0)), str(manifest["look_state_offset"]),
-                    scenario, str(direct), str(card)]
+                    scenario, str(direct), str(card), str(manifest["bss_offset"]), str(manifest["bss_bytes"])]
             # Diagnostic manifest does not expose codec/param-call offsets yet;
             # recover them from the symbol-driven ELF names via nm.
             nm = subprocess.check_output([
@@ -87,11 +88,8 @@ def run():
                 magic, seq, req, addr, width, height, store_w, store_h = struct.unpack_from("<IIIIHHHH", log)
                 if magic != 0x47414944 or (width, height, store_w, store_h) != (4, 20, 4, 20):
                     raise AssertionError("diagnostic record header mismatch")
-                # request+0 points at PIXELS+0x10 in the fixture, so the
-                # first sample is the first YUYV quartet, after the 16-byte
-                # guard prefix.
-                if log[33:49] != pixels[16:32]:
-                    raise AssertionError(f"sample mismatch got={log[33:49].hex()} want={pixels[16:32].hex()}")
+                if log[33:49] != bytes(16) or struct.unpack_from("<I", log, 56)[0] != 0:
+                    raise AssertionError("diagnostic must not sample or claim buffer readability")
                 expected_log = log
             if scenario == "observe_msg" and log != expected_log:
                 raise AssertionError("message backend record differs")
@@ -110,4 +108,6 @@ def run():
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--module", type=Path, help="fresh diagnostic module directory")
+    run(parser.parse_args().module)

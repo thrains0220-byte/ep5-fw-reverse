@@ -36,18 +36,6 @@ static uint16_t rd16(const uint8_t *p)
 static uint32_t rd32(const uint8_t *p)
 { return (uint32_t)rd16(p) | (uint32_t)rd16(p + 2) << 16; }
 
-/* Conservative buffer readability: a plausible RAM alias, not flash/code. */
-static int readable(uint32_t a)
-{
-    uint32_t region = a >> 29;
-    /* 0x6000_0000 (region 3) cached RAM and 0xa000_0000 (region 5) uncached
-     * alias are the SDRAM windows used by the ART pool in the model. Reject
-     * the flash/code region (0x7e1xxxxx) and null. */
-    if (!a) return 0;
-    if (region == 3 || region == 5 || (a >> 28) == 0x1u) return 1;
-    return 0;
-}
-
 int ep5_diag_observe(const uint8_t *request, const void *context, uint32_t global_addr)
 {
     struct ep5_diag_record *r;
@@ -69,13 +57,10 @@ int ep5_diag_observe(const uint8_t *request, const void *context, uint32_t globa
     r->context = (uint32_t)(uintptr_t)context;
     r->fmt_byte36 = request[36];
     r->pool_ptr = ep5_look_state[3];
-    if (readable(buffer)) {
-        const uint8_t *p = (const uint8_t *)(uintptr_t)buffer;
-        for (unsigned i = 0; i < 16; ++i) r->sample[i] = p[i];
-        r->flags = 3;
-    } else {
-        r->flags = 0;
-    }
+    /* A numerical address range cannot prove that 16 bytes are mapped and
+     * readable in this task. Record the pointer, but do not dereference it
+     * until a hardware-backed memory map and ownership contract exist. */
+    r->flags = 0;
     ++record_count;
     return 1;
 }
@@ -129,6 +114,8 @@ int32_t ep5_diag_flush(void)
         total += n;
     }
     ep5_file_close(f);
-    record_count = 0;
+    /* Retain the bounded boot-session snapshot. Each "wb" flush rewrites all
+     * records so a later shot does not discard earlier observations. A failed
+     * write leaves the RAM snapshot available for a later retry. */
     return total;
 }

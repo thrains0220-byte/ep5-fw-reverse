@@ -8,7 +8,7 @@
 - `firmware/lut.c`：17³ RGB16 三线性采样（红轴最快）。
 - `firmware/film.c`：BT.601 全范围 YUYV 成对像素处理，恒等表逐字节不改，强度 0/128/256。
 - `firmware/ep5_art_entry.S/.c`：四个原厂钩子（send/receive/JPEG/release）与 GCC↔MN103 ABI veneer。
-- `tools/validate_look_runtime.py`：复用既有 CPU 模型，原 mode 3 全链路 9/9 已通过。
+- `tools.cave_entry.validate_look_runtime`：复用既有 CPU 模型，原 mode 3 全链路 9/9 已通过。
 
 上游参考：Caduceus 的 17³/颜色引擎数据模型，Canon Soup Engine/M-Film 的卡上风格文件、后台分步处理与资源收尾原则。没有复制第三方固件地址、二进制或商业 LUT 文件。
 
@@ -38,6 +38,8 @@
 两种文件后端日志字节一致，像素输出 SHA 一致。`tests.test_diag_log` 2/2 通过；Windows Caduceus 转换器单测 6/6 通过。WSL 运行 Caduceus 单测因环境没有 NumPy，不计为业务失败；已在 Windows Python 3.11 复跑通过。
 
 ## 诊断候选包
+
+**2026-11-14 后续审查：以下旧包已撤回，不得刷入。** 它的地址可读性判断过宽，并且多次刷新覆盖之前记录。已修正源码并对新模块做离线测试，尚未重新生成候选包；写卡上下文、目录及耗时仍未在真机确认。详见 [日志格式与限制](DIAG_LOG_FORMAT.md)。
 
 - 路径：`build/ep5-diag-card-01/DCOLYMP/E1089999.BIN`
 - SHA-256：`85663965b4337c7b1dfe2cb7c97ae0b75984e0cea9bdafeaeb4a0ecc0740d0f1`
