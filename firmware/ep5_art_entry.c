@@ -1,5 +1,6 @@
 #include "film.h"
 #include "look_store.h"
+#include "lut_menu.h"
 #ifdef EP5_DIAG
 #include "diag.h"
 #endif
@@ -7,6 +8,7 @@
 extern const volatile uint32_t ep5_control[7];
 extern volatile uint32_t ep5_ready[2];
 extern volatile uint32_t ep5_look_state[4];
+extern volatile struct ep5_lut_menu ep5_lut_menu_storage;
 
 extern void *ep5_file_open(const char *path, const char *mode);
 extern int32_t ep5_file_read(void *buffer, uint32_t size, uint32_t count, void *file);
@@ -91,7 +93,14 @@ static void look_prepare(uint8_t *packet, const uint8_t *context)
                             bytes + 2u * EP5_LUT_VALUES,
                             2u * EP5_LUT_VALUES) != EP5_LOOK_STOCK)
         return;
-    if (ep5_look_load(&io, &cache, settings[17471], settings[18147], &selection) != EP5_LOOK_APPLY)
+    uint16_t picture_mode = settings[17471];
+    uint8_t variant = settings[18147];
+    struct ep5_lut_menu_capture capture;
+    if (ep5_lut_menu_capture(&ep5_lut_menu_storage, &capture)) {
+        picture_mode = capture.picture_mode;
+        variant = capture.variant;
+    }
+    if (ep5_look_load(&io, &cache, picture_mode, variant, &selection) != EP5_LOOK_APPLY)
         return;
     /* Neutral ART list: keep RAW->YC, drop the extra filter and its colours. */
     packet[6] = packet[7] = 0;

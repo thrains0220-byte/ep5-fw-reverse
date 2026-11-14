@@ -47,7 +47,8 @@ def build_payload(image, out):
              '-ffunction-sections', '-fdata-sections', '-Wall', '-Wextra', '-Werror',
              '-nostdlib', '-Wl,--gc-sections']
     sources = [ROOT / 'firmware' / n for n in
-               ('ep5_art_entry.S', 'ep5_art_entry.c', 'film.c', 'lut.c', 'look_store.c')]
+               ('ep5_art_entry.S', 'ep5_art_entry.c', 'film.c', 'lut.c', 'look_store.c',
+                'lut_menu.c', 'lut_menu_index.c')]
     checked([X / 'mn10300-elf-gcc', *flags, '-I', ROOT / 'firmware', *sources,
              '-T', ROOT / 'firmware/ep5_art_entry.ld', '-lgcc', '-o', elf])
     symbols = {line.split()[-1]: int(line.split()[0], 16) for line in
@@ -73,13 +74,16 @@ def build_payload(image, out):
         raise ValueError('unexpected qualification state/alias')
     patch = b'\xdc' + struct.pack('<I', (CAVE - HOOK) & 0xffffffff)
     paths = [*sources, ROOT / 'firmware/ep5_art_entry.ld', ROOT / 'firmware/film.h',
-             ROOT / 'firmware/lut.h', ROOT / 'tools/cave_entry.py']
+             ROOT / 'firmware/lut.h', ROOT / 'firmware/lut_menu.h',
+             ROOT / 'firmware/lut_menu_index.h', ROOT / 'tools/cave_entry.py']
     report = dict(entry=hex(CAVE), end_exclusive=hex(CAVE + len(payload)),
                   payload_bytes=len(payload), cave_bytes=END - CAVE, spare_bytes=END - CAVE - len(payload),
                   control_offset=control, control_words=7,
                   state_offset=state_offset, state_uncached_address=hex(symbols['_ep5_ready']),
                   look_state_offset=look_state_offset,
                   look_state_uncached_address=hex(symbols['_ep5_look_state']),
+                  lut_menu_offset=symbols['_ep5_lut_menu_storage'] - CAVE,
+                  lut_menu_uncached_address=hex(symbols['_ep5_lut_menu']),
                   wait_entry_offset=symbols['_ep5_wait_entry'] - CAVE,
                   wait_call_offset=symbols['_ep5_wait_call'] - CAVE,
                   release_entry_offset=symbols['_ep5_release_entry'] - CAVE,

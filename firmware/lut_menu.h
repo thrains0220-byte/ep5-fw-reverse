@@ -5,6 +5,7 @@
 
 #define EP5_LUT_MENU_SLOTS 3u
 #define EP5_LUT_MENU_LABEL_UNITS 16u
+#define EP5_LUT_MENU_STORAGE_BYTES 128u
 
 enum ep5_lut_menu_state {
     EP5_LUT_MENU_HIDDEN = 0,
@@ -41,11 +42,23 @@ struct ep5_lut_menu {
     struct ep5_lut_menu_slot slots[EP5_LUT_MENU_SLOTS];
 };
 
+struct ep5_lut_menu_capture {
+    uint16_t picture_mode;
+    uint8_t variant;
+    uint16_t amount_q8;
+    uint16_t number;
+};
+
+typedef char ep5_lut_menu_storage_size_check[
+    (sizeof(struct ep5_lut_menu) == EP5_LUT_MENU_STORAGE_BYTES) ? 1 : -1];
+
 void ep5_lut_menu_init(struct ep5_lut_menu *menu);
 int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event);
 int ep5_lut_menu_begin_load(struct ep5_lut_menu *menu, uint16_t generation);
 int ep5_lut_menu_publish(struct ep5_lut_menu *menu, uint16_t generation,
                          const struct ep5_lut_menu_slot *slots);
 int ep5_lut_menu_fail(struct ep5_lut_menu *menu, uint16_t generation);
+int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
+                         struct ep5_lut_menu_capture *capture);
 
 #endif

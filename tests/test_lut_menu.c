@@ -28,6 +28,11 @@ int main(void)
     assert(menu.cursor == 1 && menu.amount_q8 == 192);
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_OK) == 2);
     assert(menu.applied == 2 && menu.previous == 0);
+    {
+        struct ep5_lut_menu_capture capture;
+        assert(ep5_lut_menu_capture(&menu, &capture) == 1);
+        assert(capture.picture_mode == 0 && capture.variant == 0 && capture.amount_q8 == 192);
+    }
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);
     assert(menu.state == EP5_LUT_MENU_HIDDEN && menu.applied == 0);
     assert(ep5_lut_menu_begin_load(&menu, 3) == 1);

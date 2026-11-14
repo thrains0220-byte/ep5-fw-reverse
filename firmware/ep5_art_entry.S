@@ -161,6 +161,12 @@ _ep5_ready_storage:
 _ep5_look_state_storage:
     .long 0,0,0,0
 
+    .section .ep5.menu,"aw"
+    .balign 4
+    .global _ep5_lut_menu_storage
+_ep5_lut_menu_storage:
+    .space 128
+
     .section .text
     .global _ep5_file_open
 _ep5_file_open:

@@ -101,8 +101,34 @@ int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event)
             return 1;
         menu->previous = menu->applied;
         menu->applied = (uint8_t)(menu->cursor + 1u);
+        menu->generation = (uint16_t)(menu->generation + 1u);
+        if (!menu->generation)
+            menu->generation = 1;
         return 2;
     default:
         return 0;
     }
+}
+
+int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
+                         struct ep5_lut_menu_capture *capture)
+{
+    uint16_t before, after;
+    uint8_t applied;
+    const volatile struct ep5_lut_menu_slot *slot;
+    if (!menu || !capture)
+        return 0;
+    before = menu->generation;
+    if (menu->state != EP5_LUT_MENU_READY ||
+        (applied = menu->applied) < 1 || applied > EP5_LUT_MENU_SLOTS)
+        return 0;
+    slot = &menu->slots[applied - 1];
+    if (!slot->configured)
+        return 0;
+    capture->picture_mode = slot->picture_mode;
+    capture->variant = slot->variant;
+    capture->amount_q8 = slot->amount_q8;
+    capture->number = slot->number;
+    after = menu->generation;
+    return before == after && menu->state == EP5_LUT_MENU_READY && menu->applied == applied;
 }

@@ -92,3 +92,5 @@ wsl --cd /mnt/d/0_Project/01Test/ep5-fw-reverse -e python3 tools/validate_ui_eve
 `firmware/lut_menu.{h,c}` 实现了一个与原厂回调返回约定相容的最小状态核心：`0=未显示`、`1=加载中`、`2=就绪`、`3=错误`；方向键移动三项，OK 返回提交，返回键返回上层。`firmware/lut_menu_index.{h,c}` 在文件任务提供的 `ep5_look_io` 上读取并校验 `EP5LUT/INDEX.EP5`，只接受针孔 I/II/III 三个目标槽，完成后一次性发布名称、风格编号和强度快照；代号不匹配、短读、坏 CRC、重复槽和非法名称进入错误状态，不污染上一份已发布快照。
 
 该核心通过 `tests/test_lut_menu.c`、`tests/test_lut_menu_index.c` 的固定 C 测试。它尚未与 `0x7eab775c` 的真实状态对象、显示绘制、文件前台任务唤醒或 JPEG 钩子连接；因此它是可审阅的机内 UI 逻辑基础，不是刷入即可显示的页面。
+
+当前又把共享状态接入 `ep5_art_entry.S/.c` 的 cave 构建：链接器为菜单结构保留 128 字节并做尺寸断言；拍摄前先读取一个带 generation 前后校验的 `ep5_lut_menu_capture`，只有用户确认的就绪槽位才改变 LUT 的 picture mode/variant，读取不一致时退回相机原厂设置。MN103 cave 构建通过，仍未接入真实 E-P5 绘制或文件任务唤醒，不能据此生成刷机包。

@@ -21,11 +21,14 @@ SECTIONS
     .state : ALIGN(4) { KEEP(*(.ep5.state)) }
     _ep5_ready = _ep5_ready_storage + 0x40000000;
     _ep5_look_state = _ep5_look_state_storage + 0x40000000;
+    .menu : ALIGN(4) { KEEP(*(.ep5.menu)) }
+    _ep5_lut_menu = _ep5_lut_menu_storage + 0x40000000;
     .data : { *(.data .data.* .sdata .sdata.*) }
     .bss : { *(.bss .bss.* .sbss .sbss.* COMMON) }
     ASSERT(. <= 0x7e130000, "module exceeds the E-P5 cave candidate")
     ASSERT(SIZEOF(.control) == 28, "unexpected control layout")
     ASSERT(SIZEOF(.state) == 24, "unexpected qualification state layout")
+    ASSERT(SIZEOF(.menu) == 128, "unexpected LUT menu layout")
     ASSERT(SIZEOF(.data) == 0 && SIZEOF(.bss) == 0, "module needs unqualified writable state")
     /DISCARD/ : { *(.comment) *(.note*) *(.eh_frame*) }
 }
