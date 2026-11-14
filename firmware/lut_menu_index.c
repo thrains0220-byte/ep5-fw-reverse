@@ -29,7 +29,7 @@ static int label_ok(const uint8_t *label)
     while (count < 8) {
         uint16_t code = u16(label + 2 * count);
         if (!code) break;
-        if (code < 32 || (code >= 127 && code <= 159) ||
+        if (count >= 6 || code < 32 || (code >= 127 && code <= 159) ||
             (code >= 0xd800 && code <= 0xdfff) || code == 0xfffe || code == 0xffff ||
             (!count && code == 32)) return 0;
         last = code;
@@ -42,8 +42,26 @@ static int label_ok(const uint8_t *label)
 }
 static int target_slot(uint16_t mode, uint8_t variant)
 {
-    if (mode != 105 || variant < 1 || variant > 3) return -1;
-    return (int)variant - 1;
+    if (mode == 105) {
+        if (variant < 1 || variant > 3) return -1;
+    } else if (variant != 1) {
+        return -1;
+    }
+    switch (mode) {
+    case 100: return 0;  /* Pop Art I */
+    case 101: return 1;  /* Soft Focus I */
+    case 102: return 2;  /* Pale & Light I */
+    case 103: return 3;  /* Light Tone I */
+    case 104: return 4;  /* Grainy Film I */
+    case 105: return 5 + (int)variant - 1; /* Pin Hole I/II/III */
+    case 106: return 8;  /* Diorama I */
+    case 107: return 9;  /* Cross Process I */
+    case 108: return 10; /* Gentle Sepia I */
+    case 109: return 11; /* Dramatic Tone I */
+    case 119: return 12; /* Key Line I */
+    case 120: return 13; /* Watercolor I */
+    default: return -1;
+    }
 }
 
 int ep5_lut_menu_load_index(const struct ep5_look_io *io,
@@ -58,8 +76,8 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
     if (!io || !io->open || !io->read || !io->close || !menu || !generation)
         return 0;
     for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
-        next[index].picture_mode = 105;
-        next[index].variant = (uint8_t)(index + 1);
+        next[index].picture_mode = 0;
+        next[index].variant = 0;
         next[index].configured = 0;
         next[index].amount_q8 = 0;
         next[index].number = 0;
@@ -86,7 +104,7 @@ int ep5_lut_menu_load_index(const struct ep5_look_io *io,
         }
         crc = crc_step(crc, row, sizeof row);
         target = target_slot(u16(row), row[2]);
-        if (row[3] != 1 || u16(row + 4) > 256 || u16(row + 6) < 1 ||
+        if (target < 0 || row[3] != 1 || u16(row + 4) > 256 || u16(row + 6) < 1 ||
             u16(row + 6) > 16 || !label_ok(row + 12)) {
             (void)io->close(io->ctx, file); (void)ep5_lut_menu_fail(menu, generation); return 0;
         }

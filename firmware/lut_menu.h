@@ -3,9 +3,10 @@
 
 #include <stdint.h>
 
-#define EP5_LUT_MENU_SLOTS 3u
+#define EP5_LUT_MENU_SLOTS 14u
 #define EP5_LUT_MENU_LABEL_UNITS 16u
-#define EP5_LUT_MENU_STORAGE_BYTES 128u
+#define EP5_LUT_MENU_LINE_COUNT (1u + EP5_LUT_MENU_SLOTS + 1u)
+#define EP5_LUT_MENU_STORAGE_BYTES 568u
 
 enum ep5_lut_menu_state {
     EP5_LUT_MENU_HIDDEN = 0,

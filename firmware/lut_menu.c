@@ -72,11 +72,29 @@ static void move_cursor(struct ep5_lut_menu *menu, int step)
     menu->amount_q8 = menu->slots[cursor].amount_q8;
 }
 
+static void adjust_amount(struct ep5_lut_menu *menu, int step)
+{
+    int amount = (int)menu->amount_q8 + step * 16;
+    if (amount < 0)
+        amount = 0;
+    if (amount > 256)
+        amount = 256;
+    menu->amount_q8 = (uint16_t)amount;
+}
+
+static void invalidate_generation(struct ep5_lut_menu *menu)
+{
+    menu->generation = (uint16_t)(menu->generation + 1u);
+    if (!menu->generation)
+        menu->generation = 1;
+}
+
 int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event)
 {
     if (!menu)
         return 0;
     if (event == EP5_LUT_MENU_BACK) {
+        invalidate_generation(menu);
         menu->state = EP5_LUT_MENU_HIDDEN;
         menu->applied = 0;
         return 3;
@@ -89,16 +107,21 @@ int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event)
         return 0;
     switch (event) {
     case EP5_LUT_MENU_UP:
-    case EP5_LUT_MENU_LEFT:
         move_cursor(menu, -1);
         return 1;
     case EP5_LUT_MENU_DOWN:
-    case EP5_LUT_MENU_RIGHT:
         move_cursor(menu, 1);
+        return 1;
+    case EP5_LUT_MENU_LEFT:
+        adjust_amount(menu, -1);
+        return 1;
+    case EP5_LUT_MENU_RIGHT:
+        adjust_amount(menu, 1);
         return 1;
     case EP5_LUT_MENU_OK:
         if (!menu->slots[menu->cursor].configured)
             return 1;
+        menu->slots[menu->cursor].amount_q8 = menu->amount_q8;
         menu->previous = menu->applied;
         menu->applied = (uint8_t)(menu->cursor + 1u);
         menu->generation = (uint16_t)(menu->generation + 1u);
@@ -142,7 +165,7 @@ static void copy_label(uint16_t *destination, const volatile uint16_t *source)
 unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
                             struct ep5_lut_menu_line *lines, unsigned capacity)
 {
-    unsigned required = 1u + EP5_LUT_MENU_SLOTS + 1u;
+    unsigned required = EP5_LUT_MENU_LINE_COUNT;
     if (!menu)
         return 0;
     if (!lines || capacity < required)

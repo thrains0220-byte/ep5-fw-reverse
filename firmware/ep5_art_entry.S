@@ -165,7 +165,7 @@ _ep5_look_state_storage:
     .balign 4
     .global _ep5_lut_menu_storage
 _ep5_lut_menu_storage:
-    .space 128
+    .space 568
 
     .section .text
     .global _ep5_file_open

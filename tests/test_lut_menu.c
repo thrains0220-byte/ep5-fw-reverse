@@ -33,15 +33,19 @@ int main(void)
         assert(ep5_lut_menu_capture(&menu, &capture) == 1);
         assert(capture.picture_mode == 0 && capture.variant == 0 && capture.amount_q8 == 192);
     {
-        struct ep5_lut_menu_line lines[5];
-        assert(ep5_lut_menu_lines(&menu, lines, 5) == 5);
+        struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
+        assert(ep5_lut_menu_lines(&menu, lines, EP5_LUT_MENU_LINE_COUNT) == EP5_LUT_MENU_LINE_COUNT);
         assert(lines[0].kind == EP5_LUT_MENU_LINE_TITLE);
         assert(lines[2].selected && lines[2].amount_q8 == 192);
-        assert(ep5_lut_menu_lines(&menu, 0, 0) == 5);
+        assert(ep5_lut_menu_lines(&menu, 0, 0) == EP5_LUT_MENU_LINE_COUNT);
     }
     }
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);
     assert(menu.state == EP5_LUT_MENU_HIDDEN && menu.applied == 0);
+    slot(&slots[0], 1, 128);
+    assert(ep5_lut_menu_begin_load(&menu, menu.generation - 1u) == 1);
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);
+    assert(ep5_lut_menu_publish(&menu, menu.generation - 1u, slots) == 0);
     assert(ep5_lut_menu_begin_load(&menu, 3) == 1);
     assert(ep5_lut_menu_fail(&menu, 3) == 1 && menu.state == EP5_LUT_MENU_ERROR);
     assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_DOWN) == 1);

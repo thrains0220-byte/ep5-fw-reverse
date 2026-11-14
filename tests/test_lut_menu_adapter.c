@@ -6,7 +6,7 @@ int main(void)
 {
     struct ep5_lut_menu menu;
     struct ep5_lut_menu_slot slots[EP5_LUT_MENU_SLOTS];
-    struct ep5_lut_menu_line lines[5];
+    struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
     ep5_lut_menu_init(&menu);
     for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
         memset(&slots[index], 0, sizeof slots[index]);
@@ -19,8 +19,10 @@ int main(void)
     assert(ep5_lut_menu_begin_load(&menu, 1));
     assert(ep5_lut_menu_publish(&menu, 1, slots));
     assert(ep5_lut_menu_stock_event(&menu, 0x9006) == 1 && menu.cursor == 1);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9008) == 1 && menu.amount_q8 == 113);
+    assert(ep5_lut_menu_stock_event(&menu, 0x900a) == 1 && menu.amount_q8 == 129);
     assert(ep5_lut_menu_stock_event(&menu, 0x900c) == 2 && menu.applied == 2);
-    assert(ep5_lut_menu_display(&menu, lines, 5) == 5);
+    assert(ep5_lut_menu_display(&menu, lines, EP5_LUT_MENU_LINE_COUNT) == EP5_LUT_MENU_LINE_COUNT);
     assert(lines[0].kind == EP5_LUT_MENU_LINE_TITLE && lines[2].selected);
     assert(ep5_lut_menu_stock_event(&menu, 0x9014) == 3);
     assert(menu.state == EP5_LUT_MENU_HIDDEN);
