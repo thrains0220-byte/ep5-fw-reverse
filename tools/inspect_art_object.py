@@ -72,15 +72,48 @@ def extract(data: bytes) -> dict:
         0x7EB29297: bytes.fromhex('98 cd 6d 00 30 0c'),
         0x7EB28C08: bytes.fromhex('fc cc dc 7b df 7e'),
         0x7EB28C5B: bytes.fromhex('f9 00 2c'),
+        # Startup loads this initialized-data segment through its uncached alias.
+        0x7E101198: bytes.fromhex('fc cc e4 b3 5a 7e'),
+        0x7E1011EA: bytes.fromhex('fc dc 00 e0 74 40'),
+        0x7E1011F0: bytes.fromhex('fc dd 40 9b 2a a0'),
+        0x7E1011F6: bytes.fromhex('fc c1 00 10 a7 81'),
+        0x7EAB79D7: bytes.fromhex('fc dc 50 e3 2b 60 2c a8 00'),
+        0x7EAB79E0: bytes.fromhex('dd 20 c1 f5 ff a0 0c'),
     }
     for address, expected_bytes in signatures.items():
         if data[address - BASE:address - BASE + len(expected_bytes)] != expected_bytes:
             raise ValueError(f'unexpected instruction bytes at {address:#x}')
+    table_ram = u32(data, 0x7EAB79D9)
+    flash_source = u32(data, 0x7E1011EC)
+    source = BASE + flash_source - 0x402C0020
+    destination = u32(data, 0x7E1011F2) ^ 0xC0000000
+    length = u32(data, 0x7E10119A) - source
+    table_source = source + table_ram - destination
+    count = struct.unpack_from('<H', data, 0x7EAB79DE - BASE)[0]
+    if not (destination <= table_ram and table_ram + count * 16 <= destination + length):
+        raise ValueError('GUI table outside startup initialized data')
+    slots = []
+    for ident, expected_buffer, expected_size in (
+            (0, 0x606EB274, 12), (15, 0x606EB452, 12), (58, 0x606F1670, 188)):
+        read, update, buffer, size = struct.unpack_from('<IIII', data, table_source + 16 * ident - BASE)
+        if (read, update, buffer, size) != (0, 0, expected_buffer, expected_size):
+            raise ValueError(f'unexpected ART GUI slot {ident}')
+        slots.append({'id': ident, 'read_callback': hex(read), 'update_callback': hex(update),
+                      'buffer': hex(buffer), 'bytes': size})
     return {
         'main_sha256': MAIN_SHA256,
         'scope': 'static tables and instruction bytes; no execution, drawing ABI or camera access',
         'physical_camera_test': False,
         'routes': routes,
+        'gui_service': {
+            'manager_global': '0x602b75b4', 'register': '0x7ea13b00',
+            'read': '0x7ea13b47', 'update': '0x7ea13b5f',
+            'table_ram': hex(table_ram), 'table_source': hex(table_source),
+            'entry_count': count, 'entry_stride': 16, 'art_slots': slots,
+            'initializer': {'flash_source': hex(flash_source), 'main_source': hex(source),
+                            'ram_destination': hex(destination), 'bytes': length},
+            'runtime_table_mutations_tested': False,
+        },
         'art': {
             'identifier': '0x91', 'factory': '0x7eb28b4b',
             'allocation_bytes': 432, 'instance_global': '0x602c132c',

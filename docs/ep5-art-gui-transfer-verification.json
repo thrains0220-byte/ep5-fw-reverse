@@ -1,0 +1,100 @@
+{
+  "result": {
+    "cases": 19,
+    "stock_page_assembly_executed": true,
+    "resource_rows_and_paging_verified": true,
+    "modeled_services": true,
+    "updates_per_case": 3,
+    "stack_and_callee_saved_preserved": true,
+    "stock_gui_transfer_executed": true,
+    "copied_payloads_verified": true,
+    "stock_listener_bits_verified": true,
+    "lock_copy_notify_order_verified": true,
+    "service_contract_cases": [
+      "exact",
+      "oversized",
+      "short",
+      "zero_length",
+      "null_payload",
+      "invalid_id",
+      "lock_failure",
+      "no_manager",
+      "no_notify"
+    ],
+    "read_contract_cases": [
+      "exact",
+      "oversized",
+      "short",
+      "zero_length",
+      "null_payload",
+      "invalid_id",
+      "lock_failure",
+      "no_manager"
+    ]
+  },
+  "main_sha256": "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df",
+  "cpu_revision": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+  "physical_camera_test": false,
+  "scope": "stock ART page assembly, GUI read/update, bounded copy and observer dirty bits in synthetic RAM",
+  "gui_service": {
+    "manager_global": "0x602b75b4",
+    "register": "0x7ea13b00",
+    "read": "0x7ea13b47",
+    "update": "0x7ea13b5f",
+    "table_ram": "0x602be350",
+    "table_source": "0x7e5a3810",
+    "entry_count": 168,
+    "entry_stride": 16,
+    "art_slots": [
+      {
+        "id": 0,
+        "read_callback": "0x0",
+        "update_callback": "0x0",
+        "buffer": "0x606eb274",
+        "bytes": 12
+      },
+      {
+        "id": 15,
+        "read_callback": "0x0",
+        "update_callback": "0x0",
+        "buffer": "0x606eb452",
+        "bytes": 12
+      },
+      {
+        "id": 58,
+        "read_callback": "0x0",
+        "update_callback": "0x0",
+        "buffer": "0x606f1670",
+        "bytes": 188
+      }
+    ],
+    "initializer": {
+      "flash_source": "0x4074e000",
+      "main_source": "0x7e58f000",
+      "ram_destination": "0x602a9b40",
+      "bytes": 115684
+    },
+    "runtime_table_mutations_tested": false
+  },
+  "modeled": [
+    "manager and one observer initialized in synthetic RAM",
+    "three stock payload buffers mapped with guards and synthetic initial contents",
+    "lock/unlock callbacks, final notification, settings and auxiliary service"
+  ],
+  "not_tested": [
+    "OS lock implementation or contention",
+    "notification delivery or rendering",
+    "runtime table mutations or nonzero slot callbacks",
+    "full GUI lifecycle",
+    "text rendering",
+    "physical controls",
+    "task lifetime",
+    "camera screen",
+    "non-default settings"
+  ],
+  "dependencies_sha256": {
+    "tools/ep5_art_render_probe.c": "287b50d241b89a0a8f04cf5113e833770222abaa446b5e58544a37e99a73473c",
+    "tools/validate_art_render_probe.py": "47ec58bbd87e533d3a9b46b8445dc25257805fda6e40a7e52d3d73440ebd8e07",
+    "tools/inspect_art_object.py": "34c8109c609131fcd0d2a13502d36908d3f42ed304aa255c50eb9b32f2aaed48"
+  }
+}

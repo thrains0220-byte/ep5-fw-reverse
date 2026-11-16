@@ -28,6 +28,23 @@ class ArtObjectTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             extract(changed)
 
+    def test_art_gui_payloads_resolve_to_bounded_copy_slots(self):
+        result = extract(self.data)
+        self.assertIn('gui_service', result)
+        gui = result['gui_service']
+        self.assertEqual(gui['table_ram'], '0x602be350')
+        self.assertEqual(gui['table_source'], '0x7e5a3810')
+        self.assertEqual(gui['entry_count'], 168)
+        self.assertEqual(gui['entry_stride'], 16)
+        self.assertEqual(gui['art_slots'], [
+            {'id': 0, 'read_callback': '0x0', 'update_callback': '0x0',
+             'buffer': '0x606eb274', 'bytes': 12},
+            {'id': 15, 'read_callback': '0x0', 'update_callback': '0x0',
+             'buffer': '0x606eb452', 'bytes': 12},
+            {'id': 58, 'read_callback': '0x0', 'update_callback': '0x0',
+             'buffer': '0x606f1670', 'bytes': 188},
+        ])
+
 
 if __name__ == '__main__':
     unittest.main()

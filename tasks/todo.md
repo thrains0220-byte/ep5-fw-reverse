@@ -1,5 +1,32 @@
 # E-P5 LUT 当前主线与历史任务
 
+## 2026-11-16：续接路线 B，原厂 GUI 数据交接
+
+本轮沿 11 月 15 日交接的第一优先级推进，只扩展只读分析与 CPU 探针。
+复用现有 ART 对象清单、页面探针和固定 MAIN；不新增固件入口或依赖。
+
+- [x] 从原厂启动装载参数恢复 GUI 更新表，核对 ART 三项的回调、容量与目标缓冲。
+- [x] 在页面探针中执行原厂读取、更新、复制和观察者标记，检查返回帧与写入边界。
+- [x] 覆盖超长、短数据、空指针、越界编号、锁失败和通知开关，明确模拟桩边界。
+- [x] 运行相关回归与全套检查，更新接手入口并记录 Fujimod 的可借鉴范围。
+
+验证：19 项 ART Python 回归通过；页面/更新/读取共 36 个 CPU 场景通过；
+探针 C 源码通过 `-Wall -Wextra -Werror` 检查；报告源码哈希和 `git diff --check`
+一致。`xvfb-run -a python3 -m unittest discover -s tests -v` 共 187 项，177 项通过、
+10 项跳过（5 项缺可选照片解码依赖、4 项缺原哈希显示反汇编、1 项限 Windows）。
+独立只读审阅交叉核对了原始地址、调用帧、夹具和报告哈希，未发现需要修改的问题；
+没有把真实并发、通知消费、屏幕结果或对象生命周期计为已验证。
+
+首轮全仓的 5 个错误来自忽略目录 `build/research` 缺少资料；已将其
+`caduceus-ep7-main`、`oly_fw_analysis-main` 分别链接到现有固定版本
+`external/caduceus-ep7`（`78dbbc4`）、`external/oly_fw_analysis`（`a61498e`），
+随后相关 6 项与整套测试均通过。没有改写配方、校准值或相关算法以迁就测试。
+
+结论与范围见 [GUI 交接证据](../docs/EP5_ART_DRAW_CHAIN.md)、
+[本轮报告](../docs/ep5-art-gui-transfer-verification.json)和
+[Fujimod 参考](../docs/FUJIMOD_REFERENCE.md)。后续仍需恢复通知消费、文字资源及
+观察者生命周期；这一步不构成真实机内菜单、SD 加载或成片验收。
+
 ## 2026-11-14：机内 LUT 界面与诊断修正
 
 - [x] 分清固定 ART 菜单、卡上元数据和未完成的机内 LUT 界面；制定[机内体验和验收门槛](../docs/CAMERA_LUT_UI_PLAN.md)。
