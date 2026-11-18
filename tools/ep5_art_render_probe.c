@@ -39,6 +39,7 @@
 #define NOTIFY 0x7ea1431cu
 #define GUI_ENQUEUE 0x7ea0b817u
 #define GUI_DEQUEUE 0x7ea0b96au
+#define GUI_PRUNE_TARGET 0x7ea0bb28u
 #define GUI_LOCK 0x7ea0c01du
 #define GUI_UNLOCK 0x7ea0c041u
 #define GUI_SIGNAL 0x7ea0bf8du
@@ -87,6 +88,7 @@ static unsigned reading;
 static unsigned gui_locked, gui_signals, gui_dequeuing, gui_refreshes, gui_refreshing;
 static unsigned gui_view_events, gui_empty_children;
 static unsigned gui_observer_lifecycle, gui_allocations, gui_frees;
+static unsigned gui_pruning;
 static uint8_t expected_dirty[21];
 static uint32_t last_id, last_source, last_size;
 static char order[128];
@@ -134,7 +136,7 @@ void mem_wr(uint32_t a,uint32_t v,int n)
     allowed|=gui_refreshing && (within(a,n,GUI_SNAPSHOT,21) || within(a,n,GUI_LIST+16,4));
     allowed|=gui_observer_lifecycle && (within(a,n,MANAGER+16,8) ||
         within(a,n,NODE,12) || within(a,n,OBSERVER,24) || within(a,n,GUI_SNAPSHOT,21));
-    allowed|=gui_locked && (within(a,n,GUI_RING,32) || within(a,n,GUI_INDEX,4));
+    allowed|=gui_locked && (within(a,n,GUI_RING,gui_pruning ? 64 : 32) || within(a,n,GUI_INDEX,4));
     for(unsigned i=0;i<3;i++) allowed|=within(a,n,slot_buffers[i],slot_sizes[i]);
     if (monitoring && !allowed) {
         ++invalid_write;
@@ -182,6 +184,11 @@ int hle_check(cpu_t *c)
         record('U'); locked=0;
     }
     if(pc==COPY || pc==MARK) {
+        if(pc==COPY && gui_pruning && gui_locked) {
+            if(a!=GUI_RING || c->regs[REG_A0+1]!=GUI_RING+32 || c->regs[REG_D0]!=32)
+                emu_abort(pc,"unexpected queue compaction");
+            return 0;
+        }
         if(!locked) emu_abort(pc,"transfer outside modeled lock");
         record(pc==COPY?'C':'B');
         if(pc==COPY) ++copies;
@@ -214,7 +221,7 @@ int hle_check(cpu_t *c)
         c->regs[REG_D0]=1;
     }
     if(pc==GUI_UNLOCK || pc==GUI_SIGNAL || pc==GUI_CLEAR_SIGNAL) {
-        if(!gui_locked || locked || (pc==GUI_CLEAR_SIGNAL && !gui_dequeuing))
+        if(!gui_locked || locked || (pc==GUI_CLEAR_SIGNAL && !gui_dequeuing && !gui_pruning))
             emu_abort(pc,"unexpected GUI queue signal");
         if(pc==GUI_SIGNAL) ++gui_signals;
         if(pc==GUI_UNLOCK) gui_locked=0;
@@ -315,6 +322,7 @@ static void setup(void)
     gui_locked=gui_signals=gui_dequeuing=gui_refreshes=gui_refreshing=0;
     gui_view_events=gui_empty_children=0;
     gui_observer_lifecycle=gui_allocations=gui_frees=0;
+    gui_pruning=0;
 }
 
 static int execute(uint32_t target, unsigned mask, unsigned frame)
@@ -427,6 +435,45 @@ static int run_observer_lifecycle(void)
         gui_signals==1 && mem_rd(GUI_INDEX,2)==mem_rd(GUI_INDEX+2,2);
 }
 
+static int run_target_prune(void)
+{
+    setup();
+    cpus[0].regs[REG_D0]=58;
+    cpus[0].regs[REG_D0+1]=188;
+    cpus[0].regs[REG_A0]=SOURCE;
+    cpus[0].regs[REG_A0+1]=1;
+    if(!execute(UPDATE,0xa0,16) || !notification_queued_once()) return 0;
+
+    /* Keep a same-code message for a different target behind the old view's
+     * refresh. The stock prune must remove by target and preserve its bytes. */
+    memcpy(gui_ring+32,gui_ring,32);
+    mem_wr(GUI_RING+32+12,GUI_VIEW,4);
+    mem_wr(GUI_RING+32+16,0x11223344,4);
+    mem_wr(GUI_INDEX+2,2,2);
+    uint8_t retained[32];
+    memcpy(retained,gui_ring+32,sizeof retained);
+
+    stopped=emu_stop=0;
+    gui_pruning=1;
+    cpus[0].regs[REG_A0]=GUI_TARGET;
+    if(!execute(GUI_PRUNE_TARGET,0xf0,28) || mem_rd(GUI_INDEX,2)!=0 ||
+       mem_rd(GUI_INDEX+2,2)!=1 || mem_rd(GUI_RING+32,1) ||
+       memcmp(gui_ring,retained,sizeof retained))
+        return 0;
+    gui_pruning=0;
+
+    stopped=emu_stop=0;
+    gui_dequeuing=1;
+    cpus[0].regs[REG_D0]=0;
+    cpus[0].regs[REG_A0]=GUI_MESSAGE;
+    if(!execute(GUI_DEQUEUE,0xf0,20) || cpus[0].regs[REG_D0]!=1 ||
+       memcmp(mem_host(GUI_MESSAGE,28),retained+4,28) ||
+       mem_rd(GUI_INDEX,2)!=mem_rd(GUI_INDEX+2,2))
+        return 0;
+    gui_dequeuing=0;
+    return 1;
+}
+
 static int run(unsigned selection, uint16_t mask)
 {
     setup();
@@ -535,13 +582,14 @@ int main(int argc,char **argv)
     for(unsigned i=0;i<8;i++)
         if(!run_contract(i,1)) { fprintf(stderr,"read contract %s failed; order=%s\n",contract_cases[i].name,order); return 1; }
     if(!run_observer_lifecycle()) { fprintf(stderr,"observer lifecycle failed\n"); return 1; }
+    if(!run_target_prune()) { fprintf(stderr,"target notification prune failed\n"); return 1; }
     printf("{\"cases\":19,\"stock_page_assembly_executed\":true,\"resource_rows_and_paging_verified\":true,"
            "\"modeled_services\":true,\"updates_per_case\":3,\"stack_and_callee_saved_preserved\":true,"
            "\"stock_gui_transfer_executed\":true,\"copied_payloads_verified\":true,\"stock_listener_bits_verified\":true,"
            "\"lock_copy_notify_order_verified\":true,\"stock_notification_queue_verified\":true,"
            "\"stock_notification_dispatch_verified\":true,\"stock_observer_snapshot_verified\":true,"
            "\"stock_base_refresh_verified\":true,\"refresh_cases\":[\"children_and_view\",\"empty_children\"],"
-           "\"stock_observer_lifecycle_verified\":true,"
+           "\"stock_observer_lifecycle_verified\":true,\"stock_target_prune_verified\":true,"
            "\"notification_code\":6400,\"service_contract_cases\":[");
     for(unsigned i=0;i<sizeof contract_cases/sizeof contract_cases[0];i++)
         printf("%s\"%s\"",i?",":"",contract_cases[i].name);

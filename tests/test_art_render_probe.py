@@ -36,6 +36,7 @@ class ArtRenderProbeTests(unittest.TestCase):
         self.assertTrue(result['stock_observer_snapshot_verified'])
         self.assertTrue(result['stock_base_refresh_verified'])
         self.assertTrue(result['stock_observer_lifecycle_verified'])
+        self.assertTrue(result['stock_target_prune_verified'])
         self.assertEqual(result['refresh_cases'], ['children_and_view', 'empty_children'])
         self.assertEqual(result['notification_code'], 0x1900)
 

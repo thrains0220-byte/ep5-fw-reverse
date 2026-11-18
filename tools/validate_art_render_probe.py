@@ -25,14 +25,14 @@ def run_probe():
             raise RuntimeError(f'probe failed ({result.returncode}): {result.stderr}')
     return {'result': json.loads(result.stdout), 'main_sha256': MAIN_SHA256,
             'cpu_revision': REVISION, 'physical_camera_test': False,
-            'scope': 'stock ART page assembly, GUI read/update, notification queue, base refresh and observer lifecycle',
+            'scope': 'stock ART page assembly, GUI read/update, base refresh, observer lifecycle and queue pruning by target',
             'gui_service': gui,
             'modeled': ['manager and observer storage in synthetic RAM, GUI heap allocation and free callbacks',
                         'three stock payload buffers mapped with guards and synthetic initial contents',
                         'lock/unlock, queue signaling and waiting, settings and auxiliary service',
                         'synthetic object collection and concrete view event callbacks'],
             'not_tested': ['OS locks, queue scheduling or contention', 'concrete view event handling or rendering',
-                           'runtime table mutations or nonzero slot callbacks', 'real menu lifecycle or exit with queued events',
+                           'runtime table mutations or nonzero slot callbacks', 'real menu lifecycle or concurrent queue pruning',
                            'text rendering', 'physical controls', 'task lifetime', 'camera screen',
                            'non-default settings'],
             'dependencies_sha256': {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
