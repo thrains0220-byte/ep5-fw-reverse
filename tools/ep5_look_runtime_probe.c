@@ -4,6 +4,7 @@
  * The file service and ART memory pool are modeled backends fed with real
  * desktop pack bytes; no filesystem, ISP, scheduler or camera I/O. */
 #include "emu.h"
+#include "../firmware/lut_job.h"
 
 #define BASE 0x7e101020u
 #define IMAGE_BYTES 15728576u
@@ -40,6 +41,7 @@
 #define CALLER (STACK + 0x100u)
 #define CONTEXT 0x11000000u
 #define SETTINGS (CONTEXT + 0x100u)
+#define PRELOAD_RAM 0x11006000u
 #define PIXELS 0x12000000u
 #define POOL (PIXELS + 0x10000u)
 #define POOL_BYTES 58956u
@@ -54,6 +56,9 @@
 static uint8_t *image, stack_ram[65536], context[0x5000], globals[16];
 static uint8_t pixels[65536], pool_ram[POOL_BYTES], packet[396];
 static uint8_t pool_status[8];
+static uint8_t preload_ram[1024];
+static uint32_t worker_entry;
+static int worker_running;
 static uint32_t pixel_bytes;
 static uint8_t rec_return[8] = {0xdf, 0xa0, 12}, codec_return[8] = {0xdf, 0xf0, 16};
 static uint8_t queue_return[8] = {0xdf, 0xf0, 32}, route_return[8] = {0xdf, 0xc0, 16};
@@ -113,6 +118,8 @@ uint8_t *mem_host(uint32_t a, uint32_t n)
     if (within(a, n, STACK, sizeof stack_ram)) return stack_ram + (a - STACK);
     if (within(a, n, STACK + 0x40000000u, sizeof stack_ram)) return stack_ram + (a - STACK - 0x40000000u);
     if (within(a, n, CONTEXT, sizeof context)) return context + (a - CONTEXT);
+    if (worker_entry && within(a, n, PRELOAD_RAM, sizeof preload_ram))
+        return preload_ram + (a - PRELOAD_RAM);
     /* Only the 4-byte buffer-pointer global: a wider window would alias
      * packet[76..92] and swallow the ART neutralization writes. */
     if (within(a, n, ART_GLOBAL, 4)) return globals + (a - ART_GLOBAL);
@@ -141,6 +148,7 @@ void mem_wr(uint32_t a, uint32_t v, int n)
         !within(a, (uint32_t)n, POOL, sizeof pool_ram) &&
         !within(a, (uint32_t)n, PACKET, sizeof packet) &&
         !within(a, (uint32_t)n, ART_GLOBAL, 4) &&
+        !(worker_entry && within(a, (uint32_t)n, PRELOAD_RAM, sizeof preload_ram)) &&
         !within(a, (uint32_t)n, UNCAVE + state_offset, 24))
         emu_abort(PC, "write outside model %08x", a);
     uint8_t *p = mem_host(a, (uint32_t)n);
@@ -172,6 +180,7 @@ static int path_is(uint32_t a, const char *s)
 /* One file operation, shared by the direct and message backends. */
 static uint32_t file_open(uint32_t path, uint32_t mode)
 {
+    if (worker_entry && !worker_running) emu_abort(PC, "file open outside worker");
     if (live || !path_is(mode, "rb")) {
         fprintf(stderr, "open: live=%d path=%08x mode=%08x modebytes=", live, path, mode);
         for (unsigned i = 0; i < 4; ++i) fprintf(stderr, "%02x ", mem_rd(mode + i, 1));
@@ -192,6 +201,8 @@ static uint32_t file_open(uint32_t path, uint32_t mode)
 }
 static uint32_t file_read(uint32_t dst, uint32_t size, uint32_t count, uint32_t handle)
 {
+    if (worker_entry && (!worker_running || count > EP5_LUT_JOB_CHUNK))
+        emu_abort(PC, "file read outside worker budget");
     if (!live || handle != HANDLE || size != 1) emu_abort(PC, "bad read state");
     ++read_calls;
     const uint8_t *data = live == 1 ? index_data : lut_data;
@@ -204,6 +215,7 @@ static uint32_t file_read(uint32_t dst, uint32_t size, uint32_t count, uint32_t 
 }
 static uint32_t file_close(uint32_t handle)
 {
+    if (worker_entry && !worker_running) emu_abort(PC, "file close outside worker");
     if (!live || handle != HANDLE) emu_abort(PC, "bad close state");
     ++closed; live = 0; return closed == (unsigned)close_fail_at ? (uint32_t)-1 : 0;
 }
@@ -496,9 +508,38 @@ static void reset_regs(void)
     cpus[0].regs[REG_MDR] = 0x13579bdf;
 }
 
+static uint32_t run_worker(unsigned operation)
+{
+    uint8_t caller[8] = {0xdd, 0, 0, 0, 0, 0xb0, 0, 0xcb};
+    put(caller + 1, worker_entry - CALLER);
+    memcpy(stack_ram + (CALLER - STACK), caller, sizeof caller);
+    reset_regs();
+    cpus[0].regs[REG_D0] = operation;
+    int before = opened + read_calls + closed;
+    worker_running = 1;
+    cpu_run(200000, 0);
+    worker_running = 0;
+    if (!reached_stop || cpus[0].regs[REG_SP] != STACK + 0xf000)
+        emu_abort(PC, "preload worker did not return");
+    if (opened + read_calls + closed - before > (operation == 1))
+        emu_abort(PC, "preload tick exceeded one file operation");
+    return cpus[0].regs[REG_D0];
+}
+
+static uint32_t finish_worker(void)
+{
+    for (unsigned i = 0; i < 160; ++i) {
+        uint32_t status = run_worker(1);
+        if (status != EP5_LUT_JOB_BUSY)
+            return status;
+    }
+    emu_abort(PC, "preload job exhausted its step budget");
+    return EP5_LUT_JOB_ERROR;
+}
+
 int main(int argc, char **argv)
 {
-    if (argc != 19) return 2;
+    if (argc != 19 && argc != 20) return 2;
     uint8_t payload[CAVE_BYTES];
     image = malloc(IMAGE_BYTES);
     if (!image || load(argv[1], image, IMAGE_BYTES) != IMAGE_BYTES || load(argv[3], config, 72) != 72) return 2;
@@ -536,6 +577,11 @@ int main(int argc, char **argv)
     const char *card_dir = argv[17];
     unsigned long menu_offset = strtoul(argv[18], &tail, 10);
     if (*tail || menu_offset + 624u > payload_bytes) return 2;
+    if (argc == 20) {
+        unsigned long worker_offset = strtoul(argv[19], &tail, 10);
+        if (*tail || !worker_offset || worker_offset >= payload_bytes) return 2;
+        worker_entry = CAVE + (uint32_t)worker_offset;
+    }
     /* Optional symbol-driven debug PCs: EP5_DBG="exact,lookread,load,loadret"
      * as hex cave offsets, resolved by the caller from the module symbols. */
     if (getenv("EP5_DBG")) {
@@ -578,7 +624,7 @@ int main(int argc, char **argv)
     memcpy(payload + control_offset, config, 28);
     /* Model a completed menu snapshot, not real GUI input. The selected first
      * slot points to mode 105/1 and look 1; test the handoff separately. */
-    if (!strncmp(scenario, "menu_", 5)) {
+    if (worker_entry || !strncmp(scenario, "menu_", 5)) {
         uint8_t *menu = payload + menu_offset;
         memset(menu, 0, 624);
         menu[0] = !strcmp(scenario, "menu_closed") ? 0 : 2; menu[2] = 1;
@@ -623,6 +669,27 @@ int main(int argc, char **argv)
     caller[0] = 0xdd; caller[5] = 0xb0; caller[7] = 0xcb;
     cpus[0].running = 1;
     cpus[0].irq_level = 7;
+
+    uint32_t preload_status = EP5_LUT_JOB_IDLE;
+    if (worker_entry) {
+        if (!run_worker(0)) emu_abort(PC, "preload fixture rejected selection");
+        int load_pending = !strcmp(scenario, "preload_late") ||
+                           !strcmp(scenario, "preload_removed_during_read");
+        preload_status = load_pending ? run_worker(1) : finish_worker();
+        if (!strcmp(scenario, "preload_removed_during_read")) {
+            if (!live || run_worker(1) != EP5_LUT_JOB_BUSY || !read_calls)
+                emu_abort(PC, "no in-progress read to invalidate");
+            run_worker(2);
+            if (finish_worker() != EP5_LUT_JOB_STOCK || live || closed != 1)
+                emu_abort(PC, "unmount did not retire the open handle");
+        }
+        if (!strcmp(scenario, "preload_removed"))
+            run_worker(2);
+        if (!strcmp(scenario, "preload_stale"))
+            put16(image + (CAVE - BASE) + menu_offset + 12, 192);
+    }
+    uint8_t original_packet[sizeof packet];
+    memcpy(original_packet, packet, sizeof packet);
 
     /* ---- phase A: stock send through the param veneer (look_prepare) ---- */
     put(caller + 1, PARAM_HOOK - CALLER);
@@ -677,6 +744,17 @@ int main(int argc, char **argv)
     }
     unsigned neutralized = (mem_rd(PACKET + 6, 2) == 0);
     for (unsigned i = 80; i <= 90 && neutralized; ++i) neutralized &= packet[i] == 0;
+    int packet_unchanged = !memcmp(original_packet, packet, sizeof packet);
+    if (worker_entry) {
+        if (run_worker(3) != neutralized)
+            emu_abort(PC, "shot and LUT ownership disagree");
+        if (!strcmp(scenario, "preload_late") && finish_worker() != EP5_LUT_JOB_APPLY)
+            emu_abort(PC, "late preload failed to publish after shot began");
+        if (!strcmp(scenario, "preload_removed_while_pinned")) {
+            run_worker(2);
+            if (!run_worker(3)) emu_abort(PC, "unmount revoked a table from a running shot");
+        }
+    }
 
     /* The stock ART consumer computes geometry after the send (NATIVE_CONTRACTS:
      * art_com_pass_init writes the six u16 at packet+80 once the size functions
@@ -708,21 +786,24 @@ int main(int argc, char **argv)
     }
 
     /* ---- phase C: JPEG caller through the entry veneer (apply) ---- */
-    put(globals, word(config + 40));
-    put(caller + 1, 0x7e3ed85cu - CALLER);
-    caller[6] = 56;
-    reset_regs();
-    cpu_run(50000000, 0);
-    int preserved = cpus[0].regs[REG_SP] == STACK + 0xf000;
-    const unsigned saved[] = {2, 3, REG_A0 + 2, REG_A0 + 3};
-    for (unsigned i = 0; i < 4; ++i) preserved &= cpus[0].regs[saved[i]] == 0xabcd1000u + saved[i];
-    if (!reached_stop || !preserved || !arguments_preserved || codec_calls != 1 ||
-        bridge_count != 1 || cpus[0].regs[REG_D0] != 0x1234) {
-        fprintf(stderr, "jpeg phase failed stop=%d preserved=%d args=%d codec=%u bridge=%u d0=%x\n",
-                reached_stop, preserved, arguments_preserved, codec_calls, bridge_count, cpus[0].regs[REG_D0]);
-        return 1;
+    uint32_t native_result = 0;
+    if (strcmp(scenario, "preload_cancel")) {
+        put(globals, word(config + 40));
+        put(caller + 1, 0x7e3ed85cu - CALLER);
+        caller[6] = 56;
+        reset_regs();
+        cpu_run(50000000, 0);
+        int preserved = cpus[0].regs[REG_SP] == STACK + 0xf000;
+        const unsigned saved[] = {2, 3, REG_A0 + 2, REG_A0 + 3};
+        for (unsigned i = 0; i < 4; ++i) preserved &= cpus[0].regs[saved[i]] == 0xabcd1000u + saved[i];
+        if (!reached_stop || !preserved || !arguments_preserved || codec_calls != 1 ||
+            bridge_count != 1 || cpus[0].regs[REG_D0] != 0x1234) {
+            fprintf(stderr, "jpeg phase failed stop=%d preserved=%d args=%d codec=%u bridge=%u d0=%x\n",
+                    reached_stop, preserved, arguments_preserved, codec_calls, bridge_count, cpus[0].regs[REG_D0]);
+            return 1;
+        }
+        native_result = cpus[0].regs[REG_D0];
     }
-    uint32_t native_result = cpus[0].regs[REG_D0];
 
     /* ---- phase D: release fragment (look_release returns the pool block) ---- */
     reached_stop = emu_stop = 0;
@@ -739,6 +820,9 @@ int main(int argc, char **argv)
     for (unsigned i = 0; i < 4; ++i)
         if (saved_regs[i] != cpus[0].regs[i < 2 ? i + 2 : i + 4])
             emu_abort(PC, "native release clobbered nonvolatile register");
+    if (worker_entry && (run_worker(3) || pool_allocs || live ||
+        mem_rd(UNCAVE + look_state_offset, 4) || mem_rd(UNCAVE + look_state_offset + 4, 4)))
+        emu_abort(PC, "release leaked a LUT lease, buffer qualification or file handle");
 
     FILE *out = fopen(argv[5], "wb");
     if (!out || fwrite(pixels, 1, pixel_bytes, out) != pixel_bytes || fclose(out)) return 2;
@@ -747,11 +831,13 @@ int main(int argc, char **argv)
            "\"wait_calls\":%u,\"art_result\":%u,\"send_calls\":%u,\"release_calls\":%u,"
            "\"opens\":%d,\"reads\":%d,\"closes\":%d,\"pool_allocs\":%u,\"pool_frees\":%u,"
            "\"pool_balanced\":%s,\"pool_leaked\":%s,\"neutralized\":%u,\"state_writes\":%u,"
+           "\"packet_unchanged\":%s,\"initial_preload_status\":%u,"
            "\"registers_and_stack_preserved\":true,\"native_arguments_preserved\":true,"
            "\"wait_return_preserved\":true,\"instructions\":%llu}\n",
            scenario, direct_backend, codec_calls, native_result, wait_calls, art_result,
            send_calls, release_calls, opened, read_calls, closed, pool_allocs, pool_frees,
            balanced ? "true" : "false", pool_live ? "true" : "false", neutralized, state_writes,
+           packet_unchanged ? "true" : "false", preload_status,
            (unsigned long long)cpus[0].icount);
     free(image);
     return 0;

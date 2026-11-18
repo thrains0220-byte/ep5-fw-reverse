@@ -25,6 +25,23 @@ class CaveEntryTests(unittest.TestCase):
         self.assertFalse(report['installable'])
         self.assertFalse(report['physical_camera_test'])
 
+    def test_mn103_capture_uses_prepublished_look_and_releases_it(self):
+        report = validate_look_runtime(MAIN, model_preload=True)
+        cases = {case['name']: case for case in report['cases']}
+        self.assertEqual(len(cases), 9)
+        self.assertFalse(report['installable'])
+        for name, case in cases.items():
+            self.assertTrue(case['matches_host'], name)
+            self.assertEqual(case['release_calls'], 1, name)
+            self.assertEqual(case['pool_allocs'], 0, name)
+        for name in ('preload_late', 'preload_bad_crc', 'preload_missing_card',
+                     'preload_removed', 'preload_removed_during_read', 'preload_stale'):
+            self.assertTrue(cases[name]['packet_unchanged'], name)
+            self.assertFalse(cases[name]['pixels_changed'], name)
+        self.assertTrue(cases['preload_apply']['pixels_changed'])
+        self.assertTrue(cases['preload_removed_while_pinned']['pixels_changed'])
+        self.assertEqual(cases['preload_cancel']['codec_calls'], 0)
+
     def test_linked_cave_module_is_disabled_bounded_and_preserves_outputs(self):
         with tempfile.TemporaryDirectory() as directory:
             out = Path(directory) / 'payload'
@@ -32,6 +49,7 @@ class CaveEntryTests(unittest.TestCase):
             binary = (out / 'film.bin').read_bytes()
             self.assertLessEqual(len(binary), 32752)
             self.assertFalse(report['installable'])
+            self.assertNotIn('model_worker_offset', report)
             self.assertEqual(report['entry'], '0x7e128010')
             self.assertTrue(report['plain_mn103_instruction_set'])
             self.assertEqual(report['patch']['old'], 'cd b3 6f f0 10')

@@ -15,6 +15,12 @@ extern int32_t ep5_file_read(void *buffer, uint32_t size, uint32_t count, void *
 extern int32_t ep5_file_close(void *file);
 extern int ep5_pool_alloc(uint32_t bytes, void **out);
 extern void ep5_pool_free(void *pointer);
+#ifdef EP5_MODEL_PRELOAD
+/* Provided only by the offline MN103 fixture. */
+extern int ep5_model_acquire(const struct ep5_lut_menu_capture *choice,
+                             struct ep5_look_selection *selection);
+extern void ep5_model_release(void);
+#endif
 
 static uint16_t read16(const uint8_t *p)
 {
@@ -29,7 +35,13 @@ static uint32_t read32(const uint8_t *p)
 #ifndef EP5_DIAG
 static const char ep5_mode_rb[] = "rb";
 
-static void *look_open(void *context, const char *path)
+#ifdef EP5_MODEL_PRELOAD
+#define LOOK_IO_LOCAL
+#else
+#define LOOK_IO_LOCAL static
+#endif
+
+LOOK_IO_LOCAL void *look_open(void *context, const char *path)
 {
     char native_path[sizeof "C:\\EP5LUT\\L0000000.LUT"];
     (void)context;
@@ -44,31 +56,38 @@ static void *look_open(void *context, const char *path)
     return NULL;
 }
 
-static int32_t look_read(void *context, void *file, uint8_t *destination, uint32_t count)
+LOOK_IO_LOCAL int32_t look_read(void *context, void *file, uint8_t *destination, uint32_t count)
 {
     (void)context;
     return ep5_file_read(destination, 1, count, file);
 }
 
-static int look_close(void *context, void *file)
+LOOK_IO_LOCAL int look_close(void *context, void *file)
 {
     (void)context;
     return ep5_file_close(file);
 }
+#undef LOOK_IO_LOCAL
 #endif
 
 static void look_release(void)
 {
+#ifdef EP5_MODEL_PRELOAD
+    ep5_ready[0] = ep5_ready[1] = 0;
+    if (ep5_look_state[0])
+        ep5_model_release();
+#else
     if (ep5_look_state[3]) {
         ep5_pool_free((void *)(uintptr_t)ep5_look_state[3]);
         ep5_look_state[3] = 0;
     }
+#endif
     ep5_look_state[0] = 0;
     ep5_look_state[1] = 0;
     ep5_look_state[2] = 0;
 }
 
-/* Experimental mode 3 loads a look synchronously before the stock send.
+/* The legacy mode 3 experiment loads a look synchronously before stock send.
  * Load failure leaves this packet unchanged, but file I/O has no established
  * deadline and later failures after packet neutralization cannot be called a
  * stock fallback. This path is not approved for camera deployment. */
@@ -81,18 +100,30 @@ static void look_prepare(uint8_t *packet, const uint8_t *context)
     return;
 #else
     const uint8_t *settings;
-    const struct ep5_look_io io = {NULL, look_open, look_read, look_close};
-    struct ep5_look_cache cache;
     struct ep5_look_selection selection;
-    void *block = NULL;
-    uint8_t *bytes;
+#ifdef EP5_MODEL_PRELOAD
+    /* A second send cannot free or replace a table while a shot owns it. */
+    if (ep5_look_state[0])
+        return;
+#else
     look_release();
+#endif
     if (!context)
         return;
     settings = (const uint8_t *)(uintptr_t)read32(context + 84);
     if (!settings || read16(packet) != 1 || read16(packet + 2) != 3 ||
         packet[96] != 1 || packet[157] != 0 || read16(settings + 17442) != 0)
         return;
+#ifdef EP5_MODEL_PRELOAD
+    struct ep5_lut_menu_capture capture;
+    if (!ep5_lut_menu_capture(&ep5_lut_menu_storage, &capture) ||
+        !ep5_model_acquire(&capture, &selection))
+        return;
+#else
+    const struct ep5_look_io io = {NULL, look_open, look_read, look_close};
+    struct ep5_look_cache cache;
+    void *block = NULL;
+    uint8_t *bytes;
     /* One contiguous block guarantees the two tables cannot overlap:
      * exactly two 17^3 RGB16 tables, 58,956 bytes. */
     if (ep5_pool_alloc(2u * EP5_LUT_VALUES * 2u, &block) || !block)
@@ -119,12 +150,17 @@ static void look_prepare(uint8_t *packet, const uint8_t *context)
     if (menu_selected && !ep5_lut_menu_amount(&capture, selection.number, selection.look_crc,
                                                &selection.amount_q8))
         return;
+#endif
     /* Neutral ART list: keep RAW->YC, drop the extra filter and its colours. */
     packet[6] = packet[7] = 0;
     for (unsigned offset = 80; offset <= 90; ++offset)
         packet[offset] = 0;
-    ep5_look_state[0] = (uintptr_t)cache.active;
+    ep5_look_state[0] = (uintptr_t)selection.table;
+#ifdef EP5_MODEL_PRELOAD
+    ep5_look_state[1] = (uintptr_t)context;
+#else
     ep5_look_state[1] = (uintptr_t)cache.staging;
+#endif
     ep5_look_state[2] = selection.amount_q8;
 #endif
 }
@@ -190,6 +226,10 @@ void ep5_art_after_wait(const void *context, int32_t status, const uint8_t *repl
      * or stock fallback never changes pixels. */
     if (ep5_control[1] == 3 && (!ep5_look_state[0] || !ep5_look_state[2]))
         return;
+#ifdef EP5_MODEL_PRELOAD
+    if (ep5_control[1] == 3 && ep5_look_state[1] != (uintptr_t)context)
+        return;
+#endif
     buffer = *(const volatile uint32_t *)(uintptr_t)0x605f455cu;
     if (buffer) {
         ep5_ready[1] = buffer;

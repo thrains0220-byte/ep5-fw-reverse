@@ -21,7 +21,7 @@ RELEASE_HOOK = 0x7e3f2476
 PARAM_HOOK = 0x7e3ed835
 
 
-def build_payload(image, out):
+def build_payload(image, out, *, model_preload=False):
     data = Path(image).read_bytes()
     if hashlib.sha256(data).hexdigest() != MAIN_SHA256:
         raise ValueError('decoded E-P5 main SHA-256 mismatch')
@@ -49,6 +49,10 @@ def build_payload(image, out):
     sources = [ROOT / 'firmware' / n for n in
                ('ep5_art_entry.S', 'ep5_art_entry.c', 'film.c', 'lut.c', 'look_store.c',
                 'lut_menu.c', 'lut_menu_index.c', 'lut_menu_adapter.c')]
+    if model_preload:
+        flags += ['-DEP5_MODEL_PRELOAD', '-Wl,--undefined=_ep5_model_worker']
+        sources += [ROOT / 'tests/fixtures/ep5_capture_preload.c',
+                    ROOT / 'firmware/lut_job.c', ROOT / 'firmware/lut_preload.c']
     checked([X / 'mn10300-elf-gcc', *flags, '-I', ROOT / 'firmware', *sources,
              '-T', ROOT / 'firmware/ep5_art_entry.ld', '-lgcc', '-o', elf])
     symbols = {line.split()[-1]: int(line.split()[0], 16) for line in
@@ -77,6 +81,8 @@ def build_payload(image, out):
              ROOT / 'firmware/lut.h', ROOT / 'firmware/lut_menu.h',
              ROOT / 'firmware/lut_menu_index.h', ROOT / 'firmware/lut_menu_adapter.h',
              ROOT / 'tools/cave_entry.py']
+    if model_preload:
+        paths += [ROOT / 'firmware' / n for n in ('lut_job.h', 'lut_preload.h', 'look_store.h')]
     report = dict(entry=hex(CAVE), end_exclusive=hex(CAVE + len(payload)),
                   payload_bytes=len(payload), cave_bytes=END - CAVE, spare_bytes=END - CAVE - len(payload),
                   control_offset=control, control_words=7,
@@ -109,6 +115,8 @@ def build_payload(image, out):
                   scope='Model-only cave layout and ABI candidate; no firmware container output.',
                   source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
     (out / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n')
+    if model_preload:
+        report['model_worker_offset'] = symbols['_ep5_model_worker'] - CAVE
     return report
 
 
@@ -335,9 +343,8 @@ def validate_param_entry(image):
                                                build / 'isa.inc', runner)})
 
 
-def validate_look_runtime(image):
-    """Mode 3 full chain: stock send/receive/JPEG/release execute the cave
-    veneers and SD look loader against a synthetic card and ART pool backend."""
+def validate_look_runtime(image, *, model_preload=False):
+    """Execute stock ART fragments and the selected LUT path against a model card."""
     import zlib
     from ep5studio.wire import pack_index, pack_lut
     from ep5studio.project import Binding, Project
@@ -384,10 +391,22 @@ def validate_look_runtime(image):
         ('menu_crc_stale', dict(amount=256), True, True, 1),
         ('menu_closed', dict(amount=256), True, True, 1),
     ]
+    if model_preload:
+        specs = [
+            ('preload_apply', {}, True, True, 1),
+            ('preload_late', {}, True, True, 1),
+            ('preload_bad_crc', dict(lut_bytes=corrupt_crc(lut_file)), True, True, 1),
+            ('preload_missing_card', {}, False, False, 1),
+            ('preload_removed', {}, True, True, 1),
+            ('preload_removed_during_read', {}, True, True, 1),
+            ('preload_removed_while_pinned', {}, True, True, 1),
+            ('preload_stale', {}, True, True, 1),
+            ('preload_cancel', {}, True, True, 1),
+        ]
     cases = []
     with tempfile.TemporaryDirectory(dir=build) as directory:
         directory = Path(directory)
-        manifest = build_payload(image, directory / 'module')
+        manifest = build_payload(image, directory / 'module', model_preload=model_preload)
         module = directory / 'module'
         for name, kw, has_index, has_lut, direct in specs:
             amount = kw.get('amount', 256)
@@ -414,7 +433,9 @@ def validate_look_runtime(image):
             original = bytearray([0xa5] * 16 + [100, 128, 160, 128] * 40 + [0xa5] * 16)
             (directory / 'pixels').write_bytes(original)
             expect_apply = name in ('apply', 'half', 'menu_half', 'menu_closed')
-            if name in ('menu_half', 'menu_closed'):
+            if model_preload:
+                expect_apply = name in ('preload_apply', 'preload_removed_while_pinned')
+            if model_preload or name in ('menu_half', 'menu_closed'):
                 amount = 128
             expected = bytearray(original)
             if expect_apply:
@@ -424,14 +445,17 @@ def validate_look_runtime(image):
                 tbl = (ctypes.c_uint16 * 14739).from_buffer_copy(table)
                 if host(ctypes.byref(view), tbl, 14739, 1, amount, None, None):
                     raise AssertionError('host reference failed')
-            native = json.loads(checked([runner, image, module / 'film.bin', directory / 'config',
+            command = [runner, image, module / 'film.bin', directory / 'config',
                                          directory / 'pixels', directory / 'output',
                                          manifest['control_offset'], manifest['codec_call_offset'],
                                          manifest['state_offset'], manifest['wait_entry_offset'],
                                          manifest['wait_call_offset'], manifest['release_entry_offset'],
                                          manifest['param_entry_offset'], manifest['param_call_offset'],
                                          manifest['look_state_offset'], name, direct, cdir,
-                                         manifest['lut_menu_offset']]))
+                                         manifest['lut_menu_offset']]
+            if model_preload:
+                command.append(manifest['model_worker_offset'])
+            native = json.loads(checked(command))
             output = (directory / 'output').read_bytes()
             if output != expected or output[:16] != original[:16] or output[-16:] != original[-16:]:
                 raise AssertionError(f'look runtime pixel/guard mismatch: {name}')
@@ -442,25 +466,40 @@ def validate_look_runtime(image):
                 raise AssertionError(f'pool block leaked: {name}')
             if name != 'pool_fail' and not native['pool_balanced']:
                 raise AssertionError(f'pool not balanced: {name}')
-            if native['neutralized'] != (1 if expect_apply else 0):
+            neutralizes = expect_apply or name == 'preload_cancel'
+            if native['neutralized'] != int(neutralizes) or native['packet_unchanged'] == neutralizes:
                 raise AssertionError(f'packet neutralization mismatch: {name}')
+            if model_preload:
+                status = (1 if name in ('preload_late', 'preload_removed_during_read') else
+                          4 if name in ('preload_bad_crc', 'preload_missing_card') else 2)
+                if (native['initial_preload_status'] != status or native['release_calls'] != 1 or
+                    native['codec_calls'] != (0 if name == 'preload_cancel' else 1)):
+                    raise AssertionError(f'preload lifecycle mismatch: {name}')
             cases.append(dict(**native, matches_host=True,
                               pixels_changed=output != original,
                               output_sha256=hashlib.sha256(output).hexdigest()))
     paths = [ROOT / 'tools/ep5_look_runtime_probe.c', ROOT / 'tools/cave_entry.py',
              ROOT / 'firmware/look_store.c', build / 'cpu.c', build / 'isa.inc', runner]
-    return dict(module=manifest, cases=cases, cpu_source_revision=REVISION,
+    report = dict(module=manifest, cases=cases, cpu_source_revision=REVISION,
                 installable=False, physical_camera_test=False,
                 scope='Stock ART send/receive/JPEG/release fragments execute four cave veneers and the SD look loader; file service and ART pool are modeled backends fed with real desktop pack bytes.',
                 models=['file selector picks direct or message backend',
                         'direct open/read/close and service 0x22 messages serve a synthetic two-file card',
-                        'ART pool alloc/free backends hand out one contiguous 117912-byte block',
+                        'ART pool alloc/free backends hand out one contiguous 58956-byte block',
                         'stock send internals are modeled sinks returning the success path',
                         'JPEG sink records arguments and returns 0x1234; no ISP or encoder'],
                 not_tested=['real SD mount/FAT', 'real boot/cave residency', 'cache/DMA visibility',
                             'watchdog/scheduling', 'full-size 15.9MP timing', 'JPEG/ORF file output',
                             'menu renaming', 'installation/recovery'],
                 dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
+    if model_preload:
+        report.update(
+            scope='The MN103 preload worker and ART send/wait/JPEG/release hooks execute against a modeled card.',
+            models=['worker ticks and media events are injected between stock ART stages',
+                    'one synthetic task at a time, with modeled table RAM, lock and file backend',
+                    'stock send and JPEG encoder are modeled sinks'],
+        )
+    return report
 
 
 def main():

@@ -38,6 +38,53 @@ def inspect(image):
         if typ is None or pc + struct.unpack_from(typ, image, off + 1)[0] != target:
             raise ValueError(f"unexpected call target at {pc:#x}")
 
+    def word(addr):
+        return struct.unpack_from("<I", image, addr - CPU_BASE)[0]
+
+    # Use the code and jump tables, not the FAT debug names, to identify
+    # operation direction. These checks prove static routing, not hot removal.
+    unmount_log = string(0x7e6fc0fb, "fc dd")
+    check(0x7e6fc108, "f1 e8 00 60 9c 80 02 62")
+    call(0x7e6fc110, 0x7e6fc2c2)
+    call(0x7e6fc116, 0x7e6fc014)
+    check(0x7e6fc2c3, "00")
+    call(0x7e6fc2c4, 0x7e6fc291)
+    call(0x7e6fc2b8, 0x7e641477)
+    check(0x7e64148c, "fc 81 48 23 2b 60")
+    check(0x7e6fc2eb, "04")
+    call(0x7e6fc2ec, 0x7e64143b)
+    check(0x7e64144b, "fc 85 44 23 2b 60")
+    call(0x7e28de11, 0x7e28e071)
+    primary_table = ptr(0x7e28e082, "fc dc")
+    check(word(primary_table + 4 * (0x35 - 0x30)), "80 05 ca 2e")
+    check(0x7e28e0bf, "f8 22 0c fa e4 00 20 f0 70")
+    call(0x7e28e0c8, 0x7e27be44)
+    secondary_table = ptr(0x7e27be78, "fc dc")
+    check(word(secondary_table + 4 * 5), "98 cd 93 0a f0 14")
+    call(0x7e27be8b, 0x7e27c91e)
+    check(0x7e27c951, "80 01 92 50 f0 70")
+    call(0x7e27c965, 0x7e2816c2)
+    check(0x7e28170f, "a0 01 c9 05 cc 67 01")
+    call(0x7e28187b, 0x7e2825a3)
+    check(0x7e2825ef, "f0 63 04 e0 a6 fc dc 9c 1d 57 60 f4 d0")
+
+    check(0x7e28df06, "00 a5 51 c8 3a")
+    call(0x7e28df4d, 0x7e2816c2)
+    check(0x7e281709, "a8 c9 05 cc 66 01")
+    call(0x7e281873, 0x7e28268e)
+    check(0x7e2826fd, "f0 66 80 01 e5 fc dc 9c 1d 57 60 f4 c4")
+    media = {
+        "object_branch": {"label": unmount_log, "mount_reset_call": "0x7e6fc110",
+                          "cleared_sd_globals": ["0x602b2348", "0x602b2344"]},
+        "file_task": {
+            "0x35": {"intermediate_operation": 5, "fat_operation": 1,
+                     "state_store_pc": "0x7e2825fa", "value": 0},
+            "0x51": {"fat_operation": 0, "success_store_pc": "0x7e282708", "value": 1},
+            "state_halfword_base": "0x60571d9c",
+        },
+        "scope": "Static stock branches and stores; no claim about callers, ordering across tasks or handle safety.",
+    }
+
     # PARAMDT file discovery -> type 2 service -> bounded record array -> installed index.
     directory = string(0x7e27c4c9, "fc cc")
     glob = string(0x7e27c4d2, "fc cc")
@@ -88,7 +135,7 @@ def inspect(image):
                     "available_bytes_including_headers": capacity},
             "rgb16_17_lut_bytes": lut_bytes, "raw_lut_fit_in_param_store": lut_bytes <= capacity,
             "file_operations": {k: hex(a) for k, a in operations.items()},
-            "message_ids": service_ids, "native_examples": examples}
+            "message_ids": service_ids, "native_examples": examples, "media": media}
 
 
 def main():
@@ -113,6 +160,11 @@ def main():
                 [str(probe), str(args.main.resolve()), "0", str(case), "file-post"], timeout=10))
             for case in (0, 1, 2)
         ]
+        report["local_filefgnd_poll"] = [
+            json.loads(subprocess.check_output(
+                [str(probe), str(args.main.resolve()), "0", str(case), "file-poll"], timeout=10))
+            for case in (0, 1)
+        ]
         # Run the real stock selector, not a reimplementation of its dispatch table.
         def select(mode, variant):
             return int(subprocess.check_output([str(probe), str(args.main.resolve()),
@@ -123,7 +175,7 @@ def main():
             raise ValueError("stock slot cross-check failed")
         report["stock_art_filter_codes_for_variant_1_2_3"] = crosscheck
         report["modeled"] = ("Current task record, direct backend or message responses, logs, "
-                             "FILEFGND queue transport and read backend, local queue send context, "
+                             "FILEFGND queue transport and read backend, local queue context, "
                              "lock, copy, ready-list insertion and dispatch. "
                              "No camera file I/O.")
     print(json.dumps(report, indent=2))

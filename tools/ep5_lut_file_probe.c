@@ -31,6 +31,7 @@
 #define WAIT_TASK (STACK + 0x900u)
 #define WAIT_BUFFER (STACK + 0xa00u)
 #define POST_NATIVE 0x7e118051u
+#define POLL_NATIVE 0x7e295329u
 #define POST_CONTEXT 0x7e1117d8u
 #define SCHED_LOCK 0x7e112c44u
 #define SCHED_UNLOCK 0x7e112cbbu
@@ -41,6 +42,7 @@ static uint8_t *image, ram[65536];
 static int direct, scenario, stopped, opened, read_calls, closed;
 static int file_loop, received, replies;
 static int file_post, post_full, post_waiter, post_locked, post_copy_count, waiter_ready;
+static int file_poll, poll_has_message, rescheduled;
 static uint32_t current_message, receive_buffer, receive_stack;
 static uint32_t read_count;
 uint64_t emu_ns;
@@ -64,7 +66,8 @@ static int within(uint32_t a, uint32_t n, uint32_t b, uint32_t bytes)
 uint8_t *mem_host(uint32_t a, uint32_t n)
 {
     for (size_t i=0; i<sizeof hooks/sizeof *hooks; ++i)
-        if (within(a,n,hooks[i].pc,8)) return (uint8_t *)hooks[i].ret+(a-hooks[i].pc);
+        if (!(file_poll && hooks[i].pc==QUEUE_READ) && within(a,n,hooks[i].pc,8))
+            return (uint8_t *)hooks[i].ret+(a-hooks[i].pc);
     if (within(a,n,BASE,BYTES)) return image+(a-BASE);
     if (within(a,n,STACK,sizeof ram)) return ram+(a-STACK);
     return NULL;
@@ -91,7 +94,8 @@ uint64_t soc_next_event(void) { return emu_ns+1; }
 int hle_is_hook(uint32_t pc)
 {
     if (pc==END || pc==SELECTOR_END || pc==POST_END) return 1;
-    for (size_t i=0;i<sizeof hooks/sizeof *hooks;i++) if (pc==hooks[i].pc) return 1;
+    for (size_t i=0;i<sizeof hooks/sizeof *hooks;i++)
+        if (pc==hooks[i].pc && !(file_poll && pc==QUEUE_READ)) return 1;
     return 0;
 }
 static void expect(int ok) { if (!ok) emu_abort(PC,"file service ABI/sequence mismatch"); }
@@ -216,10 +220,54 @@ static int check_file_post(uint32_t *r, uint32_t pc)
     return 0;
 }
 
+/* Execute the local nonblocking receive all the way through its wrappers.
+ * The actual ring traversal, empty detection and return translation run. */
+static int check_file_poll(uint32_t *r, uint32_t pc)
+{
+    switch (pc) {
+    case POST_CONTEXT: r[0]=0; break;
+    case SCHED_LOCK:
+        expect(!post_locked);
+        post_locked=1;
+        break;
+    case SCHED_UNLOCK:
+        expect(post_locked);
+        post_locked=0;
+        break;
+    case QUEUE_COPY: {
+        uint32_t length=r[0], to=r[REG_A0], from=r[REG_A0+1];
+        expect(post_locked && poll_has_message && post_copy_count<2);
+        expect(post_copy_count ? from==QUEUE_RING+4 && length==16 && to==POST_BUFFER :
+               from==QUEUE_RING && length==4 && within(to,4,STACK,sizeof ram));
+        for (uint32_t i=0;i<length;++i)
+            mem_wr(to+i,mem_rd(from+i,1),1);
+        ++post_copy_count;
+        break;
+    }
+    case TASK_RESCHEDULE:
+        expect(post_locked && poll_has_message && post_copy_count==2 && !rescheduled);
+        rescheduled=1;
+        break;
+    case POST_END:
+        expect(!post_locked && r[REG_SP]==STACK+0xf000 &&
+               r[0]==(poll_has_message ? 0u : (uint32_t)-2) &&
+               post_copy_count==(poll_has_message ? 2 : 0) && rescheduled==poll_has_message &&
+               !mem_rd(QUEUE_OBJECT+52,4) && mem_rd(QUEUE_OBJECT+48,4)==32 &&
+               mem_rd(QUEUE_OBJECT+40,4)==QUEUE_RING+(poll_has_message ? 20 : 0));
+        for (uint32_t i=0;i<16;i+=4)
+            expect(mem_rd(POST_BUFFER+i,4)==(poll_has_message ? mem_rd(QUEUE_RING+4+i,4) : UINT32_MAX));
+        stopped=emu_stop=1;
+        return 1;
+    default: emu_abort(pc,"unexpected file-poll hook");
+    }
+    return 0;
+}
+
 int hle_check(cpu_t *c)
 {
     uint32_t *r=c->regs, pc=r[REG_PC], a=r[REG_A0], b=r[REG_A0+1];
     if (file_loop) return check_file_loop(r,pc);
+    if (file_poll) return check_file_poll(r,pc);
     if (file_post) return check_file_post(r,pc);
     if (pc==END || pc==SELECTOR_END) { stopped=emu_stop=1; return 1; }
     if (pc==0x7e2960db) { expect(direct); open_args(a,b); r[REG_A0]=scenario==1?0:HANDLE; }
@@ -245,18 +293,22 @@ int main(int argc,char **argv)
     FILE *f=fopen(argv[1],"rb"); image=malloc(BYTES);
     if (!f || !image || fread(image,1,BYTES,f)!=BYTES || fgetc(f)!=EOF) return 2;
     fclose(f);
-    if (argc==5 && !strcmp(argv[4],"file-post")) {
+    if (argc==5 && (!strcmp(argv[4],"file-post") || !strcmp(argv[4],"file-poll"))) {
         uint32_t channel=mem_rd(0x7e11f938,2);
         expect(channel==0x22);
-        file_post=1;
-        post_full=scenario==1;
-        post_waiter=scenario==2;
+        file_poll=!strcmp(argv[4],"file-poll");
+        file_post=!file_poll;
+        poll_has_message=file_poll && scenario==1;
+        post_full=file_post && scenario==1;
+        post_waiter=file_post && scenario==2;
         mem_wr(CORE_STATE+16,CORE_FLAGS,4);
+        mem_wr(CORE_STATE+28,CORE_FLAGS,4);
         mem_wr(CORE_STATE+60,QUEUE_CONFIG,4);
         mem_wr(CORE_STATE+96,TASK_HEAD,4);
         mem_wr(CORE_STATE+232,QUEUE_INDEX,4);
         mem_wr(CORE_STATE+380,2,4);
         mem_wr(TASK_HEAD,TASK_OBJECT,4);
+        mem_wr(TASK_OBJECT+16,0x12,2);
         mem_wr(QUEUE_CONFIG+26,channel,2);
         mem_wr(QUEUE_INDEX+4*(channel-1),QUEUE_OBJECT,4);
         mem_wr(QUEUE_OBJECT,1,2);
@@ -265,10 +317,22 @@ int main(int argc,char **argv)
         mem_wr(QUEUE_OBJECT+16,post_waiter ? WAIT_TASK : QUEUE_OBJECT+12,4);
         mem_wr(QUEUE_OBJECT+24,16,4);
         mem_wr(QUEUE_OBJECT+32,QUEUE_RING,4);
-        mem_wr(QUEUE_OBJECT+36,QUEUE_RING+(post_full ? 20 : 0),4);
+        mem_wr(QUEUE_OBJECT+36,QUEUE_RING+((post_full || poll_has_message) ? 20 : 0),4);
+        mem_wr(QUEUE_OBJECT+40,QUEUE_RING,4);
         mem_wr(QUEUE_OBJECT+44,QUEUE_RING+32,4);
-        mem_wr(QUEUE_OBJECT+48,post_full ? 12 : 32,4);
-        mem_wr(QUEUE_OBJECT+52,post_full ? 1 : 0,4);
+        mem_wr(QUEUE_OBJECT+48,(post_full || poll_has_message) ? 12 : 32,4);
+        mem_wr(QUEUE_OBJECT+52,(post_full || poll_has_message) ? 1 : 0,4);
+        if (file_poll) {
+            for (uint32_t i=0;i<16;i+=4)
+                mem_wr(POST_BUFFER+i,UINT32_MAX,4);
+            if (poll_has_message) {
+                mem_wr(QUEUE_RING,16,4);
+                mem_wr(QUEUE_RING+4,REPLY_QUEUE,4);
+                mem_wr(QUEUE_RING+8,REPLY_COOKIE,4);
+                mem_wr(QUEUE_RING+12,0x10005,4);
+                mem_wr(QUEUE_RING+16,READ_PARAMS,4);
+            }
+        }
         if (post_waiter) {
             mem_wr(WAIT_TASK,QUEUE_OBJECT+12,4);
             mem_wr(WAIT_TASK+4,QUEUE_OBJECT+12,4);
@@ -281,9 +345,9 @@ int main(int argc,char **argv)
         }
         /* Native CALL, saving the registers and reserving the stock frame. */
         mem_wr(POST_CALL,0xdd,1);
-        mem_wr(POST_CALL+1,POST_NATIVE-POST_CALL,4);
-        mem_wr(POST_CALL+5,0xf0,1);
-        mem_wr(POST_CALL+6,40,1);
+        mem_wr(POST_CALL+1,(file_poll ? POLL_NATIVE : POST_NATIVE)-POST_CALL,4);
+        mem_wr(POST_CALL+5,file_poll ? 0xe0 : 0xf0,1);
+        mem_wr(POST_CALL+6,file_poll ? 48 : 40,1);
         cpus[0].regs[REG_PC]=POST_CALL;
         cpus[0].regs[REG_SP]=STACK+0xf000;
         cpus[0].regs[REG_A0]=POST_BUFFER;
@@ -292,9 +356,13 @@ int main(int argc,char **argv)
         cpus[0].regs[1]=16;
         cpus[0].running=1; cpus[0].irq_level=7;
         cpu_run(5000,0);
-        printf("{\"queue_full\":%s,\"waiter_ready\":%s,\"result\":%d,\"returned\":%s}\n",
-               post_full?"true":"false",waiter_ready?"true":"false",(int32_t)cpus[0].regs[0],
-               stopped?"true":"false");
+        if (file_poll)
+            printf("{\"message_delivered\":%s,\"result\":%d,\"returned\":%s}\n",
+                   poll_has_message?"true":"false",(int32_t)cpus[0].regs[0],stopped?"true":"false");
+        else
+            printf("{\"queue_full\":%s,\"waiter_ready\":%s,\"result\":%d,\"returned\":%s}\n",
+                   post_full?"true":"false",waiter_ready?"true":"false",(int32_t)cpus[0].regs[0],
+                   stopped?"true":"false");
         free(image);
         return stopped?0:1;
     }
