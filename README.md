@@ -1,6 +1,6 @@
 # E-P5 机内胶片模拟
 
-**最新进展（2026-11-18）**。路线 B 完成了双缓冲 LUT 预载的离线实现和测试。原厂 FILEFGND 在 CPU 模型中处理空消息后能继续服务普通读请求，本核发送在队列满时会立即返回。机内菜单、实际读卡调度和全幅成片仍待联通，当前没有可交付的通用 SD LUT 固件。[异步预载接口](docs/LUT_ASYNC_LOAD.md) · [FILEFGND 验证](docs/FILE_SERVICE_MAP.md) · [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [续做清单](tasks/todo.md) · [交付计划](plans/EP5_LUT_DELIVERY_PLAN.md)。
+**最新进展（2026-11-18）**。E‑P5 1.8 的 ART 拍摄模型已接入 SD LUT 预载。按快门时只获取匹配的已加载色表，坏表、缺卡和加载未完成会保留原厂拍摄请求。相同色彩算法的 MN103 插值指令数已减少约 14%，全尺寸合成缓冲的输出逐字节一致。可刷版本仍需接入真机文件任务和独立菜单，并验证全尺寸 JPEG+ORF。[异步预载与拍摄](docs/LUT_ASYNC_LOAD.md) · [文件任务与卸载证据](docs/FILE_SERVICE_MAP.md) · [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [续做清单](tasks/todo.md)。
 
 目标：保留 ORF，在奥林巴斯 E-P5 内生成全分辨率胶片风格 JPEG，允许拍后等待。
 

@@ -1,4 +1,4 @@
-/* Execute stock ART assembly and GUI copies; OS locks/notification stay modeled. */
+/* Execute stock ART assembly, GUI copies and notification queue operations. */
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,10 +37,29 @@
 #define COPY 0x7e10646fu
 #define MARK 0x7ea142e7u
 #define NOTIFY 0x7ea1431cu
+#define GUI_ENQUEUE 0x7ea0b817u
+#define GUI_DEQUEUE 0x7ea0b96au
+#define GUI_LOCK 0x7ea0c01du
+#define GUI_UNLOCK 0x7ea0c041u
+#define GUI_SIGNAL 0x7ea0bf8du
+#define GUI_WAIT 0x7ea0bfebu
+#define GUI_CLEAR_SIGNAL 0x7ea0bfb9u
+#define GUI_RING 0x606e623cu
+#define GUI_INDEX 0x606ea0bcu
+#define GUI_MESSAGE (RAM + 0x5200u)
+#define GUI_TARGET (RAM + 0x5300u)
+#define GUI_VTABLE (RAM + 0x5340u)
+#define GUI_REFRESH (RAM + 0x5700u)
+#define GUI_SNAPSHOT (RAM + 0x5740u)
+#define GUI_DISPATCH 0x7ea15c5fu
+#define GUI_EVENT 0x7ea14578u
+#define GUI_TAKE_FLAGS 0x7ea14214u
 
 static uint8_t *image, ram[RAM_SIZE];
 static uint8_t setting_ret[8] = {0xdf,0xa0,12}, service_ret[8] = {0xdf,0,4};
-static uint8_t notify_ret[8] = {0xdf,0x20,64};
+static uint8_t gui_lock_ret[8] = {0xdf,0x80,8}, gui_wait_ret[8] = {0xdf,0x80,16};
+static uint8_t gui_signal_ret[8] = {0xdf,0,4};
+static uint8_t gui_ring[500 * 32], gui_state[84];
 static uint8_t manager_global[4], sync_globals[8], payloads[3][220];
 static const uint32_t slot_ids[3] = {0,15,58};
 static const uint32_t slot_buffers[3] = {0x606eb274u,0x606eb452u,0x606f1670u};
@@ -48,6 +67,7 @@ static const unsigned slot_sizes[3] = {12,12,188};
 static unsigned init_calls, updates, settings, invalid_write, stopped, monitoring;
 static unsigned locked, lock_fail, copies, marks, notifications, order_size;
 static unsigned reading;
+static unsigned gui_locked, gui_signals, gui_dequeuing, gui_refreshes, gui_snapshotting;
 static uint32_t last_id, last_source, last_size;
 static char order[128];
 static uint32_t selected_snapshot[3][4];
@@ -64,7 +84,13 @@ uint8_t *mem_host(uint32_t a, uint32_t n)
     for(unsigned i=0;i<3;i++)
         if(within(a,n,slot_buffers[i]-16,slot_sizes[i]+32))
             return payloads[i]+a-(slot_buffers[i]-16);
-    if (within(a,n,NOTIFY,8)) return notify_ret+a-NOTIFY;
+    if (within(a,n,GUI_RING,sizeof gui_ring)) return gui_ring+a-GUI_RING;
+    if (within(a,n,GUI_INDEX,sizeof gui_state)) return gui_state+a-GUI_INDEX;
+    if (within(a,n,GUI_LOCK,8)) return gui_lock_ret+a-GUI_LOCK;
+    if (within(a,n,GUI_WAIT,8)) return gui_wait_ret+a-GUI_WAIT;
+    if (within(a,n,GUI_UNLOCK,8)) return gui_signal_ret+a-GUI_UNLOCK;
+    if (within(a,n,GUI_SIGNAL,8)) return gui_signal_ret+a-GUI_SIGNAL;
+    if (within(a,n,GUI_CLEAR_SIGNAL,8)) return gui_signal_ret+a-GUI_CLEAR_SIGNAL;
     if (a >= SETTING && (uint64_t)a+n <= SETTING+8) return setting_ret+a-SETTING;
     if (a >= GET_SERVICE && (uint64_t)a+n <= GET_SERVICE+8) return service_ret+a-GET_SERVICE;
     if (a >= BASE && (uint64_t)a+n <= (uint64_t)BASE+SIZE) return image+a-BASE;
@@ -82,6 +108,9 @@ void mem_wr(uint32_t a,uint32_t v,int n)
 {
     int allowed=within(a,n,OBJ+200,212) || within(a,n,FRAME-2048,2080) || within(a,n,FLAGS,21);
     allowed|=reading && within(a,n,SOURCE,200);
+    allowed|=gui_dequeuing && within(a,n,GUI_MESSAGE,28);
+    allowed|=gui_snapshotting && within(a,n,GUI_SNAPSHOT,21);
+    allowed|=gui_locked && (within(a,n,GUI_RING,32) || within(a,n,GUI_INDEX,4));
     for(unsigned i=0;i<3;i++) allowed|=within(a,n,slot_buffers[i],slot_sizes[i]);
     if (monitoring && !allowed) {
         ++invalid_write;
@@ -99,7 +128,9 @@ static void record(char event)
 }
 int hle_is_hook(uint32_t a)
 { return a==INIT || a==UPDATE || a==SETTING || a==GET_SERVICE || a==METHOD || a==CALLER+7 ||
-         a==LOCK || a==UNLOCK || a==COPY || a==MARK || a==NOTIFY; }
+         a==LOCK || a==UNLOCK || a==COPY || a==MARK || a==NOTIFY || a==GUI_ENQUEUE ||
+         a==GUI_LOCK || a==GUI_UNLOCK || a==GUI_SIGNAL || a==GUI_WAIT || a==GUI_CLEAR_SIGNAL ||
+         a==GUI_REFRESH; }
 int hle_check(cpu_t *c)
 {
     uint32_t pc=c->regs[REG_PC], sp=c->regs[REG_SP], a=c->regs[REG_A0];
@@ -142,7 +173,34 @@ int hle_check(cpu_t *c)
             if(memcmp(mem_host(slot_buffers[i],count),mem_host(last_source,count),count))
                 emu_abort(pc,"notification before payload copy");
         }
-        ++notifications; record('N'); mem_wr(sp+64,c->regs[REG_MDR],4);
+        ++notifications; record('N');
+    }
+    if(pc==GUI_ENQUEUE) {
+        if(locked || gui_locked || c->regs[REG_D0]!=1 ||
+           mem_rd(sp+28,4)!=0x1900u || mem_rd(sp+32,2)!=0xfffeu ||
+           mem_rd(sp+36,4)!=GUI_TARGET || mem_rd(sp+40,4) ||
+           mem_rd(sp+44,4) || mem_rd(sp+48,4) || mem_rd(sp+52,4))
+            emu_abort(pc,"unexpected GUI notification envelope");
+    }
+    if(pc==GUI_LOCK || pc==GUI_WAIT) {
+        if(gui_locked || locked || (pc==GUI_WAIT && !gui_dequeuing))
+            emu_abort(pc,"unexpected GUI queue lock");
+        if(pc==GUI_LOCK) gui_locked=1;
+        c->regs[REG_D0]=1;
+    }
+    if(pc==GUI_UNLOCK || pc==GUI_SIGNAL || pc==GUI_CLEAR_SIGNAL) {
+        if(!gui_locked || locked || (pc==GUI_CLEAR_SIGNAL && !gui_dequeuing))
+            emu_abort(pc,"unexpected GUI queue signal");
+        if(pc==GUI_SIGNAL) ++gui_signals;
+        if(pc==GUI_UNLOCK) gui_locked=0;
+        c->regs[REG_D0]=1;
+    }
+    if(pc==GUI_REFRESH) {
+        if(locked || gui_locked || a!=GUI_TARGET || c->regs[REG_D0]!=0x1900u ||
+           c->regs[REG_D0+1] || c->regs[REG_A0+1])
+            emu_abort(pc,"incorrect GUI refresh dispatch");
+        ++gui_refreshes;
+        c->regs[REG_D0]=0x3456;
     }
     return 0;
 }
@@ -152,6 +210,7 @@ uint64_t soc_next_event(void) { return emu_ns+1; }
 static void setup(void)
 {
     memset(cpus,0,sizeof cpus[0]); memset(ram,0,sizeof ram); monitoring=0;
+    memset(gui_ring,0,sizeof gui_ring); memset(gui_state,0,sizeof gui_state);
     memset(payloads,0xa5,sizeof payloads);
     for(unsigned i=0;i<3;i++) memset(payloads[i]+16,0,slot_sizes[i]);
     memset(selected_snapshot,0,sizeof selected_snapshot);
@@ -159,12 +218,20 @@ static void setup(void)
     mem_wr(MANAGER+8,TABLE,4); mem_wr(MANAGER+12,168,2);
     mem_wr(MANAGER+16,NODE,4); mem_wr(MANAGER+20,NODE,4);
     mem_wr(NODE,MANAGER+16,4); mem_wr(NODE+4,MANAGER+16,4); mem_wr(NODE+8,OBSERVER,4);
+    mem_wr(OBSERVER+8,GUI_TARGET,4);
+    mem_wr(OBSERVER+12,GUI_SNAPSHOT,4);
     mem_wr(OBSERVER+16,FLAGS,4);
+    mem_wr(OBSERVER+20,21,4);
+    mem_wr(GUI_TARGET,GUI_VTABLE,4);
+    mem_wr(GUI_VTABLE + 408,GUI_EVENT,4);
+    mem_wr(GUI_VTABLE + 760,GUI_REFRESH,4);
+    mem_wr(GUI_REFRESH,0xf0,1); mem_wr(GUI_REFRESH+1,0xfc,1);
     mem_wr(LOCK,0xf0,1); mem_wr(LOCK+1,0xfc,1);
     mem_wr(UNLOCK,0xf0,1); mem_wr(UNLOCK+1,0xfc,1);
     init_calls=updates=settings=invalid_write=stopped=emu_stop=0;
     locked=lock_fail=copies=marks=notifications=order_size=0; order[0]=0;
     reading=0;
+    gui_locked=gui_signals=gui_dequeuing=gui_refreshes=gui_snapshotting=0;
 }
 
 static int execute(uint32_t target, unsigned mask, unsigned frame)
@@ -176,7 +243,7 @@ static int execute(uint32_t target, unsigned mask, unsigned frame)
     c->regs[REG_D0+2]=0x12345678; c->regs[REG_D0+3]=0x87654321;
     c->regs[REG_A0+2]=0x13572468; c->regs[REG_A0+3]=0x24681357;
     monitoring=1; cpu_run(200000,0); monitoring=0;
-    if(!stopped || invalid_write || locked || c->regs[REG_SP]!=FRAME ||
+    if(!stopped || invalid_write || locked || gui_locked || c->regs[REG_SP]!=FRAME ||
        c->regs[REG_D0+2]!=0x12345678 || c->regs[REG_D0+3]!=0x87654321 ||
        c->regs[REG_A0+2]!=0x13572468 || c->regs[REG_A0+3]!=0x24681357) {
         fprintf(stderr,"target=%08x pc=%08x sp=%08x stop=%u invalid=%u order=%s\n",
@@ -185,6 +252,47 @@ static int execute(uint32_t target, unsigned mask, unsigned frame)
     }
     for(unsigned i=0;i<3;i++) for(unsigned j=0;j<16;j++)
         if(payloads[i][j]!=0xa5 || payloads[i][16+slot_sizes[i]+j]!=0xa5) return 0;
+    return 1;
+}
+
+static int notification_queued_once(void)
+{
+    return gui_signals==1 && mem_rd(GUI_RING,1)==1 &&
+        mem_rd(GUI_INDEX,2)==0 && mem_rd(GUI_INDEX+2,2)==1 &&
+        mem_rd(GUI_RING+4,4)==0x1900u && mem_rd(GUI_RING+12,4)==GUI_TARGET;
+}
+
+static int consume_notification(void)
+{
+    if(!notification_queued_once()) return 0;
+    stopped=emu_stop=0;
+    gui_dequeuing=1;
+    cpus[0].regs[REG_D0]=0;
+    cpus[0].regs[REG_A0]=GUI_MESSAGE;
+    if(!execute(GUI_DEQUEUE,0xf0,20) || cpus[0].regs[REG_D0]!=1) return 0;
+    gui_dequeuing=0;
+    if(mem_rd(GUI_RING,1) || mem_rd(GUI_INDEX,2)!=1 ||
+       mem_rd(GUI_INDEX+2,2)!=1 || mem_rd(GUI_MESSAGE,4)!=0x1900u ||
+       mem_rd(GUI_MESSAGE+8,4)!=GUI_TARGET) return 0;
+
+    /* Drive the real dispatch with the message bytes that were dequeued. */
+    stopped=emu_stop=0;
+    cpus[0].regs[REG_A0]=0; /* a targeted message must not use the current menu */
+    cpus[0].regs[REG_A0+1]=GUI_MESSAGE;
+    if(!execute(GUI_DISPATCH,0xa0,12) || cpus[0].regs[REG_D0]!=0x3456 || gui_refreshes!=1)
+        return 0;
+
+    /* The base refresh invokes this routine before emitting internal events.
+     * Verify the bitmap copy/clear independently of the view object. */
+    uint8_t dirty[21];
+    memcpy(dirty,mem_host(FLAGS,sizeof dirty),sizeof dirty);
+    stopped=emu_stop=0;
+    gui_snapshotting=1;
+    cpus[0].regs[REG_A0]=OBSERVER;
+    if(!execute(GUI_TAKE_FLAGS,0x30,12)) return 0;
+    gui_snapshotting=0;
+    for(unsigned i=0;i<sizeof dirty;i++)
+        if(mem_rd(FLAGS+i,1) || mem_rd(GUI_SNAPSHOT+i,1)!=dirty[i]) return 0;
     return 1;
 }
 
@@ -234,7 +342,7 @@ static int run(unsigned selection, uint16_t mask)
         for(unsigned i=0;i<32;i++) fprintf(stderr," %02x",mem_rd(OBJ+200+i,1));
         fprintf(stderr,"\n");
     }
-    return 1;
+    return consume_notification();
 }
 
 static const struct {
@@ -280,7 +388,8 @@ static int run_contract(unsigned index, unsigned read)
     for(unsigned i=0;i<2;i++) for(unsigned j=0;j<slot_sizes[i];j++)
         if(payloads[i][16+j]) return 0;
     return copies==contract_cases[index].success && marks==(!read && contract_cases[index].success) &&
-           notifications==(!read && contract_cases[index].success && contract_cases[index].notify);
+           notifications==(!read && contract_cases[index].success && contract_cases[index].notify) &&
+           (notifications ? consume_notification() : !gui_signals && !mem_rd(GUI_INDEX+2,2));
 }
 int main(int argc,char **argv)
 {
@@ -297,7 +406,9 @@ int main(int argc,char **argv)
     printf("{\"cases\":19,\"stock_page_assembly_executed\":true,\"resource_rows_and_paging_verified\":true,"
            "\"modeled_services\":true,\"updates_per_case\":3,\"stack_and_callee_saved_preserved\":true,"
            "\"stock_gui_transfer_executed\":true,\"copied_payloads_verified\":true,\"stock_listener_bits_verified\":true,"
-           "\"lock_copy_notify_order_verified\":true,\"service_contract_cases\":[");
+           "\"lock_copy_notify_order_verified\":true,\"stock_notification_queue_verified\":true,"
+           "\"stock_notification_dispatch_verified\":true,\"stock_observer_snapshot_verified\":true,"
+           "\"notification_code\":6400,\"service_contract_cases\":[");
     for(unsigned i=0;i<sizeof contract_cases/sizeof contract_cases[0];i++)
         printf("%s\"%s\"",i?",":"",contract_cases[i].name);
     printf("],\"read_contract_cases\":[");

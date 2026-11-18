@@ -2,21 +2,23 @@
 
 static uint16_t lerp(uint16_t a, uint16_t b, unsigned fraction)
 {
-    return (uint16_t)(((uint32_t)a * (65535u - fraction) +
-                       (uint32_t)b * fraction + 32767u) / 65535u);
+    /* a * (65535 - fraction) + b * fraction, with a single
+     * variable multiply. Unsigned arithmetic also covers b < a. */
+    uint32_t weighted = ((uint32_t)a << 16) - a +
+                        ((uint32_t)b - a) * fraction + 32767u;
+    /* Divide by 2^16-1. weighted <= 65535^2 + 32767, so the
+     * correction cannot overflow. This keeps the original rounding. */
+    return (uint16_t)((weighted + 1u + (weighted >> 16)) >> 16);
 }
 
 void ep5_lut_sample16(const uint16_t *lut, const uint16_t rgb[3], uint16_t out[3])
 {
     unsigned cell[3], fraction[3];
     for (unsigned c = 0; c < 3; ++c) {
-        uint32_t position = (uint32_t)rgb[c] * 16u;
-        cell[c] = position / 65535u;
-        fraction[c] = position % 65535u;
-        if (cell[c] == 16u) {
-            cell[c] = 15u;
-            fraction[c] = 65535u;
-        }
+        /* Each of the 15 interior boundaries rounds up to a multiple of
+         * 4096. At 65535 this also gives cell 15 with full upper weight. */
+        cell[c] = rgb[c] >> 12;
+        fraction[c] = ((rgb[c] & 4095u) << 4) + cell[c];
     }
     size_t at = ((cell[2] * 17u + cell[1]) * 17u + cell[0]) * 3u;
     for (unsigned c = 0; c < 3; ++c) {

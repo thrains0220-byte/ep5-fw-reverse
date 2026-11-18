@@ -1,4 +1,4 @@
-"""Execute stock ART page assembly using synthetic bounded GUI services."""
+"""Execute stock ART page assembly and GUI notification delivery in bounded RAM."""
 import hashlib
 import json
 from pathlib import Path
@@ -25,12 +25,13 @@ def run_probe():
             raise RuntimeError(f'probe failed ({result.returncode}): {result.stderr}')
     return {'result': json.loads(result.stdout), 'main_sha256': MAIN_SHA256,
             'cpu_revision': REVISION, 'physical_camera_test': False,
-            'scope': 'stock ART page assembly, GUI read/update, bounded copy and observer dirty bits in synthetic RAM',
+            'scope': 'stock ART page assembly, GUI read/update, targeted notification queue and observer snapshot',
             'gui_service': gui,
             'modeled': ['manager and one observer initialized in synthetic RAM',
                         'three stock payload buffers mapped with guards and synthetic initial contents',
-                        'lock/unlock callbacks, final notification, settings and auxiliary service'],
-            'not_tested': ['OS lock implementation or contention', 'notification delivery or rendering',
+                        'lock/unlock, queue signaling and waiting, settings and auxiliary service',
+                        'synthetic target object and final refresh callback'],
+            'not_tested': ['OS locks, queue scheduling or contention', 'base refresh method or rendering',
                            'runtime table mutations or nonzero slot callbacks', 'full GUI lifecycle',
                            'text rendering', 'physical controls', 'task lifetime', 'camera screen',
                            'non-default settings'],

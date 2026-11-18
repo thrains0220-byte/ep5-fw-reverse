@@ -31,6 +31,10 @@ class ArtRenderProbeTests(unittest.TestCase):
         self.assertTrue(result['copied_payloads_verified'])
         self.assertTrue(result['stock_listener_bits_verified'])
         self.assertTrue(result['lock_copy_notify_order_verified'])
+        self.assertTrue(result['stock_notification_queue_verified'])
+        self.assertTrue(result['stock_notification_dispatch_verified'])
+        self.assertTrue(result['stock_observer_snapshot_verified'])
+        self.assertEqual(result['notification_code'], 0x1900)
 
     def test_service_rejects_invalid_requests_and_bounds_copy(self):
         self.assertIn('service_contract_cases', self.report['result'])
