@@ -1,6 +1,6 @@
 # E-P5 机内胶片模拟
 
-**最新进展（2026-11-16）：** [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [本轮验证报告](docs/ep5-art-gui-transfer-verification.json) · [Fujimod 参考](docs/FUJIMOD_REFERENCE.md) · [续做清单](tasks/todo.md)。已将原厂页面探针推进到 GUI 数据读取、复制和观察者标记，36 个合成 CPU 场景通过；真实屏幕、任务同步和全幅成像仍待验证，当前没有可交付的通用 SD LUT 固件。此前状态见 [11 月 15 日交接](docs/EP5_ROUTE_B_HANDOFF_2026-11-15.md)，总体依赖见 [交付计划](plans/EP5_LUT_DELIVERY_PLAN.md)。
+**最新进展（2026-11-18）**。路线 B 完成了双缓冲 LUT 预载的离线实现和测试。原厂 FILEFGND 在 CPU 模型中处理空消息后能继续服务普通读请求，本核发送在队列满时会立即返回。机内菜单、实际读卡调度和全幅成片仍待联通，当前没有可交付的通用 SD LUT 固件。[异步预载接口](docs/LUT_ASYNC_LOAD.md) · [FILEFGND 验证](docs/FILE_SERVICE_MAP.md) · [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [续做清单](tasks/todo.md) · [交付计划](plans/EP5_LUT_DELIVERY_PLAN.md)。
 
 目标：保留 ORF，在奥林巴斯 E-P5 内生成全分辨率胶片风格 JPEG，允许拍后等待。
 

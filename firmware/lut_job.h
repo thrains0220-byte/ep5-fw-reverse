@@ -22,7 +22,9 @@ struct ep5_lut_job {
     void *file;
     uint32_t crc, expected_crc, bytes, slot_seen, number_seen;
     uint32_t look_crc[16];
+    uint32_t bound_crc;
     uint16_t generation, picture_mode, amount, number, rows, row_index;
+    uint16_t bound_number, bound_amount;
     uint8_t variant, state, target, status, after_close;
     uint8_t scratch[28];
     struct ep5_look_selection result;
@@ -36,6 +38,8 @@ struct ep5_lut_job {
 int ep5_lut_job_request(struct ep5_lut_job *job, const struct ep5_look_io *io,
                         struct ep5_look_cache *cache, uint16_t picture_mode,
                         uint8_t variant, uint16_t generation);
+int ep5_lut_job_bind(struct ep5_lut_job *job, uint16_t number, uint32_t crc,
+                     uint16_t amount);
 /* Initialize before first request. Only call when no file is open. */
 void ep5_lut_job_init(struct ep5_lut_job *job);
 /* One call performs at most one open/read/close, reads <= 512 bytes, and

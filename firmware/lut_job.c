@@ -102,6 +102,17 @@ int ep5_lut_job_request(struct ep5_lut_job *j, const struct ep5_look_io *io,
     j->status = EP5_LUT_JOB_BUSY; j->state = OPEN_INDEX;
     return 1;
 }
+int ep5_lut_job_bind(struct ep5_lut_job *job, uint16_t number, uint32_t crc,
+                     uint16_t amount)
+{
+    if (!job || job->state != OPEN_INDEX || job->status != EP5_LUT_JOB_BUSY ||
+        number < 1 || number > 16 || !amount || amount > 256)
+        return 0;
+    job->bound_number = number;
+    job->bound_crc = crc;
+    job->bound_amount = amount;
+    return 1;
+}
 int ep5_lut_job_step(struct ep5_lut_job *j, uint16_t current_generation)
 {
     uint8_t *table;
@@ -147,7 +158,14 @@ int ep5_lut_job_step(struct ep5_lut_job *j, uint16_t current_generation)
     case CLOSE_INDEX: {
         int rc = j->io.close(j->io.ctx, j->file); j->file = 0;
         if (rc) finish(j, EP5_LUT_JOB_ERROR);
-        else if (!j->number || !j->amount) finish(j, EP5_LUT_JOB_STOCK);
+        else if (j->bound_number) {
+            if (j->number != j->bound_number || j->expected_crc != j->bound_crc)
+                finish(j, EP5_LUT_JOB_ERROR);
+            else {
+                j->amount = j->bound_amount;
+                j->state = OPEN_TABLE;
+            }
+        } else if (!j->number || !j->amount) finish(j, EP5_LUT_JOB_STOCK);
         else j->state = OPEN_TABLE;
         break;
     }

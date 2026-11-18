@@ -8,10 +8,21 @@ A UI or controller submits one request with `(picture_mode, variant, generation)
 2. Read one 28-byte row per step, validating slot uniqueness, amount, number, label and CRC.
 3. Close the index and either select stock (missing or zero-strength slot) or open the selected LUT.
 4. Read at most `EP5_LUT_JOB_CHUNK` (512) wire bytes per step into the staging table, validate the LUT header, length and CRC, then close it.
-5. Convert little-endian wire words in bounded chunks and atomically swap the completed staging table into the caller-owned cache.
+5. Convert little-endian wire words in bounded chunks and swap the two pointers in the worker-owned cache. Cross-task publication is a separate operation under the coordinator lock.
 
 The worker copies the IO vtable and all request scalars. It never keeps a pointer to a menu row or SD label. A generation change cancels the request; cancellation closes an open handle on a following step and never publishes the staging table. Any malformed file, short read, close error, or unexpected trailing byte produces `EP5_LUT_JOB_ERROR`, while an unsupported or zero-strength slot produces `EP5_LUT_JOB_STOCK`.
 
-This prevents the key callback and display callback from synchronously reading a roughly 30 KB LUT. It does not prove that the stock E-P5 FILEFGND wrapper is safe for this worker: the supplied `ep5_look_io` backend still has to be adapted to the real file task, queue, cancellation and cache/DMA ownership. Until those contracts are measured on an E-P5, this module remains an offline integration boundary and must not be linked into a functional update image.
+`firmware/lut_preload.c` coordinates the menu, the worker and the shot. It copies the confirmed selection and binds the index row to the look number and table CRC. The amount comes from the user's choice. Changing only the amount of a published look needs no I/O. Selecting another look, removing the card or refreshing its contents invalidates publication for new shots. The worker closes its old handle before starting a replacement request. A shot can acquire only a completed table that matches its confirmed choice and mount ID. It retains that table until all readers release it, even if another table finishes loading. After a swap, a worker that needs the pinned buffer returns `EP5_LUT_PRELOAD_WAIT_SHOT` so its scheduler can suspend it until release or invalidation.
 
-The C fixture `tests/test_lut_job.c` exercises a complete apply, generation cancellation, missing LUT, unsupported slot, damaged index/table CRC, short read, trailing bytes, close failure and the 512-byte read bound. Failed loads leave the active table untouched. The worker also compiles freestanding with the bundled MN103 compiler without external symbols. These are host/compiler checks, not camera-task validation.
+The camera adapter owns the synchronization and notification contracts. Give every mount, refresh and shot a fresh nonzero ID and deliver unmount before allowing another shot to acquire a table. The file backend must validate the mount ID and open on that mount as one operation. Read and close continue to refer to that handle after any media change. Run `step` from one file worker and schedule it after selection, cancellation and shot release as needed. The lock protects metadata and must also establish visibility of the completed table. It is released before I/O. A bounded read byte count leaves the latency of the backend call itself unconstrained. Physical card removal, cache visibility and the GUI and file task lifetimes still need a camera adapter and hardware validation. The existing mode 3 experiment uses synchronous loading in `ep5_art_entry.c`.
+
+The C fixture `tests/test_lut_job.c` exercises complete publication, cancel during a read, stale mount and selection, mount change before open, table ownership across two swaps, amount changes without a reload, and stock fallback. Corrupt files, short reads, extra bytes and close errors leave the previous active table intact. Build it with the host compiler from the repository root. Both modules also compile freestanding for MN103.
+
+```sh
+cc -std=c99 -O2 -Wall -Wextra -Werror -Ifirmware \
+  tests/test_lut_job.c firmware/lut_job.c firmware/lut_preload.c \
+  firmware/look_store.c -o /tmp/ep5-lut-job-test
+/tmp/ep5-lut-job-test
+```
+
+The [FILEFGND map](FILE_SERVICE_MAP.md) records the stock loop and queue probes. Reproduce them with `python3 tools/audit_lut_runtime.py --execute` on a host with the decoded stock MAIN and the pinned CPU emulator checkout.

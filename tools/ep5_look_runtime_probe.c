@@ -181,8 +181,13 @@ static uint32_t file_open(uint32_t path, uint32_t mode)
         emu_abort(PC, "bad open state/mode");
     }
     ++opened;
-    if (path_is(path, "EP5LUT/INDEX.EP5") && have_index) { live = 1; live_pos = 0; return HANDLE; }
-    if (path_is(path, "EP5LUT/L0000001.LUT") && have_lut) { live = 2; live_pos = 0; return HANDLE; }
+    if (path_is(path, "C:\\EP5LUT\\INDEX.EP5")) {
+        if (have_index) { live = 1; live_pos = 0; return HANDLE; }
+    } else if (path_is(path, "C:\\EP5LUT\\L0000001.LUT")) {
+        if (have_lut) { live = 2; live_pos = 0; return HANDLE; }
+    } else {
+        emu_abort(PC, "invalid E-P5 card path");
+    }
     return 0;
 }
 static uint32_t file_read(uint32_t dst, uint32_t size, uint32_t count, uint32_t handle)

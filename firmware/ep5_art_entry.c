@@ -31,8 +31,17 @@ static const char ep5_mode_rb[] = "rb";
 
 static void *look_open(void *context, const char *path)
 {
+    char native_path[sizeof "C:\\EP5LUT\\L0000000.LUT"];
     (void)context;
-    return ep5_file_open(path, ep5_mode_rb);
+    native_path[0] = 'C';
+    native_path[1] = ':';
+    native_path[2] = '\\';
+    for (unsigned i = 3; i < sizeof native_path; ++i, ++path) {
+        native_path[i] = *path == '/' ? '\\' : *path;
+        if (!*path)
+            return ep5_file_open(native_path, ep5_mode_rb);
+    }
+    return NULL;
 }
 
 static int32_t look_read(void *context, void *file, uint8_t *destination, uint32_t count)

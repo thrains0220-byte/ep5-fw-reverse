@@ -106,6 +106,13 @@ def main():
                                    check=True, timeout=10, text=True, stdout=subprocess.PIPE)
                 rows.append(dict(json.loads(r.stdout), scenario=case))
         report["cpu_file_cases"] = rows
+        report["filefgnd_loop"] = json.loads(subprocess.check_output(
+            [str(probe), str(args.main.resolve()), "0", "0", "file-loop"], timeout=10))
+        report["local_filefgnd_send"] = [
+            json.loads(subprocess.check_output(
+                [str(probe), str(args.main.resolve()), "0", str(case), "file-post"], timeout=10))
+            for case in (0, 1, 2)
+        ]
         # Run the real stock selector, not a reimplementation of its dispatch table.
         def select(mode, variant):
             return int(subprocess.check_output([str(probe), str(args.main.resolve()),
@@ -115,7 +122,10 @@ def main():
                 or crosscheck[102][1] != 145 or crosscheck[110][0] != 145):
             raise ValueError("stock slot cross-check failed")
         report["stock_art_filter_codes_for_variant_1_2_3"] = crosscheck
-        report["modeled"] = "Backend task selection, direct backend or message responses, logs. No file I/O by emulated E-P5."
+        report["modeled"] = ("Current task record, direct backend or message responses, logs, "
+                             "FILEFGND queue transport and read backend, local queue send context, "
+                             "lock, copy, ready-list insertion and dispatch. "
+                             "No camera file I/O.")
     print(json.dumps(report, indent=2))
 
 
