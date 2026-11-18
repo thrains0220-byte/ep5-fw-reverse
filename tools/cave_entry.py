@@ -475,6 +475,10 @@ def validate_look_runtime(image, *, model_preload=False):
                 if (native['initial_preload_status'] != status or native['release_calls'] != 1 or
                     native['codec_calls'] != (0 if name == 'preload_cancel' else 1)):
                     raise AssertionError(f'preload lifecycle mismatch: {name}')
+                if (not native['filefg_empty_polls'] or
+                    native['filefg_stock_requests'] != int(name in ('preload_apply', 'preload_removed_during_read')) or
+                    native['filefg_poll_errors'] != int(name == 'preload_apply')):
+                    raise AssertionError(f'FILEFGND scheduling mismatch: {name}')
             cases.append(dict(**native, matches_host=True,
                               pixels_changed=output != original,
                               output_sha256=hashlib.sha256(output).hexdigest()))
@@ -494,9 +498,10 @@ def validate_look_runtime(image, *, model_preload=False):
                 dependencies_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})
     if model_preload:
         report.update(
-            scope='The MN103 preload worker and ART send/wait/JPEG/release hooks execute against a modeled card.',
-            models=['worker ticks and media events are injected between stock ART stages',
-                    'one synthetic task at a time, with modeled table RAM, lock and file backend',
+            scope='The stock local FILEFGND poll and dispatch, MN103 preload worker and ART capture hooks execute against a modeled card.',
+            models=['the original file loop receives with timeout zero; stock requests run through dispatch and reply first',
+                    'only the stock empty-queue result permits one worker step; queue errors and requests defer it',
+                    'explicit worker ticks and media events, with modeled queue RAM, locks, scheduler and file backends',
                     'stock send and JPEG encoder are modeled sinks'],
         )
     return report

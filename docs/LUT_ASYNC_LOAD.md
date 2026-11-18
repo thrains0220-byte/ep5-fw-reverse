@@ -29,7 +29,9 @@ The [FILEFGND map](FILE_SERVICE_MAP.md) records the stock loop and queue probes.
 
 ## Preloaded LUT at capture
 
-`validate_look_runtime(image, model_preload=True)` links the existing preload worker into the MN103 ART/JPEG probe. The fixture supplies isolated RAM, a menu snapshot, mount events and worker ticks. The actual ART send, wait, JPEG and release fragments and the target LUT code run in the CPU model. `EP5_MODEL_PRELOAD` is selected by this test only.
+`validate_look_runtime(image, model_preload=True)` links the existing preload worker into the MN103 ART/JPEG probe. The fixture supplies isolated RAM, a menu snapshot, mount events and worker ticks. The actual FILEFGND loop, local queue receive, ART send, wait, JPEG and release fragments, and the target LUT code run in the CPU model. `EP5_MODEL_PRELOAD` is selected by this test only.
+
+The model sets the receive timeout to zero at the stock file loop's receive call. A stock read request runs through receive, dispatch and reply with its original cookie before the worker can advance. Only a poll result of `-2` (empty) permits a worker step. A queue error (`-1`) leaves the worker pending. The removal test invalidates the mounted look while its index handle is open, serves a pending stock request, then closes the old handle once on an empty poll. The model supplies the queue lock, scheduler, file backend and reply transport.
 
 The send hook acquires the confirmed table and intensity without reading files or taking an ART pool allocation. If the table is unavailable, the entire stock send packet is preserved. A load that completes after the send cannot affect that exposure. A shot that acquired a table keeps it across a modeled unmount until the release hook. The probe exercises release after JPEG and after a canceled shot, including the check that no file is opened, read or closed by the capture stages. Each worker tick performs at most one file operation and reads at most 512 bytes.
 

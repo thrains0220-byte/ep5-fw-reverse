@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later
  * Mode 3 full chain on the CPU model: one stock ART send, receive tail, JPEG
  * caller and release fragment execute the cave veneers and the SD look loader.
- * The file service and ART memory pool are modeled backends fed with real
- * desktop pack bytes; no filesystem, ISP, scheduler or camera I/O. */
+ * In preload mode the stock FILEFGND poll and dispatch run before each
+ * worker step. All card, scheduler, ISP and ART pool backends are modeled. */
 #include "emu.h"
 #include "../firmware/lut_job.h"
 
@@ -24,6 +24,19 @@
 #define QUEUE_ROUTE 0x7e132fdeu
 #define QUEUE_ERROR 0x7e132ed3u
 #define ERROR_LOG 0x7e106c9du
+#define FILE_LOOP 0x7e28dd2fu
+#define FILE_CURMSG 0x6057a108u
+#define FILE_CHANNEL 0x7e11f938u
+#define FILE_POLL 0x7e295329u
+#define FILE_POLL_RETURN 0x7e28de5cu
+#define FILE_POLL_LOG 0x7e106f3fu
+#define FILE_REPLY 0x7e2952efu
+#define CORE_TABLE 0x8ff00004u
+#define POST_CONTEXT 0x7e1117d8u
+#define SCHED_LOCK 0x7e112c44u
+#define SCHED_UNLOCK 0x7e112cbbu
+#define QUEUE_COPY 0x7e117161u
+#define TASK_RESCHEDULE 0x7e11683bu
 #define FREE_BUFFER 0x7e23e0b0u
 #define POOL_ALLOC 0x7e23e0ffu
 #define POOL_FREE 0x7e23e2fdu
@@ -39,6 +52,22 @@
 #define SEND_QUEUE 0x7e3fd6d2u
 #define STACK 0x60000000u
 #define CALLER (STACK + 0x100u)
+#define FILE_STACK (STACK + 0x9000u)
+#define FILE_RECEIVE_SP (FILE_STACK - 32u)
+#define FILE_RECEIVE_BUFFER (FILE_STACK - 20u)
+#define CORE_STATE (STACK + 0x300u)
+#define CORE_FLAGS (STACK + 0x400u)
+#define TASK_HEAD (STACK + 0x420u)
+#define TASK_OBJECT (STACK + 0x440u)
+#define QUEUE_CONFIG (STACK + 0x600u)
+#define QUEUE_INDEX (STACK + 0x640u)
+#define QUEUE_OBJECT (STACK + 0x700u)
+#define QUEUE_RING (STACK + 0x780u)
+#define STOCK_READ (STACK + 0x820u)
+#define STOCK_DEST (STACK + 0x850u)
+#define STOCK_HANDLE 0x125af008u
+#define STOCK_REPLY_QUEUE 0x33u
+#define STOCK_REPLY_COOKIE 0x544f4b4eu
 #define CONTEXT 0x11000000u
 #define SETTINGS (CONTEXT + 0x100u)
 #define PRELOAD_RAM 0x11006000u
@@ -89,6 +118,11 @@ static int have_index, have_lut, direct_backend = 1, pool_fail, close_fail_at;
 static int opened, read_calls, closed, live; /* live: 0 none, 1 index, 2 lut */
 static unsigned live_pos;
 static unsigned pool_allocs, pool_frees;
+static uint8_t file_curmsg[4];
+static int filefg_running, filefg_locked, filefg_result;
+static unsigned filefg_copies, filefg_reads, filefg_replies;
+static unsigned filefg_empty, filefg_errors, filefg_requests, filefg_rescheduled;
+static uint32_t filefg_buffer;
 static uint32_t dbg_exact, dbg_lookread, dbg_load, dbg_loadret;
 static uint32_t state_aw_pc, state_bj_pc, state_ap_pc;
 static int pool_live;
@@ -100,16 +134,31 @@ static int within(uint32_t a, uint32_t n, uint32_t b, uint32_t bytes)
 
 uint8_t *mem_host(uint32_t a, uint32_t n)
 {
+    if (filefg_running) {
+        /* The same service boundaries as the standalone FILEFGND probe.
+         * Queue routing, ring receive and file dispatch execute stock code. */
+        static const struct { uint32_t pc; uint8_t bytes[8]; } hooks[] = {
+            {POST_CONTEXT, {0xdf,0x80,4}},
+            {SCHED_LOCK, {0xf0,0xfc}}, {SCHED_UNLOCK, {0xf0,0xfc}},
+            {QUEUE_COPY, {0xdf,0x80,4}}, {TASK_RESCHEDULE, {0xdf,0xb0,16}},
+            {FILE_REPLY, {0xdf,0xe0,48}}, {FILE_POLL_LOG, {0xdf,0xf0,44}},
+        };
+        for (unsigned i = 0; i < sizeof hooks / sizeof *hooks; ++i)
+            if (within(a, n, hooks[i].pc, 8))
+                return (uint8_t *)hooks[i].bytes + (a - hooks[i].pc);
+        if (within(a, n, FILE_CURMSG, sizeof file_curmsg))
+            return file_curmsg + (a - FILE_CURMSG);
+    }
     if (within(a, n, LOGGER, 8)) return rec_return + (a - LOGGER);
     if (within(a, n, CODEC, 8)) return codec_return + (a - CODEC);
-    if (within(a, n, QUEUE_READ, 8)) return queue_return + (a - QUEUE_READ);
-    if (within(a, n, QUEUE_ROUTE, 8)) return route_return + (a - QUEUE_ROUTE);
+    if (!filefg_running && within(a, n, QUEUE_READ, 8)) return queue_return + (a - QUEUE_READ);
+    if (!filefg_running && within(a, n, QUEUE_ROUTE, 8)) return route_return + (a - QUEUE_ROUTE);
     if (within(a, n, QUEUE_ERROR, 8)) return error_return + (a - QUEUE_ERROR);
     if (within(a, n, ERROR_LOG, 8)) return error_log_return + (a - ERROR_LOG);
     if (within(a, n, FREE_BUFFER, 8)) return free_return + (a - FREE_BUFFER);
     if (within(a, n, SEND, 8)) return send_return + (a - SEND);
     if (within(a, n, SEND_QUEUE, 8)) return squeue_return + (a - SEND_QUEUE);
-    if (within(a, n, FILE_SELECT, 8)) return select_return + (a - FILE_SELECT);
+    if (!worker_entry && within(a, n, FILE_SELECT, 8)) return select_return + (a - FILE_SELECT);
     if (within(a, n, FILE_OPEN, 8)) return fopen_return + (a - FILE_OPEN);
     if (within(a, n, FILE_READ, 8)) return fread_return + (a - FILE_READ);
     if (within(a, n, FILE_CLOSE, 8)) return fclose_return + (a - FILE_CLOSE);
@@ -133,6 +182,10 @@ uint8_t *mem_host(uint32_t a, uint32_t n)
 
 uint32_t mem_rd(uint32_t a, int n)
 {
+    if ((filefg_running || worker_running) && n == 4) {
+        if (a == 0x8050) return 0; /* CPU 0 */
+        if (a == CORE_TABLE) return CORE_STATE;
+    }
     uint8_t *p = mem_host(a, (uint32_t)n);
     if (!p) emu_abort(PC, "unmapped read %08x", a);
     uint32_t v = 0;
@@ -142,12 +195,16 @@ uint32_t mem_rd(uint32_t a, int n)
 
 void mem_wr(uint32_t a, uint32_t v, int n)
 {
+    if (filefg_running && a != FILE_CURMSG &&
+        !within(a, (uint32_t)n, STACK, sizeof stack_ram))
+        emu_abort(PC, "FILEFGND write outside its modeled state: %08x", a);
     if (!within(a, (uint32_t)n, STACK, sizeof stack_ram) &&
         !within(a, (uint32_t)n, STACK + 0x40000000u, sizeof stack_ram) &&
         !within(a, (uint32_t)n, PIXELS, pixel_bytes) &&
         !within(a, (uint32_t)n, POOL, sizeof pool_ram) &&
         !within(a, (uint32_t)n, PACKET, sizeof packet) &&
         !within(a, (uint32_t)n, ART_GLOBAL, 4) &&
+        !(filefg_running && a == FILE_CURMSG && n == 4) &&
         !(worker_entry && within(a, (uint32_t)n, PRELOAD_RAM, sizeof preload_ram)) &&
         !within(a, (uint32_t)n, UNCAVE + state_offset, 24))
         emu_abort(PC, "write outside model %08x", a);
@@ -217,27 +274,128 @@ static uint32_t file_close(uint32_t handle)
 {
     if (worker_entry && !worker_running) emu_abort(PC, "file close outside worker");
     if (!live || handle != HANDLE) emu_abort(PC, "bad close state");
-    ++closed; live = 0; return closed == (unsigned)close_fail_at ? (uint32_t)-1 : 0;
+    ++closed; live = 0; return closed == close_fail_at ? (uint32_t)-1 : 0;
 }
 
 int hle_is_hook(uint32_t a)
 {
+    if (filefg_running)
+        return a == FILE_POLL || a == FILE_POLL_RETURN || a == POST_CONTEXT ||
+               a == SCHED_LOCK || a == SCHED_UNLOCK || a == QUEUE_COPY ||
+               a == TASK_RESCHEDULE || a == FILE_READ || a == FILE_REPLY ||
+               a == QUEUE_ERROR || a == FILE_POLL_LOG;
     return a == HOOK || a == bridge_call || a == CODEC || a == LOGGER ||
            a == WAIT_HOOK || a == RECEIVER || a == CALLER + 7 ||
            a == PARAM_CONTINUE || a == 0x7e3ed857 || a == FREE_BUFFER ||
            a == 0x7e3f247b || a == QUEUE_READ || a == QUEUE_ROUTE ||
            a == wait_call + 7 || a == SEND || a == SEND_CHECK || a == SEND_PACK ||
-           a == SEND_CHECK2 || a == SEND_RING || a == SEND_QUEUE || a == FILE_SELECT || a == FILE_OPEN ||
+           a == SEND_CHECK2 || a == SEND_RING || a == SEND_QUEUE ||
+           (!worker_entry && a == FILE_SELECT) || a == FILE_OPEN ||
            a == FILE_READ || a == FILE_CLOSE || a == FILE_MSG ||
            a == POOL_ALLOC || a == POOL_FREE || a == 0x7e40a3fc || a == 0x7e12818b || a == 0x7e40a43f ||
            a == 0x7e291524 || a == 0x7e291554 || a == 0x7e291515 || a == 0x7e128155 || a == 0x7e12815c ||
            (a >= CAVE && a < CAVE + CAVE_BYTES && (getenv("EP5_TRACE") || getenv("EP5_STATE")));
 }
 
+static void check_filefg_result(int valid, unsigned line)
+{
+    if (!valid) {
+        emu_abort(PC, "FILEFGND queue/dispatch mismatch at line %u (result %d, buffer %08x, sp %08x)",
+                  line, filefg_result, filefg_buffer, cpus[0].regs[REG_SP]);
+        exit(1);
+    }
+}
+#define expect_filefg(condition) check_filefg_result((condition), __LINE__)
+
+static int check_filefg(uint32_t *r, uint32_t pc)
+{
+    const uint32_t a = r[REG_A0], b = r[REG_A0 + 1];
+    switch (pc) {
+    case FILE_POLL:
+        expect_filefg(!filefg_locked && !mem_rd(FILE_CURMSG, 4) &&
+                      r[REG_MDR] == FILE_POLL_RETURN && b == UINT32_MAX &&
+                      a == FILE_RECEIVE_BUFFER && r[REG_D0] == 0x22 &&
+                      r[REG_D0 + 1] == 16);
+        if (filefg_replies) {
+            expect_filefg(a == filefg_buffer && r[REG_SP] == FILE_RECEIVE_SP - 48u);
+            reached_stop = emu_stop = 1;
+            return 1;
+        }
+        filefg_buffer = a;
+        r[REG_A0 + 1] = 0; /* model one nonblocking receive at this stock call */
+        break;
+    case FILE_POLL_RETURN:
+        expect_filefg(!filefg_locked && !mem_rd(FILE_CURMSG, 4));
+        filefg_result = (int32_t)r[REG_D0];
+        if (filefg_result) {
+            expect_filefg(!filefg_copies && !filefg_reads && !filefg_replies);
+            for (unsigned i = 0; i < 16; i += 4)
+                expect_filefg(mem_rd(filefg_buffer + i, 4) == UINT32_MAX);
+            if (filefg_result == -2) ++filefg_empty;
+            else if (filefg_result == -1) ++filefg_errors;
+            else emu_abort(pc, "unexpected FILEFGND poll result %d", filefg_result);
+            /* Real stock code assumes blocking success after this point.
+             * Only that success may fall through into dispatch. */
+            reached_stop = emu_stop = 1;
+            return 1;
+        }
+        expect_filefg(filefg_copies == 2 && filefg_rescheduled == 1 &&
+                      mem_rd(QUEUE_OBJECT + 48, 4) == 32 &&
+                      mem_rd(QUEUE_OBJECT + 40, 4) == QUEUE_RING + 20);
+        break;
+    case POST_CONTEXT: r[REG_D0] = 0; break;
+    case SCHED_LOCK:
+        expect_filefg(!filefg_locked);
+        filefg_locked = 1;
+        break;
+    case SCHED_UNLOCK:
+        expect_filefg(filefg_locked);
+        filefg_locked = 0;
+        break;
+    case QUEUE_COPY: {
+        uint32_t length = r[REG_D0];
+        expect_filefg(filefg_locked && filefg_copies < 2 &&
+                      (filefg_copies ? b == QUEUE_RING + 4 && length == 16 && a == filefg_buffer :
+                       b == QUEUE_RING && length == 4 && within(a, 4, STACK, sizeof stack_ram)));
+        for (uint32_t i = 0; i < length; ++i)
+            mem_wr(a + i, mem_rd(b + i, 1), 1);
+        ++filefg_copies;
+        break;
+    }
+    case TASK_RESCHEDULE:
+        expect_filefg(filefg_locked && filefg_copies == 2 && !filefg_rescheduled);
+        ++filefg_rescheduled;
+        break;
+    case FILE_READ:
+        expect_filefg(!filefg_locked && !filefg_reads && filefg_copies == 2 &&
+                      mem_rd(FILE_CURMSG, 4) == filefg_buffer && a == STOCK_DEST &&
+                      r[REG_D0] == 1 && r[REG_D0 + 1] == 32 && b == STOCK_HANDLE);
+        for (unsigned i = 0; i < 7; ++i)
+            mem_wr(a + i, 0xa0u + i, 1);
+        ++filefg_reads;
+        r[REG_D0] = 7;
+        break;
+    case FILE_REPLY:
+        expect_filefg(!filefg_locked && filefg_reads == 1 && !filefg_replies &&
+                      r[REG_D0] == STOCK_REPLY_QUEUE && r[REG_D0 + 1] == 12 &&
+                      b == UINT32_MAX && !mem_rd(a, 2) &&
+                      mem_rd(a + 4, 4) == STOCK_REPLY_COOKIE &&
+                      mem_rd(a + 8, 4) == STOCK_READ && mem_rd(STOCK_READ, 4) == 7);
+        ++filefg_replies;
+        r[REG_D0] = 0;
+        break;
+    default: /* Original wrapper still returns the error after diagnostic sinks. */
+        expect_filefg(pc == QUEUE_ERROR || pc == FILE_POLL_LOG);
+        break;
+    }
+    return 0;
+}
+
 int hle_check(cpu_t *cpu)
 {
     uint32_t pc = cpu->regs[REG_PC];
     uint32_t *r = cpu->regs;
+    if (filefg_running) return check_filefg(r, pc);
     if (pc == CALLER + 7 || pc == 0x7e3f247b) { reached_stop = emu_stop = 1; return 1; }
 
     /* ---- stock send internals (modeled sinks) ---- */
@@ -508,6 +666,76 @@ static void reset_regs(void)
     cpus[0].regs[REG_MDR] = 0x13579bdf;
 }
 
+static void setup_filefg(void)
+{
+    const uint32_t channel = mem_rd(FILE_CHANNEL, 2);
+    expect_filefg(channel == 0x22);
+    mem_wr(CORE_STATE + 16, CORE_FLAGS, 4);
+    mem_wr(CORE_STATE + 28, CORE_FLAGS, 4);
+    mem_wr(CORE_STATE + 60, QUEUE_CONFIG, 4);
+    mem_wr(CORE_STATE + 96, TASK_HEAD, 4);
+    mem_wr(CORE_STATE + 232, QUEUE_INDEX, 4);
+    mem_wr(CORE_STATE + 380, 2, 4);
+    mem_wr(TASK_HEAD, TASK_OBJECT, 4);
+    mem_wr(TASK_OBJECT + 16, 0x12, 2);
+    mem_wr(QUEUE_INDEX + 4 * (channel - 1), QUEUE_OBJECT, 4);
+    mem_wr(QUEUE_OBJECT, 1, 2);
+    mem_wr(QUEUE_OBJECT + 4, QUEUE_OBJECT + 4, 4);
+    mem_wr(QUEUE_OBJECT + 12, QUEUE_OBJECT + 12, 4);
+    mem_wr(QUEUE_OBJECT + 16, QUEUE_OBJECT + 12, 4);
+    mem_wr(QUEUE_OBJECT + 24, 16, 4);
+    mem_wr(QUEUE_OBJECT + 32, QUEUE_RING, 4);
+    mem_wr(QUEUE_OBJECT + 44, QUEUE_RING + 32, 4);
+}
+
+enum filefg_input { FILEFG_EMPTY, FILEFG_STOCK_READ, FILEFG_INVALID_CHANNEL };
+
+static int run_filefg(enum filefg_input input)
+{
+    const int pending = input == FILEFG_STOCK_READ;
+    reset_regs();
+    cpus[0].regs[REG_PC] = FILE_LOOP;
+    cpus[0].regs[REG_SP] = FILE_STACK;
+    mem_wr(QUEUE_CONFIG + 26, input == FILEFG_INVALID_CHANNEL ? 0x21 : 0x22, 2);
+    mem_wr(QUEUE_OBJECT + 36, QUEUE_RING + (pending ? 20 : 0), 4);
+    mem_wr(QUEUE_OBJECT + 40, QUEUE_RING, 4);
+    mem_wr(QUEUE_OBJECT + 48, pending ? 12 : 32, 4);
+    mem_wr(QUEUE_OBJECT + 52, pending, 4);
+    for (unsigned i = 0; i < 16; i += 4)
+        mem_wr(FILE_RECEIVE_BUFFER + i, UINT32_MAX, 4);
+    if (pending) {
+        mem_wr(QUEUE_RING, 16, 4);
+        mem_wr(QUEUE_RING + 4, STOCK_REPLY_QUEUE, 4);
+        mem_wr(QUEUE_RING + 8, STOCK_REPLY_COOKIE, 4);
+        mem_wr(QUEUE_RING + 12, 0x10005, 4);
+        mem_wr(QUEUE_RING + 16, STOCK_READ, 4);
+        mem_wr(STOCK_READ, UINT32_MAX, 4);
+        mem_wr(STOCK_READ + 4, STOCK_DEST, 4);
+        mem_wr(STOCK_READ + 8, 1, 4);
+        mem_wr(STOCK_READ + 12, 32, 4);
+        mem_wr(STOCK_READ + 16, STOCK_HANDLE, 4);
+        memset(mem_host(STOCK_DEST, 32), 0x5a, 32);
+    }
+    filefg_copies = filefg_reads = filefg_replies = filefg_rescheduled = 0;
+    filefg_result = 1;
+    filefg_running = 1;
+    cpu_run(5000, 0);
+    filefg_running = 0;
+    expect_filefg(reached_stop && !filefg_locked &&
+                  cpus[0].regs[REG_SP] == FILE_RECEIVE_SP -
+                      (pending ? 48u : 0u) &&
+                  cpus[0].regs[REG_A0 + 2] == FILE_RECEIVE_BUFFER);
+    if (pending) {
+        expect_filefg(!filefg_result && filefg_reads == 1 && filefg_replies == 1);
+        for (unsigned i = 0; i < 32; ++i)
+            expect_filefg(mem_rd(STOCK_DEST + i, 1) == (i < 7 ? 0xa0u + i : 0x5a));
+        ++filefg_requests;
+    } else {
+        expect_filefg(filefg_result == (input == FILEFG_INVALID_CHANNEL ? -1 : -2));
+    }
+    return filefg_result;
+}
+
 static uint32_t run_worker(unsigned operation)
 {
     uint8_t caller[8] = {0xdd, 0, 0, 0, 0, 0xb0, 0, 0xcb};
@@ -526,10 +754,20 @@ static uint32_t run_worker(unsigned operation)
     return cpus[0].regs[REG_D0];
 }
 
+static uint32_t run_file_tick(enum filefg_input input)
+{
+    const int before = opened + read_calls + closed;
+    if (run_filefg(input) == -2)
+        return run_worker(1);
+    if (opened + read_calls + closed != before)
+        emu_abort(PC, "LUT worker ran before a verified empty file queue");
+    return EP5_LUT_JOB_IDLE;
+}
+
 static uint32_t finish_worker(void)
 {
     for (unsigned i = 0; i < 160; ++i) {
-        uint32_t status = run_worker(1);
+        uint32_t status = run_file_tick(FILEFG_EMPTY);
         if (status != EP5_LUT_JOB_BUSY)
             return status;
     }
@@ -672,14 +910,21 @@ int main(int argc, char **argv)
 
     uint32_t preload_status = EP5_LUT_JOB_IDLE;
     if (worker_entry) {
+        setup_filefg();
         if (!run_worker(0)) emu_abort(PC, "preload fixture rejected selection");
+        if (!strcmp(scenario, "preload_apply") &&
+            (run_file_tick(FILEFG_INVALID_CHANNEL) != EP5_LUT_JOB_IDLE ||
+             run_file_tick(FILEFG_STOCK_READ) != EP5_LUT_JOB_IDLE || opened))
+            emu_abort(PC, "file receive error or stock read permitted LUT work");
         int load_pending = !strcmp(scenario, "preload_late") ||
                            !strcmp(scenario, "preload_removed_during_read");
-        preload_status = load_pending ? run_worker(1) : finish_worker();
+        preload_status = load_pending ? run_file_tick(FILEFG_EMPTY) : finish_worker();
         if (!strcmp(scenario, "preload_removed_during_read")) {
-            if (!live || run_worker(1) != EP5_LUT_JOB_BUSY || !read_calls)
+            if (!live || run_file_tick(FILEFG_EMPTY) != EP5_LUT_JOB_BUSY || !read_calls)
                 emu_abort(PC, "no in-progress read to invalidate");
             run_worker(2);
+            if (run_file_tick(FILEFG_STOCK_READ) != EP5_LUT_JOB_IDLE || !live || closed)
+                emu_abort(PC, "stock read failed to defer cleanup");
             if (finish_worker() != EP5_LUT_JOB_STOCK || live || closed != 1)
                 emu_abort(PC, "unmount did not retire the open handle");
         }
@@ -832,12 +1077,14 @@ int main(int argc, char **argv)
            "\"opens\":%d,\"reads\":%d,\"closes\":%d,\"pool_allocs\":%u,\"pool_frees\":%u,"
            "\"pool_balanced\":%s,\"pool_leaked\":%s,\"neutralized\":%u,\"state_writes\":%u,"
            "\"packet_unchanged\":%s,\"initial_preload_status\":%u,"
+           "\"filefg_stock_requests\":%u,\"filefg_empty_polls\":%u,\"filefg_poll_errors\":%u,"
            "\"registers_and_stack_preserved\":true,\"native_arguments_preserved\":true,"
            "\"wait_return_preserved\":true,\"instructions\":%llu}\n",
            scenario, direct_backend, codec_calls, native_result, wait_calls, art_result,
            send_calls, release_calls, opened, read_calls, closed, pool_allocs, pool_frees,
            balanced ? "true" : "false", pool_live ? "true" : "false", neutralized, state_writes,
            packet_unchanged ? "true" : "false", preload_status,
+           filefg_requests, filefg_empty, filefg_errors,
            (unsigned long long)cpus[0].icount);
     free(image);
     return 0;

@@ -34,11 +34,16 @@ class CaveEntryTests(unittest.TestCase):
             self.assertTrue(case['matches_host'], name)
             self.assertEqual(case['release_calls'], 1, name)
             self.assertEqual(case['pool_allocs'], 0, name)
+            self.assertGreater(case['filefg_empty_polls'], 0, name)
         for name in ('preload_late', 'preload_bad_crc', 'preload_missing_card',
                      'preload_removed', 'preload_removed_during_read', 'preload_stale'):
             self.assertTrue(cases[name]['packet_unchanged'], name)
             self.assertFalse(cases[name]['pixels_changed'], name)
         self.assertTrue(cases['preload_apply']['pixels_changed'])
+        self.assertEqual(cases['preload_apply']['filefg_stock_requests'], 1)
+        self.assertEqual(cases['preload_apply']['filefg_poll_errors'], 1)
+        self.assertEqual(cases['preload_removed_during_read']['filefg_stock_requests'], 1)
+        self.assertEqual(cases['preload_removed_during_read']['closes'], 1)
         self.assertTrue(cases['preload_removed_while_pinned']['pixels_changed'])
         self.assertEqual(cases['preload_cancel']['codec_calls'], 0)
 
