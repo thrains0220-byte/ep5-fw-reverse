@@ -28,18 +28,24 @@ class CaveEntryTests(unittest.TestCase):
     def test_mn103_capture_uses_prepublished_look_and_releases_it(self):
         report = validate_look_runtime(MAIN, model_preload=True)
         cases = {case['name']: case for case in report['cases']}
-        self.assertEqual(len(cases), 9)
+        self.assertEqual(len(cases), 12)
         self.assertFalse(report['installable'])
         for name, case in cases.items():
             self.assertTrue(case['matches_host'], name)
             self.assertEqual(case['release_calls'], 1, name)
             self.assertEqual(case['pool_allocs'], 0, name)
             self.assertGreater(case['filefg_empty_polls'], 0, name)
-        for name in ('preload_late', 'preload_bad_crc', 'preload_missing_card',
+        for name in ('preload_late', 'preload_bad_crc', 'preload_missing_card', 'preload_index_bad_crc',
                      'preload_removed', 'preload_removed_during_read', 'preload_stale'):
             self.assertTrue(cases[name]['packet_unchanged'], name)
             self.assertFalse(cases[name]['pixels_changed'], name)
         self.assertTrue(cases['preload_apply']['pixels_changed'])
+        self.assertTrue(cases['preload_imported']['pixels_changed'])
+        self.assertEqual(cases['preload_imported']['closes'], 3)
+        self.assertEqual(cases['preload_reload']['closes'], 6)
+        self.assertNotEqual(cases['preload_reload']['output_sha256'],
+                            cases['preload_imported']['output_sha256'])
+        self.assertEqual(cases['preload_index_bad_crc']['closes'], 1)
         self.assertEqual(cases['preload_apply']['filefg_stock_requests'], 1)
         self.assertEqual(cases['preload_apply']['filefg_poll_errors'], 1)
         self.assertEqual(cases['preload_removed_during_read']['filefg_stock_requests'], 1)

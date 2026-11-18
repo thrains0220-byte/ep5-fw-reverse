@@ -2,6 +2,7 @@
 #define EP5_LUT_JOB_H
 
 #include "look_store.h"
+#include "lut_menu.h"
 
 /* Offline, single-owner worker state. All calls (including request/cancel and
  * access to cache/selection) must be serialized by the caller; no atomics or
@@ -13,12 +14,14 @@
 enum ep5_lut_job_status {
     EP5_LUT_JOB_IDLE = 0, EP5_LUT_JOB_BUSY = 1,
     EP5_LUT_JOB_APPLY = 2, EP5_LUT_JOB_STOCK = 3,
-    EP5_LUT_JOB_ERROR = 4, EP5_LUT_JOB_CANCELLED = 5
+    EP5_LUT_JOB_ERROR = 4, EP5_LUT_JOB_CANCELLED = 5,
+    EP5_LUT_JOB_INDEX_READY = 7
 };
 
 struct ep5_lut_job {
     struct ep5_look_io io;
     struct ep5_look_cache *cache;
+    struct ep5_lut_menu_slot *index_slots;
     void *file;
     uint32_t crc, expected_crc, bytes, slot_seen, number_seen;
     uint32_t look_crc[16];
@@ -38,6 +41,11 @@ struct ep5_lut_job {
 int ep5_lut_job_request(struct ep5_lut_job *job, const struct ep5_look_io *io,
                         struct ep5_look_cache *cache, uint16_t picture_mode,
                         uint8_t variant, uint16_t generation);
+/* Load the menu index without opening a LUT. The worker owns slots until
+ * INDEX_READY for this generation. Discard the staging contents on failure. */
+int ep5_lut_job_request_index(struct ep5_lut_job *job, const struct ep5_look_io *io,
+                              struct ep5_lut_menu_slot slots[EP5_LUT_MENU_SLOTS],
+                              uint16_t generation);
 int ep5_lut_job_bind(struct ep5_lut_job *job, uint16_t number, uint32_t crc,
                      uint16_t amount);
 /* Initialize before first request. Only call when no file is open. */

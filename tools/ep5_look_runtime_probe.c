@@ -85,9 +85,11 @@
 static uint8_t *image, stack_ram[65536], context[0x5000], globals[16];
 static uint8_t pixels[65536], pool_ram[POOL_BYTES], packet[396];
 static uint8_t pool_status[8];
-static uint8_t preload_ram[1024];
+static uint8_t preload_ram[2048];
 static uint32_t worker_entry;
 static int worker_running;
+static uint32_t menu_address;
+static int worker_updates_menu;
 static uint32_t pixel_bytes;
 static uint8_t rec_return[8] = {0xdf, 0xa0, 12}, codec_return[8] = {0xdf, 0xf0, 16};
 static uint8_t queue_return[8] = {0xdf, 0xf0, 32}, route_return[8] = {0xdf, 0xc0, 16};
@@ -120,6 +122,7 @@ static unsigned live_pos;
 static unsigned pool_allocs, pool_frees;
 static uint8_t file_curmsg[4];
 static int filefg_running, filefg_locked, filefg_result;
+static int file_index_phase;
 static unsigned filefg_copies, filefg_reads, filefg_replies;
 static unsigned filefg_empty, filefg_errors, filefg_requests, filefg_rescheduled;
 static uint32_t filefg_buffer;
@@ -206,6 +209,7 @@ void mem_wr(uint32_t a, uint32_t v, int n)
         !within(a, (uint32_t)n, ART_GLOBAL, 4) &&
         !(filefg_running && a == FILE_CURMSG && n == 4) &&
         !(worker_entry && within(a, (uint32_t)n, PRELOAD_RAM, sizeof preload_ram)) &&
+        !(worker_updates_menu && within(a, (uint32_t)n, menu_address, EP5_LUT_MENU_STORAGE_BYTES)) &&
         !within(a, (uint32_t)n, UNCAVE + state_offset, 24))
         emu_abort(PC, "write outside model %08x", a);
     uint8_t *p = mem_host(a, (uint32_t)n);
@@ -745,11 +749,13 @@ static uint32_t run_worker(unsigned operation)
     cpus[0].regs[REG_D0] = operation;
     int before = opened + read_calls + closed;
     worker_running = 1;
+    worker_updates_menu = operation >= 4;
     cpu_run(200000, 0);
     worker_running = 0;
+    worker_updates_menu = 0;
     if (!reached_stop || cpus[0].regs[REG_SP] != STACK + 0xf000)
         emu_abort(PC, "preload worker did not return");
-    if (opened + read_calls + closed - before > (operation == 1))
+    if (opened + read_calls + closed - before > (operation == 1 || operation == 5))
         emu_abort(PC, "preload tick exceeded one file operation");
     return cpus[0].regs[REG_D0];
 }
@@ -758,7 +764,7 @@ static uint32_t run_file_tick(enum filefg_input input)
 {
     const int before = opened + read_calls + closed;
     if (run_filefg(input) == -2)
-        return run_worker(1);
+        return run_worker(file_index_phase ? 5 : 1);
     if (opened + read_calls + closed != before)
         emu_abort(PC, "LUT worker ran before a verified empty file queue");
     return EP5_LUT_JOB_IDLE;
@@ -773,6 +779,23 @@ static uint32_t finish_worker(void)
     }
     emu_abort(PC, "preload job exhausted its step budget");
     return EP5_LUT_JOB_ERROR;
+}
+
+static void load_card(const char *directory)
+{
+    char path[512];
+    if (snprintf(path, sizeof path, "%s/INDEX.EP5", directory) >= (int)sizeof path)
+        exit(2);
+    FILE *file = fopen(path, "rb");
+    have_index = file != NULL;
+    index_len = file ? (unsigned)fread(index_data, 1, sizeof index_data, file) : 0;
+    if (file) fclose(file);
+    if (snprintf(path, sizeof path, "%s/L0000001.LUT", directory) >= (int)sizeof path)
+        exit(2);
+    file = fopen(path, "rb");
+    have_lut = file != NULL;
+    lut_len = file ? (unsigned)fread(lut_data, 1, sizeof lut_data, file) : 0;
+    if (file) fclose(file);
 }
 
 int main(int argc, char **argv)
@@ -814,7 +837,9 @@ int main(int argc, char **argv)
     direct_backend = atoi(argv[16]);
     const char *card_dir = argv[17];
     unsigned long menu_offset = strtoul(argv[18], &tail, 10);
-    if (*tail || menu_offset + 624u > payload_bytes) return 2;
+    if (*tail || menu_offset > payload_bytes ||
+        payload_bytes - menu_offset < EP5_LUT_MENU_STORAGE_BYTES) return 2;
+    menu_address = UNCAVE + (uint32_t)menu_offset;
     if (argc == 20) {
         unsigned long worker_offset = strtoul(argv[19], &tail, 10);
         if (*tail || !worker_offset || worker_offset >= payload_bytes) return 2;
@@ -839,13 +864,7 @@ int main(int argc, char **argv)
     }
 
     /* Load synthetic card files; absent file means the loader must fall back. */
-    char path[512];
-    snprintf(path, sizeof path, "%s/INDEX.EP5", card_dir);
-    FILE *f = fopen(path, "rb");
-    if (f) { index_len = (unsigned)fread(index_data, 1, sizeof index_data, f); have_index = 1; fclose(f); }
-    snprintf(path, sizeof path, "%s/L0000001.LUT", card_dir);
-    f = fopen(path, "rb");
-    if (f) { lut_len = (unsigned)fread(lut_data, 1, sizeof lut_data, f); have_lut = 1; fclose(f); }
+    load_card(card_dir);
     pool_fail = !strcmp(scenario, "pool_fail");
     close_fail_at = !strcmp(scenario, "index_close_fail") ? 1 :
                     (!strcmp(scenario, "lut_close_fail") ? 2 : 0);
@@ -862,7 +881,10 @@ int main(int argc, char **argv)
     memcpy(payload + control_offset, config, 28);
     /* Model a completed menu snapshot, not real GUI input. The selected first
      * slot points to mode 105/1 and look 1; test the handoff separately. */
-    if (worker_entry || !strncmp(scenario, "menu_", 5)) {
+    int replace_card = !strcmp(scenario, "preload_reload");
+    int import_index = replace_card || !strcmp(scenario, "preload_imported") ||
+                       !strcmp(scenario, "preload_index_bad_crc");
+    if ((worker_entry && !import_index) || !strncmp(scenario, "menu_", 5)) {
         uint8_t *menu = payload + menu_offset;
         memset(menu, 0, 624);
         menu[0] = !strcmp(scenario, "menu_closed") ? 0 : 2; menu[2] = 1;
@@ -911,14 +933,55 @@ int main(int argc, char **argv)
     uint32_t preload_status = EP5_LUT_JOB_IDLE;
     if (worker_entry) {
         setup_filefg();
-        if (!run_worker(0)) emu_abort(PC, "preload fixture rejected selection");
+        if (import_index) {
+            uint32_t menu = menu_address;
+            int bad_index = !strcmp(scenario, "preload_index_bad_crc");
+            if (!run_worker(4) || mem_rd(menu, 1) != EP5_LUT_MENU_LOADING)
+                emu_abort(PC, "SD index worker could not start");
+            file_index_phase = 1;
+            uint32_t status = finish_worker();
+            file_index_phase = 0;
+            if (bad_index) {
+                if (status != EP5_LUT_JOB_ERROR || mem_rd(menu, 1) != EP5_LUT_MENU_ERROR ||
+                    mem_rd(menu + 8 + 5 * 44 + 3, 1) || live || closed != 1)
+                    emu_abort(PC, "invalid SD index was published");
+                preload_status = EP5_LUT_JOB_ERROR;
+            } else if (status != EP5_LUT_JOB_INDEX_READY || mem_rd(menu, 1) != EP5_LUT_MENU_READY ||
+                       mem_rd(menu + 8 + 5 * 44 + 12, 2) != 0x8bd5 ||
+                       mem_rd(menu + 8 + 5 * 44 + 14, 2) != 0x9a8c ||
+                       live || closed != 1 || !run_worker(6)) {
+                emu_abort(PC, "SD index labels or menu selection did not survive import");
+            }
+        }
+        if (preload_status != EP5_LUT_JOB_ERROR && !run_worker(0))
+            emu_abort(PC, "preload fixture rejected selection");
         if (!strcmp(scenario, "preload_apply") &&
             (run_file_tick(FILEFG_INVALID_CHANNEL) != EP5_LUT_JOB_IDLE ||
              run_file_tick(FILEFG_STOCK_READ) != EP5_LUT_JOB_IDLE || opened))
             emu_abort(PC, "file receive error or stock read permitted LUT work");
         int load_pending = !strcmp(scenario, "preload_late") ||
                            !strcmp(scenario, "preload_removed_during_read");
-        preload_status = load_pending ? run_file_tick(FILEFG_EMPTY) : finish_worker();
+        if (preload_status != EP5_LUT_JOB_ERROR)
+            preload_status = load_pending ? run_file_tick(FILEFG_EMPTY) : finish_worker();
+        if (replace_card) {
+            if (preload_status != EP5_LUT_JOB_APPLY || live || closed != 3)
+                emu_abort(PC, "first card was not loaded before swap");
+            run_worker(2);
+            char replacement[512];
+            if (snprintf(replacement, sizeof replacement, "%s/next", card_dir) >= (int)sizeof replacement)
+                return 2;
+            load_card(replacement);
+            if (!run_worker(7)) emu_abort(PC, "replacement card did not start an index load");
+            file_index_phase = 1;
+            uint32_t index_status = finish_worker();
+            file_index_phase = 0;
+            if (index_status != EP5_LUT_JOB_INDEX_READY || live || closed != 4 ||
+                mem_rd(menu_address + offsetof(struct ep5_lut_menu, applied), 1) ||
+                run_worker(0) || !run_worker(6) || !run_worker(0))
+                emu_abort(PC, "replacement index did not reset the confirmed look");
+            preload_status = finish_worker();
+            if (live || closed != 6) emu_abort(PC, "replacement card left an open handle");
+        }
         if (!strcmp(scenario, "preload_removed_during_read")) {
             if (!live || run_file_tick(FILEFG_EMPTY) != EP5_LUT_JOB_BUSY || !read_calls)
                 emu_abort(PC, "no in-progress read to invalidate");

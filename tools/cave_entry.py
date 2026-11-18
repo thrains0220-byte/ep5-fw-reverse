@@ -48,11 +48,11 @@ def build_payload(image, out, *, model_preload=False):
              '-nostdlib', '-Wl,--gc-sections']
     sources = [ROOT / 'firmware' / n for n in
                ('ep5_art_entry.S', 'ep5_art_entry.c', 'film.c', 'lut.c', 'look_store.c',
-                'lut_menu.c', 'lut_menu_index.c', 'lut_menu_adapter.c')]
+                'lut_menu.c', 'lut_menu_index.c', 'lut_menu_adapter.c', 'lut_job.c')]
     if model_preload:
         flags += ['-DEP5_MODEL_PRELOAD', '-Wl,--undefined=_ep5_model_worker']
         sources += [ROOT / 'tests/fixtures/ep5_capture_preload.c',
-                    ROOT / 'firmware/lut_job.c', ROOT / 'firmware/lut_preload.c']
+                    ROOT / 'firmware/lut_preload.c']
     checked([X / 'mn10300-elf-gcc', *flags, '-I', ROOT / 'firmware', *sources,
              '-T', ROOT / 'firmware/ep5_art_entry.ld', '-lgcc', '-o', elf])
     symbols = {line.split()[-1]: int(line.split()[0], 16) for line in
@@ -80,9 +80,10 @@ def build_payload(image, out, *, model_preload=False):
     paths = [*sources, ROOT / 'firmware/ep5_art_entry.ld', ROOT / 'firmware/film.h',
              ROOT / 'firmware/lut.h', ROOT / 'firmware/lut_menu.h',
              ROOT / 'firmware/lut_menu_index.h', ROOT / 'firmware/lut_menu_adapter.h',
+             ROOT / 'firmware/lut_job.h', ROOT / 'firmware/look_store.h',
              ROOT / 'tools/cave_entry.py']
     if model_preload:
-        paths += [ROOT / 'firmware' / n for n in ('lut_job.h', 'lut_preload.h', 'look_store.h')]
+        paths.append(ROOT / 'firmware/lut_preload.h')
     report = dict(entry=hex(CAVE), end_exclusive=hex(CAVE + len(payload)),
                   payload_bytes=len(payload), cave_bytes=END - CAVE, spare_bytes=END - CAVE - len(payload),
                   control_offset=control, control_words=7,
@@ -392,8 +393,19 @@ def validate_look_runtime(image, *, model_preload=False):
         ('menu_closed', dict(amount=256), True, True, 1),
     ]
     if model_preload:
+        bad_index = bytearray(card()[0])
+        bad_index[16] ^= 1  # Valid rows with an invalid index CRC.
+        # A channel-swapped table makes stale-table use visible on neutral
+        # pixels while retaining the same on-card path and slot identity.
+        replacement = bytearray(table)
+        for offset in range(0, len(table), 6):
+            replacement[offset:offset + 2] = table[offset + 4:offset + 6]
+            replacement[offset + 4:offset + 6] = table[offset:offset + 2]
         specs = [
             ('preload_apply', {}, True, True, 1),
+            ('preload_imported', dict(amount=128), True, True, 1),
+            ('preload_reload', dict(amount=128), True, True, 1),
+            ('preload_index_bad_crc', dict(index_bytes=bytes(bad_index)), True, True, 1),
             ('preload_late', {}, True, True, 1),
             ('preload_bad_crc', dict(lut_bytes=corrupt_crc(lut_file)), True, True, 1),
             ('preload_missing_card', {}, False, False, 1),
@@ -417,6 +429,13 @@ def validate_look_runtime(image, *, model_preload=False):
                 (cdir / 'INDEX.EP5').write_bytes(index_bytes)
             if has_lut:
                 (cdir / 'L0000001.LUT').write_bytes(lut_bytes)
+            if name == 'preload_reload':
+                next_dir = cdir / 'next'
+                next_dir.mkdir()
+                project = Project('runtime', (Binding('pin-hole-i', look_id, '试验', 128),))
+                (next_dir / 'INDEX.EP5').write_bytes(pack_index(project, {look_id: 1},
+                                                                {look_id: zlib.crc32(replacement)}))
+                (next_dir / 'L0000001.LUT').write_bytes(pack_lut(1, bytes(replacement)))
             s = dict(tag=0x43355045, enabled=3, start=0x12000010, size=160,
                      encoding=1, amount=256, width=4, height=20, area_w=4, area_h=20,
                      mode=0, address=0x12000010, received=12, reply_error=0, reply_token=1,
@@ -434,7 +453,8 @@ def validate_look_runtime(image, *, model_preload=False):
             (directory / 'pixels').write_bytes(original)
             expect_apply = name in ('apply', 'half', 'menu_half', 'menu_closed')
             if model_preload:
-                expect_apply = name in ('preload_apply', 'preload_removed_while_pinned')
+                expect_apply = name in ('preload_apply', 'preload_removed_while_pinned',
+                                        'preload_imported', 'preload_reload')
             if model_preload or name in ('menu_half', 'menu_closed'):
                 amount = 128
             expected = bytearray(original)
@@ -442,7 +462,8 @@ def validate_look_runtime(image, *, model_preload=False):
                 array = (ctypes.c_uint8 * len(expected)).from_buffer(expected)
                 pointer = ctypes.cast(ctypes.byref(array, 16), bytep)
                 view = Image(pointer, 160, 4, 20, 8)
-                tbl = (ctypes.c_uint16 * 14739).from_buffer_copy(table)
+                tbl = (ctypes.c_uint16 * 14739).from_buffer_copy(
+                    replacement if name == 'preload_reload' else table)
                 if host(ctypes.byref(view), tbl, 14739, 1, amount, None, None):
                     raise AssertionError('host reference failed')
             command = [runner, image, module / 'film.bin', directory / 'config',
@@ -471,7 +492,8 @@ def validate_look_runtime(image, *, model_preload=False):
                 raise AssertionError(f'packet neutralization mismatch: {name}')
             if model_preload:
                 status = (1 if name in ('preload_late', 'preload_removed_during_read') else
-                          4 if name in ('preload_bad_crc', 'preload_missing_card') else 2)
+                          4 if name in ('preload_bad_crc', 'preload_missing_card',
+                                        'preload_index_bad_crc') else 2)
                 if (native['initial_preload_status'] != status or native['release_calls'] != 1 or
                     native['codec_calls'] != (0 if name == 'preload_cancel' else 1)):
                     raise AssertionError(f'preload lifecycle mismatch: {name}')

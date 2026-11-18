@@ -57,8 +57,13 @@ int ep5_lut_menu_publish(struct ep5_lut_menu *menu, uint16_t generation,
             retained_amount = old->amount_q8;
         }
     }
-    for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index)
-        menu->slots[index] = slots[index];
+    /* The freestanding MN103 build has no libc memcpy. */
+    for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
+        uint8_t *destination = (uint8_t *)&menu->slots[index];
+        const uint8_t *source = (const uint8_t *)&slots[index];
+        for (unsigned byte = 0; byte < sizeof slots[index]; ++byte)
+            destination[byte] = source[byte];
+    }
     menu->applied = retain;
     if (retain)
         menu->slots[retain - 1u].amount_q8 = retained_amount;

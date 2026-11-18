@@ -73,6 +73,17 @@ static int row(struct ep5_lut_job *j)
     bit = 1u << (n - 1);
     if ((j->number_seen & bit) && j->look_crc[n - 1] != c) return 0;
     j->slot_seen |= 1u << s; j->number_seen |= bit; j->look_crc[n - 1] = c;
+    if (j->index_slots) {
+        struct ep5_lut_menu_slot *entry = &j->index_slots[s];
+        entry->picture_mode = u16(p);
+        entry->variant = p[2];
+        entry->configured = 1;
+        entry->amount_q8 = (uint16_t)q;
+        entry->number = (uint16_t)n;
+        entry->look_crc = c;
+        for (unsigned unit = 0; unit < 8; ++unit)
+            entry->label[unit] = u16(p + 12 + 2 * unit);
+    }
     if (s == j->target) { j->amount = (uint16_t)q; j->number = (uint16_t)n; j->expected_crc = c; }
     return 1;
 }
@@ -105,7 +116,7 @@ int ep5_lut_job_request(struct ep5_lut_job *j, const struct ep5_look_io *io,
 int ep5_lut_job_bind(struct ep5_lut_job *job, uint16_t number, uint32_t crc,
                      uint16_t amount)
 {
-    if (!job || job->state != OPEN_INDEX || job->status != EP5_LUT_JOB_BUSY ||
+    if (!job || job->index_slots || job->state != OPEN_INDEX || job->status != EP5_LUT_JOB_BUSY ||
         number < 1 || number > 16 || !amount || amount > 256)
         return 0;
     job->bound_number = number;
@@ -113,10 +124,32 @@ int ep5_lut_job_bind(struct ep5_lut_job *job, uint16_t number, uint32_t crc,
     job->bound_amount = amount;
     return 1;
 }
+int ep5_lut_job_request_index(struct ep5_lut_job *job, const struct ep5_look_io *io,
+                              struct ep5_lut_menu_slot slots[EP5_LUT_MENU_SLOTS],
+                              uint16_t generation)
+{
+    if (!job || job->status == EP5_LUT_JOB_BUSY || job->file || !generation ||
+        !slots || !io || !io->open || !io->read || !io->close)
+        return 0;
+    clear_job(job);
+    for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
+        uint8_t *entry = (uint8_t *)&slots[index];
+        for (unsigned byte = 0; byte < sizeof slots[index]; ++byte)
+            entry[byte] = 0;
+    }
+    job->io = *io;
+    job->generation = generation;
+    job->index_slots = slots;
+    job->status = EP5_LUT_JOB_BUSY;
+    job->state = OPEN_INDEX;
+    return 1;
+}
 int ep5_lut_job_step(struct ep5_lut_job *j, uint16_t current_generation)
 {
     uint8_t *table;
     if (!j) return EP5_LUT_JOB_ERROR;
+    if (j->status == EP5_LUT_JOB_INDEX_READY && current_generation != j->generation)
+        return EP5_LUT_JOB_CANCELLED;
     if (j->status == EP5_LUT_JOB_BUSY && current_generation != j->generation) {
         finish(j, EP5_LUT_JOB_CANCELLED);
         /* Do not close a file in the same call that observes cancellation.
@@ -158,6 +191,7 @@ int ep5_lut_job_step(struct ep5_lut_job *j, uint16_t current_generation)
     case CLOSE_INDEX: {
         int rc = j->io.close(j->io.ctx, j->file); j->file = 0;
         if (rc) finish(j, EP5_LUT_JOB_ERROR);
+        else if (j->index_slots) finish(j, EP5_LUT_JOB_INDEX_READY);
         else if (j->bound_number) {
             if (j->number != j->bound_number || j->expected_crc != j->bound_crc)
                 finish(j, EP5_LUT_JOB_ERROR);

@@ -117,5 +117,24 @@ int main(void)
     index_bytes[20 + 12] = 0; index_bytes[20 + 13] = 0;
     put32(16, crc32(index_bytes + 20, 14 * 28));
     assert(ep5_lut_menu_load_index(&io, &menu, 8) == 0 && menu.state == EP5_LUT_MENU_ERROR);
+
+    /* The first row may be in staging while the user exits. It cannot be
+     * published, and cancellation must close the original handle once. */
+    make_index();
+    struct ep5_lut_job job;
+    struct ep5_lut_menu_slot staging[EP5_LUT_MENU_SLOTS];
+    ep5_lut_job_init(&job);
+    assert(ep5_lut_menu_begin_load(&menu, 30));
+    assert(ep5_lut_job_request_index(&job, &io, staging, 30));
+    for (unsigned step = 0; step < 3; ++step)
+        assert(ep5_lut_job_step(&job, 30) == EP5_LUT_JOB_BUSY);
+    assert(staging[0].configured && staging[0].label[0] == 'A');
+    assert(!ep5_lut_menu_finish_index(&job, &menu) && menu.state == EP5_LUT_MENU_LOADING);
+    assert(ep5_lut_menu_event(&menu, EP5_LUT_MENU_BACK) == 3);
+    int before = close_count;
+    assert(ep5_lut_job_step(&job, menu.generation) == EP5_LUT_JOB_BUSY);
+    assert(ep5_lut_job_step(&job, menu.generation) == EP5_LUT_JOB_CANCELLED);
+    assert(close_count == before + 1 && !ep5_lut_menu_finish_index(&job, &menu));
+    assert(menu.state == EP5_LUT_MENU_HIDDEN && menu.applied == 0);
     return 0;
 }
