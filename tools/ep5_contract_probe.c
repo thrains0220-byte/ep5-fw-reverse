@@ -178,6 +178,11 @@ int hle_check(cpu_t *cpu)
         ++art_neutral_finish_calls;
     }
     if (rec_transport && pc == REC_WAIT_CALL && !rec_suspended) {
+        rec_reply = cpu->regs[REG_SP] + 20;
+        if (cpu->regs[REG_A0] != rec_reply || cpu->regs[REG_D0] != ART_REPLY_QUEUE ||
+            cpu->regs[REG_D0 + 1] != 12 || cpu->regs[REG_A0 + 1] != UINT32_MAX ||
+            !within(rec_reply, 12, STACK, sizeof stack_ram))
+            emu_abort(pc, "unexpected REC wait frame");
         rec_suspended = emu_stop = 1;
         return 1;
     }
@@ -193,8 +198,7 @@ int hle_check(cpu_t *cpu)
     }
     if (rec_transport && pc == ART_QUEUE_ROUTE) cpu->regs[REG_D0] = 0;
     if (rec_transport && pc == ART_QUEUE_READ) {
-        rec_reply = cpu->regs[REG_A0];
-        if (!within(rec_reply, 12, STACK, sizeof stack_ram) ||
+        if (cpu->regs[REG_A0] != rec_reply ||
             cpu->regs[REG_D0] != art_reply_queue || cpu->regs[REG_D0 + 1] != UINT32_MAX ||
             art_reply_calls != 1 || rec_reads)
             emu_abort(pc, "unexpected REC read arguments");

@@ -461,7 +461,7 @@
     "camera installation/recovery"
   ],
   "dependencies_sha256": {
-    "tools/ep5_contract_probe.c": "dee5abe39ef54c631da34a4fe692859cf5dd56ca1be857d7eddbf0cbc7725b1f",
+    "tools/ep5_contract_probe.c": "f08f095483fd89bf8718f0a4159b47c68cbbc02749b96c398a5686d7ab3192c6",
     "tools/native_contracts.py": "7c7d0224397f8672cdad71a43ba44d6315e192407174dbf5af3f2c8440c34cc5",
     "tools/native_probe.py": "ad4ef7aa36546e6d74dc502fbe82c3978cef4ef353a7c3ba547a8b37747ef20b",
     "tools/check_mn103_lut.py": "e26f1822f461aa91f8fb8384d1c66bff78f6dd218e497e9c9bda1587f8144a9b",
@@ -469,6 +469,6 @@
     "build/native-contracts/art-neutral-finish.bin": "9289b1d8f83cd18b9a76ce90b35eb70d7985a2a1082ad3bb72dfba58f2500ff5",
     "build/native-contracts/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
     "build/native-contracts/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
-    "build/native-contracts/ep5-contract-probe": "c8e464df97f405551c7e2328a0d80025a3671c61075017871cfee98efe477636"
+    "build/native-contracts/ep5-contract-probe": "bebecd94a64f56c626ce2a9f6f10d76de253ec08a4f280ac893e417580b0d8ce"
   }
 }
