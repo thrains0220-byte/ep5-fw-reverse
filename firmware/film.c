@@ -10,7 +10,7 @@ static uint32_t read32(const uint8_t *p)
     return (uint32_t)read16(p) | (uint32_t)read16(p + 2) << 16;
 }
 
-static int valid_image(const struct ep5_image *image)
+int ep5_image_valid(const struct ep5_image *image)
 {
     size_t row;
     if (!image || !image->data || !image->width || (image->width & 1u) || !image->height)
@@ -50,7 +50,7 @@ int ep5_image_from_desc(struct ep5_image *out, const uint8_t *desc, size_t desc_
     if (start >= capacity) return -1;
     image.data = memory + start;
     image.capacity = capacity - start;
-    if (!valid_image(&image)) return -1;
+    if (!ep5_image_valid(&image)) return -1;
     *out = image;
     return 0;
 }
@@ -89,7 +89,7 @@ int ep5_film_apply(const struct ep5_image *image, const uint16_t *lut, size_t va
                     unsigned encoding, unsigned amount,
                     int (*progress)(void *, uint32_t, uint32_t), void *context)
 {
-    if (!valid_image(image) || !lut || values != EP5_LUT_VALUES ||
+    if (!ep5_image_valid(image) || !lut || values != EP5_LUT_VALUES ||
         encoding != EP5_BT601_FULL_YUYV || amount > 256)
         return EP5_FILM_INVALID;
     if (progress && !progress(context, 0, image->height)) return EP5_FILM_CANCELLED;

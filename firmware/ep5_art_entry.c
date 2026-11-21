@@ -1,5 +1,6 @@
 #include "film.h"
 #include "look_store.h"
+#include "look_path.h"
 #include "lut_menu.h"
 #ifdef EP5_DIAG
 #include "diag.h"
@@ -43,8 +44,14 @@ static const char ep5_mode_rb[] = "rb";
 
 LOOK_IO_LOCAL void *look_open(void *context, const char *path)
 {
-    char native_path[sizeof "C:\\EP5LUT\\L0000000.LUT"];
+    char native_path[sizeof "C:\\EP5LUT\\B03\\L0000016.LUT"];
+    const char *leaf = ep5_look_after_root(path);
     (void)context;
+    if (!leaf) return NULL;
+    if (leaf[0] == 'B' && leaf[1] == '0' && (leaf[2] == '2' || leaf[2] == '3') &&
+        leaf[3] == '/')
+        leaf += 4;
+    if (!ep5_look_valid_leaf(leaf)) return NULL;
     native_path[0] = 'C';
     native_path[1] = ':';
     native_path[2] = '\\';

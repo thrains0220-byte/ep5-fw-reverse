@@ -80,7 +80,7 @@ def build_payload(image, out, *, model_preload=False):
     paths = [*sources, ROOT / 'firmware/ep5_art_entry.ld', ROOT / 'firmware/film.h',
              ROOT / 'firmware/lut.h', ROOT / 'firmware/lut_menu.h',
              ROOT / 'firmware/lut_menu_index.h', ROOT / 'firmware/lut_menu_adapter.h',
-             ROOT / 'firmware/lut_job.h', ROOT / 'firmware/look_store.h',
+             ROOT / 'firmware/lut_job.h', ROOT / 'firmware/look_store.h', ROOT / 'firmware/look_path.h',
              ROOT / 'tools/cave_entry.py']
     if model_preload:
         paths.append(ROOT / 'firmware/lut_preload.h')

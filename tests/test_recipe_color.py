@@ -8,6 +8,7 @@ import numpy as np
 from ep5studio.cube import compile_rgb17, parse_cube, sample_cube
 from ep5studio.filmlooks import cube_text
 from ep5studio.recipe_color import RECIPES, RecipeReference
+from ep5studio.recipe_color import LABELS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +27,22 @@ EXPECTED = {
 
 
 class ReferenceTests(unittest.TestCase):
+    @unittest.skipUnless((REFERENCE / "bundles/library_v3.json").exists() and shutil.which("node"),
+                         "fetch the pinned 29-look release to check its overrides")
+    def test_release_uses_published_endpoints_and_separates_spatial_effects(self):
+        source = RecipeReference(REFERENCE, release=True)
+        self.assertEqual(len(source.release), 29)
+        self.assertEqual(set(source.release), set(LABELS))
+        self.assertEqual(len(set(LABELS.values())), 29)
+        self.assertEqual(source.release["gold"]["tone"]["whites"], -1)
+        self.assertEqual(source.release["gold"]["effect"]["tint"], "amber")
+        self.assertEqual(source.release["atrophy"]["effect"]["type"], "clarity")
+        self.assertNotIn("acros", source.release)
+        # Merged v3 black/white points make Velvia darker than the legacy trio.
+        grey = PATCHES[1:2]
+        self.assertGreater(float(source.render8("Velvia", grey).mean()),
+                           float(source.render8("velvia", grey).mean()))
+
     def test_modified_renderer_rejected_before_execution(self):
         with TemporaryDirectory() as tmp:
             changed = Path(tmp, "webapp/src/preview.ts")

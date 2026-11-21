@@ -7,9 +7,20 @@ python tools/run_lut_studio_v2.py
 ```
 
 或打包为 EXE（需 PyInstaller）：
-```bash
-build\lut-studio-packenv\Scripts\pyinstaller.exe --distpath build/lut-studio-dist-v2 --workpath build/lut-studio-pyinstaller-v2 --specpath build/lut-studio-spec-v2 --name EP5LUTStudioV2 --windowed --noconfirm tools/run_lut_studio_v2.py
+```powershell
+$card = (Resolve-Path -LiteralPath 'looks/EP5-Personal-32-FX2.zip').Path
+build\lut-studio-packenv\Scripts\pyinstaller.exe --distpath build/lut-studio-dist-v2 --workpath build/lut-studio-pyinstaller-v2 --specpath build/lut-studio-spec-v2 --paths . --add-data "$card;looks" --name EP5LUTStudioV2 --windowed --noconfirm tools/run_lut_studio_v2.py
 ```
+
+双击 `EP5LUTStudioV2.exe`。请保留同目录的 `_internal` 文件夹。
+
+## 在现有卡包加入个人 LUT
+
+点「编辑 SD 卡包…」，默认打开随附的 32 款风格。也可以通过「打开卡包…」选用另一份已导出的三组 ZIP。
+
+选一个 `.cube` 文件并填写机内短名。LUT 须使用显示 sRGB 输入和输出。Log、HDR 或其他色域的 LUT 需要先转换。
+
+选择组别后，可以加入本组首个空槽，也可从列表选择要替换的 ART 槽位。点「另存卡包…」保存新的 ZIP。新包会继续留在编辑窗口，方便接着加入下一款。卡包的机内运行待真机验收。
 
 ## 界面布局
 
@@ -48,24 +59,16 @@ build\lut-studio-packenv\Scripts\pyinstaller.exe --distpath build/lut-studio-dis
 
 选择风格后点击槽位的"绑定当前风格"按钮。
 
-### 4. 生成固件
+### 4. 旧版固定七槽固件
 
-点击"🔧 生成 7 槽固件…"，选择输出目录。
+这个入口针对固定 ART 色度曲线。自定义三维 LUT、32 款卡包、色轮及颗粒皆使用前面的「编辑 SD 卡包…」入口。通用 SD 固件仍待实机验收。
 
 生成物：
 - `firmware/DCOLYMP/E1089999.BIN` — 可刷固件
 - `kit/E-P5-1.8-Film-CUSTOM-7.zip` — 含固件 + 说明
 - `kit/E-P5-1.8-STOCK-RECOVERY.zip` — 官方恢复包
 
-### 5. 刷入相机
-
-1. 备份 SD 卡照片
-2. 将 `DCOLYMP/E1089999.BIN` 放到 SD 卡根目录的 `DCOLYMP` 文件夹
-3. 关机 → 按住 OK 开机 → AF 灯常亮→快闪→熄灭
-4. 关机 → 正常开机
-5. ART 菜单查看新名称，拍 RAW+JPEG 对照
-
-恢复原厂：用恢复包同法刷入。
+历史固定版本的实机现象以[更新灯态](UPDATE_LED.md)、[首台验证](rc2-first-trial.json)及对应版本的说明为准。E‑P5 上曾观察到完成后保持均匀闪烁。原厂恢复记录见[机内同源显影对照](rc2-recovery-verification.json)。
 
 ## 能力边界
 

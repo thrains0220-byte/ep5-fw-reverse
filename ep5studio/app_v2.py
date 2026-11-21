@@ -11,7 +11,7 @@ Features over v1:
   - Split before/after comparison (drag divider)
   - Drag .cube files onto the window to import
   - Per-slot strength slider with live preview
-  - One-click "导出到SD卡" with progress
+  - Export an SD look data ZIP with progress
   - Film info panel (error report, source, compatibility)
   - Keyboard shortcuts (Ctrl+O import, Ctrl+S save, Ctrl+E export)
 """
@@ -27,12 +27,13 @@ from PIL import Image, ImageCms, ImageDraw, ImageOps, ImageTk
 
 from .library import Library
 from .preview import preview_rgb8
-from .project import Binding, Project, SLOTS, load_project, save_project
+from .project import Binding, Project, SLOTS, load_project, save_project, short_label
 from .app import sample_image, load_preview, NeedsProfile, amount_q8, export_available
 from .firmware import FW_SLOTS, DEFAULT_ASSIGNMENT, available_hq_looks
 from tools.native_film_curves_hq import HQ_LOOKS
 
 ROOT = Path(__file__).resolve().parents[1]
+BUNDLED_CARD = ROOT / "looks/EP5-Personal-32-FX2.zip"
 
 # ─── Design tokens ───────────────────────────────────────────────────────────
 BG = "#1a1a2e"          # dark navy background (S9 style)
@@ -55,6 +56,17 @@ CATEGORIES = {
     "自定义": [],  # user imports
 }
 
+# Fixed firmware slot IDs differ from the SD project's ART slot IDs.
+SD_SLOT_FOR_FW = {
+    "soft-focus": "soft-focus-i",
+    "pinhole-i": "pin-hole-i",
+    "pinhole-ii": "pin-hole-ii",
+    "pinhole-iii": "pin-hole-iii",
+    "diorama": "diorama-i",
+    "gentle-sepia": "gentle-sepia-i",
+    "cross-process": "cross-process-i",
+}
+
 def categorize(title):
     t = title.lower()
     for cat, keywords in CATEGORIES.items():
@@ -63,6 +75,183 @@ def categorize(title):
         if any(k in t for k in keywords):
             return cat
     return "自定义"
+
+
+class CardPackageEditor:
+    """Open a verified card ZIP and save a copy with one new or replaced look."""
+
+    def __init__(self, studio):
+        self.studio = studio
+        self.window = window = tk.Toplevel(studio.root)
+        window.title("编辑 SD 卡包")
+        window.transient(studio.root)
+        window.resizable(False, False)
+        panel = ttk.Frame(window, padding=16)
+        panel.pack(fill="both", expand=True)
+        panel.columnconfigure(1, weight=1)
+        self.source = None
+        self.cube = None
+        self.catalog = None
+        self.slot_ids = []
+        self.busy = False
+        self.source_text = tk.StringVar(window, "请选择卡包")
+        self.cube_text = tk.StringVar(window, "请选择 .cube")
+        self.label = tk.StringVar(window)
+        self.srgb = tk.BooleanVar(window)
+        self.status = tk.StringVar(window)
+        ttk.Button(panel, text="打开卡包…", command=self.choose_card).grid(row=0, column=0, sticky="w")
+        ttk.Label(panel, textvariable=self.source_text, width=48).grid(row=0, column=1, sticky="w", padx=8)
+        bundled = ttk.Button(panel, text="使用随附 32 款", command=lambda: self.load_card(BUNDLED_CARD))
+        bundled.grid(row=1, column=0, sticky="w", pady=(5, 12))
+        if not BUNDLED_CARD.is_file():
+            bundled.state(["disabled"])
+        ttk.Button(panel, text="选择 .cube…", command=self.choose_cube).grid(row=2, column=0, sticky="w")
+        ttk.Label(panel, textvariable=self.cube_text, width=48).grid(row=2, column=1, sticky="w", padx=8)
+        ttk.Label(panel, text="机内短名（最多 6 字）").grid(row=3, column=0, sticky="w", pady=6)
+        ttk.Entry(panel, textvariable=self.label).grid(row=3, column=1, sticky="ew", padx=8)
+        ttk.Label(panel, text="组别").grid(row=4, column=0, sticky="w")
+        self.bank = ttk.Combobox(panel, state="readonly")
+        self.bank.grid(row=4, column=1, sticky="ew", padx=8)
+        self.bank.bind("<<ComboboxSelected>>", self.refresh_slots)
+        ttk.Label(panel, text="ART 槽位").grid(row=5, column=0, sticky="w", pady=6)
+        self.slot = ttk.Combobox(panel, state="readonly")
+        self.slot.grid(row=5, column=1, sticky="ew", padx=8)
+        ttk.Checkbutton(panel, text="我确认此 LUT 的输入和输出均为显示 sRGB",
+                        variable=self.srgb).grid(row=6, column=0, columnspan=2, sticky="w", pady=(8, 2))
+        ttk.Label(panel, text="Log、HDR 或其他色域的 LUT 请先转换。").grid(
+            row=7, column=0, columnspan=2, sticky="w")
+        ttk.Label(panel, textvariable=self.status, wraplength=440).grid(
+            row=8, column=0, columnspan=2, sticky="w", pady=(10, 4))
+        self.save_button = ttk.Button(panel, text="另存卡包…", style="Accent.TButton", command=self.save)
+        self.save_button.grid(row=9, column=1, sticky="e", padx=8)
+        window.grab_set()
+        if BUNDLED_CARD.is_file():
+            self.load_card(BUNDLED_CARD)
+
+    def choose_card(self):
+        if self.busy:
+            return
+        selected = filedialog.askopenfilename(parent=self.window, title="打开 SD 卡包",
+                                              filetypes=[("ZIP 卡包", "*.zip")])
+        if selected:
+            self.load_card(Path(selected))
+
+    def load_card(self, source):
+        from .card_zip import MAX_BYTES, verify_card
+
+        if self.busy:
+            return
+        self.busy = True
+        self.catalog = None
+        self.source = None
+        self.source_text.set(source.name)
+        self.bank.set("")
+        self.bank.configure(values=())
+        self.slot.set("")
+        self.slot.configure(values=())
+        self.status.set("正在校验卡包…")
+        self.save_button.state(["disabled"])
+
+        def work():
+            with source.open("rb") as file:
+                return verify_card(file.read(MAX_BYTES + 1))[1]
+
+        def done(catalog):
+            self.busy = False
+            if not self.window.winfo_exists():
+                return
+            self.catalog, self.source = catalog, source
+            counts = [len(bank["looks"]) for bank in catalog["banks"]]
+            self.bank.configure(values=[f"第 {i} 组（{count}/{len(SLOTS)}）"
+                                        for i, count in enumerate(counts, 1)])
+            first_free = next((i for i, count in enumerate(counts) if count < len(SLOTS)), 0)
+            self.bank.current(first_free)
+            self.refresh_slots()
+            self.status.set("卡包已校验")
+            self.save_button.state(["!disabled"])
+
+        self.studio._post(work, done, self.failed)
+
+    def refresh_slots(self, _event=None):
+        if self.catalog is None or self.bank.current() < 0:
+            return
+        looks = self.catalog["banks"][self.bank.current()]["looks"]
+        self.slot_ids = [look["slot"] for look in looks]
+        choices = [f"替换 {SLOTS[look['slot']]['label']} · {look['label']}" for look in looks]
+        has_space = len(looks) < len(SLOTS)
+        if has_space:
+            self.slot_ids.insert(0, None)
+            choices.insert(0, "添加到本组首个空槽")
+        self.slot.configure(values=choices)
+        if has_space:
+            self.slot.current(0)
+        else:
+            self.slot.set("")
+
+    def choose_cube(self):
+        if self.busy:
+            return
+        selected = filedialog.askopenfilename(parent=self.window, title="选择显示 sRGB 的三维 LUT",
+                                              filetypes=[("三维 LUT", "*.cube")])
+        if selected:
+            self.cube = Path(selected)
+            self.cube_text.set(self.cube.name)
+            self.label.set(self.cube.stem[:6])
+            self.srgb.set(False)
+
+    def save(self):
+        from .card_zip import edit_card
+
+        if self.busy:
+            return
+        if self.source is None or self.cube is None:
+            self.status.set("请先选好卡包和 .cube 文件。")
+            return
+        if self.slot.current() < 0:
+            self.status.set("请选择要替换的 ART 槽位。")
+            return
+        if not self.srgb.get():
+            self.status.set("请先确认 LUT 的输入和输出色域。")
+            return
+        try:
+            label = short_label(self.label.get())
+        except ValueError as exc:
+            self.status.set(str(exc))
+            return
+        filename = filedialog.asksaveasfilename(
+            parent=self.window, title="另存 SD 卡包", defaultextension=".zip",
+            filetypes=[("ZIP 卡包", "*.zip")], initialfile=f"{self.source.stem}-edited.zip",
+            confirmoverwrite=False)
+        if not filename:
+            return
+        source, cube, output = self.source, self.cube, Path(filename)
+        bank, slot = self.bank.current() + 1, self.slot_ids[self.slot.current()]
+        self.busy = True
+        self.save_button.state(["disabled"])
+        self.status.set("正在保存并校验新卡包…")
+
+        def work():
+            with cube.open("rb") as file:
+                raw = file.read(32 * 1024 * 1024 + 1)
+            return edit_card(source, output, [(bank, slot, label, raw, cube.stem, "off", cube.name)])
+
+        def done(saved):
+            self.busy = False
+            self.studio.status_var.set(f"已保存 SD 卡包 {saved.name}")
+            if self.window.winfo_exists():
+                messagebox.showinfo("卡包已保存", f"{saved}\n\n已通过数据校验。机内运行待真机验收。",
+                                    parent=self.window)
+                self.load_card(saved)
+
+        self.studio._post(work, done, self.failed)
+
+    def failed(self, exc):
+        self.busy = False
+        if self.window.winfo_exists():
+            self.status.set("操作失败")
+            messagebox.showerror("卡包编辑失败", str(exc), parent=self.window)
+            if self.source is not None:
+                self.save_button.state(["!disabled"])
 
 
 class StudioV2:
@@ -197,7 +386,9 @@ class StudioV2:
         btn_frame.pack(side="right")
         ttk.Button(btn_frame, text="导入 .cube", command=self.import_files).pack(side="left", padx=4)
         ttk.Button(btn_frame, text="保存项目", command=self.save).pack(side="left", padx=4)
-        ttk.Button(btn_frame, text="导出到 SD", style="Accent.TButton",
+        ttk.Button(btn_frame, text="编辑 SD 卡包…",
+                   command=lambda: CardPackageEditor(self)).pack(side="left", padx=4)
+        ttk.Button(btn_frame, text="导出 SD 风格包", style="Accent.TButton",
                    command=self.export_sd).pack(side="left", padx=4)
 
         # Main area: 3 columns
@@ -527,10 +718,11 @@ class StudioV2:
         if not look:
             return
         # For firmware slots, store the look_id for .cube fitting
-        self.fw_assignment[slot_id] = self.current_id
-        self.bindings[slot_id] = Binding(
-            slot_id if slot_id in SLOTS else "pin-hole-i",
+        binding = Binding(
+            SD_SLOT_FOR_FW[slot_id] if slot_id not in SLOTS else slot_id,
             self.current_id, look.title[:6], amount_q8(self.strength_var.get()))
+        self.fw_assignment[slot_id] = self.current_id
+        self.bindings[slot_id] = binding
         self.dirty = True
         self._update_slot_display(slot_id)
         menu = next((s["menu"] for s in FW_SLOTS if s["id"] == slot_id), slot_id)
@@ -573,22 +765,36 @@ class StudioV2:
 
     def export_sd(self):
         if not self.bindings:
-            messagebox.showinfo("导出", "请先绑定至少一个风格到 ART 槽位")
+            messagebox.showinfo("导出 SD 风格包", "请先绑定至少一个风格到 ART 槽位。", parent=self.root)
             return
-        directory = filedialog.askdirectory(title="选择 SD 卡根目录（或导出文件夹）")
-        if not directory:
+        filename = filedialog.asksaveasfilename(
+            parent=self.root, title="保存 SD 风格数据包（开发用）",
+            initialfile="EP5-SD-Looks.zip", defaultextension=".zip",
+            filetypes=[("ZIP 风格数据包", "*.zip")], confirmoverwrite=False)
+        if not filename:
             return
+        destination = Path(filename)
+        name, bindings = self.project_name, tuple(self.bindings.values())
+
         def work():
             from .export import export_project
-            project = Project(self.project_name, tuple(self.bindings.values()))
-            return export_project(project, self.library, Path(directory))
+            return export_project(Project(name, bindings), self.library, destination)
+
         def done(result):
-            self.status_var.set(f"✓ 已导出到 {directory}")
-            messagebox.showinfo("导出完成",
-                f"风格数据已写入:\n{directory}\n\n"
-                "拔卡插入相机，ART 槽位即生效。\n"
-                "（需要已安装 SD LUT 运行时固件）")
-        self._post(work, done)
+            self.status_var.set(f"已导出 {destination.name}")
+            messagebox.showinfo(
+                "风格数据包已导出",
+                f"{destination}\n\n"
+                f"已校验 {result['looks']} 款风格、{result['bindings']} 个槽位。\n"
+                "此包供开发验证。机内使用还需要完成运行时的实机验收。",
+                parent=self.root)
+
+        def failed(exc):
+            self.status_var.set("SD 风格数据包导出失败")
+            messagebox.showerror("导出失败", f"{destination}\n\n{exc}", parent=self.root)
+
+        self.status_var.set("正在生成并校验 SD 风格数据包…")
+        self._post(work, done, failed)
 
     # ─── Firmware build ─────────────────────────────────────────────────────
     def build_firmware(self):
@@ -652,6 +858,9 @@ class StudioV2:
                 return
         self._closed.set()
         self._jobs.put(None)
+        self.root.after_cancel(self._poll_timer)
+        if self._timer is not None:
+            self.root.after_cancel(self._timer)
         self.root.destroy()
 
 

@@ -8,6 +8,7 @@ struct ep5_image {
     uint32_t width, height;
     size_t stride;
 };
+int ep5_image_valid(const struct ep5_image *image);
 
 #define EP5_BT601_FULL_YUYV 1u
 #define EP5_FILM_INVALID (-1)

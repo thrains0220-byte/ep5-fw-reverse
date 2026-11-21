@@ -1,0 +1,317 @@
+{
+  "camera_verified": false,
+  "backend": "host full-range BT.601 YUYV422, Pillow JPEG",
+  "size": [
+    4608,
+    3456
+  ],
+  "input_space": "sRGB",
+  "input_yuyv_sha256": "5ab07d1c0857ca771b0ecb4c9de3f79a35f3940d5f921ebd9453b7b4f4b2c30c",
+  "archive_sha256": "d7dd85c8ed20042ba90400402edfebf6db4c4f7d9cfd1e53f844f6eec8cc1e0f",
+  "zero_strength_exact": true,
+  "looks": [
+    {
+      "key": "velvia",
+      "bank": 1,
+      "label": "Velvia",
+      "frame_sha256": "261155ae6f55da47c1977ea6a5a014298eb247416f42eea7705497afd6a07322",
+      "result": 1,
+      "preset": 1,
+      "released": true,
+      "jpeg": "velvia-full.jpg"
+    },
+    {
+      "key": "astia",
+      "bank": 1,
+      "label": "Astia",
+      "frame_sha256": "6075451af15156e43bda4cecdf7cc551666cfd7275112748fb17321306ef94d3",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "cl_chrome",
+      "bank": 1,
+      "label": "ClChrm",
+      "frame_sha256": "ecd1ed61ce6cbda24f7bdff1cdcee4bbb3b92fe0ddf0a06d87f7729f786b76dd",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "cl_neg",
+      "bank": 1,
+      "label": "ClNeg",
+      "frame_sha256": "d1a6f4e8cf268d49b2a6f071ed193c83ebc90a97f54dd9274caf8c6aa1eeecf8",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "provia400",
+      "bank": 1,
+      "label": "Prv400",
+      "frame_sha256": "e349c69560b9b4e38748ddeb3f0689e26351a9b09e5a7994d315ef2129b64df9",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "reala",
+      "bank": 1,
+      "label": "Reala",
+      "frame_sha256": "9cff47d9edf3ffa04e8f3ff97851dab6609d6bc4ff4272a362a1a096052b4bb9",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "eterna",
+      "bank": 1,
+      "label": "Eterna",
+      "frame_sha256": "a569490d06a15a8f0981e94f09cb57dbef43ba1a58b36d0c270d20b701cdae2e",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "bleach",
+      "bank": 1,
+      "label": "Bleach",
+      "frame_sha256": "071e856a4e3e786297084913fcb34edc0f5698c00c4b70d7eb364a6c20752305",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "kchrome",
+      "bank": 1,
+      "label": "KChr64",
+      "frame_sha256": "ae07c834b4bd0f3fb577d999ae40f72a42174ffb9a6802fa15e6e0e4569214cb",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "portra",
+      "bank": 1,
+      "label": "Por400",
+      "frame_sha256": "c86dce95154c1823af5dbddc683fcda67b16e8e9a425200df46e4b7e2c203514",
+      "result": 1,
+      "preset": 1,
+      "released": true,
+      "jpeg": "portra-full.jpg"
+    },
+    {
+      "key": "ektar",
+      "bank": 1,
+      "label": "Ekt100",
+      "frame_sha256": "963a2095fbd8fb135b4e1cd7402a139800dc6d2ab8344f9dab5d9af7b64e9291",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "gold",
+      "bank": 1,
+      "label": "Gold",
+      "frame_sha256": "1808cf488956c920ca6d037c06a18ebfc8fa325edc31a48ef5d6af66c489ed8c",
+      "result": 1,
+      "preset": 1,
+      "released": true,
+      "jpeg": "gold-full.jpg"
+    },
+    {
+      "key": "ektachrome",
+      "bank": 1,
+      "label": "EkChrm",
+      "frame_sha256": "02a00f03bc552709d66c916ff82f6c16122e51a6cbb4ca4fd22c9fa3d8e03370",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "cinestill",
+      "bank": 1,
+      "label": "CS800T",
+      "frame_sha256": "5ce3d76da8a87b1323ae5d7e5e75c12eac7b31a279052fc33537e9fe8d5e20b0",
+      "result": 1,
+      "preset": 1,
+      "released": true,
+      "jpeg": "cinestill-full.jpg"
+    },
+    {
+      "key": "pro400h",
+      "bank": 2,
+      "label": "Pr400H",
+      "frame_sha256": "e1af4e29c64fc345be672d4913e1c1a520ac1aede28ae9699b05296e84edf119",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "aerochrome",
+      "bank": 2,
+      "label": "FauxIR",
+      "frame_sha256": "96b248512007e06852c94b20a7101f8015a9a3608d137ade0cb707dce46fcf80",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "kchrome25",
+      "bank": 2,
+      "label": "KChr25",
+      "frame_sha256": "b76146eb4decf5c9db829d92492b9dca64be6a0682c53a2c89734678d026e993",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "portra160",
+      "bank": 2,
+      "label": "Por160",
+      "frame_sha256": "14c55b996471566d879ad5f7fcfe6100e5c3835c8905d2f644d22699be65c9a4",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "fuji200",
+      "bank": 2,
+      "label": "Fuji2H",
+      "frame_sha256": "b7461129b2597270b3f3fb25600b1c3eda98692e87ccd2ce3bbe76df5ff37fd3",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "cuban",
+      "bank": 2,
+      "label": "Cuban",
+      "frame_sha256": "3073bfa3ddf7da4b11096995d3f276d62716ac9d93d0639469ca3cbc7a598b1e",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "cibachrome",
+      "bank": 2,
+      "label": "Ciba",
+      "frame_sha256": "f4a3b80aa7c0d483b13643f34c73419066de575182ec79a3042cef16482cafc6",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "ultramax",
+      "bank": 2,
+      "label": "UMx400",
+      "frame_sha256": "476b0a2bff2f14ef95621e922d81b63a58b116f7fef7d3a588a42cf824dcc8e6",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "agfa",
+      "bank": 2,
+      "label": "Vista",
+      "frame_sha256": "d37a3c384fe8ceb4a175e2ce6e8ad590398c7bca6cfa0a691d8be2319b266be4",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "cs50d",
+      "bank": 2,
+      "label": "CS50D",
+      "frame_sha256": "e5e88cc30cbedef9d9ff9c45492830e7f94d8e114d715efda5e43e4078c96296",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "v250d",
+      "bank": 2,
+      "label": "V3250D",
+      "frame_sha256": "592b0877bfbc29d6fff768f83f4846dbe3013e679cdaf628711829a40009057f",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "v500t",
+      "bank": 2,
+      "label": "V3500T",
+      "frame_sha256": "a79cf988a5412491a0564ca191818380fa9c70b2662920353232060b8735c701",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "polaroid",
+      "bank": 2,
+      "label": "Polard",
+      "frame_sha256": "431c1aecd85163a761e86b1e2c877333069f557cc3146112845c6caadda1c066",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "xpro",
+      "bank": 2,
+      "label": "XProc",
+      "frame_sha256": "7bec62d822e3501eeb4cc12863d81feaf86df01ad4cef09067f43c696e34d821",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "atrophy",
+      "bank": 3,
+      "label": "Atrphy",
+      "frame_sha256": "e5492577ea9ceb6fbd06457ef40206812eaf4267ce26f2c301ac55a192382f53",
+      "result": 1,
+      "preset": 1,
+      "released": true,
+      "jpeg": "atrophy-full.jpg"
+    },
+    {
+      "key": "personal-soft-focus-i-3348e3ec503e",
+      "bank": 3,
+      "label": "森山黑白",
+      "frame_sha256": "47e7cbfca41ca85f6489964917b2033d15cd2787951a45151c66a87e9a7da6b4",
+      "result": 1,
+      "preset": 1,
+      "released": true,
+      "jpeg": "moriyama-full.jpg"
+    },
+    {
+      "key": "personal-pale-light-i-004de964f62f",
+      "bank": 3,
+      "label": "TriX",
+      "frame_sha256": "e02c94c1c3e2088eb58db2f7508d9599912103a8909a4e3fab00605311065a48",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    },
+    {
+      "key": "personal-light-tone-i-9c04cd8b3d68",
+      "bank": 3,
+      "label": "Acros",
+      "frame_sha256": "73c889047ef73932e6260e1a170427ca46dd4ce1d2e023d885831b2a315d1837",
+      "result": 1,
+      "preset": 1,
+      "released": true
+    }
+  ],
+  "comparison": {
+    "baseline_archive_sha256": "fed6405a49a117045b34bb1ee49f01e3cd684b0c83fad87b2a9088e2cd7d8b32",
+    "changed": [
+      {
+        "bank": 3,
+        "label": "Atrphy"
+      }
+    ]
+  }
+}

@@ -1,5 +1,7 @@
 # E-P5 机内胶片模拟
 
+**2026-11-21 更新**　32 款单卡风格包含 Gold、Portra、Velvia 和森山风、Tri‑X、Acros 等配方。Windows Studio v2 可在随附卡包里添加个人 `.cube`，也可替换指定组的 ART 位置。菜单组件支持双拨盘、半按退出与十二色区设置保存。最新 FX2 版用同一张 E‑P5 Natural 照片验证了 32 个不同的 4608×3456 输出。机身版仍需接入原厂显示任务、确认拍摄缓冲并取得真机成片，目前没有可刷的通用 SD 固件。[32 款数据包](looks/EP5-Personal-32-FX2.zip) · [全尺寸验证](docs/EP5_SD_PHOTO.md) · [编辑卡包](docs/STUDIO_V2_GUIDE.md)
+
 **2026-11-21**　Gold 200、Portra 400、Velvia 的十二色区与明暗曲线可从固定版本的 Caduceus 参考配方生成 SD 数据包。三张 17³ 色表已经校验。机内菜单模型可以按名称和强度浏览已配置风格，每页四行。还需在 E-P5 上验证真实菜单、正常退出和全尺寸 JPEG+ORF 才可发布通用固件。现有机身也可以用 Myset 手动保存四组原厂参数。[三款色调与重建命令](docs/EP5_RECIPE_COLOR.md) · [十二色区工具](docs/EP5_WHEEL_LUT.md) · [原厂免刷与 Myset 配方](docs/EP5_STOCK_SD_COLOR.md) · [真机验收计划](plans/EP5_LUT_DELIVERY_PLAN.md)
 
 **2026-11-18**　E‑P5 1.8 的拍摄模型已串起从 SD 读取风格名单、选择风格、预载 3D LUT 到应用拍摄效果。模拟换卡时，即便风格位置和文件名相同，也会根据内容校验值识别新色表。重新确认后使用新风格。原厂 GUI 的刷新、观察者注销和旧通知清理已分别在模型中执行。插值优化使测试样本的 MN103 指令数减少约 14%，全尺寸合成缓冲的输出逐字节一致。[异步预载与拍摄](docs/LUT_ASYNC_LOAD.md) · [文件任务与卸载证据](docs/FILE_SERVICE_MAP.md) · [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [续做清单](tasks/todo.md)。

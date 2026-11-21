@@ -6,7 +6,7 @@ import tempfile
 import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from ep5studio.app_v2 import StudioV2, tk
+from ep5studio.app_v2 import BUNDLED_CARD, StudioV2, tk
 from ep5studio.library import Library
 
 
@@ -26,6 +26,12 @@ def main(argv=None):
         if not args.smoke_test:
             root.mainloop()
             return 0
+        if getattr(sys, "frozen", False):
+            from ep5studio.card_zip import verify_card
+
+            _, catalog = verify_card(BUNDLED_CARD.read_bytes())
+            if sum(len(bank["looks"]) for bank in catalog["banks"]) != 32:
+                raise RuntimeError("The bundled Studio v2 SD card must contain 32 looks")
         limit = time.monotonic() + 45
         while time.monotonic() < limit:
             root.update()

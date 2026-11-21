@@ -24,11 +24,28 @@ FILES = {
     "sim/recipes/library_v2.json": "ecad3ffb50fc34e3ee65e079262e0b6f6e8a90fd0c27ae442a05818b385a6d4c",
 }
 RECIPES = {"Gold": "lib2_gold", "Portra400": "lib2_portra", "Velvia": "lib2_velvia"}
+RELEASE_FILES = {
+    "bundles/library_v3.json": "645abaa58f3ebbdeb52428e948fce75825ddd5a5da4a1a5cecd5ada4b16063fd",
+    "sim/recipes/library_v3.json": "4b13bd0619f3b1fec9642ebd5c96d42af1157f25155851cb80ff2588f4b06c79",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "259b24ebda8755f2f7c5c55982f02a2f35beb15b07db6e1c6cc467eb91435873",
+}
+# UI strings fit the current 6 UTF-16 unit index field. Order comes from the bundle.
+LABELS = {
+    "velvia": "Velvia", "astia": "Astia", "cl_chrome": "ClChrm", "cl_neg": "ClNeg",
+    "provia400": "Prv400", "reala": "Reala", "eterna": "Eterna", "bleach": "Bleach",
+    "kchrome": "KChr64", "portra": "Por400", "ektar": "Ekt100", "gold": "Gold",
+    "ektachrome": "EkChrm", "cinestill": "CS800T", "pro400h": "Pr400H",
+    "aerochrome": "FauxIR", "kchrome25": "KChr25", "portra160": "Por160",
+    "fuji200": "Fuji2H", "cuban": "Cuban", "cibachrome": "Ciba", "ultramax": "UMx400",
+    "agfa": "Vista", "cs50d": "CS50D", "v250d": "V3250D", "v500t": "V3500T",
+    "polaroid": "Polard", "xpro": "XProc", "atrophy": "Atrphy",
+}
 
 
-def _read_reference(root, fetch):
+def _read_reference(root, fetch, files):
     result = {}
-    for name, digest in FILES.items():
+    for name, digest in files.items():
         path = Path(root) / name
         if fetch and not path.exists():
             with urlopen(URL + name, timeout=20) as response:
@@ -72,9 +89,18 @@ process.stdout.write(output);
 
 
 class RecipeReference:
-    def __init__(self, root, fetch=False):
-        self.files = _read_reference(root, fetch)
+    def __init__(self, root, fetch=False, *, release=False):
+        self.files = _read_reference(root, fetch, FILES | RELEASE_FILES if release else FILES)
         self.recipes = json.loads(self.files["sim/recipes/library_v2.json"])["recipes"]
+        self.looks = {name: self.recipes[key] for name, key in RECIPES.items()}
+        if release:
+            self.recipes.update(json.loads(self.files["sim/recipes/library_v3.json"])["recipes"])
+            source_looks = json.loads(self.files["bundles/library_v3.json"])["looks"]
+            self.release = {name: self.recipes[row["recipe"]] | row for name, row in source_looks.items()
+                            if self.recipes[row["recipe"]]["base"] == "Color Profile"}
+            if set(self.release) != set(LABELS):
+                raise ValueError("Reference release palette does not match the expected 29 colour looks")
+            self.looks.update(self.release)
         self.node = shutil.which("node")
         if not self.node:
             raise ValueError("Install Node.js 24 LTS to run the Caduceus TypeScript renderer.")
@@ -103,7 +129,7 @@ class RecipeReference:
                 target.write_text(text, encoding="utf-8")
             runner = folder / "render.mjs"
             runner.write_text(_RENDER, encoding="utf-8")
-            data = json.dumps({"recipe": self.recipes[RECIPES[name]],
+            data = json.dumps({"recipe": self.looks[name],
                                "pixels": pixels.tolist(), "canvas": canvas}).encode()
             result = subprocess.run([self.node, str(runner)], input=data, capture_output=True, timeout=45)
             if result.returncode:
@@ -124,4 +150,4 @@ class RecipeReference:
             idx = np.where(offset, high, low)
             weight = np.prod(np.where(offset, frac, 1 - frac), axis=-1)
             values += weight[..., None] * samples[idx[..., 0], idx[..., 1], idx[..., 2]]
-        return Cube(self.recipes[RECIPES[name]]["name"] + " Reference", 17, np.clip(values, 0, 1))
+        return Cube(self.looks[name]["name"] + " Reference", 17, np.clip(values, 0, 1))
