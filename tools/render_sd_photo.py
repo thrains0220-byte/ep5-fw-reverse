@@ -34,11 +34,11 @@ def linux_path(path):
                           check=True).stdout.decode("utf8").strip()
 
 
-def build_driver(directory):
+def build_driver(directory, *, source="tools/render_sd_frame.c"):
     directory.mkdir(parents=True, exist_ok=True)
-    exe = linux_path(directory / "render_sd_frame")
+    exe = linux_path(directory / Path(source).stem)
     args = ["cc", "-std=c99", "-O2", "-Wall", "-Wextra", "-Werror", "-Ifirmware",
-            "tools/render_sd_frame.c", *(f"firmware/{s}.c" for s in SOURCES), "-o", exe]
+            source, *(f"firmware/{s}.c" for s in SOURCES), "-o", exe]
     subprocess.run((["wsl", "-e"] if os.name == "nt" else []) + args, cwd=ROOT, check=True)
     return exe
 

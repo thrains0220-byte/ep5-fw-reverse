@@ -32,7 +32,23 @@ python tools/custom_sd_card.py build/My-looks.zip --card looks/EP5-Personal-32-F
 python tools/custom_sd_card.py build/My-gold.zip --card looks/EP5-Personal-32-FX2.zip --replace-srgb-cube 1 12 "暖金=D:\LUT\WarmGold.cube"
 ```
 
-目标构建在 WSL 运行 `python3 tools/check_photo_core.py`。18 个模块链接后的 `text` 段为 26,292 字节，无未解析符号。输出为可重定位的目标文件。目标机性能、原厂任务连接和液晶显示仍待验证。
+目标构建在 WSL 运行 `python3 tools/check_photo_core.py`。快门锁定色表后，18 个模块链接后的 `text` 段为 26,845 字节，无未解析符号。输出为可重定位的目标文件。
+
+## 从按下快门到交给 JPEG 编码器
+
+上一版在显影时才索取色表。如果按下快门后立即切换风格，文件任务可以在显影开始前撤下之前的色表，那张照片便会意外回到原色。现在快门任务在 `ep5_capture_begin` 取得当时已就绪的色表，复制强度、色轮和纹理设置。即使随后切组或换卡，拍摄仍持有原来的表。按下时尚未读好色表则保留这张的原色。显影期间不从卡上读文件。
+
+拍摄任务需要随本张照片传回同一个标识。`ep5_capture_ready` 只处理第一次匹配的完成通知。原厂任务继续占有画面时，它保留处理权。交出画面后，模块检查尺寸和有效范围，再决定提交给编码器或丢弃。机身取消正在等待的拍摄时应调用 `ep5_capture_cancel_pending`，让文件任务重新使用色表内存。当前接口一次跟踪一张，第二次 `begin` 返回零时，该次曝光仍由原厂路径处理。
+
+主机的 5 项 SD 成片回归与 1 项取景对照均通过。用快门锁定后的版本重新显影同一张 Natural 原片，32 款分别与原有 FX2 基线逐像素一致，各款的全帧哈希彼此不同。零强度的缓冲与输入逐字节相同，所有风格都释放了色表。[逐款基线](ep5-personal32-fx2-receipt.json)
+
+另在 MN103 指令模型中直接执行快门代码，分别验证换卡后保留原风格、帧到达前取消、原厂保留画面，以及编码器拒收已显影画面。四项均检查了返回值、提交与丢弃次数、实际像素和行间填充。测试中的帧和编码器由夹具提供。机身取景、原生帧格式和真正的 JPEG 编码仍需另行验证。
+
+```powershell
+python -m unittest discover -s tests -p test_sd_photo.py -v
+wsl -e python3 -m unittest discover -s tests -p test_mn103_shot.py -v
+wsl -e python3 -m unittest discover -s tests -p test_film_preview.py -v
+```
 
 ## 距离机内直出
 

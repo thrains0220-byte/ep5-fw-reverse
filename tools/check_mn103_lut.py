@@ -25,13 +25,13 @@ def checked(command):
     return result.stdout
 
 
-def compile_target(build, fixture, sources):
+def compile_target(build, fixture, sources, *, optimization="-O2"):
     build.mkdir(parents=True, exist_ok=True)
     compiler = X / "mn10300-elf-gcc"
     if not compiler.exists():
         raise FileNotFoundError("build the local MN103 GCC toolchain first")
     elf, binary = build / "lut.elf", build / "lut.bin"
-    flags = ["-std=c99", "-O2", "-mno-am33", "-ffreestanding", "-fno-builtin",
+    flags = ["-std=c99", optimization, "-mno-am33", "-ffreestanding", "-fno-builtin",
              "-fno-tree-loop-distribute-patterns", "-fno-pic", "-fno-common",
              "-Wall", "-Wextra", "-Werror", "-nostdlib"]
     flags += ["-ffunction-sections", "-fdata-sections", "-Wl,--gc-sections"]

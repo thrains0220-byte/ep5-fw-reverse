@@ -36,4 +36,10 @@ int ep5_photo_render(struct ep5_lut_preload *loader, uint32_t shot,
                      const struct ep5_photo_style *style, const struct ep5_image *image,
                      unsigned encoding, const struct ep5_photo_workspace *workspace,
                      int (*progress)(void *, uint32_t, uint32_t), void *context);
+/* Render with a selection already acquired for this shot. The caller owns
+ * its pin throughout this function and releases it on every exit. */
+int ep5_photo_render_pinned(const struct ep5_look_selection *look,
+                            const struct ep5_photo_style *style, const struct ep5_image *image,
+                            unsigned encoding, const struct ep5_photo_workspace *workspace,
+                            int (*progress)(void *, uint32_t, uint32_t), void *context);
 #endif

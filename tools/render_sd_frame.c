@@ -81,6 +81,37 @@ static int progress(void *ctx, uint32_t rows, uint32_t total)
     return rows < *(const uint32_t *)ctx;
 }
 
+/* This process exclusively owns the buffer after reading stdin. stdout is
+ * available to the JPEG caller only after a successful handoff. */
+struct host_capture {
+    uint32_t token;
+    struct ep5_image image;
+    int submitted;
+};
+
+static int host_claim(void *ctx, uint32_t token, struct ep5_image *out, unsigned *encoding)
+{
+    struct host_capture *frame = ctx;
+    if (token != frame->token) return 0;
+    *out = frame->image;
+    *encoding = EP5_BT601_FULL_YUYV;
+    return 1;
+}
+
+static int host_submit(void *ctx, uint32_t token, int result)
+{
+    struct host_capture *frame = ctx;
+    if (token != frame->token || (result != EP5_PHOTO_STOCK && result != EP5_PHOTO_STYLED)) return 0;
+    frame->submitted = 1;
+    return 1;
+}
+
+static void host_discard(void *ctx, uint32_t token)
+{
+    struct host_capture *frame = ctx;
+    if (token == frame->token) frame->token = 0;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 13 && argc != 14) {
@@ -140,20 +171,27 @@ int main(int argc, char **argv)
         shutter.has_wheel = 1;
     }
 
+    struct ep5_capture_sequence sequence = {0};
+    uint32_t token = ep5_capture_begin(&sequence, &loader, width, height, &recipe, &shutter);
+    if (!token) return 2;
     size_t bytes = (size_t)width * height * 2u;
     uint8_t *pixels = malloc(bytes);
     size_t scratch = ep5_film_fx_scratch_bytes(width, &recipe.fx);
     void *ring = scratch ? malloc(scratch) : NULL;
     int exit_code = 2;
     if (!pixels || fread(pixels, 1, bytes, stdin) != bytes ||
-        fgetc(stdin) != EOF || ferror(stdin)) goto finish;
-    struct ep5_image image = {pixels, bytes, width, height, width * 2u};
+        fgetc(stdin) != EOF || ferror(stdin)) {
+        ep5_capture_cancel_pending(&sequence, token);
+        goto finish;
+    }
+    struct host_capture frame = {token, {pixels, bytes, width, height, width * 2u}, 0};
+    const struct ep5_capture_backend backend = {&frame, host_claim, host_submit, host_discard};
     struct ep5_photo_workspace work = {adjusted, EP5_LUT_VALUES, ring, scratch};
-    int result = ep5_shot_develop(&loader, 1, &recipe, &shutter, &image, EP5_BT601_FULL_YUYV, &work, progress, &stop);
+    int result = ep5_capture_ready(&sequence, token, &backend, &work, progress, &stop);
     fprintf(stderr, "{\"result\":%d,\"preload\":%d,\"released\":%s,\"look_crc\":%u,\"preset\":%d,\"wheel\":%s}\n",
             result, status, loader.pinned == NULL ? "true" : "false", (unsigned)shutter.look.look_crc, preset,
             shutter.has_wheel ? "true" : "false");
-    if (result == EP5_PHOTO_STOCK || result == EP5_PHOTO_STYLED)
+    if (frame.submitted)
         exit_code = fwrite(pixels, 1, bytes, stdout) == bytes && fflush(stdout) == 0 ? 0 : 2;
     else exit_code = 3;
 finish:

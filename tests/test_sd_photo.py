@@ -1,4 +1,6 @@
+import os
 import struct
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -39,6 +41,11 @@ class SDPhotoTests(unittest.TestCase):
 
     def render(self, row, **kw):
         return run_frame(self.exe, self.card, row, 64, 48, self.pixels, **kw)
+
+    def test_reused_frame_delayed_completion_and_jpeg_submission_failure(self):
+        with tempfile.TemporaryDirectory() as temp:
+            exe = build_driver(Path(temp), source="tests/test_shot_handoff.c")
+            subprocess.run((["wsl", "-e"] if os.name == "nt" else []) + [exe], check=True)
 
     def test_identity_zero_and_bad_table(self):
         row = self.setup_card()
