@@ -13,7 +13,7 @@ REVISION = "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1"
 MAIN_SHA256 = "dfe255e4d5a43329712c1fdfd6861ee1f3ef54a268b6096628bf045d8cc590df"
 
 
-def build_probe(source, build):
+def build_probe(source, build, extra_sources=()):
     revision = subprocess.check_output(["git", "-C", str(UPSTREAM), "rev-parse", "HEAD"], text=True).strip()
     if revision != REVISION:
         raise ValueError("unexpected CPU emulator revision")
@@ -29,7 +29,8 @@ def build_probe(source, build):
     binary = build / source.stem.replace("_", "-")
     subprocess.run(["cc", "-std=gnu99", "-O1", "-I", str(UPSTREAM / "emu"),
                     "-I", str(build), str(source),
-                    str(cpu_source), "-lm", "-o", str(binary)],
+                    str(cpu_source), *(str(path) for path in extra_sources),
+                    "-lm", "-o", str(binary)],
                    check=True, capture_output=True, text=True, timeout=120)
     return binary
 

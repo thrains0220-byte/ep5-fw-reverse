@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "emu.h"
+#include "../firmware/lut_menu_adapter.h"
+#include "../firmware/lut_menu_index.h"
 
 #define BASE 0x7e101020u
 #define SIZE 15728576u
@@ -71,6 +73,26 @@
 #define OBSERVER_SET_TARGET 0x7ea141d3u
 #define GUI_ALLOC 0x7ea236d0u
 #define GUI_FREE 0x7ea236dcu
+#define TEXT_RESOURCE 0x7ea1b100u
+#define TEXT_DIRECT 0x7ea1b118u
+#define TEXT_LOCALE 0x602b7730u
+#define TEXT_BANKS 0x602be06cu
+#define TEXT_FONT_GLOBALS 0x602b6dbcu
+#define TEXT_TRANSFORM_GLOBAL 0x602b6e40u
+#define TEXT_CONTEXT (RAM + 0x7800u)
+#define TEXT_SURFACE (RAM + 0x7b00u)
+#define TEXT_FONT (RAM + 0x7c00u)
+#define TEXT_STYLE (RAM + 0x7d00u)
+#define TEXT_RECT (RAM + 0x7d40u)
+#define TEXT_HEAP (RAM + 0x7d80u)
+#define TEXT_METRICS (RAM + 0x7e00u)
+#define TEXT_HEIGHT (RAM + 0x7e10u)
+#define TEXT_PAINT (RAM + 0x7e20u)
+#define TEXT_BORROW (RAM + 0x7f00u)
+#define TEXT_ALT (RAM + 0x7f40u)
+#define TEXT_BANK_0 (RAM + 0x8000u)
+#define TEXT_BANK_1 (RAM + 0x8a00u)
+#define TEXT_RESOURCE_ID 597u
 
 static uint8_t *image, ram[RAM_SIZE];
 static uint8_t setting_ret[8] = {0xdf,0xa0,12}, service_ret[8] = {0xdf,0,4};
@@ -89,6 +111,12 @@ static unsigned gui_locked, gui_signals, gui_dequeuing, gui_refreshes, gui_refre
 static unsigned gui_view_events, gui_empty_children;
 static unsigned gui_observer_lifecycle, gui_allocations, gui_frees;
 static unsigned gui_pruning;
+static uint8_t text_locale, text_banks[8], text_font_globals[20];
+static uint8_t text_transform_global[4];
+static unsigned text_active, text_alloc_fail, text_allocs, text_frees, text_measured, text_draws;
+static uint16_t expected_text[EP5_LUT_MENU_LABEL_UNITS];
+static unsigned text_length;
+static uint32_t text_address;
 static uint8_t expected_dirty[21];
 static uint32_t last_id, last_source, last_size;
 static char order[128];
@@ -101,6 +129,12 @@ static int within(uint32_t a, uint32_t n, uint32_t start, uint32_t size)
 uint8_t *mem_host(uint32_t a, uint32_t n)
 {
     if (within(a,n,TABLE,168*16)) return image+TABLE_ROM-BASE+a-TABLE;
+    if (within(a,n,TEXT_LOCALE,1)) return &text_locale;
+    if (within(a,n,TEXT_BANKS,sizeof text_banks)) return text_banks+a-TEXT_BANKS;
+    if (within(a,n,TEXT_FONT_GLOBALS,sizeof text_font_globals))
+        return text_font_globals+a-TEXT_FONT_GLOBALS;
+    if (within(a,n,TEXT_TRANSFORM_GLOBAL,sizeof text_transform_global))
+        return text_transform_global+a-TEXT_TRANSFORM_GLOBAL;
     if (within(a,n,MANAGER_GLOBAL,4)) return manager_global+a-MANAGER_GLOBAL;
     if (within(a,n,SYNC_GLOBALS,8)) return sync_globals+a-SYNC_GLOBALS;
     for(unsigned i=0;i<3;i++)
@@ -137,6 +171,9 @@ void mem_wr(uint32_t a,uint32_t v,int n)
     allowed|=gui_observer_lifecycle && (within(a,n,MANAGER+16,8) ||
         within(a,n,NODE,12) || within(a,n,OBSERVER,24) || within(a,n,GUI_SNAPSHOT,21));
     allowed|=gui_locked && (within(a,n,GUI_RING,gui_pruning ? 64 : 32) || within(a,n,GUI_INDEX,4));
+    allowed|=text_active && (within(a,n,TEXT_CONTEXT+24,16) ||
+        within(a,n,TEXT_CONTEXT+640,4) || within(a,n,TEXT_CONTEXT+652,8) ||
+        (text_allocs==1 && !text_frees && within(a,n,TEXT_HEAP,24)));
     for(unsigned i=0;i<3;i++) allowed|=within(a,n,slot_buffers[i],slot_sizes[i]);
     if (monitoring && !allowed) {
         ++invalid_write;
@@ -157,11 +194,54 @@ int hle_is_hook(uint32_t a)
          a==LOCK || a==UNLOCK || a==COPY || a==MARK || a==NOTIFY || a==GUI_ENQUEUE ||
          a==GUI_LOCK || a==GUI_UNLOCK || a==GUI_SIGNAL || a==GUI_WAIT || a==GUI_CLEAR_SIGNAL ||
          a==GUI_REFRESH || a==GUI_GET_CHILDREN || a==GUI_EVENT ||
-         a==GUI_VIEW_EVENT || a==GUI_TAKE_FLAGS || a==GUI_ALLOC || a==GUI_FREE; }
+         a==GUI_VIEW_EVENT || a==GUI_TAKE_FLAGS || a==GUI_ALLOC || a==GUI_FREE ||
+         (text_active && (a==TEXT_METRICS || a==TEXT_HEIGHT || a==TEXT_PAINT)); }
 int hle_check(cpu_t *c)
 {
     uint32_t pc=c->regs[REG_PC], sp=c->regs[REG_SP], a=c->regs[REG_A0];
     if(pc==CALLER+7) { stopped=emu_stop=1; return 1; }
+    if(text_active && (pc==GUI_ALLOC || pc==GUI_FREE)) {
+        if(c->regs[REG_D0]!=1 || (pc==GUI_ALLOC && c->regs[REG_D0+1]))
+            emu_abort(pc,"unexpected text allocation class");
+        if(pc==GUI_ALLOC) {
+            if(a!=24 || text_allocs++) emu_abort(pc,"unexpected line allocation");
+            c->regs[REG_A0]=text_alloc_fail?0:TEXT_HEAP;
+        } else if(text_allocs!=1 || text_alloc_fail || a!=TEXT_HEAP || text_frees++) {
+            emu_abort(pc,"unexpected line release");
+        }
+        return 0;
+    }
+    if(text_active && pc==TEXT_HEIGHT) {
+        if(a!=TEXT_FONT) emu_abort(pc,"wrong font receiver");
+        c->regs[REG_D0]=8;
+        return 0;
+    }
+    if(text_active && pc==TEXT_METRICS) {
+        uint32_t result=c->regs[REG_A0+1];
+        uint32_t cursor=mem_rd(result,4);
+        if(a!=TEXT_FONT || text_measured>=text_length ||
+           cursor!=text_address+2*text_measured ||
+           mem_rd(cursor,2)!=expected_text[text_measured])
+            emu_abort(pc,"unexpected character given to font metrics");
+        ++text_measured;
+        mem_wr(result+4,cursor+2,4);
+        mem_wr(result+8,4,2);
+        mem_wr(result+20,0,4);
+        c->regs[REG_D0]=1;
+        return 0;
+    }
+    if(text_active && pc==TEXT_PAINT) {
+        uint32_t label=c->regs[REG_A0+1];
+        if(a!=TEXT_CONTEXT || label!=text_address || text_measured!=text_length ||
+           text_allocs!=1 || text_frees || text_draws++ ||
+           c->regs[REG_D0]!=3 || c->regs[REG_D0+1]!=4 ||
+           mem_rd(sp+4,4)!=TEXT_CONTEXT+24)
+            emu_abort(pc,"unexpected text sink arguments or lifetime");
+        for(unsigned i=0;i<=text_length;i++)
+            if(mem_rd(label+2*i,2)!=expected_text[i])
+                emu_abort(pc,"text sink received wrong UTF-16");
+        return 0;
+    }
     if(pc==INIT) ++init_calls;
     if(pc==SETTING) { ++settings; mem_wr(sp+12,c->regs[REG_MDR],4); mem_wr(a,0,4); c->regs[REG_D0]=0; }
     if(pc==GET_SERVICE) { mem_wr(sp+4,c->regs[REG_MDR],4); c->regs[REG_A0]=SERVICE; }
@@ -184,6 +264,10 @@ int hle_check(cpu_t *c)
         record('U'); locked=0;
     }
     if(pc==COPY || pc==MARK) {
+        if(pc==COPY && text_active) {
+            if(c->regs[REG_D0]!=8) emu_abort(pc,"unexpected text rectangle copy");
+            return 0;
+        }
         if(pc==COPY && gui_pruning && gui_locked) {
             if(a!=GUI_RING || c->regs[REG_A0+1]!=GUI_RING+32 || c->regs[REG_D0]!=32)
                 emu_abort(pc,"unexpected queue compaction");
@@ -323,6 +407,9 @@ static void setup(void)
     gui_view_events=gui_empty_children=0;
     gui_observer_lifecycle=gui_allocations=gui_frees=0;
     gui_pruning=0;
+    text_active=text_alloc_fail=text_allocs=text_frees=text_measured=text_draws=0;
+    memset(text_banks,0,sizeof text_banks);
+    memset(text_font_globals,0,sizeof text_font_globals);
 }
 
 static int execute(uint32_t target, unsigned mask, unsigned frame)
@@ -569,9 +656,173 @@ static int run_contract(unsigned index, unsigned read)
            notifications==(!read && contract_cases[index].success && contract_cases[index].notify) &&
            (notifications ? consume_notification(index==0) : !gui_signals && !mem_rd(GUI_INDEX+2,2));
 }
+
+enum text_case { DIRECT_LABEL, DIRECT_MAX, LOCALE_ZERO, LOCALE_ONE,
+                 MISSING_RESOURCE, MISSING_FONT, ALLOC_FAILURE, EMPTY_LABEL };
+
+static int run_text(enum text_case test, const uint16_t *card_label)
+{
+    static const uint16_t custom[] = {'G','o','l','d',' ',0x6696,0x8272,0};
+    static const uint16_t longest[] = {'V','e','l','v','i','a',' ','5','0',' ',
+                                     0x80f6,0x7247,0x98ce,0x683c,0x9c9c,0};
+    static const uint16_t stock0[] = {'S','t','o','c','k',0};
+    static const uint16_t stock1[] = {0x539f,0x5382,0};
+    struct ep5_lut_menu menu;
+    struct ep5_lut_menu_slot slots[EP5_LUT_MENU_SLOTS] = {0};
+    struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
+    const uint16_t *label = test==DIRECT_MAX ? longest : custom;
+    const unsigned resource = test==LOCALE_ZERO || test==LOCALE_ONE || test==MISSING_RESOURCE;
+    const unsigned paint = test!=MISSING_RESOURCE && test!=MISSING_FONT &&
+                           test!=ALLOC_FAILURE && test!=EMPTY_LABEL;
+    setup();
+    ep5_lut_menu_init(&menu);
+    slots[0].configured=1;
+    slots[0].amount_q8=128;
+    for(unsigned i=0;label[i];i++) slots[0].label[i]=label[i];
+    if(!ep5_lut_menu_begin_load(&menu,1) || !ep5_lut_menu_publish(&menu,1,slots) ||
+       ep5_lut_menu_display(&menu,lines,EP5_LUT_MENU_LINE_COUNT)!=EP5_LUT_MENU_LINE_COUNT)
+        return 0;
+
+    text_active=1;
+    text_alloc_fail=test==ALLOC_FAILURE;
+    text_locale=(uint8_t)(test==LOCALE_ONE);
+    mem_wr(TEXT_BANKS,TEXT_BANK_0,4);
+    mem_wr(TEXT_BANKS+4,TEXT_BANK_1,4);
+    mem_wr(TEXT_BANK_0+4*TEXT_RESOURCE_ID,test==MISSING_RESOURCE?0:TEXT_BORROW,4);
+    mem_wr(TEXT_BANK_1+4*TEXT_RESOURCE_ID,TEXT_ALT,4);
+    text_address=test==LOCALE_ONE?TEXT_ALT:TEXT_BORROW;
+    memset(expected_text,0,sizeof expected_text);
+    if(test!=EMPTY_LABEL) {
+        label=resource?(test==LOCALE_ONE?stock1:stock0):(card_label?card_label:lines[1].text);
+        for(unsigned i=0;i<EP5_LUT_MENU_LABEL_UNITS && label[i];i++) expected_text[i]=label[i];
+    }
+    if(expected_text[EP5_LUT_MENU_LABEL_UNITS-1]) return 0;
+    text_length=0;
+    while(expected_text[text_length]) ++text_length;
+    for(unsigned i=0;i<EP5_LUT_MENU_LABEL_UNITS;i++)
+        mem_wr(text_address+2*i,expected_text[i],2);
+    mem_wr(TEXT_CONTEXT+72,TEXT_SURFACE,4);
+    mem_wr(TEXT_CONTEXT+76,test==MISSING_FONT?0:TEXT_FONT,4);
+    mem_wr(TEXT_FONT+4,TEXT_STYLE,4);
+    mem_wr(TEXT_SURFACE+108,TEXT_PAINT,4);
+    mem_wr(TEXT_FONT_GLOBALS+4,TEXT_METRICS,4);
+    mem_wr(TEXT_FONT_GLOBALS+8,TEXT_HEIGHT,4);
+    const uint16_t bounds[]={3,4,150,19};
+    for(unsigned i=0;i<4;i++) {
+        mem_wr(TEXT_RECT+2*i,bounds[i],2);
+        mem_wr(TEXT_CONTEXT+4+2*i,bounds[i],2);
+        mem_wr(TEXT_CONTEXT+24+2*i,bounds[i],2);
+    }
+    mem_wr(TEXT_CONTEXT+36,0x123456,4);
+    mem_wr(TEXT_CONTEXT+652,0x789abc,4);
+    mem_wr(TEXT_CONTEXT+656,0xdef012,4);
+    const uint32_t callbacks[]={TEXT_METRICS,TEXT_HEIGHT,TEXT_PAINT};
+    for(unsigned i=0;i<sizeof callbacks/sizeof *callbacks;i++)
+        mem_wr(callbacks[i],0x000000de,4); /* retf [],0 */
+
+    cpu_t *cpu=&cpus[0];
+    cpu->regs[REG_A0]=TEXT_CONTEXT;
+    cpu->regs[REG_A0+1]=TEXT_RECT;
+    cpu->regs[REG_D0]=resource?TEXT_RESOURCE_ID:TEXT_STYLE;
+    cpu->regs[REG_D0+1]=resource?TEXT_STYLE:text_address;
+    if(!execute(resource?TEXT_RESOURCE:TEXT_DIRECT,resource?0xb0:0xf0,resource?16:252))
+        return 0;
+    /* Every character is inspected before the sink, with the supplied
+     * pointer forwarded unchanged. Draw then frees only the line table. */
+    const unsigned allocation=test!=MISSING_RESOURCE && test!=MISSING_FONT;
+    if(text_draws!=paint || text_measured!=(paint?text_length:0) ||
+       text_allocs!=allocation || text_frees!=(allocation && !text_alloc_fail)) {
+        fprintf(stderr,"text: draw=%u measure=%u alloc=%u free=%u\n",
+                text_draws,text_measured,text_allocs,text_frees);
+        return 0;
+    }
+    if(mem_rd(TEXT_CONTEXT+36,4)!=0x123456 ||
+       mem_rd(TEXT_CONTEXT+652,4)!=0x789abc ||
+       mem_rd(TEXT_CONTEXT+656,4)!=0xdef012) return 0;
+    for(unsigned i=0;i<EP5_LUT_MENU_LABEL_UNITS;i++)
+        if(mem_rd(text_address+2*i,2)!=expected_text[i]) return 0;
+    return 1;
+}
+
+static void *open_index(void *path, const char *name)
+{
+    return strcmp(name,"EP5LUT/INDEX.EP5") ? NULL : fopen(path,"rb");
+}
+static int32_t read_index(void *context, void *file, uint8_t *buffer, uint32_t count)
+{
+    (void)context;
+    size_t actual=fread(buffer,1,count,file);
+    return ferror(file) ? -1 : (int32_t)actual;
+}
+static int close_index(void *context, void *file)
+{
+    (void)context;
+    return fclose(file);
+}
+
+static int slots_blank(const struct ep5_lut_menu_line *lines)
+{
+    for(unsigned pos=1;pos<=EP5_LUT_MENU_SLOTS;pos++) {
+        if(lines[pos].selected || lines[pos].configured || lines[pos].number ||
+           lines[pos].amount_q8) return 0;
+        for(unsigned unit=0;unit<EP5_LUT_MENU_LABEL_UNITS;unit++)
+            if(lines[pos].text[unit]) return 0;
+    }
+    return 1;
+}
+
+static int run_card_change(char **card_paths)
+{
+    static const uint16_t labels[][EP5_LUT_MENU_LABEL_UNITS]={
+        {'G','o','l','d',0x91d1}, {0x53cd,0x8f6c,'5','0'}};
+    struct ep5_lut_menu menu;
+    struct ep5_lut_menu_capture capture;
+    struct ep5_lut_menu_line lines[EP5_LUT_MENU_LINE_COUNT];
+    struct ep5_look_io io={NULL,open_index,read_index,close_index};
+    struct ep5_look_page page;
+    ep5_lut_menu_init(&menu);
+    for(unsigned card=0;card<3;card++) {
+        uint16_t generation=(uint16_t)(10+10*card);
+        struct ep5_lut_job job;
+        struct ep5_lut_menu_slot staging[EP5_LUT_MENU_SLOTS];
+        ep5_lut_job_init(&job);
+        io.ctx=card_paths[card];
+        if(!ep5_lut_menu_begin_load(&menu,generation) ||
+           !ep5_lut_job_request_index(&job,&io,staging,generation)) return 0;
+        int status;
+        do {
+            if(ep5_lut_menu_display(&menu,lines,EP5_LUT_MENU_LINE_COUNT)!=EP5_LUT_MENU_LINE_COUNT ||
+               !slots_blank(lines) || ep5_lut_menu_capture(&menu,&capture) ||
+               !ep5_lut_menu_page(&menu,&page) || page.state!=EP5_LUT_MENU_LOADING ||
+               page.count || page.rows[0].name[0]) return 0;
+            status=ep5_lut_job_step(&job,generation);
+        } while(status==EP5_LUT_JOB_BUSY);
+        if(job.file) return 0;
+        int published=ep5_lut_menu_finish_index(&job,&menu);
+        if(ep5_lut_menu_display(&menu,lines,EP5_LUT_MENU_LINE_COUNT)!=EP5_LUT_MENU_LINE_COUNT ||
+           ep5_lut_menu_capture(&menu,&capture)) return 0;
+        if(!ep5_lut_menu_page(&menu,&page)) return 0;
+        if(card==2) {
+            if(published || page.state!=EP5_LUT_MENU_ERROR || !slots_blank(lines) ||
+               page.count || page.rows[0].name[0]) return 0;
+            break;
+        }
+        if(!published || !lines[1].configured || !lines[1].selected ||
+           memcmp(lines[1].text,labels[card],sizeof labels[card]) ||
+           page.count!=1 || page.total!=1 || !page.rows[0].focused || page.rows[0].confirmed ||
+           page.rows[0].percent!=50 || memcmp(page.rows[0].name,labels[card],sizeof labels[card]) ||
+           !run_text(DIRECT_LABEL,page.rows[0].name) ||
+           ep5_lut_menu_stock_event(&menu,0x900c)!=2 || !ep5_lut_menu_capture(&menu,&capture) ||
+           capture.number!=1 || capture.look_crc!=card+1 || capture.amount_q8!=128) return 0;
+    }
+    return ep5_lut_menu_stock_event(&menu,0x9014)==3 &&
+           ep5_lut_menu_display(&menu,lines,EP5_LUT_MENU_LINE_COUNT)==0 &&
+           !ep5_lut_menu_page(&menu,&page) && page.count==0;
+}
+
 int main(int argc,char **argv)
 {
-    if(argc!=2) return 2;
+    if(argc!=5) return 2;
     FILE *f=fopen(argv[1],"rb"); image=malloc(SIZE);
     if(!f || !image || fread(image,1,SIZE,f)!=SIZE || fgetc(f)!=EOF) return 2;
     fclose(f);
@@ -583,6 +834,9 @@ int main(int argc,char **argv)
         if(!run_contract(i,1)) { fprintf(stderr,"read contract %s failed; order=%s\n",contract_cases[i].name,order); return 1; }
     if(!run_observer_lifecycle()) { fprintf(stderr,"observer lifecycle failed\n"); return 1; }
     if(!run_target_prune()) { fprintf(stderr,"target notification prune failed\n"); return 1; }
+    for(enum text_case test=DIRECT_LABEL;test<=EMPTY_LABEL;test++)
+        if(!run_text(test,NULL)) { fprintf(stderr,"text case %u failed\n",test); return 1; }
+    if(!run_card_change(argv+2)) { fprintf(stderr,"SD menu refresh failed\n"); return 1; }
     printf("{\"cases\":19,\"stock_page_assembly_executed\":true,\"resource_rows_and_paging_verified\":true,"
            "\"modeled_services\":true,\"updates_per_case\":3,\"stack_and_callee_saved_preserved\":true,"
            "\"stock_gui_transfer_executed\":true,\"copied_payloads_verified\":true,\"stock_listener_bits_verified\":true,"
@@ -590,6 +844,10 @@ int main(int argc,char **argv)
            "\"stock_notification_dispatch_verified\":true,\"stock_observer_snapshot_verified\":true,"
            "\"stock_base_refresh_verified\":true,\"refresh_cases\":[\"children_and_view\",\"empty_children\"],"
            "\"stock_observer_lifecycle_verified\":true,\"stock_target_prune_verified\":true,"
+           "\"text_cases\":[\"direct_label\",\"direct_max\",\"locale_zero\",\"locale_one\","
+           "\"missing_resource\",\"missing_font\",\"alloc_failure\",\"empty_label\"],"
+           "\"stock_text_borrows_label_during_draw\":true,"
+           "\"sd_display_cases\":[\"first_card\",\"replacement\",\"bad_crc\",\"closed\"],"
            "\"notification_code\":6400,\"service_contract_cases\":[");
     for(unsigned i=0;i<sizeof contract_cases/sizeof contract_cases[0];i++)
         printf("%s\"%s\"",i?",":"",contract_cases[i].name);

@@ -68,8 +68,15 @@ int ep5_lut_menu_publish(struct ep5_lut_menu *menu, uint16_t generation,
     if (retain)
         menu->slots[retain - 1u].amount_q8 = retained_amount;
     menu->state = EP5_LUT_MENU_READY;
-    if (menu->cursor >= EP5_LUT_MENU_SLOTS)
+    if (menu->cursor >= EP5_LUT_MENU_SLOTS || !menu->slots[menu->cursor].configured) {
         menu->cursor = 0;
+        for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
+            if (menu->slots[index].configured) {
+                menu->cursor = (uint8_t)index;
+                break;
+            }
+        }
+    }
     menu->amount_q8 = menu->slots[menu->cursor].amount_q8;
     return 1;
 }
@@ -87,12 +94,18 @@ int ep5_lut_menu_fail(struct ep5_lut_menu *menu, uint16_t generation)
 static void move_cursor(struct ep5_lut_menu *menu, int step)
 {
     unsigned cursor = menu->cursor;
-    if (step > 0)
-        cursor = (cursor + 1u) % EP5_LUT_MENU_SLOTS;
-    else
-        cursor = (cursor + EP5_LUT_MENU_SLOTS - 1u) % EP5_LUT_MENU_SLOTS;
-    menu->cursor = (uint8_t)cursor;
-    menu->amount_q8 = menu->slots[cursor].amount_q8;
+    unsigned step_forward = step > 0 ? 1u : EP5_LUT_MENU_SLOTS - 1u;
+    for (unsigned visited = 0; visited < EP5_LUT_MENU_SLOTS; ++visited) {
+        cursor = (cursor + step_forward) % EP5_LUT_MENU_SLOTS;
+        if (menu->slots[cursor].configured) {
+            /* On a one-look card, turning past the end keeps pending edits. */
+            if (cursor != menu->cursor) {
+                menu->cursor = (uint8_t)cursor;
+                menu->amount_q8 = menu->slots[cursor].amount_q8;
+            }
+            return;
+        }
+    }
 }
 
 static void adjust_amount(struct ep5_lut_menu *menu, int step)
@@ -114,7 +127,7 @@ static void invalidate_generation(struct ep5_lut_menu *menu)
 
 int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event)
 {
-    if (!menu)
+    if (!menu || menu->state == EP5_LUT_MENU_HIDDEN)
         return 0;
     if (event == EP5_LUT_MENU_BACK) {
         invalidate_generation(menu);
@@ -139,10 +152,12 @@ int ep5_lut_menu_event(struct ep5_lut_menu *menu, enum ep5_lut_menu_event event)
         move_cursor(menu, 1);
         return 1;
     case EP5_LUT_MENU_LEFT:
-        adjust_amount(menu, -1);
+        if (menu->slots[menu->cursor].configured)
+            adjust_amount(menu, -1);
         return 1;
     case EP5_LUT_MENU_RIGHT:
-        adjust_amount(menu, 1);
+        if (menu->slots[menu->cursor].configured)
+            adjust_amount(menu, 1);
         return 1;
     case EP5_LUT_MENU_OK:
         if (!menu->slots[menu->cursor].configured)
@@ -208,7 +223,7 @@ unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
                             struct ep5_lut_menu_line *lines, unsigned capacity)
 {
     unsigned required = EP5_LUT_MENU_LINE_COUNT;
-    if (!menu)
+    if (!menu || menu->state == EP5_LUT_MENU_HIDDEN)
         return 0;
     if (!lines || capacity < required)
         return required;
@@ -226,14 +241,16 @@ unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
     lines[0].text[0] = 'L'; lines[0].text[1] = 'U'; lines[0].text[2] = 'T';
     lines[0].text[3] = ' '; lines[0].text[4] = 'L'; lines[0].text[5] = 'O';
     lines[0].text[6] = 'O'; lines[0].text[7] = 'K';
-    for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
-        const volatile struct ep5_lut_menu_slot *slot = &menu->slots[index];
-        struct ep5_lut_menu_line *line = &lines[index + 1];
-        line->selected = menu->state == EP5_LUT_MENU_READY && menu->cursor == index;
-        line->configured = slot->configured;
-        line->amount_q8 = line->selected ? menu->amount_q8 : slot->amount_q8;
-        line->number = slot->number;
-        copy_label(line->text, slot->label);
+    if (menu->state == EP5_LUT_MENU_READY) {
+        for (unsigned index = 0; index < EP5_LUT_MENU_SLOTS; ++index) {
+            const volatile struct ep5_lut_menu_slot *slot = &menu->slots[index];
+            struct ep5_lut_menu_line *line = &lines[index + 1];
+            line->selected = menu->cursor == index;
+            line->configured = slot->configured;
+            line->amount_q8 = line->selected ? menu->amount_q8 : slot->amount_q8;
+            line->number = slot->number;
+            copy_label(line->text, slot->label);
+        }
     }
     lines[required - 1].text[0] = menu->state == EP5_LUT_MENU_LOADING ? 'L' :
         (menu->state == EP5_LUT_MENU_ERROR ? 'E' : 'O');

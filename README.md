@@ -1,12 +1,14 @@
 # E-P5 机内胶片模拟
 
-**最新进展（2026-11-18）**。E‑P5 1.8 的拍摄模型已串起从 SD 读取风格名单、选择风格、预载 3D LUT 到应用拍摄效果。模拟换卡时，即便风格位置和文件名相同，也会根据内容校验值识别新色表。重新确认后使用新风格。原厂 GUI 的刷新、观察者注销和旧通知清理已分别在模型中执行。插值优化使测试样本的 MN103 指令数减少约 14%，全尺寸合成缓冲的输出逐字节一致。可刷版本仍需验证真实文件任务、机内显示和全尺寸 JPEG+ORF。[异步预载与拍摄](docs/LUT_ASYNC_LOAD.md) · [文件任务与卸载证据](docs/FILE_SERVICE_MAP.md) · [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [续做清单](tasks/todo.md)。
+**2026-11-21**　Gold 200、Portra 400、Velvia 的十二色区与明暗曲线可从固定版本的 Caduceus 参考配方生成 SD 数据包。三张 17³ 色表已经校验。机内菜单模型可以按名称和强度浏览已配置风格，每页四行。还需在 E-P5 上验证真实菜单、正常退出和全尺寸 JPEG+ORF 才可发布通用固件。现有机身也可以用 Myset 手动保存四组原厂参数。[三款色调与重建命令](docs/EP5_RECIPE_COLOR.md) · [十二色区工具](docs/EP5_WHEEL_LUT.md) · [原厂免刷与 Myset 配方](docs/EP5_STOCK_SD_COLOR.md) · [真机验收计划](plans/EP5_LUT_DELIVERY_PLAN.md)
+
+**2026-11-18**　E‑P5 1.8 的拍摄模型已串起从 SD 读取风格名单、选择风格、预载 3D LUT 到应用拍摄效果。模拟换卡时，即便风格位置和文件名相同，也会根据内容校验值识别新色表。重新确认后使用新风格。原厂 GUI 的刷新、观察者注销和旧通知清理已分别在模型中执行。插值优化使测试样本的 MN103 指令数减少约 14%，全尺寸合成缓冲的输出逐字节一致。[异步预载与拍摄](docs/LUT_ASYNC_LOAD.md) · [文件任务与卸载证据](docs/FILE_SERVICE_MAP.md) · [ART GUI 数据交接](docs/EP5_ART_DRAW_CHAIN.md) · [续做清单](tasks/todo.md)。
 
 目标：保留 ORF，在奥林巴斯 E-P5 内生成全分辨率胶片风格 JPEG，允许拍后等待。
 
 **最终交付物是可在 E-P5 安装并启用效果的固件升级文件。** 具体使用体验、开源参考取舍及完成验收见[固件交付目标](docs/FLASHABLE_PRODUCT.md)；工具和算法核心都是中间成果。
 
-**当前机身已恢复官方 1.8，USB 已断开。** 柔彩 RC2 已在机主的一台 E-P5 启动，保存全尺寸 RAW+JPEG，Natural 路径正常；官方恢复后的同源 RAW 重显影与刷前解码 RGB 逐字节一致。[首台实机证据](docs/rc2-first-trial.json) · [恢复证据](docs/rc2-recovery-verification.json)。用户决定先开发可换 LUT 的完整方案，暂不重装 RC2。它只包含两条原生色度曲线，不具备任意 .cube 导入能力。
+**固定柔彩 RC2 已有实机成片与官方 1.8 恢复记录。** 柔彩 RC2 已在机主的一台 E-P5 启动，保存全尺寸 RAW+JPEG，Natural 路径正常。官方恢复后的同源 RAW 重显影与刷前解码 RGB 逐字节一致。RC2 使用两条原生色度曲线。[首台实机证据](docs/rc2-first-trial.json) · [恢复证据](docs/rc2-recovery-verification.json)。
 
 **新开发：Windows [LUT Studio](docs/LUT_STUDIO.md)。** 可导入归一化 `.cube`（2³–65³）、保留原件、编译 17³ RGB16、并排预览强度、管理拟用 ART 位置并保存项目。导出仅为经过校验的开发用风格包；官方 1.8 不会加载它，通用机内 SD 模块尚未发布，不能当作固件刷入。[外部风格协议](docs/SD_LOOK_FORMAT.md) · [运行时接入证据](docs/LUT_RUNTIME_AUDIT.md) · [佳能方案参考](docs/CANON_FILM_REFERENCE.md)。
 

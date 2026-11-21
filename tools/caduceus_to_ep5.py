@@ -9,12 +9,8 @@ Data reuse from two upstream projects (no firmware code copied):
     color-builder-reference.json
     - MEASURED per-sector saturation gains (PEN-F camera predictions).
 
-Sector geometry: centres are 30 deg apart in the BT.601 CbCr plane with
-yellow at 75 deg (pure yellow (255,255,0) -> atan2(cr,cb) = 75.4 deg).
-This matches the upstream note "yellow 134 deg ... yellow-green 165 deg in
-the ISP plane" under their calibrated +15 deg offset (75+15=90 in a plane
-rotated 44 deg; relative spacing is what matters for the projection).
-Gains come from the measured fixture, not guesses.
+Sector geometry: six standard RGB primaries/secondaries anchor measured
+BT.601 chroma angles. Intermediate centres interpolate along the circle.
 
 Output: E-P5 49-byte Cb/Cr pair tables (16-knot capacity, 9 interior knots),
 same format proven safe by RC2 / safe-7. Only chroma pair data is produced;
@@ -23,6 +19,8 @@ shared gain/tone tables (0x7e453xxx) are NEVER touched.
 Usage:
   python tools/caduceus_to_ep5.py --all --out build/caduceus-fit
   python tools/caduceus_to_ep5.py --recipe lib2_velvia --preview
+  python tools/caduceus_to_ep5.py --recipe lib2_gold --cube build/wheel/Gold.cube
+  python tools/caduceus_to_ep5.py --wheel-json wheel.json --cube build/wheel/Custom.cube
 """
 from __future__ import annotations
 import argparse, json, sys
@@ -33,6 +31,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 from native_film_curves_hq import build_hq_table, pack_axis, eval_hq_curve
+from ep5studio.cube import Cube
+from ep5studio.filmlooks import cube_text, grid
+from ep5studio.project import atomic_write
 
 RESEARCH = ROOT / "build" / "research"
 LIB_V2 = RESEARCH / "caduceus-ep7-main" / "sim" / "recipes" / "library_v2.json"
@@ -111,13 +112,7 @@ SECTOR_WIDTH = 30.0      # raised-cosine half-width (30 deg spacing)
 WB_AB_GAIN = 0.012       # wb a_b step -> R/B channel gain (amber+)
 WB_GM_GAIN = 0.010       # wb g_m step -> G channel cut (magenta+)
 
-def render_recipe_chroma(rgb_in, recipe, centres, gain_pos, gain_neg):
-    """Apply the Caduceus ColorEngine chroma math (no luma/tone/grain).
-
-    WB shift is applied in RGB (physically correct channel gains) before
-    the chroma transform; only the resulting cb/cr are kept. base_chroma=1.0
-    because the E-P5 pair is relative to its own neutral rendering.
-    """
+def _wheel_components(rgb_in, recipe, centres, gain_pos, gain_neg):
     wb = recipe.get("wb_shift", {}) or {}
     ab = float(wb.get("a_b", 0)); gm = float(wb.get("g_m", 0))
     rgb = rgb_in.copy()
@@ -125,7 +120,7 @@ def render_recipe_chroma(rgb_in, recipe, centres, gain_pos, gain_neg):
     rgb[..., 2] *= 1 - ab * WB_AB_GAIN
     rgb[..., 1] *= 1 - gm * WB_GM_GAIN
     rgb = np.clip(rgb, 0, 1)
-    y, cb, cr = rgb_to_ycbcr(rgb)
+    _, cb, cr = rgb_to_ycbcr(rgb)
     dcb, dcr = cb - 128, cr - 128
     hue = np.degrees(np.arctan2(dcr, dcb)) % 360
     chroma = np.hypot(dcb, dcr)
@@ -143,7 +138,67 @@ def render_recipe_chroma(rgb_in, recipe, centres, gain_pos, gain_neg):
     hue_shift = w @ (hue_sl * HUE_DEG_PER_STEP)
     ang = np.radians(hue + hue_shift)
     ch = chroma * sat_mult
-    return 128 + ch * np.cos(ang), 128 + ch * np.sin(ang)
+    return 128 + ch * np.cos(ang), 128 + ch * np.sin(ang), chroma, w
+
+
+def render_recipe_chroma(rgb_in, recipe, centres, gain_pos, gain_neg):
+    """Legacy two-axis projection uses the chroma contribution of WB and H/S."""
+    cb, cr, _, _ = _wheel_components(rgb_in, recipe, centres, gain_pos, gain_neg)
+    return cb, cr
+
+
+# Numeric saturation predictions from fishcu/oly_fw_analysis's
+# color-builder-reference.json. Keep user-authored wheels usable on a fresh clone.
+WHEEL_GAINS = (
+    np.array([225, 225, 225, 240, 224, 199, 232, 232, 281, 374, 243, 399]),
+    np.array([360, 360, 370, 462, 312, 240, 234, 234, 370, 240, 240, 240]),
+)
+# Caduceus extended light-slider coefficient magnitudes (steps 0 through 15).
+LIGHT_STEPS = np.array([0, 25, 50, 100, 150, 200, 250, 300, 350, 400, 500,
+                        600, 700, 800, 900, 1000])
+
+
+def wheel_cube(recipe):
+    """Bake the photographic WB chroma and H/S/L wheel into normalized display RGB."""
+    if not isinstance(recipe, dict):
+        raise ValueError("wheel recipe must be a JSON object")
+    title = recipe.get("name", "Custom wheel")
+    if (not isinstance(title, str) or not title.strip() or len(title) > 120
+            or any(ord(char) < 32 or char == '"' for char in title)):
+        raise ValueError("invalid wheel name for .cube TITLE")
+    if recipe.get("base", "Color Profile") != "Color Profile":
+        raise ValueError("wheel export supports colour profiles only")
+    controls = {}
+    for axis, limit in (("sat", 5), ("hue", 15), ("light", 15)):
+        values = recipe.get(axis, [0] * 12)
+        if (not isinstance(values, list) or len(values) != 12
+                or any(type(v) is not int or abs(v) > limit for v in values)):
+            raise ValueError(f"{axis} must contain 12 integers in [-{limit}, {limit}]")
+        controls[axis] = values
+    wb = recipe.get("wb_shift", {})
+    if (not isinstance(wb, dict) or set(wb) - {"a_b", "g_m"}
+            or any(type(v) is not int or abs(v) > 7 for v in wb.values())):
+        raise ValueError("wb_shift supports a_b and g_m integers in [-7, 7]")
+    controls["wb_shift"] = wb
+    rgb = grid(17)
+    # Preserve half-ULP rounding ties in the identity RGB16 table.
+    if not any(any(controls[axis]) for axis in ("sat", "hue", "light")) and not any(wb.values()):
+        return Cube(title, 17, rgb)
+    cb, cr, chroma, weights = _wheel_components(rgb, controls, sector_centres()[0], *WHEEL_GAINS)
+    light = np.asarray(controls["light"])
+    dy = weights @ (np.sign(light) * LIGHT_STEPS[np.abs(light)]) / 4096
+    dy *= np.clip(chroma / (255 * .25), 0, 1)
+    # Add the BT.601 chroma difference and the wheel's independent light step.
+    # An unedited pixel retains its exact source RGB despite rounded conversion constants.
+    _, base_cb, base_cr = rgb_to_ycbcr(rgb)
+    delta = ycbcr_to_rgb(255 * dy, 128 + cb - base_cb, 128 + cr - base_cr)
+    return Cube(title, 17, np.clip(rgb + delta, 0, 1))
+
+
+def wheel_cube_bytes(recipe, source):
+    return cube_text(wheel_cube(recipe),
+                     "sRGB display input/output. Wheel hue/saturation/lightness and WB chroma only.",
+                     attribution=source)
 
 KNOT_X = np.array([0, 32, 64, 96, 128, 160, 192, 224, 255], dtype=np.float64)
 
@@ -227,11 +282,33 @@ SLOT_MAP = [
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--recipe", help="single recipe key, e.g. lib2_velvia")
+    p.add_argument("--wheel-json", type=Path, help="custom JSON wheel recipe for --cube")
+    p.add_argument("--cube", type=Path, help="export the 12-sector H/S/L and WB as one Studio .cube")
     p.add_argument("--all", action="store_true", help="fit the 7-slot map")
     p.add_argument("--grid", type=int, default=25)
     p.add_argument("--preview", action="store_true")
     p.add_argument("--out", type=Path, default=ROOT / "build" / "caduceus-fit")
     args = p.parse_args()
+    if args.cube:
+        if (args.all or args.preview or (args.wheel_json is None) == (args.recipe is None)
+                or args.cube.suffix.lower() != ".cube"):
+            p.error("--cube requires a .cube destination and exactly one of --recipe / --wheel-json")
+        try:
+            if args.wheel_json:
+                recipe = json.loads(args.wheel_json.read_text(encoding="utf-8-sig"))
+                if not isinstance(recipe, dict) or set(recipe) - {"name", "sat", "hue", "light", "wb_shift"}:
+                    raise ValueError("custom recipe accepts name, sat, hue, light and wb_shift only")
+                source = "Custom wheel recipe"
+            else:
+                recipe, lib = load_recipe(args.recipe)
+                source = f"Caduceus {lib} / {args.recipe}"
+            atomic_write(args.cube, wheel_cube_bytes(recipe, source))
+        except (ValueError, KeyError, OSError) as exc:
+            p.error(str(exc))
+        print(f"wrote {args.cube} (17^3, wheel H/S/L + WB chroma)")
+        return
+    if args.wheel_json:
+        p.error("--wheel-json requires --cube")
     jobs = SLOT_MAP if args.all else [(args.recipe, args.recipe, args.recipe)]
     results = []
     for key, rkey, label in jobs:

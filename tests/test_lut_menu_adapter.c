@@ -27,5 +27,52 @@ int main(void)
     assert(ep5_lut_menu_stock_event(&menu, 0x9014) == 3);
     assert(menu.state == EP5_LUT_MENU_HIDDEN);
     assert(ep5_lut_menu_stock_event(&menu, 0xdead) == 0);
+    /* A key repeat delivered after closing must not clear the shot selection. */
+    assert(ep5_lut_menu_stock_event(&menu, 0x9016) == 0 && menu.applied == 2);
+
+    struct ep5_look_page page;
+    memset(slots, 0, sizeof slots);
+    for (unsigned i = 1; i <= 13; i += 3) {
+        slots[i].configured = 1;
+        slots[i].label[0] = (uint16_t)('A' + i);
+        slots[i].amount_q8 = 128;
+    }
+    assert(ep5_lut_menu_begin_load(&menu, 10));
+    assert(ep5_lut_menu_publish(&menu, 10, slots));
+    assert(ep5_lut_menu_page(&menu, &page));
+    assert(page.total == 5 && page.first == 0 && page.count == 4);
+    assert(page.rows[0].name[0] == 'B' && page.rows[0].focused);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9012) == 2);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9006) == 1);
+    assert(ep5_lut_menu_page(&menu, &page));
+    assert(page.rows[0].confirmed && !page.rows[0].focused);
+    assert(page.rows[1].focused && !page.rows[1].confirmed);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9004) == 1);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9004) == 1);
+    assert(ep5_lut_menu_stock_event(&menu, 0x900a) == 1);
+    assert(ep5_lut_menu_page(&menu, &page));
+    assert(page.first == 4 && page.count == 1 && page.rows[0].name[0] == 'N');
+    assert(page.rows[0].focused && !page.rows[0].confirmed && page.rows[0].percent == 56);
+    assert(page.rows[1].name[0] == 0);
+    /* Text for an in-flight draw survives a card change in a different object. */
+    assert(ep5_lut_menu_begin_load(&menu, 11));
+    assert(page.rows[0].name[0] == 'N');
+    assert(ep5_lut_menu_page(&menu, &page));
+    assert(page.state == EP5_LUT_MENU_LOADING && !page.total && !page.rows[0].name[0]);
+    memset(slots, 0, sizeof slots);
+    assert(ep5_lut_menu_publish(&menu, 11, slots));
+    assert(ep5_lut_menu_page(&menu, &page) && page.state == EP5_LUT_MENU_READY && !page.count);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9006) == 1 && menu.cursor == 0);
+    assert(ep5_lut_menu_stock_event(&menu, 0x900a) == 1 && menu.amount_q8 == 0);
+
+    slots[11].configured = 1;
+    slots[11].amount_q8 = 128;
+    assert(ep5_lut_menu_begin_load(&menu, 12));
+    assert(ep5_lut_menu_publish(&menu, 12, slots));
+    assert(ep5_lut_menu_stock_event(&menu, 0x900a) == 1);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9004) == 1);
+    assert(menu.cursor == 11 && menu.amount_q8 == 144);
+    assert(ep5_lut_menu_stock_event(&menu, 0x9014) == 3);
+    assert(!ep5_lut_menu_page(&menu, &page) && !page.count && !page.rows[0].name[0]);
     return 0;
 }

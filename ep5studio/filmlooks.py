@@ -303,9 +303,9 @@ def build_cube(name, side=17):
     raise KeyError(name)
 
 
-def cube_text(cube, note):
+def cube_text(cube, note, *, attribution="Original project look inspired by a film genre; not a measured stock reproduction"):
     header = (f'TITLE "{cube.title}"\n'
-              f'# Original project look inspired by a film genre; not a measured stock reproduction\n'
+              f'# {attribution}\n'
               f'# {note}\n'
               f'LUT_3D_SIZE {cube.side}\n')
     flat = cube.values.reshape(-1, 3)

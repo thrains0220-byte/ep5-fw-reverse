@@ -47,6 +47,13 @@ class ArtRenderProbeTests(unittest.TestCase):
             'invalid_id', 'lock_failure', 'no_manager', 'no_notify',
         ])
 
+    def test_sd_refresh_hands_only_published_names_to_stock_text_layout(self):
+        result = self.report['result']
+        self.assertTrue(result['stock_text_borrows_label_during_draw'])
+        self.assertEqual(result['text_cases'], ['direct_label', 'direct_max', 'locale_zero',
+                         'locale_one', 'missing_resource', 'missing_font', 'alloc_failure', 'empty_label'])
+        self.assertEqual(result['sd_display_cases'], ['first_card', 'replacement', 'bad_crc', 'closed'])
+
     def test_stock_read_copies_existing_payload_and_preserves_tail(self):
         self.assertIn('read_contract_cases', self.report['result'])
         self.assertEqual(self.report['result']['read_contract_cases'], [

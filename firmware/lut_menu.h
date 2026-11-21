@@ -86,6 +86,8 @@ int ep5_lut_menu_capture(const volatile struct ep5_lut_menu *menu,
 int ep5_lut_menu_amount(const struct ep5_lut_menu_capture *capture,
                         uint16_t loaded_number, uint32_t loaded_crc,
                         uint16_t *amount_q8);
+/* Returns no lines for a closed menu. During load or error, expose the status
+ * without the previous card's names or selections. */
 unsigned ep5_lut_menu_lines(const volatile struct ep5_lut_menu *menu,
                             struct ep5_lut_menu_line *lines, unsigned capacity);
 
