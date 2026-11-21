@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later
- * Original E-P5 descriptor reader; log sinks modeled, descriptor read-only. */
+ * Offline probes for the stock E-P5 descriptor reader and JPEG requests. */
 #include "emu.h"
 
 #define BASE 0x7e101020u
@@ -13,15 +13,29 @@
 #define CODEC 0x7e3f4884u
 #define CONTEXT 0x11000000u
 #define ART_GLOBAL 0x605f455cu
+#define SETTINGS 0x7e3f55c4u
+#define PARAMETER 0x7e141667u
+#define CODEC_DRIVER 0x7e208630u
+#define LAYOUT_DIRECT_END 0x7e3f49a7u
+#define LAYOUT_INTERMEDIATE 0x7e3f48d4u
+#define CODEC_CALLER (STACK + 0x200u)
+#define CODEC_REQUEST (STACK + 0x400u)
+#define CODEC_SP (STACK + 0xd000u)
+#define SOURCE_ADDRESS 0x12000000u
 
 static uint8_t *image, stack_ram[65536], descriptor[32];
 static uint8_t context[0x4600], art_globals[16];
 static uint8_t log_return[8] = {0xdf, 0x20, 16};
 static uint8_t rec_return[8] = {0xdf, 0xa0, 12};
 static uint8_t codec_return[8] = {0xdf, 0xf0, 16};
+static uint8_t settings_return[8] = {0xdf, 0xf0, 36};
+static uint8_t parameter_return[8] = {0xdf, 0xc0, 12};
 static unsigned entries, headers;
 static unsigned codec_calls, request_words[10], geometry[4];
-static int art_mode;
+static uint32_t layout_end, layout_stack;
+enum art_case { DESCRIPTOR_ONLY, ART_FULL, ART_SMALL, ART_CROP, ART_FULL_INTERMEDIATE };
+static enum art_case art_mode;
+static int inspect_codec;
 static int reached_stop;
 uint64_t emu_ns;
 
@@ -35,7 +49,12 @@ uint8_t *mem_host(uint32_t address, uint32_t length)
     if (within(address, length, LOG_HEAD, 8)) return log_return + (address - LOG_HEAD);
     if (within(address, length, LOG_VALUE, 8)) return log_return + (address - LOG_VALUE);
     if (art_mode && within(address, length, LOG_REC, 8)) return rec_return + (address - LOG_REC);
-    if (art_mode && within(address, length, CODEC, 8)) return codec_return + (address - CODEC);
+    if (art_mode && !inspect_codec && within(address, length, CODEC, 8))
+        return codec_return + (address - CODEC);
+    if (inspect_codec && within(address, length, SETTINGS, 8))
+        return settings_return + (address - SETTINGS);
+    if (inspect_codec && within(address, length, PARAMETER, 8))
+        return parameter_return + (address - PARAMETER);
     if (within(address, length, BASE, IMAGE_BYTES)) return image + (address - BASE);
     if (within(address, length, STACK, sizeof stack_ram)) return stack_ram + (address - STACK);
     if (art_mode && within(address, length, CONTEXT, sizeof context)) return context + (address - CONTEXT);
@@ -55,6 +74,11 @@ uint32_t mem_rd(uint32_t address, int size)
 
 void mem_wr(uint32_t address, uint32_t value, int size)
 {
+    if (inspect_codec && size == 2 && (address == CONTEXT + 132 || address == CONTEXT + 134)) {
+        context[address - CONTEXT] = (uint8_t)value;
+        context[address - CONTEXT + 1] = (uint8_t)(value >> 8);
+        return;
+    }
     if (!within(address, (uint32_t)size, STACK, sizeof stack_ram))
         emu_abort(PC, "write outside stack %08x", address);
     for (int i = 0; i < size; ++i) stack_ram[address - STACK + i] = (uint8_t)(value >> (8 * i));
@@ -67,18 +91,33 @@ void mem_misaligned(uint32_t address, int size, int write_access)
 
 int hle_is_hook(uint32_t address)
 {
-    return address == CALLER + 7 || address == LOG_HEAD || address == LOG_VALUE ||
-           (art_mode && (address == LOG_REC || address == CODEC));
+    return address == CALLER + 7 || (layout_end && address == layout_end) ||
+           (inspect_codec && (address == LAYOUT_DIRECT_END || address == PARAMETER)) ||
+           address == LOG_HEAD || address == LOG_VALUE ||
+           (art_mode && address == LOG_REC) || (art_mode && !inspect_codec && address == CODEC);
 }
 
 int hle_check(cpu_t *cpu)
 {
     uint32_t pc = cpu->regs[REG_PC];
-    if (pc == CALLER + 7) { reached_stop = emu_stop = 1; return 1; }
-    if (art_mode && pc == CODEC) {
+    if (pc == CALLER + 7 || (layout_end && pc == layout_end)) {
+        reached_stop = emu_stop = 1;
+        return 1;
+    }
+    if (inspect_codec && pc == LAYOUT_DIRECT_END)
+        layout_stack = cpu->regs[REG_SP];
+    if (inspect_codec && pc == PARAMETER) {
+        switch (cpu->regs[REG_D0]) {
+        case 53140: cpu->regs[REG_D0] = 4000000; break;
+        case 53154: cpu->regs[REG_D0] = 0; break;
+        default: emu_abort(pc, "unexpected JPEG parameter");
+        }
+    }
+    if (art_mode && !inspect_codec && pc == CODEC) {
         if (cpu->regs[REG_A0] != CONTEXT) emu_abort(pc, "unexpected codec context");
         uint32_t p = cpu->regs[REG_A0 + 1];
         if (!within(p, 40, STACK, sizeof stack_ram)) emu_abort(pc, "invalid codec request");
+        memcpy(stack_ram + (CODEC_REQUEST - STACK), stack_ram + (p - STACK), 40);
         for (unsigned i = 0; i < 10; ++i) request_words[i] = mem_rd(p + 4 * i, 4);
         for (unsigned i = 0; i < 4; ++i) geometry[i] = mem_rd(p + 4 + 2 * i, 2);
         ++codec_calls;
@@ -105,12 +144,49 @@ int hle_check(cpu_t *cpu)
 void soc_tick(uint64_t cycles) { emu_ns += cycles; }
 uint64_t soc_next_event(void) { return emu_ns + 1; }
 
+static int print_codec_layout(void)
+{
+    layout_end = art_mode == ART_SMALL || art_mode == ART_FULL_INTERMEDIATE
+               ? LAYOUT_INTERMEDIATE : CODEC_DRIVER;
+    inspect_codec = 1;
+    uint8_t *call = stack_ram + (CODEC_CALLER - STACK);
+    uint32_t displacement = CODEC - CODEC_CALLER;
+    call[0] = 0xdd;
+    for (unsigned i = 0; i < 4; ++i) call[1 + i] = (uint8_t)(displacement >> (8 * i));
+    call[5] = 0xf0;
+    call[6] = 16;
+    reached_stop = emu_stop = 0;
+    cpus[0].regs[REG_PC] = CODEC_CALLER;
+    cpus[0].regs[REG_SP] = CODEC_SP;
+    cpus[0].regs[REG_A0] = CONTEXT;
+    cpus[0].regs[REG_A0 + 1] = CODEC_REQUEST;
+    cpus[0].running = 1;
+    cpu_run(2000, 0);
+    if (!reached_stop) return 0;
+    if (layout_end == LAYOUT_INTERMEDIATE) {
+        printf(",\"codec_layout\":{\"route\":\"intermediate_geometry\"}");
+    } else {
+        const uint32_t descriptor = cpus[0].regs[REG_A0];
+        if (!layout_stack || descriptor != layout_stack + 68) return 0;
+        const unsigned offsets[] = {106, 108, 110, 112, 116, 118, 120, 122};
+        printf(",\"codec_layout\":{\"route\":\"direct_geometry\",\"source\":%u,\"geometry_u16\":[",
+               mem_rd(descriptor, 4));
+        for (unsigned index = 0; index < sizeof offsets / sizeof offsets[0]; ++index)
+            printf("%s%u", index ? "," : "", mem_rd(descriptor + offsets[index], 2));
+        printf("],\"driver_entry\":\"0x%08x\",\"output_geometry_u16\":[%u,%u]}",
+               CODEC_DRIVER, mem_rd(descriptor + 144, 2), mem_rd(descriptor + 146, 2));
+    }
+    return 1;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2 && argc != 3) return 2;
     if (argc == 3) {
-        if (!strcmp(argv[2], "art-full")) art_mode = 1;
-        else if (!strcmp(argv[2], "art-small")) art_mode = 2;
+        if (!strcmp(argv[2], "art-full")) art_mode = ART_FULL;
+        else if (!strcmp(argv[2], "art-small")) art_mode = ART_SMALL;
+        else if (!strcmp(argv[2], "art-crop")) art_mode = ART_CROP;
+        else if (!strcmp(argv[2], "art-full-intermediate")) art_mode = ART_FULL_INTERMEDIATE;
         else return 2;
     }
     FILE *f = fopen(argv[1], "rb");
@@ -124,17 +200,22 @@ int main(int argc, char **argv)
         descriptor[9 + 2 * i] = 3;
     }
     for (unsigned i = 0; i < 4; ++i) descriptor[28 + i] = (uint8_t)(0xabcdef01u >> (8 * i));
+    unsigned picture_mode = art_mode == ART_SMALL || art_mode == ART_FULL_INTERMEDIATE;
     if (art_mode) {
         uint32_t b0 = CONTEXT + 0x100;
         for (unsigned i = 0; i < 4; ++i) {
             context[84 + i] = (uint8_t)(b0 >> (8 * i));
-            art_globals[i] = (uint8_t)(0x12000000u >> (8 * i));
+            art_globals[i] = (uint8_t)(SOURCE_ADDRESS >> (8 * i));
         }
-        context[0x100 + 17454] = art_mode == 2;
-        const uint16_t dimensions[] = {art_mode == 1 ? 4608 : 640, art_mode == 1 ? 3456 : 480};
-        for (unsigned i = 0; i < 4; ++i) {
-            art_globals[4 + 2 * i] = (uint8_t)dimensions[i % 2];
-            art_globals[5 + 2 * i] = (uint8_t)(dimensions[i % 2] >> 8);
+        context[146] = art_mode == ART_CROP ? 2 : 1;
+        context[0x100 + 17454] = (uint8_t)picture_mode;
+        const uint16_t width = art_mode == ART_SMALL ? 640 : 4608;
+        const uint16_t height = art_mode == ART_SMALL ? 480 : 3456;
+        const uint16_t dimensions[] = {width, height, width, art_mode == ART_CROP ? 3072 : height,
+                                       0, art_mode == ART_CROP ? 192 : 0};
+        for (unsigned i = 0; i < 6; ++i) {
+            art_globals[4 + 2 * i] = (uint8_t)dimensions[i];
+            art_globals[5 + 2 * i] = (uint8_t)(dimensions[i] >> 8);
         }
     }
     uint8_t *call = stack_ram + 0x100;
@@ -154,13 +235,15 @@ int main(int argc, char **argv)
     int preserved = cpus[0].regs[REG_SP] == STACK + 0xf000;
     for (unsigned i = 0; i < 4; ++i) preserved &= cpus[0].regs[saved[i]] == 0xcafe1000u + i;
     if (art_mode) {
+        if (!reached_stop || !preserved || codec_calls != 1) return 1;
         printf("{\"buffer_address\":%u,\"geometry_u16\":[%u,%u,%u,%u],\"request_words\":[",
                request_words[0], geometry[0], geometry[1], geometry[2], geometry[3]);
         for (unsigned i = 0; i < 10; ++i) printf("%s%u", i ? "," : "", request_words[i]);
-        printf("],\"codec_calls\":%u,\"picture_mode\":%u,\"native_result\":%u,",
-               codec_calls, art_mode == 2, cpus[0].regs[REG_D0]);
-    } else printf("],");
-    printf("\"instructions\":%llu,\"registers_and_stack_preserved\":%s}\n",
+        printf("],\"codec_calls\":%u,\"picture_mode\":%u,\"native_result\":%u",
+               codec_calls, picture_mode, cpus[0].regs[REG_D0]);
+        if (!print_codec_layout()) return 1;
+    } else printf("]");
+    printf(",\"instructions\":%llu,\"registers_and_stack_preserved\":%s}\n",
            (unsigned long long)cpus[0].icount, preserved ? "true" : "false");
     free(image);
     return reached_stop && preserved && (art_mode ? codec_calls == 1 : headers == 1 && entries == 13) ? 0 : 1;

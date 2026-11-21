@@ -17,6 +17,28 @@
 #define CHROMA_WORDS (STACK + 0x3000u)
 #define CHROMA_FLAGS (STACK + 0x3400u)
 #define CHROMA_DEFAULT 0x602aad9cu
+#define ART_REPLY_MODE 4
+#define ART_REPLY_QUEUE 0xb3u
+#define ART_REPLY_SEND 0x7e3fd694u
+#define ART_REQUEST_SEND 0x7e3fd6d2u
+#define ART_QUEUE_ROUTE 0x7e132fdeu
+#define ART_QUEUE_READ 0x7e117c7cu
+#define REC_SEND_TAIL 0x7e3ed822u
+#define REC_WAIT_CALL 0x7e3ed850u
+#define REC_STACK (STACK + 0xd000u)
+#define ART_EFFECT_FIXTURE (STACK + 0x280u)
+#define ART_TERMINAL_FIXTURE (STACK + 0x290u)
+#define ART_TERMINAL_MAX_BYTES 128u
+#define ART_WORK_RECORD (TASK + 4u)
+#define ART_NEUTRAL_EFFECT 0x7e40cbb1u
+#define ART_PINHOLE_EFFECT 0x7e40115cu
+#define ART_PINHOLE_FINISH 0x7e401503u
+#define ART_NEUTRAL_PASS7 0x7e40d620u
+#define ART_NEUTRAL_ERROR 0x7e40d6f8u
+#define ART_DISPATCH_PENDING 0x7e40b0ceu
+#define ART_ISP_RESULT 0x7e40b8ebu
+#define ART_ISP_SLOT (0x605f6d04u + 28u)
+#define ART_ISP_SERVICE 0x7e10652bu
 
 static uint8_t *image, stack_ram[65536], ram[0x4000], boot_globals[16];
 static const struct service { uint32_t pc; uint8_t ret[8]; } services[] = {
@@ -28,11 +50,28 @@ static const struct service { uint32_t pc; uint8_t ret[8]; } services[] = {
     {0x7e106f3f, {0xdf, 0xf0, 44}}, /* error sink */
     {0x7e3f0464, {0xdf, 0xa0, 12}}, /* REC log */
     {0x7e3f4884, {0xdf, 0xf0, 16}}, /* codec request sink, no encoding */
+    {ART_REPLY_SEND, {0xdf, 0xf0, 16}}, /* records reply without sending it */
+};
+static const struct service art_transport[] = {
+    {ART_REQUEST_SEND, {0xdf, 0xf0, 16}},
+    {ART_QUEUE_ROUTE, {0xdf, 0xc0, 16}},
+    {ART_QUEUE_READ, {0xdf, 0xf0, 32}},
 };
 static int mode, stopped, allocation_failed;
+static int isp_ingesting;
+static int rec_transport, rec_suspended;
+static unsigned rec_sends, rec_reads;
+static uint32_t rec_reply;
 static unsigned allocation_calls, allocation_bytes, allocation_flags, errors;
 static unsigned boot_source, boot_destination, boot_bytes;
 static unsigned codec_calls, jpeg_buffer, jpeg_geometry[4];
+static unsigned art_effect_status, art_effect_calls, art_reply_calls, art_reply_status;
+static uint32_t art_reply_queue, art_reply_token, art_reply_packet;
+static uint32_t art_reply_words[3];
+static unsigned art_pass7_calls, art_error_calls, art_isp_service_calls;
+static unsigned art_pinhole_finish_calls;
+static unsigned art_neutral_finish_calls;
+static uint32_t art_error_flags, art_reply_flags;
 uint64_t emu_ns;
 
 static int within(uint32_t a, uint32_t n, uint32_t base, uint32_t bytes)
@@ -46,6 +85,10 @@ uint8_t *mem_host(uint32_t a, uint32_t n)
      * an unmodified six-pointer ROM record. The hardware RAM table is unknown. */
     if (mode == CHROMA_MODE && within(a, n, CHROMA_DEFAULT, 24))
         return image + (0x7e478148u - BASE) + (a - CHROMA_DEFAULT);
+    if (rec_transport)
+        for (unsigned i = 0; i < sizeof art_transport / sizeof *art_transport; ++i)
+            if (within(a, n, art_transport[i].pc, 8))
+                return (uint8_t *)art_transport[i].ret + (a - art_transport[i].pc);
     for (unsigned i = 0; i < sizeof services / sizeof *services; ++i)
         if (within(a, n, services[i].pc, 8))
             return (uint8_t *)services[i].ret + (a - services[i].pc);
@@ -74,6 +117,7 @@ void mem_wr(uint32_t a, uint32_t v, int n)
     if (!within(a, (uint32_t)n, STACK, sizeof stack_ram) &&
         !within(a, (uint32_t)n, PACKET, 396) &&
         !within(a, (uint32_t)n, TASK, 676) &&
+        !(mode == ART_REPLY_MODE && within(a, (uint32_t)n, ART_ISP_SLOT, 28)) &&
         !within(a, (uint32_t)n, BOOT_GLOBAL, sizeof boot_globals))
         emu_abort(PC, "write outside permitted state %08x", a);
     uint8_t *p = mem_host(a, (uint32_t)n);
@@ -89,6 +133,15 @@ int hle_is_hook(uint32_t a)
 {
     if (mode == CHROMA_MODE) return a == 0x7e22df82;
     if (a == CALLER + 7 || (mode == 0 && a == 0x7e10187b)) return 1;
+    if (mode == ART_REPLY_MODE && (a == ART_EFFECT_FIXTURE || a == ART_TERMINAL_FIXTURE)) return 1;
+    if (mode == ART_REPLY_MODE && (a == ART_NEUTRAL_PASS7 || a == ART_NEUTRAL_ERROR)) return 1;
+    if (mode == ART_REPLY_MODE && a == ART_PINHOLE_FINISH) return 1;
+    if (isp_ingesting && a == ART_ISP_SERVICE) return 1;
+    if (rec_transport) {
+        if (a == REC_WAIT_CALL && !rec_suspended) return 1;
+        for (unsigned i = 0; i < sizeof art_transport / sizeof *art_transport; ++i)
+            if (a == art_transport[i].pc) return 1;
+    }
     for (unsigned i = 0; i < sizeof services / sizeof *services; ++i)
         if (a == services[i].pc) return 1;
     return 0;
@@ -113,6 +166,77 @@ int hle_check(cpu_t *cpu)
         cpu->regs[REG_D0] = allocation_failed ? 0 : 0x12000000;
     }
     if (pc == 0x7e106f3f) ++errors;
+    if (mode == ART_REPLY_MODE && pc == ART_EFFECT_FIXTURE) {
+        if (cpu->regs[REG_A0] != ART_WORK_RECORD + 4)
+            emu_abort(pc, "unexpected ART effect argument");
+        ++art_effect_calls;
+        cpu->regs[REG_D0] = art_effect_status;
+    }
+    if (mode == ART_REPLY_MODE && pc == ART_TERMINAL_FIXTURE) {
+        if (cpu->regs[REG_A0] != ART_WORK_RECORD + 4)
+            emu_abort(pc, "unexpected ART terminal argument");
+        ++art_neutral_finish_calls;
+    }
+    if (rec_transport && pc == REC_WAIT_CALL && !rec_suspended) {
+        rec_suspended = emu_stop = 1;
+        return 1;
+    }
+    if (rec_transport && pc == ART_REQUEST_SEND) {
+        const uint32_t request = cpu->regs[REG_A0 + 1];
+        if (!within(request, 16, STACK, sizeof stack_ram) ||
+            cpu->regs[REG_D0] != 0xffff8001u || rec_sends)
+            emu_abort(pc, "unexpected REC send arguments");
+        for (unsigned offset = 0; offset < 16; offset += 4)
+            mem_wr(MESSAGE + offset, mem_rd(request + offset, 4), 4);
+        ++rec_sends;
+        cpu->regs[REG_D0] = 0;
+    }
+    if (rec_transport && pc == ART_QUEUE_ROUTE) cpu->regs[REG_D0] = 0;
+    if (rec_transport && pc == ART_QUEUE_READ) {
+        rec_reply = cpu->regs[REG_A0];
+        if (!within(rec_reply, 12, STACK, sizeof stack_ram) ||
+            cpu->regs[REG_D0] != art_reply_queue || cpu->regs[REG_D0 + 1] != UINT32_MAX ||
+            art_reply_calls != 1 || rec_reads)
+            emu_abort(pc, "unexpected REC read arguments");
+        for (unsigned i = 0; i < 3; ++i)
+            mem_wr(rec_reply + 4 * i, art_reply_words[i], 4);
+        ++rec_reads;
+        cpu->regs[REG_D0] = 12;
+    }
+    if (mode == ART_REPLY_MODE &&
+        (pc == ART_NEUTRAL_PASS7 || pc == ART_NEUTRAL_ERROR || pc == ART_PINHOLE_FINISH)) {
+        if (cpu->regs[REG_A0] != PACKET || cpu->regs[REG_A0 + 1] != ART_WORK_RECORD + 4)
+            emu_abort(pc, "unexpected ART stage arguments");
+        if (pc == ART_NEUTRAL_PASS7) {
+            ++art_pass7_calls;
+        } else if (pc == ART_PINHOLE_FINISH) {
+            ++art_pinhole_finish_calls;
+        } else {
+            ++art_error_calls;
+            art_error_flags = mem_rd(ART_WORK_RECORD + 16, 4);
+        }
+    }
+    if (isp_ingesting && pc == ART_ISP_SERVICE) {
+        if (cpu->regs[REG_A0] != ART_ISP_SLOT + 12 ||
+            cpu->regs[REG_D0] != 0 || cpu->regs[REG_D0 + 1] != 16)
+            emu_abort(pc, "unexpected ART completion service arguments");
+        ++art_isp_service_calls;
+    }
+    if (pc == ART_REPLY_SEND) {
+        uint32_t reply = cpu->regs[REG_A0 + 1];
+        if (mode != ART_REPLY_MODE || cpu->regs[REG_D0 + 1] != 12 ||
+            !within(reply, 12, STACK, sizeof stack_ram))
+            emu_abort(pc, "unexpected ART reply");
+        ++art_reply_calls;
+        art_reply_queue = cpu->regs[REG_D0];
+        for (unsigned i = 0; i < 3; ++i)
+            art_reply_words[i] = mem_rd(reply + 4 * i, 4);
+        art_reply_status = mem_rd(reply, 2);
+        art_reply_token = mem_rd(reply + 4, 4);
+        art_reply_packet = mem_rd(reply + 8, 4);
+        art_reply_flags = mem_rd(ART_WORK_RECORD + 16, 4);
+        cpu->regs[REG_D0] = 0;
+    }
     if (pc == 0x7e3f4884) {
         uint32_t request = cpu->regs[REG_A0 + 1];
         if (cpu->regs[REG_A0] != STACK + 0x3000 || !within(request, 40, STACK, sizeof stack_ram))
@@ -175,12 +299,191 @@ static int probe_chroma(void)
     return 0;
 }
 
+static void prepare_art_call(uint32_t entry, uint32_t frame_mask, uint32_t frame_bytes,
+                             uint32_t a0, uint32_t a1, uint32_t d0, uint32_t sp)
+{
+    uint8_t *call = stack_ram + (CALLER - STACK);
+    uint32_t displacement = entry - CALLER;
+    call[0] = 0xdd;
+    for (unsigned i = 0; i < 4; ++i) call[1 + i] = (uint8_t)(displacement >> (8 * i));
+    call[5] = (uint8_t)frame_mask;
+    call[6] = (uint8_t)frame_bytes;
+    cpu_t *cpu = &cpus[0];
+    stopped = emu_stop = 0;
+    cpu->running = 1;
+    cpu->irq_level = 7;
+    cpu->regs[REG_PC] = CALLER;
+    cpu->regs[REG_SP] = sp;
+    cpu->regs[REG_A0] = a0;
+    cpu->regs[REG_A0 + 1] = a1;
+    cpu->regs[REG_D0] = d0;
+}
+
+static int run_art_call(uint32_t entry, uint32_t frame_mask, uint32_t frame_bytes,
+                        uint32_t a0, uint32_t a1, uint32_t d0)
+{
+    prepare_art_call(entry, frame_mask, frame_bytes, a0, a1, d0, STACK + 0xf000);
+    cpu_run(20000, 0);
+    cpu_t *cpu = &cpus[0];
+    return stopped && cpu->regs[REG_SP] == STACK + 0xf000;
+}
+
+static int probe_art_reply(const char *name)
+{
+    const int pinhole = !strcmp(name, "isp-pinhole");
+    const int empty_buffer = !strcmp(name, "isp-neutral-empty-buffer");
+    const int neutral_finish = empty_buffer || !strcmp(name, "isp-neutral-finish");
+    art_effect_status = !strcmp(name, "reply-pending") ? 1 :
+                        !strcmp(name, "reply-failed") ? 0xffff : 2;
+    const uint32_t token = pinhole || !strcmp(name, "reply-ready-custom-token") ? 0x21abc735u : 1;
+    const uint8_t retf[] = {0xde, 0, 0};
+    memcpy(stack_ram + (ART_EFFECT_FIXTURE - STACK), retf, sizeof retf);
+    put(PACKET, 1, 2); /* still capture list */
+    put(PACKET + 2, 3, 2);
+    cpu_t suspended_rec;
+    if (neutral_finish) {
+        /* Pause REC at its blocking receive and dispatch ART on a separate stack. */
+        rec_transport = 1;
+        prepare_art_call(REC_SEND_TAIL, 0xb0, 44, 0, 0, 0, REC_STACK);
+        cpus[0].regs[REG_A0 + 2] = PACKET;
+        cpu_run(20000, 0);
+        if (!rec_suspended || rec_sends != 1 || cpus[0].regs[REG_PC] != REC_WAIT_CALL ||
+            mem_rd(MESSAGE, 4) != ART_REPLY_QUEUE || mem_rd(MESSAGE + 4, 4) != token ||
+            mem_rd(MESSAGE + 8, 4) != 1 || mem_rd(MESSAGE + 12, 4) != PACKET)
+            return 1;
+        suspended_rec = cpus[0];
+    } else {
+        put(MESSAGE, ART_REPLY_QUEUE, 4);
+        put(MESSAGE + 4, token, 4);
+        put(MESSAGE + 8, 1, 4); /* ART execute command */
+        put(MESSAGE + 12, PACKET, 4);
+    }
+    if (!strncmp(name, "isp-", sizeof "isp-" - 1)) {
+        /* A synthetic completion record stands in for the device response.
+         * The stock lookup, status update and (on failure) error handler run. */
+        const uint32_t key = pinhole ? 0x03453739u : 0x03453607u;
+        const uint32_t status = !strcmp(name, "isp-failed") ? 0x9a08u : 0;
+        const int unknown = !strcmp(name, "isp-unknown");
+        put(PACKET + 6, pinhole ? 73 : 0, 2);
+        put(PACKET + 96, 1, 1); /* 4:3 geometry */
+        if (!run_art_call(0x7e40b368, 0xf0, 36, MESSAGE, PACKET, TASK) ||
+            cpus[0].regs[REG_D0] != 0 ||
+            mem_rd(ART_WORK_RECORD, 4) != 0x7e40a20bu ||
+            mem_rd(ART_WORK_RECORD + 56, 4) != ART_NEUTRAL_EFFECT ||
+            mem_rd(ART_WORK_RECORD + 64, 4) != (pinhole ? ART_PINHOLE_EFFECT : 0)) return 1;
+        /* Run the same initializer the worker would call. The pool is modeled. */
+        if (!run_art_call(0x7e40a20b, 0, 0, ART_WORK_RECORD + 4, 0, 0) ||
+            cpus[0].regs[REG_D0] != 0 || allocation_calls != 1 ||
+            allocation_bytes != 4608u * 3456u * 2u) return 1;
+        put(ART_WORK_RECORD, 0, 4); /* worker consumes the initializer once */
+        if (pinhole) {
+            /* Start after RAW development and pinhole passes 1–3 submitted
+             * their work. The previously developed buffer and released scratch
+             * pointers are fixture state. Execute both remaining stock passes. */
+            put(ART_WORK_RECORD + 56, 0, 4);
+            put(ART_WORK_RECORD + 40, mem_rd(PACKET + 76, 4), 4);
+        }
+        if (neutral_finish) {
+            /* Test-only finalizer uses the existing worker's second slot.
+             * It proves sequencing and replies, not physical buffer ownership. */
+            put(ART_WORK_RECORD + 64, ART_TERMINAL_FIXTURE, 4);
+            if (empty_buffer) put(PACKET + 76, 0, 4);
+        }
+        put(ART_WORK_RECORD + 16, pinhole ? 0x3ffffu : 0x1fu, 4);
+        put(ART_WORK_RECORD + 20, 0x9a09u, 4);
+        put(ART_ISP_SLOT, key, 4);
+        put(ART_ISP_SLOT + 4, 0xc3b2a100u, 4); /* task index 0 and padding canary */
+        put(ART_ISP_SLOT + 8, pinhole ? 0x40000u : 0x20u, 4);
+        for (unsigned offset = 12; offset < 28; offset += 4)
+            put(ART_ISP_SLOT + offset, 0x4f3e2d1cu, 4);
+        put(ART_ISP_SLOT + 14, status, 2);
+        isp_ingesting = 1;
+        const int returned = run_art_call(ART_ISP_RESULT, 0xc0, 28, 0, 0, key + (unsigned)unknown);
+        isp_ingesting = 0;
+        if (!returned) return 1;
+        const uint32_t flags = mem_rd(ART_WORK_RECORD + 16, 4);
+        const uint32_t result = mem_rd(ART_WORK_RECORD + 20, 4);
+        /* An unmatched result leaves pass 6 outstanding. Its ISP work is out of scope. */
+        if (!unknown && !run_art_call(ART_DISPATCH_PENDING, 0xf0, 28, 0, 0, 0))
+            return 1;
+        /* On neutral-only success, another worker poll still cannot emit the reply. */
+        if (!pinhole && !neutral_finish && !unknown && !status &&
+            !run_art_call(ART_DISPATCH_PENDING, 0xf0, 28, 0, 0, 0)) return 1;
+        if (pinhole || neutral_finish) {
+            if (art_reply_calls != 1 || art_reply_status != (empty_buffer ? 0x9a06u : 0) ||
+                art_reply_queue != ART_REPLY_QUEUE || art_reply_token != token || art_reply_packet != PACKET)
+                return 1;
+            uint32_t received_status = art_reply_status;
+            if (neutral_finish) {
+                cpus[0] = suspended_rec;
+                stopped = emu_stop = 0;
+                cpu_run(20000, 0);
+                if (!stopped || cpus[0].regs[REG_SP] != REC_STACK || rec_reads != 1 ||
+                    cpus[0].regs[REG_D0] != 0 || mem_rd(rec_reply, 2) != art_reply_status ||
+                    mem_rd(rec_reply + 4, 4) != token || mem_rd(rec_reply + 8, 4) != PACKET)
+                    return 1;
+                received_status = mem_rd(rec_reply, 2);
+            }
+            /* The fixture drives the transition to the original JPEG constructor. */
+            if (received_status == 0) {
+                put(STACK + 0x3000 + 84, STACK + 0x3100, 4);
+                if (!run_art_call(0x7e3ed85c, 0xb0, 56, STACK + 0x3000, 0, 0) ||
+                    cpus[0].regs[REG_D0] != 0x1234) return 1;
+            }
+        }
+        printf("{\"input_status\":%u,\"stage_flags\":%u,\"result_word\":%u,"
+               "\"allocation_bytes\":%u,\"packet_buffer\":%u,"
+               "\"completion_key_after\":%u,\"completion_index_and_padding_after\":%u,"
+               "\"completion_mask_after\":%u,\"completion_tail_after\":[%u,%u,%u,%u],"
+               "\"service_calls\":%u,\"errors\":%u,\"pass7_calls\":%u,"
+               "\"pinhole_finish_calls\":%u,\"neutral_finish_calls\":%u,\"record_buffer_after\":%u,"
+               "\"effect_after\":%u,\"error_handler_calls\":%u,"
+               "\"error_handler_flags\":%u,\"reply_calls\":%u,\"reply_u16_status\":%u,"
+               "\"reply_flags\":%u,\"queue\":%u,\"token\":%u,\"packet\":%u,\"task_cleared\":%s,"
+               "\"rec_sends\":%u,\"rec_reads\":%u,"
+               "\"codec_calls\":%u,\"jpeg_buffer\":%u,\"jpeg_geometry_u16\":[%u,%u,%u,%u]}\n",
+               status, flags, result, allocation_bytes, mem_rd(PACKET + 76, 4),
+               mem_rd(ART_ISP_SLOT, 4), mem_rd(ART_ISP_SLOT + 4, 4),
+               mem_rd(ART_ISP_SLOT + 8, 4), mem_rd(ART_ISP_SLOT + 12, 4), mem_rd(ART_ISP_SLOT + 16, 4),
+               mem_rd(ART_ISP_SLOT + 20, 4), mem_rd(ART_ISP_SLOT + 24, 4),
+               art_isp_service_calls, errors, art_pass7_calls, art_pinhole_finish_calls, art_neutral_finish_calls,
+               mem_rd(ART_WORK_RECORD + 40, 4),
+               mem_rd(ART_WORK_RECORD + (pinhole ? 64 : 56), 4), art_error_calls, art_error_flags,
+               art_reply_calls, art_reply_status, art_reply_flags,
+               art_reply_queue, art_reply_token, art_reply_packet,
+               mem_rd(ART_WORK_RECORD + 12, 4) == 0 ? "true" : "false",
+               rec_sends, rec_reads,
+               codec_calls, jpeg_buffer, jpeg_geometry[0], jpeg_geometry[1], jpeg_geometry[2], jpeg_geometry[3]);
+        return 0;
+    }
+
+    /* Single effect in the first worker record. Only the callback is modeled. */
+    if (!run_art_call(0x7e40b511, 0x30, 16, MESSAGE, PACKET, TASK)) return 1;
+    put(ART_WORK_RECORD + 56, ART_EFFECT_FIXTURE, 4);
+    if (!run_art_call(0x7e40b9b9, 0xf0, 56, ART_WORK_RECORD, 0, 0) ||
+        art_effect_calls != 1) return 1;
+    printf("{\"effect_calls\":%u,\"effect_status\":%u,\"reply_calls\":%u,\"queue\":%u,"
+           "\"reply_u16_status\":%u,\"token\":%u,\"packet\":%u,\"task_cleared\":%s}\n",
+           art_effect_calls, art_effect_status, art_reply_calls, art_reply_queue,
+           art_reply_status, art_reply_token, art_reply_packet,
+           mem_rd(ART_WORK_RECORD + 12, 4) == 0 ? "true" : "false");
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
-    if (argc != 3) return 2;
+    if (argc < 3 || argc > 4) return 2;
     const char *name = argv[2];
+    const int needs_terminal = !strcmp(name, "isp-neutral-finish") ||
+                               !strcmp(name, "isp-neutral-empty-buffer");
+    if (needs_terminal != (argc == 4)) return 2;
     if (!strcmp(name, "boot")) mode = 0;
     else if (!strcmp(name, "chroma")) mode = CHROMA_MODE;
+    else if (!strcmp(name, "reply-ready") || !strcmp(name, "reply-pending") ||
+             !strcmp(name, "reply-failed") || !strcmp(name, "reply-ready-custom-token") ||
+             !strcmp(name, "isp-matched") || !strcmp(name, "isp-failed") || !strcmp(name, "isp-unknown") ||
+             !strcmp(name, "isp-pinhole") || needs_terminal)
+        mode = ART_REPLY_MODE;
     else if (!strcmp(name, "neutral") || !strcmp(name, "pinhole")) mode = 2;
     else if (!strcmp(name, "allocate") || !strcmp(name, "existing") ||
              !strcmp(name, "failed") || !strcmp(name, "cropped")) mode = 1;
@@ -189,8 +492,22 @@ int main(int argc, char **argv)
     image = malloc(IMAGE_BYTES);
     if (!f || !image || fread(image, 1, IMAGE_BYTES, f) != IMAGE_BYTES || fgetc(f) != EOF) return 2;
     fclose(f);
+    if (needs_terminal) {
+        FILE *terminal = fopen(argv[3], "rb");
+        if (!terminal) return 2;
+        const size_t bytes = fread(stack_ram + (ART_TERMINAL_FIXTURE - STACK), 1,
+                                   ART_TERMINAL_MAX_BYTES, terminal);
+        const int valid = bytes && fgetc(terminal) == EOF && !ferror(terminal);
+        fclose(terminal);
+        if (!valid) return 2;
+    }
     if (mode == CHROMA_MODE) {
         int result = probe_chroma();
+        free(image);
+        return result;
+    }
+    if (mode == ART_REPLY_MODE) {
+        int result = probe_art_reply(name);
         free(image);
         return result;
     }

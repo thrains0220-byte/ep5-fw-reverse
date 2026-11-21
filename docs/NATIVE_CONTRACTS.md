@@ -65,12 +65,14 @@
 
 ## 复现与验证边界
 
+复现需要项目工具链中的 `mn10300-elf-as`、`mn10300-elf-ld` 和 `mn10300-elf-objcopy`。
+
 ```bash
 python3 tools/native_contracts.py data/ep5-decoded/00_0100_402c0020.decoded.bin \
   --out generated/native-contracts-check.json
 python3 -m unittest discover -s tests -p test_native_contracts.py -v
 ```
 
-报告路径必须尚不存在。[验证记录](native-contracts-verification.json)包括源码/CPU 引擎哈希和合成服务边界。日志/跟踪/错误报告只按原厂帧返回，分配器只返回地址，编码器只记录请求。写入仅允许映射栈、packet、一个任务记录及启动小段全局，其他写入立即终止。没有相机 I/O 或升级容器输出。
+报告路径必须尚不存在。[验证记录](native-contracts-verification.json)包括源码和 CPU 引擎哈希。日志、跟踪和错误报告按原厂帧返回，分配器只返回地址，编码器只记录请求。允许写入映射栈、packet、一个任务组、一条 ISP 回复槽和启动所需的少量全局地址，其他写入立即终止。测试专用的中性收尾和 REC 回复见[拍摄链记录](T2_NATIVE_PATHS.md#针孔与中性显影的成功收尾)。
 
 最终整套测试 48 项通过、无跳过。独立审查纠正了针孔滤镜的命名，补强裁切容量/错误返回断言；另修正五个相关 CPU 探针的主机指针运算，并通过破坏 codec 返回值的故障注入确认命令行不会误报成功。此前的验证 JSON 保留为对应提交时的历史快照，新报告记录当前探针源码哈希。

@@ -26,7 +26,26 @@
       "codec_calls": 1,
       "picture_mode": 0,
       "native_result": 4660,
-      "instructions": 105,
+      "codec_layout": {
+        "route": "direct_geometry",
+        "source": 301989888,
+        "geometry_u16": [
+          4608,
+          4608,
+          3456,
+          0,
+          4608,
+          3456,
+          2304,
+          1728
+        ],
+        "driver_entry": "0x7e208630",
+        "output_geometry_u16": [
+          4608,
+          3456
+        ]
+      },
+      "instructions": 491,
       "registers_and_stack_preserved": true
     },
     {
@@ -53,7 +72,86 @@
       "codec_calls": 1,
       "picture_mode": 1,
       "native_result": 4660,
-      "instructions": 112,
+      "codec_layout": {
+        "route": "intermediate_geometry"
+      },
+      "instructions": 207,
+      "registers_and_stack_preserved": true
+    },
+    {
+      "name": "art-crop",
+      "buffer_address": 301989888,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3072
+      ],
+      "request_words": [
+        301989888,
+        226497024,
+        201331200,
+        0,
+        0,
+        0,
+        0,
+        536870912,
+        0,
+        0
+      ],
+      "codec_calls": 1,
+      "picture_mode": 0,
+      "native_result": 4660,
+      "codec_layout": {
+        "route": "direct_geometry",
+        "source": 301989888,
+        "geometry_u16": [
+          4608,
+          4608,
+          3456,
+          0,
+          4608,
+          3072,
+          2304,
+          1728
+        ],
+        "driver_entry": "0x7e208630",
+        "output_geometry_u16": [
+          4608,
+          3072
+        ]
+      },
+      "instructions": 491,
+      "registers_and_stack_preserved": true
+    },
+    {
+      "name": "art-full-intermediate",
+      "buffer_address": 301989888,
+      "geometry_u16": [
+        4608,
+        3456,
+        4608,
+        3456
+      ],
+      "request_words": [
+        301989888,
+        226497024,
+        226497024,
+        0,
+        0,
+        0,
+        0,
+        536870912,
+        0,
+        2
+      ],
+      "codec_calls": 1,
+      "picture_mode": 1,
+      "native_result": 4660,
+      "codec_layout": {
+        "route": "intermediate_geometry"
+      },
+      "instructions": 207,
       "registers_and_stack_preserved": true
     }
   ],
@@ -75,42 +173,28 @@
   "physical_camera_test": false,
   "models": [
     "REC log returns with [d2,a2],12",
-    "codec captures request and returns 0x1234 with [d2,d3,a2,a3],16",
-    "ART context and existing buffer globals are synthetic read-only inputs"
+    "first pass captures the 40-byte request and returns the synthetic status 0x1234",
+    "second pass runs the stock codec entry with that request",
+    "for direct routing, common settings are a no-op and only the two known parameter reads return fixtures",
+    "ART buffer globals are synthetic read-only inputs; codec may update context width and height"
   ],
   "not_tested": [
     "actual image production",
     "buffer format/colour",
     "normal-still routing",
     "cache",
+    "intermediate processing",
+    "driver execution or device completion",
     "code residency",
     "JPEG encoding",
     "camera installation/recovery"
   ],
   "dependencies_sha256": {
-    "tools/ep5_image_probe.c": "5d358add3486c7cc47f3a9cef668226fe7ea8442c2e3d631abbd1a75ec13eaf4",
-    "tools/image_probe.py": "a95a3843a6a4c8b9dfa5a10539c48743fa8f06cc83aa459ab789e0b58f5bbc72",
-    "tools/native_probe.py": "b923eba735432797123a5586d06a44ddeb96211f0ef98ac9230dd606e5b680bd",
+    "tools/ep5_image_probe.c": "e843f8e29255ebf008777c10c4335105e134bd63383b012b85e7df8596657406",
+    "tools/image_probe.py": "ef932869447cbaa7c54b175112e14e73123e53fcd6688109282bfead8cb1b28a",
+    "tools/native_probe.py": "ad4ef7aa36546e6d74dc502fbe82c3978cef4ef353a7c3ba547a8b37747ef20b",
     "build/art-handoff/cpu.c": "3efb4c18efacf95d48e3c649c75decc98f54b64865ec800d6baf1c0a7304cf65",
     "build/art-handoff/isa.inc": "329df9cf0cf91188b067191a64c05ba4398b6d65653821eb680d8b84554fae28",
-    "build/art-handoff/ep5-image-probe": "b235b8eb790adb526cbab72840f3ec42e8211e6878a272c0fff988a2fd5722bb"
-  },
-  "tests": {
-    "passed": 40,
-    "skipped": 0,
-    "seconds": 29.295,
-    "command": "python3 -m unittest discover -s tests -v"
-  },
-  "original_windows": {
-    "0x7e3ed8d1": "cd b3 6f f0 10",
-    "0x7e3f4d78": "df f0 10",
-    "0x7e3ed8d7": "df b0 38"
-  },
-  "independent_review": {
-    "isolated_image_tests_passed": 2,
-    "actionable_findings": [],
-    "hardware_test": false
-  },
-  "flashable_output_created": false,
-  "test_source_sha256": "ee1a8b6945438cbf1c354ccb384e35a33b3969631fc73bd6f8b678db4f338a24"
+    "build/art-handoff/ep5-image-probe": "04875a8cc2ea1139c55b082faecb3762788fbf2ed522cc3e35398612a4c6e5d8"
+  }
 }

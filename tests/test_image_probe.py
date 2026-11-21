@@ -13,15 +13,31 @@ class ImageProbeTests(unittest.TestCase):
         report = run_art_handoff(IMAGE)
         self.assertFalse(report['physical_camera_test'])
         cases = report['cases']
-        self.assertEqual(len(cases), 2)
-        for case, geometry in zip(cases, ([4608, 3456, 4608, 3456], [640, 480, 640, 480])):
+        expected = {
+            'art-full': ([4608, 3456, 4608, 3456], 0),
+            'art-small': ([640, 480, 640, 480], 1),
+            'art-crop': ([4608, 3456, 4608, 3072], 0),
+            'art-full-intermediate': ([4608, 3456, 4608, 3456], 1),
+        }
+        self.assertEqual([case['name'] for case in cases], list(expected))
+        for case in cases:
+            geometry, picture_mode = expected[case['name']]
             self.assertEqual(case['geometry_u16'], geometry)
             self.assertEqual(case['buffer_address'], 0x12000000)
             self.assertEqual(case['request_words'][7], 0x20000000)
-            self.assertEqual(case['request_words'][9] & 2, 2 if case['picture_mode'] else 0)
+            self.assertEqual(case['picture_mode'], picture_mode)
+            self.assertEqual(case['request_words'][9] & 2, 2 if picture_mode else 0)
             self.assertTrue(case['registers_and_stack_preserved'])
             self.assertEqual(case['codec_calls'], 1)
             self.assertEqual(case['native_result'], 0x1234)
+            if picture_mode:
+                self.assertEqual(case['codec_layout'], dict(route='intermediate_geometry'))
+            else:
+                width, height, active_width, active_height = geometry
+                self.assertEqual(case['codec_layout'], dict(
+                    route='direct_geometry', source=0x12000000, driver_entry='0x7e208630',
+                    geometry_u16=[width, width, height, 0, active_width, active_height, width // 2, height // 2],
+                    output_geometry_u16=[active_width, active_height]))
         self.assertIn('actual image production', report['not_tested'])
 
     def test_original_descriptor_reader_and_vendor_frame(self):
