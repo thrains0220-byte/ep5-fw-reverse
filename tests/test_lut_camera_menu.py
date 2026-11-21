@@ -139,15 +139,22 @@ class CameraMenuTest(unittest.TestCase):
         self.run_menu("--cancel")
 
     def test_group_and_list_display_selected_bank_and_real_labels(self):
-        def captions(arg):
+        def captions(*args):
             return ["".join(chr(int(code,16)) for code in op.split()[4:])
-                    for op in self.run_menu(arg).splitlines() if op.startswith("T ")]
+                    for op in self.run_menu(*args).splitlines() if op.startswith("T ")]
         self.assertIn("2/3",captions("--trace-groups"))
         labels=captions("--trace-looks")
         self.assertIn("2/3",labels)
         self.assertIn("主拨盘选风格  副拨盘调强度",labels)
         self.assertIn("Pr400H",labels)
         self.assertIn("100%",labels)
+        for state, hint in (
+            ("loading", "正在载入色表"), ("ready", "色表已就绪  OK 调色"),
+            ("error", "色表不可用  使用原色"), ("off", "胶片效果关闭"),
+            ("stale", "OK 选用   再按 OK 调色"),
+        ):
+            with self.subTest(state=state):
+                self.assertIn(hint, captions("--trace-looks", state))
 
 
 if __name__ == "__main__":

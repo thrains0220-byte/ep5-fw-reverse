@@ -47,6 +47,8 @@ int ep5_lut_preload_select(struct ep5_lut_preload *loader, uint32_t medium,
 /* Called by the file worker. BUSY means more work. WAIT_SHOT means suspend
  * until the shot releases staging or the pending request is invalidated. */
 int ep5_lut_preload_step(struct ep5_lut_preload *loader);
+enum ep5_lut_job_status ep5_lut_preload_status(struct ep5_lut_preload *loader, uint32_t medium,
+                                               const struct ep5_lut_menu_capture *choice);
 /* Acquires exactly the confirmed choice. Supply a fresh nonzero shot ID and
  * release it on every exit after all readers are done using the table. */
 int ep5_lut_preload_acquire(struct ep5_lut_preload *loader, uint32_t medium,

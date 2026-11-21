@@ -158,6 +158,7 @@ int main(int argc, char **argv)
     if (!ep5_lut_preload_select(&loader, 1, &confirmed.look)) return 2;
     int status;
     do { status = ep5_lut_preload_step(&loader); } while (status == EP5_LUT_JOB_BUSY);
+    status = ep5_lut_preload_status(&loader, 1, &confirmed.look);
     struct ep5_shot_recipe recipe;
     int preset = ep5_shot_prepare(&recipe, &confirmed, use_preset && status == EP5_LUT_JOB_APPLY ? index_io : NULL,
                                   1, manual_fx.seed);

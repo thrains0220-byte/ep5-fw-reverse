@@ -32,7 +32,7 @@ python tools/custom_sd_card.py build/My-looks.zip --card looks/EP5-Personal-32-F
 python tools/custom_sd_card.py build/My-gold.zip --card looks/EP5-Personal-32-FX2.zip --replace-srgb-cube 1 12 "暖金=D:\LUT\WarmGold.cube"
 ```
 
-目标构建在 WSL 运行 `python3 tools/check_photo_core.py`。快门锁定色表后，18 个模块链接后的 `text` 段为 26,845 字节，无未解析符号。输出为可重定位的目标文件。
+目标构建在 WSL 运行 `python3 tools/check_photo_core.py`。加入菜单色表状态后，18 个模块链接的 `text` 段为 27,240 字节，无未解析符号。输出为可重定位的目标文件。
 
 ## 从按下快门到交给 JPEG 编码器
 

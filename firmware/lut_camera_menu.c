@@ -360,7 +360,6 @@ int ep5_camera_menu_capture(const struct ep5_camera_menu *ui, uint32_t mount, st
     if (!out) return 0;
     if (valid_mount(ui,mount) && ui->page==EP5_CAMERA_CLOSED && ui->confirmed.mount==mount) {
         ep5_copy_bytes(out, &ui->confirmed, sizeof *out);
-        out->revision=ui->revision;
         return 1;
     }
     ep5_zero_bytes(out, sizeof *out);
@@ -404,7 +403,8 @@ static void draw_label(const struct ep5_wheel_surface *s, unsigned x, unsigned y
 }
 
 int ep5_camera_menu_draw(const struct ep5_camera_menu *ui, uint32_t mount,
-                         const struct ep5_wheel_surface *s)
+                         const struct ep5_wheel_surface *s,
+                         const struct ep5_camera_look_status *status)
 {
     if (!valid_mount(ui,mount) || ui->page==EP5_CAMERA_CLOSED || !s || !s->fill || !s->text ||
         s->columns<42 || s->rows<13) return 0;
@@ -465,7 +465,19 @@ int ep5_camera_menu_draw(const struct ep5_camera_menu *ui, uint32_t mount,
         if (ui->unreadable_edits & (1u<<ui->looks.cursor))
             draw_label(s,1,10,L"色轮读取失败  使用基础风格");
         else draw_label(s,1,10,L"主拨盘选风格  副拨盘调强度");
-        draw_label(s,1,11,L"OK 选用   再按 OK 调色");
+        const wchar_t *hint = L"OK 选用   再按 OK 调色";
+        if (ui->looks.applied == ui->looks.cursor + 1u &&
+            ui->looks.slots[ui->looks.cursor].amount_q8 == ui->looks.amount_q8) {
+            if (!ui->looks.amount_q8) hint = L"胶片效果关闭";
+            else if (status && ep5_camera_menu_choice_current(ui,mount,status->choice)) {
+                if (status->preload == EP5_LUT_JOB_BUSY) hint = L"正在载入色表";
+                else if (status->preload == EP5_LUT_JOB_ERROR ||
+                         status->preload == EP5_LUT_JOB_CANCELLED ||
+                         status->preload == EP5_LUT_JOB_STOCK) hint = L"色表不可用  使用原色";
+                else if (status->preload == EP5_LUT_JOB_APPLY) hint = L"色表已就绪  OK 调色";
+            }
+        }
+        draw_label(s,1,11,hint);
     }
     draw_label(s,1,12,L"MENU 返回分组");
     return 1;

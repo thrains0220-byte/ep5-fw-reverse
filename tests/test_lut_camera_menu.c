@@ -130,15 +130,27 @@ static void trace_text(void *ctx,unsigned x,unsigned y,const uint16_t *str,uint3
     assert(width && x+width<=42 && y<13);
     putchar('\n');
 }
-static void draw_page(int looks)
+static void draw_page(int looks, const char *load_state)
 {
     struct ep5_wheel_surface surface={NULL,42,13,trace_fill,trace_text};
+    struct ep5_camera_look_status status={0};
     assert(press(0x9006)==1);
     if (looks) {
         open_group();
-        assert(press(0x900c)==2 && press(0x9006)==1);
+        if (load_state && !strcmp(load_state,"off"))
+            assert(ep5_camera_menu_dial(&ui,17,ui.foreground,EP5_CAMERA_SUB_DIAL,-16));
+        assert(press(0x900c)==2 && shoot());
+        if (!load_state) {
+            assert(press(0x9006)==1);
+        } else {
+            status.choice=&choice;
+            status.preload=EP5_LUT_JOB_BUSY;
+            if (!strcmp(load_state,"ready")) status.preload=EP5_LUT_JOB_APPLY;
+            if (!strcmp(load_state,"error")) status.preload=EP5_LUT_JOB_ERROR;
+            if (!strcmp(load_state,"stale")) ++choice.revision;
+        }
     }
-    assert(ep5_camera_menu_draw(&ui,17,&surface));
+    assert(ep5_camera_menu_draw(&ui,17,&surface,load_state ? &status : NULL));
 }
 
 /* Reference file worker for a single-owner host directory. Rename publishes
@@ -229,6 +241,7 @@ static void release_controls(enum ep5_camera_release reason)
     open_group();
     select_and_edit();
     uint16_t number=choice.look.number;
+    struct ep5_camera_choice previous=choice;
     uint32_t focus=ui.foreground;
     assert(press(0x900c)==EP5_WHEEL_OPEN && dial(EP5_CAMERA_SUB_DIAL,8));
     ep5_camera_menu_release(&ui,16,focus,reason);
@@ -248,7 +261,7 @@ static void release_controls(enum ep5_camera_release reason)
     assert(ep5_camera_menu_step(&ui,17)==EP5_LUT_JOB_BUSY); /* pending other bank */
     ep5_camera_menu_release(&ui,17,ui.foreground,reason);
     assert(value_now()==1 && choice.bank==1 && choice.look.number==number &&
-           ep5_camera_menu_choice_current(&ui,17,&choice));
+           ep5_camera_menu_choice_current(&ui,17,&previous));
     assert(finish(17)==EP5_LUT_JOB_CANCELLED && value_now()==1);
 }
 
@@ -379,8 +392,9 @@ int main(int argc, char **argv)
         persistence(argv[2],(unsigned)atoi(argv[3]),atoi(argv[4]));
     else if (argc==2 && !strcmp(argv[1],"--duplicate")) duplicate_groups();
     else if (argc==2 && !strcmp(argv[1],"--cancel")) cancellation();
-    else if (argc==2 && !strcmp(argv[1],"--trace-groups")) draw_page(0);
-    else if (argc==2 && !strcmp(argv[1],"--trace-looks")) draw_page(1);
+    else if (argc==2 && !strcmp(argv[1],"--trace-groups")) draw_page(0,NULL);
+    else if ((argc==2 || argc==3) && !strcmp(argv[1],"--trace-looks"))
+        draw_page(1,argc==3 ? argv[2] : NULL);
     else all_looks();
     assert(opened==closed);
     return 0;

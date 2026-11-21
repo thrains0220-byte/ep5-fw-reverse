@@ -124,11 +124,14 @@ static void test_preloading(void)
     assert(!ep5_lut_preload_init(&preload, &io, &sync, a, a, sizeof a));
     assert(ep5_lut_preload_init(&preload, &io, &sync, a, b, sizeof a));
     mount(1);
+    assert(ep5_lut_preload_status(&preload, 1, &choice) == EP5_LUT_JOB_IDLE);
     assert(ep5_lut_preload_select(&preload, 1, &choice));
+    assert(ep5_lut_preload_status(&preload, 1, &choice) == EP5_LUT_JOB_BUSY);
     closed = close_count;
     assert(!ep5_lut_preload_acquire(&preload, 1, 1, &choice, &first) && !first.table);
     assert(close_count == closed);
     assert(preload_until_done() == EP5_LUT_JOB_APPLY);
+    assert(ep5_lut_preload_status(&preload, 1, &choice) == EP5_LUT_JOB_APPLY);
     assert(close_count == closed + 2);
     assert(ep5_lut_preload_acquire(&preload, 1, 1, &choice, &first));
     assert(first.amount_q8 == 128 && first.table[1] == 13);
@@ -138,6 +141,8 @@ static void test_preloading(void)
     assert(first.amount_q8 == 128);
 
     mount(2);
+    assert(ep5_lut_preload_status(&preload, 1, &choice) == EP5_LUT_JOB_IDLE);
+    assert(ep5_lut_preload_status(&preload, 2, &choice) == EP5_LUT_JOB_IDLE);
     assert(!ep5_lut_preload_select(&preload, 1, &choice));
     assert(!ep5_lut_preload_acquire(&preload, 2, 2, &choice, &second));
     put16(table_data + 26, 4321);
@@ -166,6 +171,7 @@ static void test_preloading(void)
     assert(ep5_lut_preload_select(&preload, 4, &choice));
     closed = close_count;
     assert(preload_until_done() == EP5_LUT_JOB_ERROR && close_count == closed + 1);
+    assert(ep5_lut_preload_status(&preload, 4, &choice) == EP5_LUT_JOB_ERROR);
     assert(!ep5_lut_preload_acquire(&preload, 4, 2, &choice, &second));
     choice.look_crc ^= 1;
     assert(ep5_lut_preload_select(&preload, 4, &choice));
@@ -182,10 +188,12 @@ static void test_preloading(void)
     assert(ep5_lut_preload_release(&preload, 2));
     choice.amount_q8 = 0;
     assert(ep5_lut_preload_select(&preload, 4, &choice));
+    assert(ep5_lut_preload_status(&preload, 4, &choice) == EP5_LUT_JOB_STOCK);
     assert(!ep5_lut_preload_acquire(&preload, 4, 3, &choice, &second));
 
     /* The mount changes before the controller receives the notification. */
     choice.amount_q8 = 64;
+    assert(ep5_lut_preload_status(&preload, 4, &choice) == EP5_LUT_JOB_IDLE);
     assert(ep5_lut_preload_select(&preload, 4, &choice));
     mounted_medium = 5;
     closed = close_count;

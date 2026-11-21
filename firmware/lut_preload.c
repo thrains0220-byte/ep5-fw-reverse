@@ -45,6 +45,7 @@ int ep5_lut_preload_init(struct ep5_lut_preload *loader, const struct ep5_lut_pr
     loader->sync = *sync;
     ep5_lut_job_init(&loader->job);
     loader->medium = loader->job_medium = loader->shot = 0;
+    loader->desired.amount_q8 = 0;
     loader->pinned = NULL;
     loader->running = loader->stepping = 0;
     invalidate(loader, EP5_LUT_JOB_STOCK);
@@ -56,6 +57,7 @@ void ep5_lut_preload_media(struct ep5_lut_preload *loader, uint32_t medium)
     loader->sync.lock(loader->sync.context);
     if (loader->medium != medium) {
         loader->medium = medium;
+        loader->desired.amount_q8 = 0;
         invalidate(loader, EP5_LUT_JOB_STOCK);
     }
     loader->sync.unlock(loader->sync.context);
@@ -68,6 +70,7 @@ int ep5_lut_preload_select(struct ep5_lut_preload *loader, uint32_t medium,
     loader->sync.lock(loader->sync.context);
     if (medium && loader->medium == medium) {
         if (!choice || !choice->amount_q8) {
+            loader->desired.amount_q8 = 0;
             invalidate(loader, EP5_LUT_JOB_STOCK);
             accepted = 1;
         } else if (choice->amount_q8 <= 256 && choice->number >= 1 && choice->number <= 16) {
@@ -133,6 +136,21 @@ int ep5_lut_preload_step(struct ep5_lut_preload *loader)
         }
     }
     result = loader->running ? EP5_LUT_JOB_BUSY : loader->status;
+    loader->sync.unlock(loader->sync.context);
+    return result;
+}
+
+enum ep5_lut_job_status ep5_lut_preload_status(struct ep5_lut_preload *loader, uint32_t medium,
+                                               const struct ep5_lut_menu_capture *choice)
+{
+    if (!loader || !medium || !choice) return EP5_LUT_JOB_IDLE;
+    loader->sync.lock(loader->sync.context);
+    enum ep5_lut_job_status result = EP5_LUT_JOB_IDLE;
+    if (loader->medium == medium) {
+        if (!choice->amount_q8) result = EP5_LUT_JOB_STOCK;
+        else if (loader->desired.amount_q8 == choice->amount_q8 && same_table(&loader->desired, choice))
+            result = loader->status;
+    }
     loader->sync.unlock(loader->sync.context);
     return result;
 }

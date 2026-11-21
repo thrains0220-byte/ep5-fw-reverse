@@ -76,8 +76,13 @@ void ep5_camera_menu_release(struct ep5_camera_menu *ui, uint32_t mount, uint32_
 int ep5_camera_menu_event(struct ep5_camera_menu *ui, uint32_t mount, uint16_t key);
 /* File owner calls step while BUSY. Pass zero on eject, continue until closed. */
 int ep5_camera_menu_step(struct ep5_camera_menu *ui, uint32_t mount);
+struct ep5_camera_look_status {
+    const struct ep5_camera_choice *choice;
+    enum ep5_lut_job_status preload;
+};
 int ep5_camera_menu_draw(const struct ep5_camera_menu *ui, uint32_t mount,
-                         const struct ep5_wheel_surface *surface);
+                         const struct ep5_wheel_surface *surface,
+                         const struct ep5_camera_look_status *status);
 /* The caller uses browser.views[bank-1] and the same mount for loading the
  * chosen table/FX. Revalidate the full choice before publishing a result. */
 int ep5_camera_menu_capture(const struct ep5_camera_menu *ui, uint32_t mount, struct ep5_camera_choice *out);
